@@ -8,14 +8,14 @@ services:
     environment:
       POSTGRES_DB: ${DB_NAME:-vdcd_db}
       POSTGRES_USER: ${DB_USER:-vdcd_user}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-localpass}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-testpass}
     ports:
       - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./docs/vdcd_schema.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-vdcd_user}']
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-vdcd_user} -d ${DB_NAME:-vdcd_db}']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -27,15 +27,30 @@ services:
     container_name: vdcd-backend-dev
     restart: unless-stopped
     env_file: .env.development
+    environment:
+      DB_HOST: postgres
+      REDIS_HOST: redis
     ports:
       - '3001:3001'
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_started
     volumes:
-      - ./src:/app/src
-      - ./logs:/app/logs
+      - .:/app
+      - /app/node_modules
     command: pnpm start:dev
+
+  redis:
+    image: redis:7-alpine
+    container_name: vdcd-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redisdata:/data
 
 volumes:
   pgdata:
+  redisdata:

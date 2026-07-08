@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
+  IsOptional,
   IsString,
   validateSync,
 } from 'class-validator';
@@ -28,6 +29,10 @@ class EnvironmentVariables {
 
   @IsString() @IsNotEmpty() JWT_SECRET: string;
   @IsString() @IsNotEmpty() JWT_REFRESH_SECRET: string;
+
+  @IsString() @IsNotEmpty() REDIS_HOST: string;
+  @IsInt() REDIS_PORT: number;
+  @IsString() @IsOptional() REDIS_PASSWORD?: string;
 }
 
 export function validateEnv(config: Record<string, unknown>) {

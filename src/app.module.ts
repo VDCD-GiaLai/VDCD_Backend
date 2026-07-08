@@ -9,19 +9,24 @@ import { loggerConfig } from './config/logger.config';
 import appConfig from './config/app.config';
 import dbConfig from './config/database.config';
 import jwtConfig from './config/jwt.config';
+import redisConfig from './config/redis.config';
 import { DatabaseModule } from './database/database.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { RedisModule } from './modules/redis/redis.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validate: validateEnv,
-      load: [appConfig, dbConfig, jwtConfig],
+      load: [appConfig, dbConfig, jwtConfig, redisConfig],
       envFilePath: [`.env.${process.env.NODE_ENV ?? 'development'}`, '.env'],
     }),
     WinstonModule.forRoot(loggerConfig),
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
     DatabaseModule,
+    RedisModule,
+    AuthModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

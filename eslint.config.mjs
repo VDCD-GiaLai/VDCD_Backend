@@ -31,6 +31,8 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-return': 'warn',
+      "@typescript-eslint/require-await": "warn",
       "prettier/prettier": ["error", { endOfLine: "auto" }],
     },
   },
