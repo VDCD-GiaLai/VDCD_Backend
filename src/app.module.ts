@@ -14,6 +14,7 @@ import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RedisModule } from './modules/redis/redis.module';
 import { AdminUserModule } from './modules/admin-user/admin-user.module';
+import { ProjectModule } from './modules/project/project.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AdminUserModule } from './modules/admin-user/admin-user.module';
     RedisModule,
     AuthModule,
     AdminUserModule,
+    ProjectModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
