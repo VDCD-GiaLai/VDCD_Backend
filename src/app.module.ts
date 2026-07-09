@@ -16,6 +16,7 @@ import { RedisModule } from './modules/redis/redis.module';
 import { AdminUserModule } from './modules/admin-user/admin-user.module';
 import { ProjectModule } from './modules/project/project.module';
 import { OrganizationModule } from './modules/organization/organization.module';
+import { SlideModule } from './modules/slide/slide.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { OrganizationModule } from './modules/organization/organization.module';
     AdminUserModule,
     ProjectModule,
     OrganizationModule,
+    SlideModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
