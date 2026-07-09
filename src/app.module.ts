@@ -13,6 +13,7 @@ import redisConfig from './config/redis.config';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RedisModule } from './modules/redis/redis.module';
+import { AdminUserModule } from './modules/admin-user/admin-user.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { RedisModule } from './modules/redis/redis.module';
     DatabaseModule,
     RedisModule,
     AuthModule,
+    AdminUserModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

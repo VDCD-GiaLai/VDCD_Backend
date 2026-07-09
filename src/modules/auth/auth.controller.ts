@@ -11,80 +11,15 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { Public } from '../../common/decorators/public.decorator';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import * as express from 'express';
 import { ConfigService } from '@nestjs/config';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBody,
-  ApiProperty,
-} from '@nestjs/swagger';
-
-class LoginDto {
-  @ApiProperty({
-    example: 'admin@vdcd.vn',
-    description: 'User login email address',
-  })
-  @IsEmail()
-  email: string;
-
-  @ApiProperty({ example: 'password123', description: 'User login password' })
-  @IsNotEmpty()
-  @IsString()
-  password: string;
-}
-
-class UserResponseDto {
-  @ApiProperty({
-    example: 'd3b07384-d113-4956-a5db-e78119d90184',
-    description: 'Account ID',
-  })
-  id: string;
-
-  @ApiProperty({ example: 'admin_user', description: 'Username' })
-  username: string;
-
-  @ApiProperty({ example: 'admin@vdcd.vn', description: 'Email address' })
-  email: string;
-
-  @ApiProperty({ example: 'admin', description: 'Account role' })
-  role: string;
-}
-
-class LoginResponseDto {
-  @ApiProperty({
-    type: UserResponseDto,
-    description: 'Authenticated user information',
-  })
-  user: UserResponseDto;
-}
-
-class MeResponseDto extends UserResponseDto {
-  @ApiProperty({
-    example: true,
-    description: 'Active status of the user account',
-  })
-  isActive: boolean;
-}
-
-class RefreshResponseDto {
-  @ApiProperty({
-    example: true,
-    description: 'Indicates token refresh success status',
-  })
-  success: boolean;
-}
-
-class LogoutResponseDto {
-  @ApiProperty({
-    example: 'Logged out successfully',
-    description: 'Logout result message',
-  })
-  message: string;
-}
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import LoginDto from './dto/login.dto';
+import { LoginResponseDto } from './dto/login-response.dto';
+import { MeResponseDto } from './dto/me-response.dto';
+import { RefreshResponseDto } from './dto/refresh-response.dto';
+import { LogoutResponseDto } from './dto/logout-response.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
