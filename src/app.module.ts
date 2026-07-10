@@ -17,6 +17,7 @@ import { AdminUserModule } from './modules/admin-user/admin-user.module';
 import { ProjectModule } from './modules/project/project.module';
 import { OrganizationModule } from './modules/organization/organization.module';
 import { SlideModule } from './modules/slide/slide.module';
+import { ProvinceModule } from './modules/province/province.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { SlideModule } from './modules/slide/slide.module';
     ProjectModule,
     OrganizationModule,
     SlideModule,
+    ProvinceModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
