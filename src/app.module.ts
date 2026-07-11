@@ -21,6 +21,7 @@ import { ProvinceModule } from './modules/province/province.module';
 import { PartnerModule } from './modules/partner/partner.module';
 import { OperationFieldModule } from './modules/operation-field/operation-field.module';
 import { ProgramModule } from './modules/program/program.module';
+import { SolutionModule } from './modules/solution/solution.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { ProgramModule } from './modules/program/program.module';
     PartnerModule,
     OperationFieldModule,
     ProgramModule,
+    SolutionModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
