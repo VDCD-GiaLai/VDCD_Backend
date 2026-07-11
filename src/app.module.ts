@@ -22,6 +22,7 @@ import { PartnerModule } from './modules/partner/partner.module';
 import { OperationFieldModule } from './modules/operation-field/operation-field.module';
 import { ProgramModule } from './modules/program/program.module';
 import { SolutionModule } from './modules/solution/solution.module';
+import { ArticleModule } from './modules/article/article.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { SolutionModule } from './modules/solution/solution.module';
     OperationFieldModule,
     ProgramModule,
     SolutionModule,
+    ArticleModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

@@ -56,7 +56,7 @@ export class Article {
   isPublished: boolean;
 
   @Column({ name: 'published_at', nullable: true })
-  publishedAt: Date;
+  publishedAt: Date | null;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
