@@ -32,8 +32,10 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'warn',
-      "@typescript-eslint/require-await": "warn",
-      "prettier/prettier": ["error", { endOfLine: "auto" }],
+      '@typescript-eslint/require-await': 'warn',
+      '@typescript-eslint/no-unsafe-call': 'warn',
+      '@typescript-eslint/restrict-template-expressions': 'warn',
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },
   },
 );

@@ -24,6 +24,8 @@ import { ProgramModule } from './modules/program/program.module';
 import { SolutionModule } from './modules/solution/solution.module';
 import { ArticleModule } from './modules/article/article.module';
 import { JobModule } from './modules/job/job.module';
+import { MailModule } from './modules/mail/mail.module';
+import { LeadModule } from './modules/lead/lead.module';
 
 @Module({
   imports: [
@@ -49,6 +51,8 @@ import { JobModule } from './modules/job/job.module';
     SolutionModule,
     ArticleModule,
     JobModule,
+    MailModule,
+    LeadModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
