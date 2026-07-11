@@ -23,6 +23,7 @@ import { OperationFieldModule } from './modules/operation-field/operation-field.
 import { ProgramModule } from './modules/program/program.module';
 import { SolutionModule } from './modules/solution/solution.module';
 import { ArticleModule } from './modules/article/article.module';
+import { JobModule } from './modules/job/job.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { ArticleModule } from './modules/article/article.module';
     ProgramModule,
     SolutionModule,
     ArticleModule,
+    JobModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
