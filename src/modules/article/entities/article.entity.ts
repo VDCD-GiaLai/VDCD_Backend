@@ -55,7 +55,7 @@ export class Article {
   @Column({ name: 'is_published', default: false })
   isPublished: boolean;
 
-  @Column({ name: 'published_at', nullable: true })
+  @Column({ name: 'published_at', type: 'timestamp', nullable: true })
   publishedAt: Date | null;
 
   @CreateDateColumn({ name: 'created_at' })

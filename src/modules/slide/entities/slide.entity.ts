@@ -15,6 +15,9 @@ export class Slide {
   title: string;
 
   @Column({ type: 'text', nullable: true })
+  subtitle: string;
+
+  @Column({ type: 'text', nullable: true })
   description: string;
 
   @Column({ name: 'cta_text', length: 100, nullable: true })

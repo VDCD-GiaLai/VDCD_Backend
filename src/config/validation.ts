@@ -33,6 +33,10 @@ class EnvironmentVariables {
   @IsString() @IsNotEmpty() REDIS_HOST: string;
   @IsInt() REDIS_PORT: number;
   @IsString() @IsOptional() REDIS_PASSWORD?: string;
+
+  @IsString() @IsNotEmpty() IMAGEKIT_PUBLIC_KEY: string;
+  @IsString() @IsNotEmpty() IMAGEKIT_PRIVATE_KEY: string;
+  @IsString() @IsNotEmpty() IMAGEKIT_URL_ENDPOINT: string;
 }
 
 export function validateEnv(config: Record<string, unknown>) {

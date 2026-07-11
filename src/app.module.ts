@@ -26,13 +26,16 @@ import { ArticleModule } from './modules/article/article.module';
 import { JobModule } from './modules/job/job.module';
 import { MailModule } from './modules/mail/mail.module';
 import { LeadModule } from './modules/lead/lead.module';
+import { HealthModule } from './modules/health/health.module';
+import imagekitConfig from './config/imagekit.config';
+import { UploadModule } from './modules/upload/upload.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validate: validateEnv,
-      load: [appConfig, dbConfig, jwtConfig, redisConfig],
+      load: [appConfig, dbConfig, jwtConfig, redisConfig, imagekitConfig],
       envFilePath: [`.env.${process.env.NODE_ENV ?? 'development'}`, '.env'],
     }),
     WinstonModule.forRoot(loggerConfig),
@@ -53,6 +56,8 @@ import { LeadModule } from './modules/lead/lead.module';
     JobModule,
     MailModule,
     LeadModule,
+    HealthModule,
+    UploadModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
