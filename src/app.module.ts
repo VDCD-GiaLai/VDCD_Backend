@@ -20,6 +20,7 @@ import { SlideModule } from './modules/slide/slide.module';
 import { ProvinceModule } from './modules/province/province.module';
 import { PartnerModule } from './modules/partner/partner.module';
 import { OperationFieldModule } from './modules/operation-field/operation-field.module';
+import { ProgramModule } from './modules/program/program.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { OperationFieldModule } from './modules/operation-field/operation-field.
     ProvinceModule,
     PartnerModule,
     OperationFieldModule,
+    ProgramModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
