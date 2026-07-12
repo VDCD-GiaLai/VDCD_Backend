@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
+  Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,12 +13,16 @@ import { Article } from '../article/entities/article.entity';
 import { CreateProgramDto } from './dto/create-program.dto';
 import { UpdateProgramDto } from './dto/update-program.dto';
 import { ProgramFilterDto } from './dto/program-filter.dto';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ProgramService {
+  private readonly logger = new Logger(ProgramService.name);
+
   constructor(
     @InjectRepository(Program) private repo: Repository<Program>,
     @InjectRepository(Article) private articleRepo: Repository<Article>,
+    private readonly uploadService: UploadService,
   ) {}
 
   private async makeSlug(title: string, excludeId?: string) {
@@ -92,6 +97,7 @@ export class ProgramService {
       shortDescription: dto.shortDescription,
       content: dto.content,
       thumbnail: dto.thumbnail,
+      thumbnailFileId: dto.thumbnailFileId,
       metaTitle: dto.metaTitle,
       metaDescription: dto.metaDescription,
       isPublished: dto.isPublished ?? false,
@@ -103,13 +109,31 @@ export class ProgramService {
   async update(id: string, dto: UpdateProgramDto) {
     const program = await this.repo.findOne({ where: { id } });
     if (!program) throw new NotFoundException();
+
     if (dto.slug && dto.slug !== program.slug) {
       const exists = await this.repo.findOne({ where: { slug: dto.slug } });
       if (exists) throw new ConflictException('Slug đã tồn tại');
     }
+
+    if (
+      dto.thumbnail &&
+      dto.thumbnail !== program.thumbnail &&
+      program.thumbnailFileId
+    ) {
+      this.uploadService
+        .deleteFile(program.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to delete old thumbnail: ${program.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+
     Object.assign(program, dto);
     if (dto.fieldId !== undefined)
       program.field = dto.fieldId ? ({ id: dto.fieldId } as any) : null;
+
     return this.repo.save(program);
   }
 
@@ -123,6 +147,15 @@ export class ProgramService {
   async remove(id: string) {
     const program = await this.repo.findOne({ where: { id } });
     if (!program) throw new NotFoundException();
+
+    if (program.thumbnailFileId) {
+      this.uploadService
+        .deleteFile(program.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(`Failed to delete thumbnail from ImageKit`, err),
+        );
+    }
+
     await this.repo.remove(program);
     return { message: 'Deleted successfully' };
   }

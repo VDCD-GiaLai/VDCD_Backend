@@ -1,14 +1,19 @@
 // src/modules/partner/partner.service.ts
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Partner } from './entites/partner.entity';
 import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class PartnerService {
-  constructor(@InjectRepository(Partner) private repo: Repository<Partner>) {}
+  private readonly logger = new Logger(PartnerService.name);
+  constructor(
+    @InjectRepository(Partner) private repo: Repository<Partner>,
+    private readonly uploadService: UploadService,
+  ) {}
 
   findActive() {
     return this.repo.find({
@@ -29,6 +34,18 @@ export class PartnerService {
   async update(id: string, dto: UpdatePartnerDto) {
     const partner = await this.repo.findOne({ where: { id } });
     if (!partner) throw new NotFoundException();
+
+    if (dto.logo && dto.logo !== partner.logo && partner.logoFileId) {
+      this.uploadService
+        .deleteFile(partner.logoFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to delete old logo: ${partner.logoFileId}`,
+            err,
+          ),
+        );
+    }
+
     Object.assign(partner, dto);
     return this.repo.save(partner);
   }
@@ -50,6 +67,15 @@ export class PartnerService {
   async remove(id: string) {
     const partner = await this.repo.findOne({ where: { id } });
     if (!partner) throw new NotFoundException();
+
+    if (partner.logoFileId) {
+      this.uploadService
+        .deleteFile(partner.logoFileId)
+        .catch((err) =>
+          this.logger.warn('Failed to delete logo from ImageKit', err),
+        );
+    }
+
     await this.repo.remove(partner);
     return { message: 'Deleted successfully' };
   }

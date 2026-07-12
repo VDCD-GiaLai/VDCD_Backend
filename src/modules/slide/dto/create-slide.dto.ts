@@ -37,6 +37,14 @@ export class CreateSlideDto {
   ctaText?: string;
 
   @ApiPropertyOptional({
+    example: 'FILE_ID_12345',
+    description: 'File ID of the slide image',
+  })
+  @IsOptional()
+  @IsString()
+  imageFileId?: string;
+
+  @ApiPropertyOptional({
     example: 'https://vdcd.vn/about',
     description: 'CTA URL',
   })

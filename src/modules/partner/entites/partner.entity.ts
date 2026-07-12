@@ -20,4 +20,7 @@ export class Partner {
 
   @Column({ name: 'is_active', default: true })
   isActive: boolean;
+
+  @Column({ name: 'logo_file_id', nullable: true })
+  logoFileId: string;
 }

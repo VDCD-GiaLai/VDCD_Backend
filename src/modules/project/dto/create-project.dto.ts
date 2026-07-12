@@ -44,6 +44,14 @@ export class CreateProjectDto {
   thumbnail?: string;
 
   @ApiPropertyOptional({
+    example: 'thumbnail-file-id',
+    description: 'File ID of the thumbnail',
+  })
+  @IsOptional()
+  @IsString()
+  thumbnailFileId?: string;
+
+  @ApiPropertyOptional({
     example: 'uuid-field-id',
     description: 'ID of the operation field',
   })

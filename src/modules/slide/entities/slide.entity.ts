@@ -29,6 +29,9 @@ export class Slide {
   @Column({ name: 'image_url', length: 500 })
   imageUrl: string;
 
+  @Column({ name: 'image_file_id', nullable: true })
+  imageFileId: string;
+
   @Column({ default: 0 })
   order: number;
 

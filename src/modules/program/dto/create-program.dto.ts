@@ -35,6 +35,14 @@ export class CreateProgramDto {
   shortDescription?: string;
 
   @ApiPropertyOptional({
+    example: 'uuid-thumbnail-file-id',
+    description: 'ID của file thumbnail chương trình',
+  })
+  @IsOptional()
+  @IsString()
+  thumbnailFileId?: string;
+
+  @ApiPropertyOptional({
     example: 'Nội dung chi tiết của chương trình...',
     description: 'Nội dung chi tiết của chương trình',
   })

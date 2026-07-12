@@ -27,6 +27,14 @@ export class CreateSolutionDto {
   slug?: string;
 
   @ApiPropertyOptional({
+    example: 'uuid-thumbnail-file-id',
+    description: 'ID của file thumbnail giải pháp',
+  })
+  @IsOptional()
+  @IsString()
+  thumbnailFileId?: string;
+
+  @ApiPropertyOptional({
     example: 'Giới thiệu về giải pháp nông nghiệp thông minh của VDCD...',
     description: 'Mô tả ngắn gọn của giải pháp',
   })

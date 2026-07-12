@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
+  Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,12 +13,16 @@ import { Article } from '../article/entities/article.entity';
 import { CreateSolutionDto } from './dto/create-solution.dto';
 import { UpdateSolutionDto } from './dto/update-solution.dto';
 import { SolutionFilterDto } from './dto/solution-filter.dto';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class SolutionService {
+  private readonly logger = new Logger(SolutionService.name);
+
   constructor(
     @InjectRepository(Solution) private repo: Repository<Solution>,
     @InjectRepository(Article) private articleRepo: Repository<Article>,
+    private readonly uploadService: UploadService,
   ) {}
 
   private async makeSlug(title: string, excludeId?: string) {
@@ -90,6 +95,7 @@ export class SolutionService {
       shortDescription: dto.shortDescription,
       content: dto.content,
       thumbnail: dto.thumbnail,
+      thumbnailFileId: dto.thumbnailFileId,
       metaTitle: dto.metaTitle,
       metaDescription: dto.metaDescription,
       isPublished: dto.isPublished ?? false,
@@ -101,13 +107,31 @@ export class SolutionService {
   async update(id: string, dto: UpdateSolutionDto) {
     const solution = await this.repo.findOne({ where: { id } });
     if (!solution) throw new NotFoundException();
+
     if (dto.slug && dto.slug !== solution.slug) {
       const exists = await this.repo.findOne({ where: { slug: dto.slug } });
       if (exists) throw new ConflictException('Slug đã tồn tại');
     }
+
+    if (
+      dto.thumbnail &&
+      dto.thumbnail !== solution.thumbnail &&
+      solution.thumbnailFileId
+    ) {
+      this.uploadService
+        .deleteFile(solution.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to delete old thumbnail: ${solution.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+
     Object.assign(solution, dto);
     if (dto.fieldId !== undefined)
       solution.field = dto.fieldId ? ({ id: dto.fieldId } as any) : null;
+
     return this.repo.save(solution);
   }
 
@@ -121,6 +145,15 @@ export class SolutionService {
   async remove(id: string) {
     const solution = await this.repo.findOne({ where: { id } });
     if (!solution) throw new NotFoundException();
+
+    if (solution.thumbnailFileId) {
+      this.uploadService
+        .deleteFile(solution.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn('Failed to delete thumbnail from ImageKit', err),
+        );
+    }
+
     await this.repo.remove(solution);
     return { message: 'Deleted successfully' };
   }

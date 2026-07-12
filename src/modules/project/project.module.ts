@@ -6,9 +6,13 @@ import { ProjectImage } from './entities/project-image.entity';
 import { Article } from '../article/entities/article.entity';
 import { ProjectService } from './project.service';
 import { ProjectController } from './project.controller';
+import { UploadModule } from '../upload/upload.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project, ProjectImage, Article])],
+  imports: [
+    TypeOrmModule.forFeature([Project, ProjectImage, Article]),
+    UploadModule,
+  ],
   providers: [ProjectService],
   controllers: [ProjectController],
   exports: [ProjectService],

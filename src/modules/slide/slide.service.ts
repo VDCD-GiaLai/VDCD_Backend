@@ -1,14 +1,20 @@
 // src/modules/slide/slide.service.ts
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Slide } from './entities/slide.entity';
 import { CreateSlideDto } from './dto/create-slide.dto';
 import { UpdateSlideDto } from './dto/update-slide.dto';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class SlideService {
-  constructor(@InjectRepository(Slide) private repo: Repository<Slide>) {}
+  private readonly logger = new Logger(SlideService.name);
+
+  constructor(
+    @InjectRepository(Slide) private repo: Repository<Slide>,
+    private readonly uploadService: UploadService,
+  ) {}
 
   findActive() {
     return this.repo.find({
@@ -29,6 +35,18 @@ export class SlideService {
   async update(id: string, dto: UpdateSlideDto) {
     const slide = await this.repo.findOne({ where: { id } });
     if (!slide) throw new NotFoundException();
+
+    if (dto.imageUrl && dto.imageUrl !== slide.imageUrl && slide.imageFileId) {
+      this.uploadService
+        .deleteFile(slide.imageFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to delete old slide image: ${slide.imageFileId}`,
+            err,
+          ),
+        );
+    }
+
     Object.assign(slide, dto);
     return this.repo.save(slide);
   }
@@ -50,6 +68,15 @@ export class SlideService {
   async remove(id: string) {
     const slide = await this.repo.findOne({ where: { id } });
     if (!slide) throw new NotFoundException();
+
+    if (slide.imageFileId) {
+      this.uploadService
+        .deleteFile(slide.imageFileId)
+        .catch((err) =>
+          this.logger.warn(`Failed to delete slide image from ImageKit`, err),
+        );
+    }
+
     await this.repo.remove(slide);
     return { message: 'Deleted successfully' };
   }

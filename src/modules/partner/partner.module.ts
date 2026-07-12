@@ -4,9 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PartnerService } from './partner.service';
 import { PartnerController } from './partner.controller';
 import { Partner } from './entites/partner.entity';
+import { UploadModule } from '../upload/upload.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Partner])],
+  imports: [TypeOrmModule.forFeature([Partner]), UploadModule],
   providers: [PartnerService],
   controllers: [PartnerController],
 })

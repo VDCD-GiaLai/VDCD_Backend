@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
+  Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,13 +13,17 @@ import { Article } from '../article/entities/article.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectFilterDto } from './dto/project-filter.dto';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ProjectService {
+  private readonly logger = new Logger(ProjectService.name);
+
   constructor(
     @InjectRepository(Project) private repo: Repository<Project>,
     @InjectRepository(ProjectImage) private imageRepo: Repository<ProjectImage>,
     @InjectRepository(Article) private articleRepo: Repository<Article>,
+    private readonly uploadService: UploadService,
   ) {}
 
   private async generateSlug(
@@ -129,6 +134,7 @@ export class ProjectService {
       slug,
       overview: dto.overview,
       thumbnail: dto.thumbnail,
+      thumbnailFileId: dto.thumbnailFileId,
       year: dto.year,
       metaTitle: dto.metaTitle,
       metaDescription: dto.metaDescription,
@@ -146,6 +152,21 @@ export class ProjectService {
       const exists = await this.repo.findOne({ where: { slug: dto.slug } });
       if (exists) throw new ConflictException('Slug đã tồn tại');
     }
+    // If thumbnail changed → delete old thumbnail from ImageKit
+    if (
+      dto.thumbnail &&
+      dto.thumbnail !== project.thumbnail &&
+      project.thumbnailFileId
+    ) {
+      this.uploadService
+        .deleteFile(project.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to delete old thumbnail: ${project.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
     Object.assign(project, dto);
     if (dto.fieldId !== undefined)
       project.field = dto.fieldId ? ({ id: dto.fieldId } as any) : null;
@@ -162,8 +183,26 @@ export class ProjectService {
   }
 
   async remove(id: string) {
-    const project = await this.repo.findOne({ where: { id } });
+    const project = await this.repo.findOne({
+      where: { id },
+      relations: { images: true },
+    });
     if (!project) throw new NotFoundException();
+
+    // delete image from image kit
+    const fileIds = [
+      project.thumbnailFileId,
+      ...(project.images?.map((img) => img.fileId) ?? []),
+    ].filter(Boolean);
+
+    if (fileIds.length) {
+      Promise.all(
+        fileIds.map((fid) => this.uploadService.deleteFile(fid)),
+      ).catch((err) =>
+        this.logger.warn('Failed to delete project files from ImageKit', err),
+      );
+    }
+
     await this.repo.remove(project);
     return { message: 'Deleted successfully' };
   }
@@ -193,6 +232,19 @@ export class ProjectService {
   async removeImage(imageId: string) {
     const img = await this.imageRepo.findOne({ where: { id: imageId } });
     if (!img) throw new NotFoundException();
+
+    // Delete from ImageKit
+    if (img.fileId) {
+      this.uploadService
+        .deleteFile(img.fileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to delete image ${img.fileId} from ImageKit`,
+            err,
+          ),
+        );
+    }
+
     await this.imageRepo.remove(img);
     return { message: 'Deleted successfully' };
   }

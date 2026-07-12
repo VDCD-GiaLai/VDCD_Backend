@@ -27,6 +27,14 @@ export class ProjectImageDto {
   caption?: string;
 
   @ApiPropertyOptional({
+    example: 'file-id',
+    description: 'File ID of the image',
+  })
+  @IsOptional()
+  @IsString()
+  fileId?: string;
+
+  @ApiPropertyOptional({
     example: 1,
     description: 'Display order of the image',
   })

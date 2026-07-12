@@ -33,6 +33,9 @@ export class Project {
   @JoinColumn({ name: 'field_id' })
   field: OperationField;
 
+  @Column({ name: 'thumbnail_file_id', nullable: true })
+  thumbnailFileId: string;
+
   @ManyToOne(() => Province, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'province_id' })
   province: Province;

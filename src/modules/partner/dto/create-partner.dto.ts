@@ -18,6 +18,14 @@ export class CreatePartnerDto {
   @MaxLength(255)
   name: string;
 
+  @ApiPropertyOptional({
+    example: 'file-123456',
+    description: 'File ID of the logo image',
+  })
+  @IsOptional()
+  @IsString()
+  logoFileId?: string;
+
   @ApiProperty({
     example: 'https://example.com/images/partner-logo.png',
     description: 'Logo URL of the partner',

@@ -46,6 +46,14 @@ export class CreateArticleDto {
   thumbnail?: string;
 
   @ApiPropertyOptional({
+    example: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    description: 'Thumbnail file ID for the article',
+  })
+  @IsOptional()
+  @IsString()
+  thumbnailFileId?: string;
+
+  @ApiPropertyOptional({
     example: 'Tin tức',
     description: 'Category name of the article',
   })

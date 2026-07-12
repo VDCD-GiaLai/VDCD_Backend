@@ -46,6 +46,9 @@ export class Article {
   @JoinColumn({ name: 'solution_id' })
   solution: Solution;
 
+  @Column({ name: 'thumbnail_file_id', nullable: true })
+  thumbnailFileId: string;
+
   @Column({ name: 'meta_title', length: 60, nullable: true })
   metaTitle: string;
 

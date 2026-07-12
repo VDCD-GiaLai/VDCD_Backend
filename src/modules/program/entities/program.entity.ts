@@ -21,6 +21,9 @@ export class Program {
   @Column({ unique: true })
   slug: string;
 
+  @Column({ name: 'thumbnail_file_id', nullable: true })
+  thumbnailFileId: string;
+
   @Column({ name: 'short_description', type: 'text', nullable: true })
   shortDescription: string;
 
