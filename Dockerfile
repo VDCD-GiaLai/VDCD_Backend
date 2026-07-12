@@ -1,5 +1,5 @@
 # ── Stage 1: install deps ───────────────────────
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
@@ -8,7 +8,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 # ── Stage 2: build ──────────────────────────────
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
@@ -18,7 +18,7 @@ COPY . .
 RUN pnpm build
 
 # ── Stage 3: production runner ──────────────────
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
