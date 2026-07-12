@@ -142,7 +142,19 @@ export class ProjectService {
       ...(dto.fieldId ? { field: { id: dto.fieldId } } : {}),
       ...(dto.provinceId ? { province: { id: dto.provinceId } } : {}),
     });
-    return this.repo.save(project);
+    const saved = await this.repo.save(project);
+
+    if (dto.thumbnailFileId) {
+      this.uploadService
+        .confirmUpload(dto.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to confirm upload: ${dto.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+    return saved;
   }
 
   async update(id: string, dto: UpdateProjectDto) {
@@ -174,7 +186,24 @@ export class ProjectService {
       project.province = dto.provinceId
         ? ({ id: dto.provinceId } as any)
         : null;
-    return this.repo.save(project);
+    const saved = await this.repo.save(project);
+
+    // Confirm new file if any
+    if (
+      dto.thumbnailFileId &&
+      dto.thumbnailFileId !== project.thumbnailFileId
+    ) {
+      this.uploadService
+        .confirmUpload(dto.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to confirm upload: ${dto.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+
+    return saved;
   }
 
   async togglePublish(id: string, isPublished: boolean) {
@@ -209,14 +238,39 @@ export class ProjectService {
 
   async addImages(
     projectId: string,
-    images: { url: string; caption?: string; order?: number }[],
+    files: Express.Multer.File[],
+    captions: string[] = [],
+    uploadedBy?: string,
   ) {
     const project = await this.repo.findOne({ where: { id: projectId } });
     if (!project) throw new NotFoundException();
-    const entities = images.map((img) =>
-      this.imageRepo.create({ ...img, project }),
+
+    // Upload all files to ImageKit parallel
+    const uploadResults = await Promise.all(
+      files.map((file) =>
+        this.uploadService.uploadProjectImage(file, uploadedBy),
+      ),
     );
-    return this.imageRepo.save(entities);
+
+    // Save to DB
+    const entities = uploadResults.map((result, i) =>
+      this.imageRepo.create({
+        project,
+        url: result.url,
+        fileId: result.fileId,
+        caption: captions[i] ?? null,
+        order: i,
+      }),
+    );
+
+    const saved = await this.imageRepo.save(entities);
+
+    // DB save success → confirm all files, no orphan risk
+    Promise.all(
+      uploadResults.map((r) => this.uploadService.confirmUpload(r.fileId)),
+    ).catch((err) => this.logger.warn('Failed to confirm image uploads', err));
+
+    return saved;
   }
 
   async reorderImages(

@@ -113,7 +113,20 @@ export class ArticleService {
       ...(dto.programId ? { program: { id: dto.programId } } : {}),
       ...(dto.solutionId ? { solution: { id: dto.solutionId } } : {}),
     });
-    return this.repo.save(article);
+    const saved = await this.repo.save(article);
+
+    if (dto.thumbnailFileId) {
+      this.uploadService
+        .confirmUpload(dto.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to confirm upload: ${dto.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+
+    return saved;
   }
 
   async update(id: string, dto: UpdateArticleDto) {
@@ -150,7 +163,23 @@ export class ArticleService {
         ? ({ id: dto.solutionId } as any)
         : null;
 
-    return this.repo.save(article);
+    const saved = await this.repo.save(article);
+
+    if (
+      dto.thumbnailFileId &&
+      dto.thumbnailFileId !== article.thumbnailFileId
+    ) {
+      this.uploadService
+        .confirmUpload(dto.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to confirm upload: ${dto.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+
+    return saved;
   }
 
   async togglePublish(id: string, isPublished: boolean) {

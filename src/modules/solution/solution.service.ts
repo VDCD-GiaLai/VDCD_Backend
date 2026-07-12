@@ -101,7 +101,21 @@ export class SolutionService {
       isPublished: dto.isPublished ?? false,
       ...(dto.fieldId ? { field: { id: dto.fieldId } } : {}),
     });
-    return this.repo.save(solution);
+    const saved = await this.repo.save(solution);
+
+    // Confirm file if exists
+    if (dto.thumbnailFileId) {
+      this.uploadService
+        .confirmUpload(dto.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to confirm upload: ${dto.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+
+    return saved;
   }
 
   async update(id: string, dto: UpdateSolutionDto) {
@@ -132,7 +146,24 @@ export class SolutionService {
     if (dto.fieldId !== undefined)
       solution.field = dto.fieldId ? ({ id: dto.fieldId } as any) : null;
 
-    return this.repo.save(solution);
+    const saved = await this.repo.save(solution);
+
+    // Confirm new file if any
+    if (
+      dto.thumbnailFileId &&
+      dto.thumbnailFileId !== solution.thumbnailFileId
+    ) {
+      this.uploadService
+        .confirmUpload(dto.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to confirm upload: ${dto.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+
+    return saved;
   }
 
   async togglePublish(id: string, isPublished: boolean) {

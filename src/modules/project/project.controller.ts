@@ -8,6 +8,9 @@ import {
   Query,
   Body,
   UseGuards,
+  UseInterceptors,
+  UploadedFiles,
+  Req,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -19,6 +22,7 @@ import {
   ApiResponse,
   ApiParam,
   ApiBody,
+  ApiConsumes,
 } from '@nestjs/swagger';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -29,6 +33,8 @@ import { ReorderImagesDto } from './dto/reorder-images.dto';
 import { TogglePublishDto } from './dto/toggle-publish.dto';
 import { Project } from './entities/project.entity';
 import { ProjectImage } from './entities/project-image.entity';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 
 @ApiTags('Projects')
 @Controller('projects')
@@ -153,6 +159,8 @@ export class ProjectController {
 
   @Post(':id/images')
   @Roles('superadmin', 'editor')
+  @UseInterceptors(FilesInterceptor('files', 20, { storage: memoryStorage() }))
+  @ApiConsumes('multipart/form-data')
   @ApiOperation({
     summary: 'Add images to a project',
     description:
@@ -166,8 +174,25 @@ export class ProjectController {
     type: [ProjectImage],
   })
   @ApiResponse({ status: 404, description: 'Project not found.' })
-  addImages(@Param('id') id: string, @Body() dto: AddImagesDto) {
-    return this.service.addImages(id, dto.images);
+  addImages(
+    @Param('id') id: string,
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body() dto: AddImagesDto,
+    @Req() req,
+  ) {
+    let parsedCaptions: string[] = [];
+    if (dto.captions) {
+      if (typeof dto.captions === 'string') {
+        try {
+          parsedCaptions = JSON.parse(dto.captions);
+        } catch {
+          parsedCaptions = [dto.captions];
+        }
+      } else if (Array.isArray(dto.captions)) {
+        parsedCaptions = dto.captions;
+      }
+    }
+    return this.service.addImages(id, files, parsedCaptions, req.user.id);
   }
 
   @Patch(':id/images/reorder')

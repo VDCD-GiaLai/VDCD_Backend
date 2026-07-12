@@ -29,7 +29,15 @@ export class SlideService {
 
   async create(dto: CreateSlideDto) {
     const slide = this.repo.create(dto);
-    return this.repo.save(slide);
+    const saved = await this.repo.save(slide);
+    if (dto.imageUrl) {
+      this.uploadService
+        .confirmUpload(dto.imageUrl)
+        .catch((err) =>
+          this.logger.warn(`Failed to confirm upload: ${dto.imageUrl}`, err),
+        );
+    }
+    return saved;
   }
 
   async update(id: string, dto: UpdateSlideDto) {
@@ -48,7 +56,16 @@ export class SlideService {
     }
 
     Object.assign(slide, dto);
-    return this.repo.save(slide);
+    const saved = await this.repo.save(slide);
+    if (dto.imageUrl && dto.imageUrl !== slide.imageUrl && slide.imageFileId) {
+      this.uploadService
+        .confirmUpload(dto.imageUrl)
+        .catch((err) =>
+          this.logger.warn(`Failed to confirm upload: ${dto.imageUrl}`, err),
+        );
+    }
+
+    return saved;
   }
 
   async toggle(id: string, isActive: boolean) {

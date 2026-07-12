@@ -28,7 +28,15 @@ export class PartnerService {
 
   async create(dto: CreatePartnerDto) {
     const partner = this.repo.create(dto);
-    return this.repo.save(partner);
+    const saved = await this.repo.save(partner);
+    if (dto.logo) {
+      this.uploadService
+        .confirmUpload(dto.logo)
+        .catch((err) =>
+          this.logger.warn(`Failed to confirm upload: ${dto.logo}`, err),
+        );
+    }
+    return saved;
   }
 
   async update(id: string, dto: UpdatePartnerDto) {
@@ -47,7 +55,15 @@ export class PartnerService {
     }
 
     Object.assign(partner, dto);
-    return this.repo.save(partner);
+    const saved = await this.repo.save(partner);
+    if (dto.logo && dto.logo !== partner.logo && partner.logoFileId) {
+      this.uploadService
+        .confirmUpload(dto.logo)
+        .catch((err) =>
+          this.logger.warn(`Failed to confirm upload: ${dto.logo}`, err),
+        );
+    }
+    return saved;
   }
 
   async toggle(id: string, isActive: boolean) {

@@ -91,6 +91,7 @@ export class ProgramService {
     const slug = dto.slug || (await this.makeSlug(dto.title));
     const exists = await this.repo.findOne({ where: { slug } });
     if (exists) throw new ConflictException('Slug đã tồn tại');
+
     const program = this.repo.create({
       title: dto.title,
       slug,
@@ -103,7 +104,22 @@ export class ProgramService {
       isPublished: dto.isPublished ?? false,
       ...(dto.fieldId ? { field: { id: dto.fieldId } } : {}),
     });
-    return this.repo.save(program);
+
+    const saved = await this.repo.save(program);
+
+    // DB save successfully -> confirm file
+    if (dto.thumbnailFileId) {
+      this.uploadService
+        .confirmUpload(dto.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to confirm upload: ${dto.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+
+    return saved;
   }
 
   async update(id: string, dto: UpdateProgramDto) {
@@ -134,7 +150,24 @@ export class ProgramService {
     if (dto.fieldId !== undefined)
       program.field = dto.fieldId ? ({ id: dto.fieldId } as any) : null;
 
-    return this.repo.save(program);
+    const saved = await this.repo.save(program);
+
+    // Confirm new file
+    if (
+      dto.thumbnailFileId &&
+      dto.thumbnailFileId !== program.thumbnailFileId
+    ) {
+      this.uploadService
+        .confirmUpload(dto.thumbnailFileId)
+        .catch((err) =>
+          this.logger.warn(
+            `Failed to confirm upload: ${dto.thumbnailFileId}`,
+            err,
+          ),
+        );
+    }
+
+    return saved;
   }
 
   async togglePublish(id: string, isPublished: boolean) {

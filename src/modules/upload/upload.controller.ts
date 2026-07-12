@@ -10,6 +10,7 @@ import {
   UploadedFile,
   HttpCode,
   HttpStatus,
+  Request,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
@@ -63,8 +64,8 @@ export class UploadController {
     type: UploadResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
-  uploadImage(@UploadedFile() file: Express.Multer.File) {
-    return this.service.uploadImage(file);
+  uploadImage(@UploadedFile() file: Express.Multer.File, @Request() req) {
+    return this.service.uploadImage(file, 'images', req.user.id);
   }
 
   // ── Image in specific folder ──────────────────────────────────────
@@ -85,8 +86,8 @@ export class UploadController {
     type: UploadResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
-  uploadThumbnail(@UploadedFile() file: Express.Multer.File) {
-    return this.service.uploadThumbnail(file);
+  uploadThumbnail(@UploadedFile() file: Express.Multer.File, @Request() req) {
+    return this.service.uploadThumbnail(file, req.user.id);
   }
 
   @Post('image/project')
@@ -106,8 +107,11 @@ export class UploadController {
     type: UploadResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
-  uploadProjectImage(@UploadedFile() file: Express.Multer.File) {
-    return this.service.uploadProjectImage(file);
+  uploadProjectImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+  ) {
+    return this.service.uploadProjectImage(file, req.user.id);
   }
 
   @Post('image/slide')
@@ -127,8 +131,8 @@ export class UploadController {
     type: UploadResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
-  uploadSlideImage(@UploadedFile() file: Express.Multer.File) {
-    return this.service.uploadSlideImage(file);
+  uploadSlideImage(@UploadedFile() file: Express.Multer.File, @Request() req) {
+    return this.service.uploadSlideImage(file, req.user.id);
   }
 
   @Post('image/partner')
@@ -148,8 +152,8 @@ export class UploadController {
     type: UploadResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
-  uploadPartnerLogo(@UploadedFile() file: Express.Multer.File) {
-    return this.service.uploadPartnerLogo(file);
+  uploadPartnerLogo(@UploadedFile() file: Express.Multer.File, @Request() req) {
+    return this.service.uploadPartnerLogo(file, req.user.id);
   }
 
   // ── Attached file (public — guest send CV) ───────────────────────

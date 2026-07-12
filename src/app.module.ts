@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { WinstonModule } from 'nest-winston';
+import { ScheduleModule } from '@nestjs/schedule';
 import { APP_GUARD } from '@nestjs/core';
 import { validateEnv } from './config/validation';
 import { loggerConfig } from './config/logger.config';
@@ -29,6 +30,7 @@ import { LeadModule } from './modules/lead/lead.module';
 import { HealthModule } from './modules/health/health.module';
 import imagekitConfig from './config/imagekit.config';
 import { UploadModule } from './modules/upload/upload.module';
+import { CronjobModule } from './modules/cronjob/cronjob.module';
 
 @Module({
   imports: [
@@ -40,6 +42,7 @@ import { UploadModule } from './modules/upload/upload.module';
     }),
     WinstonModule.forRoot(loggerConfig),
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
+    ScheduleModule.forRoot(),
     DatabaseModule,
     RedisModule,
     AuthModule,
@@ -58,6 +61,7 @@ import { UploadModule } from './modules/upload/upload.module';
     LeadModule,
     HealthModule,
     UploadModule,
+    CronjobModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
