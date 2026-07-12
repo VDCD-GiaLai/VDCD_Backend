@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PartnerService } from './partner.service';
 import { PartnerController } from './partner.controller';
-import { Partner } from './entites/partner.entity';
+import { Partner } from './entities/partner.entity';
 import { UploadModule } from '../upload/upload.module';
 
 @Module({

@@ -95,22 +95,22 @@ export class CreateArticleDto {
 
   @ApiPropertyOptional({
     example: 'Giới thiệu VDCD Gia Lai',
-    description: 'SEO Meta Title (max 60 chars)',
-    maxLength: 60,
+    description: 'SEO Meta Title (max 255 chars)',
+    maxLength: 255,
   })
   @IsOptional()
   @IsString()
-  @MaxLength(60)
+  @MaxLength(255)
   metaTitle?: string;
 
   @ApiPropertyOptional({
     example: 'Chi tiết giới thiệu về Hiệp hội Phát triển dữ liệu số Gia Lai',
-    description: 'SEO Meta Description (max 160 chars)',
-    maxLength: 160,
+    description: 'SEO Meta Description (max 255 chars)',
+    maxLength: 255,
   })
   @IsOptional()
   @IsString()
-  @MaxLength(160)
+  @MaxLength(255)
   metaDescription?: string;
 
   @ApiPropertyOptional({

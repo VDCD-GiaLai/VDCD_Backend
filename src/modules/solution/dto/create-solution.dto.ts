@@ -68,20 +68,20 @@ export class CreateSolutionDto {
 
   @ApiPropertyOptional({
     example: 'Nông nghiệp thông minh VDCD',
-    description: 'Meta Title phục vụ SEO (tối đa 60 ký tự)',
+    description: 'Meta Title phục vụ SEO (tối đa 255 ký tự)',
   })
   @IsOptional()
   @IsString()
-  @MaxLength(60)
+  @MaxLength(255)
   metaTitle?: string;
 
   @ApiPropertyOptional({
     example: 'Giải pháp nông nghiệp thông minh ứng dụng công nghệ IoT...',
-    description: 'Meta Description phục vụ SEO (tối đa 160 ký tự)',
+    description: 'Meta Description phục vụ SEO (tối đa 255 ký tự)',
   })
   @IsOptional()
   @IsString()
-  @MaxLength(160)
+  @MaxLength(255)
   metaDescription?: string;
 
   @ApiPropertyOptional({

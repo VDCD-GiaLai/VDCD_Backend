@@ -19,7 +19,9 @@
     "migration:generate": "pnpm typeorm-ts-node-commonjs migration:generate -d src/database/data-source.ts",
     "migration:run": "pnpm typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts",
     "migration:revert": "pnpm typeorm-ts-node-commonjs migration:revert -d src/database/data-source.ts",
-    "migration:show": "pnpm typeorm-ts-node-commonjs migration:show -d src/database/data-source.ts"
+    "migration:show": "pnpm typeorm-ts-node-commonjs migration:show -d src/database/data-source.ts",
+    "seed": "ts-node -r tsconfig-paths/register src/database/seeds/index.ts",
+    "seed:prod": "NODE_ENV=production ts-node -r tsconfig-paths/register src/database/seeds/index.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -57,6 +59,7 @@
     "@commitlint/config-conventional": "^21.2.0",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
+    "@faker-js/faker": "^10.5.0",
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",

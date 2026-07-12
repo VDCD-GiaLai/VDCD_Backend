@@ -37,10 +37,10 @@ export class Program {
   @JoinColumn({ name: 'field_id' })
   field: OperationField;
 
-  @Column({ name: 'meta_title', length: 60, nullable: true })
+  @Column({ name: 'meta_title', length: 255, nullable: true })
   metaTitle: string;
 
-  @Column({ name: 'meta_description', length: 160, nullable: true })
+  @Column({ name: 'meta_description', length: 255, nullable: true })
   metaDescription: string;
 
   @Column({ name: 'is_published', default: false })

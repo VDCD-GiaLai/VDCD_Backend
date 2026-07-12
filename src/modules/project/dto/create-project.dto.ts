@@ -81,7 +81,7 @@ export class CreateProjectDto {
   })
   @IsOptional()
   @IsString()
-  @MaxLength(60)
+  @MaxLength(255)
   metaTitle?: string;
 
   @ApiPropertyOptional({
@@ -90,7 +90,7 @@ export class CreateProjectDto {
   })
   @IsOptional()
   @IsString()
-  @MaxLength(160)
+  @MaxLength(255)
   metaDescription?: string;
 
   @ApiPropertyOptional({ example: false, description: 'Is project published' })

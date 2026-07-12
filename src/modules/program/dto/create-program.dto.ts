@@ -68,20 +68,20 @@ export class CreateProgramDto {
 
   @ApiPropertyOptional({
     example: 'Năng lượng xanh VDCD',
-    description: 'Meta Title phục vụ SEO (tối đa 60 ký tự)',
+    description: 'Meta Title phục vụ SEO (tối đa 255 ký tự)',
   })
   @IsOptional()
   @IsString()
-  @MaxLength(60)
+  @MaxLength(255)
   metaTitle?: string;
 
   @ApiPropertyOptional({
     example: 'Thông tin chi tiết về chương trình năng lượng xanh của VDCD...',
-    description: 'Meta Description phục vụ SEO (tối đa 160 ký tự)',
+    description: 'Meta Description phục vụ SEO (tối đa 255 ký tự)',
   })
   @IsOptional()
   @IsString()
-  @MaxLength(160)
+  @MaxLength(255)
   metaDescription?: string;
 
   @ApiPropertyOptional({
