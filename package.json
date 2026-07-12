@@ -5,6 +5,13 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "bcrypt",
+      "@scarf/scarf",
+      "unrs-resolver"
+    ]
+  },
   "scripts": {
     "build": "nest build",
     "start": "node dist/main",
