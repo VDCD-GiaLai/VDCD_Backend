@@ -3,11 +3,15 @@ import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Public } from '../../common/decorators/public.decorator';
+import { RedisService } from '../redis/redis.service';
 
 @ApiTags('Health')
 @Controller('health')
 export class HealthController {
-  constructor(@InjectDataSource() private dataSource: DataSource) {}
+  constructor(
+    @InjectDataSource() private dataSource: DataSource,
+    private redisService: RedisService,
+  ) {}
 
   @Public()
   @Get()
@@ -22,11 +26,25 @@ export class HealthController {
   })
   async check() {
     const dbOk = this.dataSource.isInitialized;
+
+    let redisOk = false;
+    try {
+      await this.redisService.getClient().ping();
+      redisOk = true;
+    } catch {
+      redisOk = false;
+    }
+
+    const allOk = dbOk && redisOk;
+
     return {
-      status: dbOk ? 'ok' : 'degraded',
+      status: allOk ? 'ok' : 'degraded',
       timestamp: new Date().toISOString(),
-      db: dbOk ? 'connected' : 'disconnected',
       uptime: Math.floor(process.uptime()),
+      services: {
+        database: dbOk ? 'connected' : 'disconnected',
+        redis: redisOk ? 'connected' : 'disconnected',
+      },
     };
   }
 }

@@ -1,6 +1,10 @@
 // src/modules/health/health.module.ts
 import { Module } from '@nestjs/common';
 import { HealthController } from './health.controller';
+import { RedisModule } from '../redis/redis.module';
 
-@Module({ controllers: [HealthController] })
+@Module({
+  imports: [RedisModule],
+  controllers: [HealthController],
+})
 export class HealthModule {}

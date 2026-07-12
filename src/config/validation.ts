@@ -37,6 +37,12 @@ class EnvironmentVariables {
   @IsString() @IsNotEmpty() IMAGEKIT_PUBLIC_KEY: string;
   @IsString() @IsNotEmpty() IMAGEKIT_PRIVATE_KEY: string;
   @IsString() @IsNotEmpty() IMAGEKIT_URL_ENDPOINT: string;
+
+  @IsString() @IsNotEmpty() MAIL_HOST: string;
+  @IsInt() MAIL_PORT: number;
+  @IsString() @IsNotEmpty() MAIL_USER: string;
+  @IsString() @IsNotEmpty() MAIL_PASSWORD: string;
+  @IsString() @IsNotEmpty() MAIL_FROM: string;
 }
 
 export function validateEnv(config: Record<string, unknown>) {
