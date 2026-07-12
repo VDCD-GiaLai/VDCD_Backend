@@ -27,10 +27,9 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 ENV NODE_ENV=production
 
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod && pnpm store prune
-
+COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+COPY package.json ./
 
 RUN mkdir -p logs && chown -R appuser:appgroup /app
 
