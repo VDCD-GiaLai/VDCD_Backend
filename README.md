@@ -27,6 +27,8 @@
 
 ## Project setup
 
+Xem chi tiết tại hướng dẫn cài đặt và khởi chạy: [SETUP.md](SETUP.md).
+
 ```bash
 $ pnpm install
 ```
