@@ -196,8 +196,6 @@ async function seed() {
     );
     console.log(`   → ${provinces.length} provinces`);
 
-    const provinceMap = Object.fromEntries(provinces.map((p) => [p.code, p]));
-
     // ── 5. Partners ────────────────────────────────────────────────
     console.log('🤝 Seeding partners...');
     const partnerRepo = queryRunner.manager.getRepository(Partner);
