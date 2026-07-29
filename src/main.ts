@@ -10,18 +10,26 @@ import { TransformInterceptor } from './common/interceptors/transform.intercepto
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
+
 async function bootstrap() {
   const logger = WinstonModule.createLogger(loggerConfig);
 
-  const app = await NestFactory.create(AppModule, { logger });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, { logger });
 
   // Security
-  app.use(helmet());
+  app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
   app.use(cookieParser());
   app.enableCors({
     origin: process.env.CORS_ORIGINS?.split(',') ?? [],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
+  });
+
+  // Serve static files (uploads)
+  app.useStaticAssets(join(__dirname, '..', 'public'), {
+    prefix: '/public/',
   });
 
   // Global prefix
