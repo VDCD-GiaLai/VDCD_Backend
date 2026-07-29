@@ -30,6 +30,9 @@ export class Solution {
   @Column({ nullable: true })
   thumbnail: string;
 
+  @Column({ name: 'website_url', nullable: true })
+  websiteUrl: string;
+
   @Column({ name: 'thumbnail_file_id', nullable: true })
   thumbnailFileId: string;
 
