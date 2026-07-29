@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsString,
   MaxLength,
+  ValidateIf,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -20,37 +21,55 @@ export class CreateSlideDto {
   title: string;
 
   @ApiPropertyOptional({
-    example: 'Leading provider of sustainable power solutions.',
-    description: 'Description of the slide',
+    example: 'A modern approach',
+    description: 'Subtitle of the slide',
+    nullable: true,
   })
   @IsOptional()
+  @ValidateIf((o, v) => v !== null)
   @IsString()
-  description?: string;
+  subtitle?: string | null;
+
+  @ApiPropertyOptional({
+    example: 'Leading provider of sustainable power solutions.',
+    description: 'Description of the slide',
+    nullable: true,
+  })
+  @IsOptional()
+  @ValidateIf((o, v) => v !== null)
+  @IsString()
+  description?: string | null;
 
   @ApiPropertyOptional({
     example: 'Learn More',
     description: 'CTA button text',
+    nullable: true,
   })
   @IsOptional()
+  @ValidateIf((o, v) => v !== null)
   @IsString()
   @MaxLength(100)
-  ctaText?: string;
+  ctaText?: string | null;
 
   @ApiPropertyOptional({
     example: 'FILE_ID_12345',
     description: 'File ID of the slide image',
+    nullable: true,
   })
   @IsOptional()
+  @ValidateIf((o, v) => v !== null)
   @IsString()
-  imageFileId?: string;
+  imageFileId?: string | null;
 
   @ApiPropertyOptional({
     example: 'https://vdcd.vn/about',
     description: 'CTA URL',
+    nullable: true,
   })
   @IsOptional()
+  @ValidateIf((o, v) => v !== null)
   @IsString()
-  ctaUrl?: string;
+  ctaUrl?: string | null;
 
   @ApiProperty({
     example: 'https://example.com/images/slide1.jpg',

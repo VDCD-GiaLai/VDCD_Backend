@@ -12,8 +12,8 @@ export class Partner {
   @Column({ length: 500 })
   logo: string;
 
-  @Column({ name: 'website_url', length: 500, nullable: true })
-  websiteUrl: string;
+  @Column({ type: 'varchar', name: 'website_url', length: 500, nullable: true })
+  websiteUrl: string | null;
 
   @Column({ default: 0 })
   order: number;
@@ -21,6 +21,6 @@ export class Partner {
   @Column({ name: 'is_active', default: true })
   isActive: boolean;
 
-  @Column({ name: 'logo_file_id', nullable: true })
-  logoFileId: string;
+  @Column({ type: 'varchar', name: 'logo_file_id', nullable: true })
+  logoFileId: string | null;
 }

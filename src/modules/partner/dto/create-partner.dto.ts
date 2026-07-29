@@ -5,7 +5,10 @@ import {
   IsOptional,
   IsString,
   MaxLength,
+  IsBoolean,
+  ValidateIf,
 } from 'class-validator';
+
 import { Type } from 'class-transformer';
 
 export class CreatePartnerDto {
@@ -21,10 +24,12 @@ export class CreatePartnerDto {
   @ApiPropertyOptional({
     example: 'file-123456',
     description: 'File ID of the logo image',
+    nullable: true,
   })
   @IsOptional()
+  @ValidateIf((object, value) => value !== null)
   @IsString()
-  logoFileId?: string;
+  logoFileId?: string | null;
 
   @ApiProperty({
     example: 'https://example.com/images/partner-logo.png',
@@ -37,10 +42,12 @@ export class CreatePartnerDto {
   @ApiPropertyOptional({
     example: 'https://vdcd.vn',
     description: 'Website URL of the partner',
+    nullable: true,
   })
   @IsOptional()
+  @ValidateIf((object, value) => value !== null)
   @IsString()
-  websiteUrl?: string;
+  websiteUrl?: string | null;
 
   @ApiPropertyOptional({
     example: 0,
@@ -50,4 +57,12 @@ export class CreatePartnerDto {
   @Type(() => Number)
   @IsInt()
   order?: number;
+
+  @ApiPropertyOptional({
+    example: true,
+    description: 'Whether the partner is active',
+  })
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
 }

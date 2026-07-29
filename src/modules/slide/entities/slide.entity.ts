@@ -15,22 +15,22 @@ export class Slide {
   title: string;
 
   @Column({ type: 'text', nullable: true })
-  subtitle: string;
+  subtitle: string | null;
 
   @Column({ type: 'text', nullable: true })
-  description: string;
+  description: string | null;
 
-  @Column({ name: 'cta_text', length: 100, nullable: true })
-  ctaText: string;
+  @Column({ type: 'varchar', name: 'cta_text', length: 100, nullable: true })
+  ctaText: string | null;
 
-  @Column({ name: 'cta_url', length: 500, nullable: true })
-  ctaUrl: string;
+  @Column({ type: 'varchar', name: 'cta_url', length: 500, nullable: true })
+  ctaUrl: string | null;
 
   @Column({ name: 'image_url', length: 500 })
   imageUrl: string;
 
-  @Column({ name: 'image_file_id', nullable: true })
-  imageFileId: string;
+  @Column({ type: 'varchar', name: 'image_file_id', nullable: true })
+  imageFileId: string | null;
 
   @Column({ default: 0 })
   order: number;
