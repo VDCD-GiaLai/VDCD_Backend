@@ -32,6 +32,7 @@ import imagekitConfig from './config/imagekit.config';
 import { UploadModule } from './modules/upload/upload.module';
 import { CronjobModule } from './modules/cronjob/cronjob.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { SearchModule } from './modules/search/search.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -63,6 +64,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
     UploadModule,
     CronjobModule,
     DashboardModule,
+    SearchModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
