@@ -16,7 +16,9 @@ import { join } from 'path';
 async function bootstrap() {
   const logger = WinstonModule.createLogger(loggerConfig);
 
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, { logger });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger,
+  });
 
   // Security
   app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));

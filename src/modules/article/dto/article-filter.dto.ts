@@ -25,11 +25,7 @@ export class ArticleFilterDto extends PaginationDto {
     description: 'Filter articles by publication status',
   })
   @IsOptional()
-  @Transform(({ value }) => {
-    if (value === 'true') return true;
-    if (value === 'false') return false;
-    return value;
-  })
+  @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   isPublished?: boolean;
 }

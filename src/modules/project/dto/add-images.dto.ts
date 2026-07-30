@@ -10,6 +10,7 @@ export class AddImagesDto {
     },
     description: 'Project images (multipart/form-data)',
   })
+  @IsOptional()
   files: any[];
 
   @ApiPropertyOptional({

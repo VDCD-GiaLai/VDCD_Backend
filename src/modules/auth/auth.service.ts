@@ -2,7 +2,10 @@ import {
   Injectable,
   UnauthorizedException,
   ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -121,7 +124,26 @@ export class AuthService {
         },
       );
 
-      return { accessToken };
+      const newRefreshToken = this.jwtService.sign(
+        { sub: user.id, role: user.role },
+        {
+          secret: this.config.get('JWT_REFRESH_SECRET'),
+          expiresIn: this.config.get('JWT_REFRESH_EXPIRES_IN', '7d'),
+        },
+      );
+
+      const refreshExpires =
+        this.config.get<string>('JWT_REFRESH_EXPIRES_IN') ??
+        this.config.get<string>('jwt.refreshExpiresIn') ??
+        '7d';
+      const newRefreshHash = await bcrypt.hash(newRefreshToken, 10);
+      await this.redisService.set(
+        `refresh_token:${user.id}`,
+        newRefreshHash,
+        this.parseTimeToSeconds(refreshExpires),
+      );
+
+      return { accessToken, refreshToken: newRefreshToken };
     } catch {
       throw new UnauthorizedException(
         'Refresh token không hợp lệ hoặc đã hết hạn',
@@ -147,5 +169,36 @@ export class AuthService {
     });
     if (!user) throw new UnauthorizedException();
     return user;
+  }
+
+  async updateProfile(userId: string, dto: UpdateProfileDto) {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+    if (!user) throw new UnauthorizedException();
+
+    user.username = dto.username;
+    await this.userRepo.save(user);
+
+    return {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+    };
+  }
+
+  async changePassword(userId: string, dto: ChangePasswordDto) {
+    const user = await this.userRepo.findOne({
+      where: { id: userId },
+      select: { id: true, passwordHash: true },
+    });
+    if (!user) throw new UnauthorizedException();
+
+    const valid = await bcrypt.compare(dto.oldPassword, user.passwordHash);
+    if (!valid) throw new BadRequestException('Mật khẩu cũ không chính xác');
+
+    user.passwordHash = await bcrypt.hash(dto.newPassword, 10);
+    await this.userRepo.save(user);
+
+    return { message: 'Đổi mật khẩu thành công' };
   }
 }

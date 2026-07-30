@@ -31,7 +31,7 @@ import { HealthModule } from './modules/health/health.module';
 import imagekitConfig from './config/imagekit.config';
 import { UploadModule } from './modules/upload/upload.module';
 import { CronjobModule } from './modules/cronjob/cronjob.module';
-
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -62,6 +62,7 @@ import { CronjobModule } from './modules/cronjob/cronjob.module';
     HealthModule,
     UploadModule,
     CronjobModule,
+    DashboardModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

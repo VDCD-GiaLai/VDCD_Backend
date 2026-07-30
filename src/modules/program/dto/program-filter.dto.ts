@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsBoolean, IsOptional, IsUUID } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Transform } from 'class-transformer';
 import { PaginationDto } from '../../../common/dto/pagination.dto';
 
 export class ProgramFilterDto extends PaginationDto {
@@ -17,7 +17,7 @@ export class ProgramFilterDto extends PaginationDto {
     description: 'Filter by published status',
   })
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   isPublished?: boolean;
 }

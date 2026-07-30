@@ -33,7 +33,8 @@ export class ArticleService {
   async findAll(dto: ArticleFilterDto) {
     const { page = 1, limit = 10, category, tags } = dto;
     const qb = this.repo.createQueryBuilder('a').where('a.is_published = true');
-    if (category) qb.andWhere('a.category = :category', { category });
+    if (category)
+      qb.andWhere('a.category ILIKE :category', { category: `%${category}%` });
     if (tags) qb.andWhere('a.tags ILIKE :tags', { tags: `%${tags}%` });
     qb.orderBy('a.published_at', 'DESC')
       .skip((page - 1) * limit)
@@ -43,13 +44,15 @@ export class ArticleService {
   }
 
   async findAllAdmin(dto: ArticleFilterDto) {
-    const { page = 1, limit = 10, category, isPublished } = dto;
+    const { page = 1, limit = 10, category, tags, isPublished } = dto;
     const qb = this.repo
       .createQueryBuilder('a')
       .leftJoinAndSelect('a.project', 'project')
       .leftJoinAndSelect('a.program', 'program')
       .leftJoinAndSelect('a.solution', 'solution');
-    if (category) qb.andWhere('a.category = :category', { category });
+    if (category)
+      qb.andWhere('a.category ILIKE :category', { category: `%${category}%` });
+    if (tags) qb.andWhere('a.tags ILIKE :tags', { tags: `%${tags}%` });
     if (isPublished !== undefined)
       qb.andWhere('a.is_published = :isPublished', { isPublished });
     qb.orderBy('a.created_at', 'DESC')

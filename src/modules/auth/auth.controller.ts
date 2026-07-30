@@ -2,6 +2,7 @@ import {
   Controller,
   Post,
   Get,
+  Patch,
   Body,
   UseGuards,
   Req,
@@ -20,6 +21,8 @@ import { LoginResponseDto } from './dto/login-response.dto';
 import { MeResponseDto } from './dto/me-response.dto';
 import { RefreshResponseDto } from './dto/refresh-response.dto';
 import { LogoutResponseDto } from './dto/logout-response.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -124,12 +127,18 @@ export class AuthController {
       throw new UnauthorizedException('Refresh token not found in cookies');
     }
 
-    const { accessToken } = await this.authService.refresh(refreshToken);
+    const { accessToken, refreshToken: newRefreshToken } =
+      await this.authService.refresh(refreshToken);
 
     const accessExpires =
       this.configService.get<string>('JWT_EXPIRES_IN') ??
       this.configService.get<string>('jwt.expiresIn') ??
       '15m';
+
+    const refreshExpires =
+      this.configService.get<string>('JWT_REFRESH_EXPIRES_IN') ??
+      this.configService.get<string>('jwt.refreshExpiresIn') ??
+      '7d';
 
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
@@ -137,6 +146,14 @@ export class AuthController {
       sameSite: 'lax',
       path: '/',
       maxAge: this.getCookieMaxAge(accessExpires),
+    });
+
+    res.cookie('refreshToken', newRefreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: this.getCookieMaxAge(refreshExpires),
     });
 
     return { success: true };
@@ -198,5 +215,46 @@ export class AuthController {
   me(@Req() req: express.Request) {
     const user = (req as any).user;
     return this.authService.me(user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('me/info')
+  @ApiOperation({
+    summary: 'Update current user profile info',
+    description:
+      'Update the authenticated user profile information (e.g. username).',
+  })
+  @ApiBody({ type: UpdateProfileDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully updated profile information.',
+  })
+  @ApiResponse({ status: 400, description: 'Validation error.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
+  updateProfile(@Req() req: express.Request, @Body() dto: UpdateProfileDto) {
+    const user = (req as any).user;
+    return this.authService.updateProfile(user.id, dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('me/password')
+  @ApiOperation({
+    summary: 'Change current user password',
+    description:
+      'Change the authenticated user password by verifying the old password.',
+  })
+  @ApiBody({ type: ChangePasswordDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully changed password.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Old password incorrect or validation error.',
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
+  changePassword(@Req() req: express.Request, @Body() dto: ChangePasswordDto) {
+    const user = (req as any).user;
+    return this.authService.changePassword(user.id, dto);
   }
 }
