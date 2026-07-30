@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
 import { Lead } from '../lead/entities/lead.entity';
+import { renderLeadNotificationTemplate } from './templates/lead-notification.template';
 
 @Injectable()
 export class MailService {
@@ -20,21 +21,20 @@ export class MailService {
   }
 
   async sendLeadNotification(lead: Lead) {
+    const adminUrl =
+      this.config.get('ADMIN_URL') || 'http://localhost:3002';
+    const appEnv = this.config.get('NODE_ENV') || 'development';
+
+    const htmlContent = renderLeadNotificationTemplate(lead, {
+      adminUrl,
+      appEnv,
+    });
+
     await this.transporter.sendMail({
       from: this.config.get('MAIL_FROM'),
       to: this.config.get('MAIL_ADMIN'),
-      subject: `[VDCD] Liên hệ mới từ ${lead.fullName}`,
-      html: `
-        <h2>Thông tin liên hệ mới</h2>
-        <p><strong>Họ tên:</strong> ${lead.fullName}</p>
-        <p><strong>Email:</strong> ${lead.email}</p>
-        <p><strong>SĐT:</strong> ${lead.phone ?? 'Không có'}</p>
-        <p><strong>Chủ đề:</strong> ${lead.subject ?? 'Không có'}</p>
-        <p><strong>Nội dung:</strong><br>${lead.message ?? 'Không có'}</p>
-        <p><strong>Thời gian:</strong> ${lead.createdAt}</p>
-        <hr>
-        <p><a href="${this.config.get('ADMIN_URL')}/leads/${lead.id}">Xem trong Admin Panel</a></p>
-      `,
+      subject: `[VDCD Group] Thông tin liên hệ mới từ ${lead.fullName}`,
+      html: htmlContent,
     });
   }
 }
