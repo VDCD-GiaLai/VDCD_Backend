@@ -922,58 +922,154 @@ async function seed() {
     const jobRepo = queryRunner.manager.getRepository(Job);
     const jobData = [
       {
-        title: 'Chuyên viên Tư vấn Chuyển đổi Số',
-        slug: 'chuyen-vien-tu-van-chuyen-doi-so',
-        department: 'Tư vấn & Triển khai',
-        location: 'Pleiku, Gia Lai',
-        type: 'full-time' as const,
+        title: 'Kỹ sư phần mềm Full-stack',
+        slug: 'ky-su-phan-mem-full-stack',
+        department: 'Công nghệ',
+        location: 'TP. Pleiku, Gia Lai',
+        type: 'full-time',
         salaryRange: '15 – 25 triệu',
+        description:
+          'Thiết kế và phát triển các ứng dụng web, API và hệ thống quản lý nội bộ phục vụ chuyển đổi số cho các cơ quan và doanh nghiệp.',
+        requirements:
+          'Yêu cầu kinh nghiệm 2 – 4 năm. Kỹ năng thành thạo: React, Node.js, TypeScript, PostgreSQL.',
+        benefits:
+          'Mức lương cạnh tranh 15 – 25 triệu, bảo hiểm toàn diện, môi trường làm việc hiện đại.',
         isUrgent: true,
       },
       {
-        title: 'Kỹ sư IoT / Nhúng',
-        slug: 'ky-su-iot-nhung',
-        department: 'Kỹ thuật',
-        location: 'Pleiku, Gia Lai',
-        type: 'full-time' as const,
+        title: 'Chuyên viên AI & Machine Learning',
+        slug: 'chuyen-vien-ai-machine-learning',
+        department: 'Nghiên cứu & Phát triển',
+        location: 'TP. Pleiku, Gia Lai',
+        type: 'full-time',
         salaryRange: '20 – 35 triệu',
+        description:
+          'Nghiên cứu và triển khai các mô hình AI/ML phục vụ nhận diện hình ảnh, phân tích dữ liệu địa lý và nông nghiệp thông minh.',
+        requirements:
+          'Yêu cầu kinh nghiệm 3 – 5 năm. Kỹ năng thành thạo: Python, TensorFlow, Computer Vision, Deep Learning.',
+        benefits:
+          'Mức lương cạnh tranh 20 – 35 triệu, đào tạo chuyên sâu, cơ hội tham gia các dự án công nghệ cấp tỉnh.',
         isUrgent: true,
       },
       {
-        title: 'Chuyên viên Marketing Số',
-        slug: 'chuyen-vien-marketing-so',
-        department: 'Marketing',
-        location: 'Pleiku, Gia Lai / Remote',
-        type: 'full-time' as const,
-        salaryRange: '12 – 18 triệu',
+        title: 'Kỹ sư DevOps & Cloud',
+        slug: 'ky-su-devops-cloud',
+        department: 'Công nghệ',
+        location: 'TP. Hồ Chí Minh',
+        type: 'full-time',
+        salaryRange: '18 – 30 triệu',
+        description:
+          'Quản lý hạ tầng cloud, CI/CD pipeline, container orchestration và giám sát hiệu năng hệ thống cho các dự án chuyển đổi số.',
+        requirements:
+          'Yêu cầu kinh nghiệm 2 – 4 năm. Kỹ năng thành thạo: Docker, Kubernetes, AWS, Terraform.',
+        benefits:
+          'Mức lương cạnh tranh 18 – 30 triệu, chế độ làm việc linh hoạt hybrid.',
         isUrgent: false,
       },
       {
-        title: 'Lập trình viên Full-stack (NestJS + Next.js)',
-        slug: 'lap-trinh-vien-fullstack-nestjs-nextjs',
-        department: 'Kỹ thuật',
-        location: 'Remote',
-        type: 'full-time' as const,
-        salaryRange: '25 – 45 triệu',
+        title: 'Thiết kế UI/UX',
+        slug: 'thiet-ke-ui-ux',
+        department: 'Dịch vụ số',
+        location: 'TP. Pleiku, Gia Lai',
+        type: 'full-time',
+        salaryRange: '12 – 20 triệu',
+        description:
+          'Thiết kế giao diện người dùng cho các sản phẩm số, ứng dụng di động và nền tảng web phục vụ chính quyền và doanh nghiệp.',
+        requirements:
+          'Yêu cầu kinh nghiệm 1 – 3 năm. Kỹ năng thành thạo: Figma, Design System, Prototyping, User Research.',
+        benefits:
+          'Mức lương cạnh tranh 12 – 20 triệu, trang bị thiết bị làm việc cấu hình cao.',
         isUrgent: false,
       },
       {
-        title: 'Thực tập sinh Phân tích Dữ liệu',
-        slug: 'thuc-tap-sinh-phan-tich-du-lieu',
-        department: 'Data & AI',
-        location: 'Pleiku, Gia Lai',
-        type: 'intern' as const,
+        title: 'Chuyên viên Hành chính - Nhân sự',
+        slug: 'chuyen-vien-hanh-chinh-nhan-su',
+        department: 'Nhân sự',
+        location: 'TP. Pleiku, Gia Lai',
+        type: 'full-time',
+        salaryRange: '10 – 15 triệu',
+        description:
+          'Quản lý hồ sơ nhân sự, tuyển dụng, đào tạo phát triển nhân viên và xây dựng văn hóa doanh nghiệp.',
+        requirements:
+          'Yêu cầu kinh nghiệm 1 – 2 năm. Kỹ năng thành thạo: Tuyển dụng, Đào tạo, C&B, Luật lao động.',
+        benefits:
+          'Mức lương 10 – 15 triệu, du lịch hàng năm, đầy đủ chế độ bảo hiểm.',
+        isUrgent: false,
+      },
+      {
+        title: 'Kỹ sư Khảo sát UAV/Drone',
+        slug: 'ky-su-khao-sat-uav-drone',
+        department: 'Khảo sát & Đo đạc',
+        location: 'TP. Pleiku, Gia Lai',
+        type: 'full-time',
+        salaryRange: '14 – 22 triệu',
+        description:
+          'Vận hành và bảo trì thiết bị bay không người lái phục vụ khảo sát địa hình, lập bản đồ và giám sát tự động.',
+        requirements:
+          'Yêu cầu kinh nghiệm 1 – 3 năm. Kỹ năng thành thạo: UAV, GIS, Photogrammetry, AutoCAD.',
+        benefits:
+          'Mức lương 14 – 22 triệu, phụ cấp công tác phí và bảo hiểm tai nạn rủi ro.',
+        isUrgent: false,
+      },
+      {
+        title: 'Thực tập sinh Phát triển phần mềm',
+        slug: 'thuc-tap-sinh-phat-trien-phan-mem',
+        department: 'Công nghệ',
+        location: 'TP. Pleiku, Gia Lai',
+        type: 'intern',
         salaryRange: '3 – 5 triệu',
+        description:
+          'Tham gia phát triển các dự án thực tế, được đào tạo và mentoring bởi đội ngũ kỹ sư giàu kinh nghiệm.',
+        requirements:
+          'Sinh viên năm cuối ngành CNTT hoặc tương đương. Kỹ năng cơ bản: JavaScript, React, Git, Agile.',
+        benefits:
+          'Hỗ trợ thực tập 3 – 5 triệu/tháng, cơ hội chuyển thành nhân viên chính thức.',
         isUrgent: false,
       },
       {
-        title: 'Chuyên viên Phát triển Đối tác',
-        slug: 'chuyen-vien-phat-trien-doi-tac',
-        department: 'Kinh doanh',
-        location: 'Pleiku, Gia Lai',
-        type: 'full-time' as const,
-        salaryRange: '18 – 28 triệu',
+        title: 'Kế toán tổng hợp',
+        slug: 'ke-toan-tong-hop',
+        department: 'Tài chính',
+        location: 'TP. Pleiku, Gia Lai',
+        type: 'full-time',
+        salaryRange: '10 – 16 triệu',
+        description:
+          'Thực hiện nghiệp vụ kế toán tổng hợp, báo cáo tài chính, quản lý thuế và công nợ cho hệ thống doanh nghiệp.',
+        requirements:
+          'Yêu cầu kinh nghiệm 2 – 4 năm. Kỹ năng thành thạo: Kế toán, Thuế, SAP, Báo cáo tài chính.',
+        benefits:
+          'Mức lương 10 – 16 triệu, thưởng tháng 13 và KPI hấp dẫn.',
         isUrgent: false,
+      },
+      {
+        title: 'Chuyên viên Quản lý dự án CNTT',
+        slug: 'chuyen-vien-quan-ly-du-an-cntt',
+        department: 'Dịch vụ số',
+        location: 'TP. Hồ Chí Minh',
+        type: 'full-time',
+        salaryRange: '18 – 28 triệu',
+        description:
+          'Lập kế hoạch, điều phối và giám sát các dự án chuyển đổi số, đảm bảo tiến độ và chất lượng triển khai.',
+        requirements:
+          'Yêu cầu kinh nghiệm 3 – 5 năm. Kỹ năng thành thạo: PMP, Agile, Scrum, JIRA.',
+        benefits:
+          'Mức lương 18 – 28 triệu, thưởng hoàn thành dự án.',
+        isUrgent: false,
+      },
+      {
+        title: 'Chuyên viên IoT & Embedded',
+        slug: 'chuyen-vien-iot-embedded',
+        department: 'Nghiên cứu & Phát triển',
+        location: 'TP. Pleiku, Gia Lai',
+        type: 'full-time',
+        salaryRange: '15 – 25 triệu',
+        description:
+          'Phát triển firmware và phần cứng IoT cho các hệ thống giám sát môi trường, nông nghiệp thông minh và đô thị số.',
+        requirements:
+          'Yêu cầu kinh nghiệm 2 – 4 năm. Kỹ năng thành thạo: C/C++, ESP32, MQTT, PCB Design.',
+        benefits:
+          'Mức lương 15 – 25 triệu, phòng lab trang thiết bị hiện đại.',
+        isUrgent: true,
       },
     ];
 
@@ -985,9 +1081,6 @@ async function seed() {
         jobRepo.create({
           ...j,
           deadline,
-          description: `## Mô tả công việc\n\n${faker.lorem.paragraphs(2, '\n\n')}`,
-          requirements: `## Yêu cầu\n\n- ${faker.lorem.sentences(4, '\n- ')}`,
-          benefits: `## Quyền lợi\n\n- Lương cạnh tranh: ${j.salaryRange}\n- ${faker.lorem.sentences(3, '\n- ')}`,
           isActive: true,
         }),
       ),
