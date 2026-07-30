@@ -365,48 +365,70 @@ async function seed() {
     const programRepo = queryRunner.manager.getRepository(Program);
     const programData = [
       {
-        title: 'Chương trình Tăng tốc Khởi nghiệp Tây Nguyên',
-        slug: 'tang-toc-khoi-nghiep-tay-nguyen',
+        title: 'Chương trình Chuyển đổi số Nông nghiệp Tây Nguyên',
+        slug: 'chuyen-doi-so-nong-nghiep-tay-nguyen',
         shortDescription:
-          'Chương trình hỗ trợ 50 startup tiềm năng khu vực Tây Nguyên với mentoring, vốn hạt giống và kết nối nhà đầu tư.',
-        content: `## Tổng quan\n\nChương trình Tăng tốc Khởi nghiệp Tây Nguyên là sáng kiến hàng đầu của VDCD nhằm phát triển hệ sinh thái khởi nghiệp khu vực...\n\n## Mục tiêu\n\n- Hỗ trợ 50 startup/năm\n- Kết nối với 20+ nhà đầu tư\n- Tỷ lệ startup được đầu tư: 30%`,
-        fieldIndex: 1,
-        metaTitle: 'Chương trình Tăng tốc Khởi nghiệp Tây Nguyên | VDCD',
-        metaDescription:
-          'Hỗ trợ startup Tây Nguyên với mentoring, vốn hạt giống và kết nối nhà đầu tư. Đăng ký ngay!',
-      },
-      {
-        title: 'Chương trình Chuyển đổi số SME',
-        slug: 'chuyen-doi-so-sme',
-        shortDescription:
-          'Hỗ trợ doanh nghiệp vừa và nhỏ (SME) tại Tây Nguyên ứng dụng công nghệ số vào quản lý và vận hành.',
-        content: `## Về chương trình\n\nChương trình Chuyển đổi số SME cung cấp lộ trình và công cụ giúp doanh nghiệp vừa và nhỏ chuyển đổi số hiệu quả...\n\n## Nội dung hỗ trợ\n\n- Đánh giá mức độ sẵn sàng số\n- Tư vấn lộ trình chuyển đổi\n- Hỗ trợ triển khai phần mềm`,
-        fieldIndex: 1,
-        metaTitle: 'Chương trình Chuyển đổi số SME | VDCD',
-        metaDescription:
-          'Hỗ trợ SME Tây Nguyên chuyển đổi số toàn diện. Đăng ký tư vấn miễn phí.',
-      },
-      {
-        title: 'Chương trình Nông nghiệp 4.0',
-        slug: 'nong-nghiep-4-0',
-        shortDescription:
-          'Ứng dụng công nghệ IoT, AI và phân tích dữ liệu vào sản xuất nông nghiệp, nâng cao năng suất và giảm chi phí.',
-        content: `## Giới thiệu\n\nChương trình Nông nghiệp 4.0 hướng đến việc hiện đại hóa ngành nông nghiệp Tây Nguyên thông qua ứng dụng công nghệ tiên tiến...`,
+          'Ứng dụng công nghệ IoT, dữ liệu lớn và trí tuệ nhân tạo vào quản lý chuỗi cung ứng nông sản, giám sát canh tác và tối ưu hóa năng suất cho nông hộ tại Gia Lai và các tỉnh Tây Nguyên.',
+        content: `<h2>Giới thiệu chương trình</h2>\n<p>Chương trình Chuyển đổi số Nông nghiệp Tây Nguyên là sáng kiến chiến lược của VDCD Group nhằm đưa công nghệ hiện đại vào lĩnh vực nông nghiệp — ngành kinh tế trọng điểm của khu vực Tây Nguyên.</p>\n<h2>Mục tiêu</h2>\n<ul>\n<li>Triển khai hệ thống IoT giám sát môi trường canh tác tại 50+ nông hộ</li>\n<li>Xây dựng nền tảng dữ liệu nông nghiệp tập trung cho tỉnh Gia Lai</li>\n<li>Đào tạo kỹ năng số cho 200+ nông dân và kỹ thuật viên nông nghiệp</li>\n</ul>\n<h2>Kết quả dự kiến</h2>\n<p>Tăng năng suất 15-20%, giảm chi phí vật tư 10-15%, và xây dựng mô hình nông nghiệp thông minh có thể nhân rộng ra toàn khu vực.</p>`,
         fieldIndex: 0,
-        metaTitle: 'Chương trình Nông nghiệp 4.0 | VDCD',
+        metaTitle: 'Chuyển đổi số Nông nghiệp Tây Nguyên | VDCD Group',
         metaDescription:
-          'Ứng dụng IoT và AI vào sản xuất nông nghiệp Tây Nguyên. Nâng cao năng suất, giảm chi phí.',
+          'Chương trình ứng dụng IoT, AI vào nông nghiệp Tây Nguyên — nâng cao năng suất, giảm chi phí cho nông hộ Gia Lai.',
       },
       {
-        title: 'Chương trình Đào tạo Nhân lực Số',
-        slug: 'dao-tao-nhan-luc-so',
+        title: 'Đề án Đô thị Thông minh Pleiku 2030',
+        slug: 'de-an-do-thi-thong-minh-pleiku-2030',
         shortDescription:
-          'Đào tạo kỹ năng số cho 1.000 cán bộ, doanh nhân và sinh viên tại khu vực Tây Nguyên mỗi năm.',
-        content: `## Mục tiêu\n\nChương trình hướng đến xây dựng nguồn nhân lực chất lượng cao trong lĩnh vực công nghệ số cho khu vực Tây Nguyên...`,
-        fieldIndex: 2,
-        metaTitle: 'Chương trình Đào tạo Nhân lực Số | VDCD',
+          'Quy hoạch và triển khai hạ tầng đô thị số cho thành phố Pleiku, bao gồm hệ thống quản lý giao thông, dịch vụ công trực tuyến và giám sát môi trường đô thị.',
+        content: `<h2>Tổng quan đề án</h2>\n<p>Đề án Đô thị Thông minh Pleiku 2030 hướng đến xây dựng một thành phố hiện đại, bền vững, lấy công nghệ làm nền tảng phát triển kinh tế-xã hội.</p>\n<h2>Các hạng mục chính</h2>\n<ul>\n<li>Hệ thống camera giám sát giao thông thông minh</li>\n<li>Cổng dịch vụ công trực tuyến mức độ 4</li>\n<li>Trung tâm điều hành đô thị thông minh (IOC)</li>\n<li>Mạng cảm biến môi trường đô thị</li>\n</ul>`,
+        fieldIndex: 1,
+        metaTitle: 'Đề án Đô thị Thông minh Pleiku 2030 | VDCD Group',
         metaDescription:
-          'Đào tạo kỹ năng số cho cán bộ và doanh nhân Tây Nguyên. Đăng ký học ngay.',
+          'Quy hoạch hạ tầng đô thị số Pleiku — giao thông thông minh, dịch vụ công trực tuyến, giám sát môi trường.',
+      },
+      {
+        title: 'Chương trình Đào tạo Kỹ năng số cho Thanh niên',
+        slug: 'dao-tao-ky-nang-so-thanh-nien',
+        shortDescription:
+          'Khóa đào tạo kỹ năng lập trình, phân tích dữ liệu và thiết kế số dành cho thanh niên 18-30 tuổi tại các tỉnh Tây Nguyên, nhằm phát triển nguồn nhân lực công nghệ tại chỗ.',
+        content: `<h2>Mục tiêu chương trình</h2>\n<p>Trang bị kỹ năng số thiết yếu cho thế hệ trẻ Tây Nguyên, tạo nguồn nhân lực chất lượng cao phục vụ chuyển đổi số địa phương.</p>\n<h2>Nội dung đào tạo</h2>\n<ul>\n<li>Lập trình web cơ bản (HTML, CSS, JavaScript)</li>\n<li>Phân tích dữ liệu với Python</li>\n<li>Thiết kế đồ họa và UI/UX</li>\n<li>Kỹ năng khởi nghiệp sáng tạo</li>\n</ul>`,
+        fieldIndex: 2,
+        metaTitle: 'Đào tạo Kỹ năng số cho Thanh niên | VDCD Group',
+        metaDescription:
+          'Khóa đào tạo lập trình, phân tích dữ liệu và kỹ năng số cho thanh niên Tây Nguyên.',
+      },
+      {
+        title: 'Chương trình Năng lượng Xanh cho Tây Nguyên',
+        slug: 'nang-luong-xanh-tay-nguyen',
+        shortDescription:
+          'Triển khai giải pháp năng lượng mặt trời và biomass cho các vùng nông thôn Tây Nguyên, hỗ trợ phát triển kinh tế bền vững và giảm phát thải carbon.',
+        content: `<h2>Bối cảnh</h2>\n<p>Tây Nguyên sở hữu tiềm năng năng lượng tái tạo lớn với lượng bức xạ mặt trời trung bình 5-6 kWh/m²/ngày và nguồn biomass dồi dào từ phế phẩm nông nghiệp.</p>\n<h2>Phạm vi triển khai</h2>\n<ul>\n<li>Lắp đặt hệ thống điện mặt trời áp mái cho 100 hộ gia đình</li>\n<li>Xây dựng 5 trạm sạc năng lượng mặt trời cộng đồng</li>\n<li>Triển khai 3 hệ thống biomass xử lý phế phẩm nông nghiệp</li>\n</ul>`,
+        fieldIndex: 5,
+        metaTitle: 'Năng lượng Xanh cho Tây Nguyên | VDCD Group',
+        metaDescription:
+          'Giải pháp năng lượng mặt trời và biomass cho vùng nông thôn Tây Nguyên — phát triển kinh tế bền vững.',
+      },
+      {
+        title: 'Chương trình Hỗ trợ Doanh nghiệp Chuyển đổi số',
+        slug: 'ho-tro-doanh-nghiep-chuyen-doi-so',
+        shortDescription:
+          'Tư vấn chiến lược và hỗ trợ triển khai chuyển đổi số cho doanh nghiệp vừa và nhỏ tại Gia Lai, bao gồm số hóa quy trình, quản lý khách hàng và thương mại điện tử.',
+        content: `<h2>Đối tượng</h2>\n<p>Các doanh nghiệp vừa và nhỏ (SME) tại tỉnh Gia Lai muốn ứng dụng công nghệ để nâng cao hiệu quả hoạt động và mở rộng thị trường.</p>\n<h2>Gói hỗ trợ</h2>\n<ul>\n<li>Đánh giá mức độ sẵn sàng chuyển đổi số</li>\n<li>Tư vấn lộ trình chuyển đổi số phù hợp</li>\n<li>Triển khai phần mềm quản lý (ERP, CRM)</li>\n<li>Đào tạo nhân sự vận hành hệ thống</li>\n</ul>`,
+        fieldIndex: 1,
+        metaTitle: 'Hỗ trợ Doanh nghiệp Chuyển đổi số | VDCD Group',
+        metaDescription:
+          'Tư vấn và triển khai chuyển đổi số cho doanh nghiệp SME tại Gia Lai — ERP, CRM, thương mại điện tử.',
+      },
+      {
+        title: 'Chương trình Khởi nghiệp Sáng tạo Gia Lai',
+        slug: 'khoi-nghiep-sang-tao-gia-lai',
+        shortDescription:
+          'Vườn ươm khởi nghiệp dành cho các startup công nghệ tại Gia Lai, cung cấp không gian làm việc, mentoring, kết nối nhà đầu tư và hỗ trợ pháp lý.',
+        content: `<h2>Giới thiệu</h2>\n<p>Chương trình Khởi nghiệp Sáng tạo Gia Lai là nền tảng hỗ trợ toàn diện cho các dự án khởi nghiệp công nghệ, từ ý tưởng đến hiện thực hóa sản phẩm.</p>\n<h2>Quyền lợi tham gia</h2>\n<ul>\n<li>Không gian co-working miễn phí 6 tháng</li>\n<li>Mentoring từ chuyên gia công nghệ và kinh doanh</li>\n<li>Kết nối với quỹ đầu tư và nhà đầu tư thiên thần</li>\n<li>Hỗ trợ đăng ký kinh doanh và sở hữu trí tuệ</li>\n</ul>`,
+        fieldIndex: 2,
+        metaTitle: 'Khởi nghiệp Sáng tạo Gia Lai | VDCD Group',
+        metaDescription:
+          'Vườn ươm khởi nghiệp công nghệ Gia Lai — co-working, mentoring, kết nối đầu tư.',
       },
     ];
 
@@ -417,7 +439,7 @@ async function seed() {
           slug: p.slug,
           shortDescription: p.shortDescription,
           content: p.content,
-          thumbnail: `https://ik.imagekit.io/vdcd/thumbnails/program-${p.slug}.jpg`,
+          thumbnail: `https://picsum.photos/seed/${p.slug}/800/500`,
           thumbnailFileId: `program-thumb-${p.slug}`,
           field: fields[p.fieldIndex],
           metaTitle: p.metaTitle,
@@ -1165,121 +1187,162 @@ async function seed() {
     const articleRepo = queryRunner.manager.getRepository(Article);
 
     const articleData = [
-      // Tin tức độc lập
-      {
-        title: 'VDCD tham dự Diễn đàn Đổi mới Sáng tạo Quốc gia 2024',
-        slug: 'vdcd-tham-du-dien-dan-doi-moi-sang-tao-2024',
-        category: 'Tin tức',
-        tags: 'sự kiện,đổi mới sáng tạo,quốc gia',
-        projectIndex: null,
-        programIndex: null,
-        solutionIndex: null,
-      },
-      {
-        title: 'VDCD ký kết hợp tác chiến lược với Tập đoàn FPT',
-        slug: 'vdcd-ky-ket-hop-tac-fpt',
-        category: 'Tin tức',
-        tags: 'hợp tác,FPT,chuyển đổi số',
-        projectIndex: null,
-        programIndex: null,
-        solutionIndex: null,
-      },
-      {
-        title: '10 xu hướng công nghệ nông nghiệp năm 2024',
-        slug: '10-xu-huong-cong-nghe-nong-nghiep-2024',
-        category: 'Kiến thức',
-        tags: 'nông nghiệp,công nghệ,xu hướng',
-        projectIndex: null,
-        programIndex: 2,
-        solutionIndex: null,
-      },
-      // Bài SEO gắn với project
-      {
-        title: 'Hành trình xây dựng hệ sinh thái khởi nghiệp tại Gia Lai',
-        slug: 'hanh-trinh-xay-dung-he-sinh-thai-khoi-nghiep-gia-lai',
-        category: 'Dự án',
-        tags: 'khởi nghiệp,Gia Lai,hệ sinh thái',
-        projectIndex: 0,
-        programIndex: null,
-        solutionIndex: null,
-      },
-      {
-        title: 'Chuyển đổi số thay đổi cuộc sống nông dân Đắk Lắk như thế nào?',
-        slug: 'chuyen-doi-so-nong-dan-dak-lak',
-        category: 'Dự án',
-        tags: 'chuyển đổi số,nông dân,Đắk Lắk',
-        projectIndex: 1,
-        programIndex: null,
-        solutionIndex: null,
-      },
-      {
-        title: 'IoT trong canh tác cà phê – Câu chuyện thành công tại Kon Tum',
-        slug: 'iot-canh-tac-ca-phe-kon-tum-thanh-cong',
-        category: 'Dự án',
-        tags: 'IoT,cà phê,Kon Tum,nông nghiệp',
-        projectIndex: 2,
-        programIndex: null,
-        solutionIndex: 0,
-      },
-      // Bài SEO gắn với program
-      {
-        title: 'Startup Tây Nguyên: Cơ hội và thách thức trong kỷ nguyên số',
-        slug: 'startup-tay-nguyen-co-hoi-thach-thuc',
-        category: 'Kiến thức',
-        tags: 'startup,Tây Nguyên,khởi nghiệp',
-        projectIndex: null,
-        programIndex: 0,
-        solutionIndex: null,
-      },
-      {
-        title: '5 bước SME Tây Nguyên bắt đầu hành trình chuyển đổi số',
-        slug: '5-buoc-sme-tay-nguyen-chuyen-doi-so',
-        category: 'Hướng dẫn',
-        tags: 'SME,chuyển đổi số,hướng dẫn',
-        projectIndex: null,
-        programIndex: 1,
-        solutionIndex: 1,
-      },
-      // Bài SEO gắn với solution
       {
         title:
-          'Quản lý nông trại thông minh – Tương lai của nông nghiệp Việt Nam',
-        slug: 'quan-ly-nong-trai-thong-minh-tuong-lai',
-        category: 'Kiến thức',
-        tags: 'nông trại thông minh,AI,IoT',
+          'Trung tâm Đổi mới Sáng tạo Gia Lai ký kết hợp tác chiến lược với Vietedge thúc đẩy chuyển đổi số',
+        slug: 'trung-tam-dmst-gia-lai-ky-ket-vietedge',
+        category: 'Tin tức',
+        tags: 'hợp tác,Vietedge,đổi mới sáng tạo,chuyển đổi số,Gia Lai',
+        content: `<p>Tháng 7/2026, Công ty Cổ phần Trung tâm Đổi mới Sáng tạo Gia Lai (thành viên VDCD Group) chính thức ký kết Biên bản ghi nhớ hợp tác (MOU) với Vietedge — đơn vị tiên phong trong lĩnh vực công nghệ và đầu tư số tại Việt Nam.</p><h2>Nội dung hợp tác</h2><ul><li>Thúc đẩy hệ sinh thái công nghệ và đổi mới sáng tạo tại tỉnh Gia Lai</li><li>Xúc tiến thương mại, kết nối đầu tư vào các dự án công nghệ số</li><li>Phát triển nguồn nhân lực số chất lượng cao cho khu vực Tây Nguyên</li><li>Chuyển giao công nghệ và ứng dụng giải pháp AI, IoT, dữ liệu lớn</li></ul>`,
+        metaDescription:
+          'Trung tâm Đổi mới Sáng tạo Gia Lai và Vietedge ký kết MOU thúc đẩy hệ sinh thái công nghệ, chuyển đổi số tại Tây Nguyên.',
+        publishedAt: '2026-07-18T09:00:00.000Z',
+        programIndex: 4,
         projectIndex: null,
+        solutionIndex: null,
+      },
+      {
+        title:
+          'Xã Tây Sơn trở thành "Xã hạt nhân số" đầu tiên của tỉnh Gia Lai',
+        slug: 'xa-tay-son-xa-hat-nhan-so-dau-tien-gia-lai',
+        category: 'Chuyển đổi số',
+        tags: 'xã hạt nhân số,Tây Sơn,chuyển đổi số,chính quyền số,Gia Lai',
+        content: `<p>Xã Tây Sơn (huyện An Khê, Gia Lai) được UBND tỉnh lựa chọn làm đơn vị thí điểm xây dựng mô hình "Xã hạt nhân về khoa học công nghệ, đổi mới sáng tạo và chuyển đổi số", với sự phối hợp của Trung tâm Đổi mới Sáng tạo Gia Lai (VDCD).</p><h2>Kết quả đạt được</h2><ul><li>100% thủ tục hành chính xử lý trực tuyến — thời gian đăng ký hộ kinh doanh giảm từ 3 ngày xuống 3 giờ</li><li>Tỷ lệ hài lòng của người dân đạt 100%</li><li>Triển khai mô hình "chợ số" — tiểu thương thanh toán không dùng tiền mặt</li><li>Tỷ lệ phủ sóng 5G đạt 99,3% dân số</li></ul>`,
+        metaDescription:
+          'Mô hình xã hạt nhân số tại Tây Sơn giảm thời gian TTHC từ 3 ngày xuống 3 giờ, phủ sóng 5G 99,3% dân số.',
+        publishedAt: '2026-07-12T14:00:00.000Z',
         programIndex: null,
+        projectIndex: null,
+        solutionIndex: null,
+      },
+      {
+        title:
+          'VDCD Group ký MOU với Trường Đại học Quy Nhơn — Xây dựng hệ sinh thái khởi nghiệp trong môi trường đại học',
+        slug: 'vdcd-ky-mou-dai-hoc-quy-nhon',
+        category: 'Sự kiện',
+        tags: 'Đại học Quy Nhơn,hợp tác,khởi nghiệp,đào tạo,nhân lực',
+        content: `<p>Ngày 18/05/2026, Trường Đại học Quy Nhơn và Công ty Cổ phần Trung tâm Đổi mới Sáng tạo Gia Lai (thành viên VDCD Group) chính thức ký kết Bản thỏa thuận hợp tác (MOU).</p><h2>Nội dung hợp tác trọng tâm</h2><ul><li>Xây dựng hệ sinh thái khởi nghiệp đổi mới sáng tạo trong môi trường đại học</li><li>Chuyển giao công nghệ và ứng dụng kết quả nghiên cứu vào thực tiễn doanh nghiệp</li><li>Đào tạo nguồn nhân lực chất lượng cao trong các lĩnh vực AI, IoT, GIS, UAV</li></ul>`,
+        metaDescription:
+          'VDCD Group ký kết hợp tác với Đại học Quy Nhơn xây dựng hệ sinh thái khởi nghiệp, chuyển giao công nghệ.',
+        publishedAt: '2026-05-20T08:30:00.000Z',
+        programIndex: 5,
+        projectIndex: null,
+        solutionIndex: null,
+      },
+      {
+        title:
+          'Khánh thành hạ tầng Data Center và 6 phòng Lab chuyên ngành tại Trung tâm ĐMST Gia Lai',
+        slug: 'khanh-thanh-data-center-phong-lab-trung-tam-dmst-gia-lai',
+        category: 'Tin tức',
+        tags: 'Data Center,phòng lab,AI,UAV,GIS,hạ tầng,Gia Lai',
+        content: `<p>Trung tâm Đổi mới Sáng tạo Gia Lai chính thức đưa vào vận hành hệ thống hạ tầng công nghệ hiện đại, bao gồm Data Center, siêu máy tính AI và 6 phòng lab chuyên ngành.</p><h2>6 phòng Lab chuyên ngành</h2><ul><li><strong>Lab UAV:</strong> Bay chụp, khảo sát địa hình, lập bản đồ 3D</li><li><strong>Lab AI:</strong> Xử lý ảnh, nhận diện, chatbot, phân tích dữ liệu</li><li><strong>Lab GIS:</strong> Hệ thống thông tin địa lý, bản đồ số, quy hoạch</li><li><strong>Lab Nông nghiệp công nghệ cao:</strong> IoT cảm biến, tưới tự động</li><li><strong>Lab Công nghệ sinh học:</strong> Nuôi cấy mô, phân tích mẫu</li><li><strong>Lab STEM:</strong> Giáo dục STEM cho học sinh, sinh viên</li></ul>`,
+        metaDescription:
+          'VDCD đưa vào vận hành Data Center, siêu máy tính AI và 6 phòng lab chuyên ngành UAV, AI, GIS, Nông nghiệp, STEM.',
+        publishedAt: '2026-06-25T10:00:00.000Z',
+        programIndex: null,
+        projectIndex: null,
+        solutionIndex: null,
+      },
+      {
+        title:
+          'Ứng dụng UAV/Drone trong đo đạc, lập bản đồ địa chính — VDCD triển khai thành công tại Hà Tĩnh',
+        slug: 'ung-dung-uav-drone-do-dac-ban-do-dia-chinh-ha-tinh',
+        category: 'Công nghệ',
+        tags: 'UAV,drone,đo đạc,bản đồ,địa chính,GIS,Hà Tĩnh',
+        content: `<p>VDCD Group đã triển khai thành công công nghệ bay không người lái (UAV/Drone) trong công tác đo đạc, lập bản đồ địa chính tại xã Đồng Tiến, tỉnh Hà Tĩnh.</p><h2>Quy trình triển khai</h2><ul><li>Bay chụp ảnh hàng không bằng drone chuyên dụng</li><li>Xử lý ảnh, tạo bản đồ trực ảnh độ phân giải cao</li><li>Chiết xuất dữ liệu ranh giới thửa đất</li><li>Cung cấp bản đồ số phục vụ quản lý đất đai</li></ul><h2>Hiệu quả</h2><p>Giảm 70% thời gian khảo sát, tăng độ chính xác gấp 3 lần so với phương pháp truyền thống.</p>`,
+        metaDescription:
+          'VDCD triển khai công nghệ drone đo đạc, lập bản đồ địa chính tại Hà Tĩnh — giảm 70% thời gian khảo sát.',
+        publishedAt: '2026-06-15T09:00:00.000Z',
+        programIndex: null,
+        projectIndex: null,
         solutionIndex: 0,
       },
       {
-        title: 'Du lịch Đà Lạt thay đổi nhờ nền tảng số như thế nào?',
-        slug: 'du-lich-da-lat-nen-tang-so',
-        category: 'Dự án',
-        tags: 'du lịch,Đà Lạt,Lâm Đồng,chuyển đổi số',
-        projectIndex: 3,
+        title:
+          'Sở KH&CN An Giang, Hiệp hội Doanh nghiệp tỉnh và VDCD Group ký kết hợp tác phát triển hệ sinh thái khởi nghiệp',
+        slug: 'so-khcn-an-giang-hiep-hoi-dn-vdcd-ky-ket-khoi-nghiep',
+        category: 'Sự kiện',
+        tags: 'An Giang,Sở KH&CN,khởi nghiệp,hệ sinh thái,ký kết',
+        content: `<p>Ngày 28/07/2026, tại TP. Long Xuyên, Sở Khoa học và Công nghệ tỉnh An Giang, Hiệp hội Doanh nghiệp tỉnh An Giang và VDCD Group chính thức ký kết hợp tác ba bên.</p><h2>Mô hình Trung tâm ĐMST</h2><p>VDCD Group đề xuất xây dựng Trung tâm Đổi mới Sáng tạo tỉnh An Giang theo hình thức xã hội hóa — 100% vốn doanh nghiệp, không sử dụng ngân sách nhà nước.</p><h2>Quy trình hỗ trợ</h2><p>Khảo sát nhu cầu → Tư vấn giải pháp → Demo thử nghiệm → Triển khai thực tế → Đào tạo vận hành.</p>`,
+        metaDescription:
+          'VDCD Group ký kết 3 bên với Sở KH&CN và Hiệp hội DN An Giang phát triển hệ sinh thái khởi nghiệp.',
+        publishedAt: '2026-07-28T10:00:00.000Z',
+        programIndex: 5,
+        projectIndex: null,
+        solutionIndex: null,
+      },
+      {
+        title:
+          'VDCD Group mở rộng mô hình Trung tâm ĐMST tại Quảng Ninh, Cao Bằng và Hưng Yên',
+        slug: 'vdcd-mo-rong-mo-hinh-dmst-quang-ninh-cao-bang-hung-yen',
+        category: 'Tin tức',
+        tags: 'mở rộng,Quảng Ninh,Cao Bằng,Hưng Yên,Lạng Sơn,ĐMST',
+        content: `<p>Trong năm 2026, VDCD Group tiếp tục mở rộng mô hình "Trung tâm Đổi mới sáng tạo do doanh nghiệp làm chủ" ra nhiều tỉnh thành trên cả nước.</p><h2>Tiến độ triển khai</h2><ul><li><strong>Lạng Sơn (02/2026):</strong> Sở KH&CN họp xem xét đề án thành lập</li><li><strong>Hưng Yên (03/2026):</strong> Làm việc về phương án đầu tư</li><li><strong>Quảng Ninh (03/2026):</strong> Đề xuất thành lập phục vụ kinh tế biển và du lịch số</li><li><strong>Cao Bằng (07/2026):</strong> UBND tỉnh họp cho ý kiến về đề án</li></ul><p>VDCD Group hiện sở hữu hệ sinh thái với 12 trung tâm nghiên cứu chuyên sâu.</p>`,
+        metaDescription:
+          'VDCD Group mở rộng mô hình Trung tâm ĐMST do doanh nghiệp làm chủ tại nhiều tỉnh thành trên cả nước.',
+        publishedAt: '2026-07-05T08:30:00.000Z',
         programIndex: null,
+        projectIndex: null,
+        solutionIndex: null,
+      },
+      {
+        title:
+          'AutoTimelapse — Giải pháp giám sát công trình thông minh 24/7 của VDCD Group',
+        slug: 'autotimelapse-giai-phap-giam-sat-cong-trinh-thong-minh',
+        category: 'Công nghệ',
+        tags: 'AutoTimelapse,giám sát công trình,AI,camera thông minh,timelapse',
+        content: `<p>AutoTimelapse là giải pháp giám sát trực quan công trình 24/7 do VDCD Group phát triển.</p><h2>Tính năng nổi bật</h2><ul><li>Camera thông minh kết hợp AI — giám sát 24/7</li><li>Tự động tạo video timelapse, so sánh tiến độ thực tế với kế hoạch</li><li>Cảnh báo sớm các sai lệch về tiến độ, an toàn lao động</li><li>Dashboard quản lý trực quan — truy cập từ xa qua web và mobile</li></ul><p>Hệ thống đã được triển khai thành công trên nhiều gói thầu quan trọng của các dự án hạ tầng lớn trên cả nước.</p>`,
+        metaDescription:
+          'AutoTimelapse — giải pháp giám sát trực quan công trình 24/7 bằng AI, tự động tạo timelapse và cảnh báo sớm.',
+        publishedAt: '2026-06-01T08:00:00.000Z',
+        programIndex: null,
+        projectIndex: 1,
         solutionIndex: 2,
+      },
+      {
+        title:
+          'Hội thảo truyền thông chính sách khởi nghiệp sáng tạo — VDCD giới thiệu mô hình ĐMST do doanh nghiệp làm chủ',
+        slug: 'hoi-thao-truyen-thong-chinh-sach-khoi-nghiep-sang-tao-gia-lai',
+        category: 'Sự kiện',
+        tags: 'hội thảo,khởi nghiệp,Sở KH&CN,Gia Lai,chính sách',
+        content: `<p>Tháng 5/2026, Sở Khoa học và Công nghệ tỉnh Gia Lai tổ chức Hội thảo truyền thông chính sách khởi nghiệp sáng tạo.</p><h2>Các giải pháp được giới thiệu</h2><ul><li>Hạ tầng dữ liệu số và bản đồ số cho quản lý đô thị</li><li>Ứng dụng AI trong nông nghiệp thông minh</li><li>Giải pháp UAV/Drone cho khảo sát và giám sát</li><li>Chương trình hỗ trợ chuyển đổi số cho doanh nghiệp SME</li></ul>`,
+        metaDescription:
+          'VDCD giới thiệu mô hình Trung tâm ĐMST do doanh nghiệp làm chủ tại Hội thảo chính sách khởi nghiệp Gia Lai.',
+        publishedAt: '2026-05-10T09:00:00.000Z',
+        programIndex: 4,
+        projectIndex: null,
+        solutionIndex: null,
+      },
+      {
+        title:
+          'Phong trào "Bình dân học vụ số" tại Gia Lai — VDCD đồng hành cùng Tổ công nghệ số cộng đồng',
+        slug: 'binh-dan-hoc-vu-so-gia-lai-vdcd-to-cong-nghe-so',
+        category: 'Chuyển đổi số',
+        tags: 'bình dân học vụ số,iGiaLai,công dân số,cộng đồng,Gia Lai',
+        content: `<p>Trung tâm Đổi mới Sáng tạo Gia Lai (VDCD) phối hợp cùng các Tổ công nghệ số cộng đồng triển khai phong trào "Bình dân học vụ số".</p><h2>Nội dung hỗ trợ</h2><ul><li>Hướng dẫn cài đặt và sử dụng ứng dụng iGiaLai</li><li>Đăng ký tài khoản định danh điện tử (VNeID)</li><li>Sử dụng thanh toán không dùng tiền mặt qua ví điện tử, QR Code</li><li>Bảo mật thông tin cá nhân trên không gian mạng</li></ul><p>Phong trào đã tiếp cận hơn 2.000 người dân trong 3 tháng đầu, với tỷ lệ cài đặt ứng dụng thành công đạt trên 85%.</p>`,
+        metaDescription:
+          'VDCD hỗ trợ hơn 2.000 người dân Gia Lai cài đặt ứng dụng số qua phong trào Bình dân học vụ số.',
+        publishedAt: '2026-04-20T08:00:00.000Z',
+        programIndex: null,
+        projectIndex: null,
+        solutionIndex: null,
       },
     ];
 
-    const now = new Date();
     await articleRepo.save(
-      articleData.map((a, i) => {
-        const publishedAt = new Date(now);
-        publishedAt.setDate(now.getDate() - i * 3); // cách nhau 3 ngày
-
+      articleData.map((a) => {
         return articleRepo.create({
           title: a.title,
           slug: a.slug,
-          content: `## ${a.title}\n\n${faker.lorem.paragraphs(4, '\n\n')}\n\n## Kết luận\n\n${faker.lorem.paragraph()}`,
-          thumbnail: `https://ik.imagekit.io/vdcd/thumbnails/article-${a.slug}.jpg`,
+          content: a.content,
+          thumbnail: `https://picsum.photos/seed/${a.slug}/800/500`,
           thumbnailFileId: `article-thumb-${a.slug}`,
           category: a.category,
           tags: a.tags,
           metaTitle: `${a.title} | VDCD`,
-          metaDescription: faker.lorem.sentence(),
+          metaDescription: a.metaDescription,
           isPublished: true,
-          publishedAt,
+          publishedAt: new Date(a.publishedAt),
           ...(a.projectIndex !== null
             ? { project: projects[a.projectIndex] }
             : {}),
