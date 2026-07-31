@@ -17,6 +17,7 @@ import { Job } from '../../modules/job/entities/job.entity';
 import { UploadTemp } from '../../modules/upload/entities/upload-temp.entity';
 import { Lead } from '../../modules/lead/entities/lead.entity';
 import { Partner } from '../../modules/partner/entities/partner.entity';
+import { PageBanner } from '../../modules/page-banner/entities/page-banner.entity';
 
 dotenv.config({ path: '.env.development' });
 dotenv.config({ path: '.env' });
@@ -35,6 +36,7 @@ const AppDataSource = new DataSource({
     Province,
     Partner,
     Slide,
+    PageBanner,
     Program,
     Solution,
     Project,
@@ -359,6 +361,178 @@ async function seed() {
       ),
     );
     console.log(`   → ${slides.length} slides`);
+
+    // ── 6.5. Page Banners ──────────────────────────────────────────
+    console.log('🖼️ Seeding page banners...');
+    const pageBannerRepo = queryRunner.manager.getRepository(PageBanner);
+    const pageBannerData = [
+      {
+        pageKey: 'projects',
+        title: 'Những công trình\nkiến tạo giá trị',
+        subtitle:
+          'Mỗi dự án là một hành trình đồng hành cùng khách hàng — từ khảo sát thực địa đến giám sát thi công, chuyển đổi số hóa và bàn giao giải pháp bền vững.',
+        tag: 'Dự án tiêu biểu',
+        imageUrl:
+          'https://vdcd.vn/wp-content/uploads/2025/11/z6246976510436_a1885eca27bd88117afc251ceab774be-edited-768x576.jpg',
+        ctaButtons: [
+          {
+            label: 'Xem dự án',
+            href: '#gallery',
+            variant: 'primary',
+            ariaLabel: 'Xem các dự án tiêu biểu',
+          },
+          {
+            label: 'Liên hệ hợp tác',
+            href: '/contact',
+            variant: 'secondary',
+            ariaLabel: 'Liên hệ hợp tác dự án',
+          },
+        ],
+      },
+      {
+        pageKey: 'programs',
+        title: 'Chương trình\nđổi mới sáng tạo',
+        subtitle:
+          'Khám phá các chương trình chiến lược của VDCD — từ chuyển đổi số nông nghiệp, đô thị thông minh đến đào tạo nguồn nhân lực và năng lượng tái tạo cho Tây Nguyên.',
+        tag: 'Chương trình',
+        imageUrl: 'https://picsum.photos/id/1015/1920/1080',
+        ctaButtons: [
+          {
+            label: 'Khám phá chương trình',
+            href: '#programs-grid',
+            variant: 'primary',
+            ariaLabel: 'Xem danh sách chương trình',
+          },
+          {
+            label: 'Liên hệ tư vấn',
+            href: '/contact',
+            variant: 'secondary',
+            ariaLabel: 'Liên hệ tư vấn chương trình',
+          },
+        ],
+      },
+      {
+        pageKey: 'news',
+        title: 'Cập nhật mới nhất\ntừ VDCD Group',
+        subtitle:
+          'Theo dõi tin tức, sự kiện và những câu chuyện đổi mới sáng tạo từ VDCD — nơi công nghệ gặp gỡ phát triển bền vững.',
+        tag: 'Tin tức & Bài viết',
+        imageUrl: 'https://picsum.photos/id/180/1920/1080',
+        ctaButtons: [
+          {
+            label: 'Đọc tin mới',
+            href: '#news-grid',
+            variant: 'primary',
+            ariaLabel: 'Xem danh sách bài viết',
+          },
+          {
+            label: 'Về chúng tôi',
+            href: '/about-us',
+            variant: 'secondary',
+            ariaLabel: 'Tìm hiểu về VDCD Group',
+          },
+        ],
+      },
+      {
+        pageKey: 'contact',
+        title: 'Kết nối cùng\nVDCD Group',
+        subtitle:
+          'Hãy liên hệ với chúng tôi để được tư vấn về các giải pháp chuyển đổi số, hợp tác dự án, hoặc bất kỳ thông tin nào bạn cần. Đội ngũ VDCD luôn sẵn sàng hỗ trợ.',
+        tag: 'Liên hệ',
+        imageUrl: 'https://picsum.photos/id/368/1920/1080',
+        ctaButtons: [
+          {
+            label: 'Gửi tin nhắn',
+            href: '#contact-form',
+            variant: 'primary',
+            ariaLabel: 'Gửi tin nhắn cho chúng tôi',
+          },
+          {
+            label: 'Gọi ngay',
+            href: 'tel:02693000000',
+            variant: 'secondary',
+            ariaLabel: 'Gọi hotline VDCD',
+          },
+        ],
+      },
+      {
+        pageKey: 'careers',
+        title: 'Kiến tạo tương lai\nchuyển đổi số tại Gia Lai',
+        subtitle:
+          'Gia nhập VDCD Group để cùng xây dựng hệ sinh thái công nghệ tiên phong, đưa các giải pháp đổi mới sáng tạo vào phục vụ phát triển kinh tế bền vững tại khu vực Tây Nguyên.',
+        tag: 'Tuyển dụng',
+        imageUrl: 'https://picsum.photos/id/1/1920/1080',
+        ctaButtons: [
+          {
+            label: 'Xem vị trí',
+            href: '#positions',
+            variant: 'primary',
+            ariaLabel: 'Xem các vị trí tuyển dụng',
+          },
+          {
+            label: 'Về chúng tôi',
+            href: '/about-us',
+            variant: 'secondary',
+            ariaLabel: 'Tìm hiểu về VDCD Group',
+          },
+        ],
+      },
+      {
+        pageKey: 'about',
+        title: 'KIẾN TẠO\nTƯƠNG LAI SỐ',
+        subtitle:
+          'VDCD Group là hệ sinh thái công nghệ hàng đầu tại Việt Nam, tiên phong cung cấp các giải pháp đổi mới sáng tạo, chuyển đổi số toàn diện và chế tạo thiết bị công nghệ cao phục vụ phát triển kinh tế vùng bền vững.',
+        tag: 'Về chúng tôi',
+        imageUrl: 'https://picsum.photos/id/367/1920/1080',
+        ctaButtons: [
+          {
+            label: 'Tìm hiểu thêm',
+            href: '#brand-story',
+            variant: 'primary',
+            ariaLabel: 'Tìm hiểu thêm về VDCD Group',
+          },
+          {
+            label: 'Liên hệ',
+            href: '/contact',
+            variant: 'secondary',
+            ariaLabel: 'Liên hệ với VDCD Group',
+          },
+        ],
+      },
+      {
+        pageKey: 'solutions',
+        title: 'Giải pháp\ntheo lĩnh vực',
+        subtitle:
+          'Khám phá các giải pháp công nghệ toàn diện của chúng tôi, mang lại giá trị bền vững và hiệu quả tối ưu cho từng lĩnh vực hoạt động.',
+        tag: 'Giải pháp',
+        imageUrl: 'https://picsum.photos/id/201/1920/1080',
+        ctaButtons: [
+          {
+            label: 'Xem giải pháp',
+            href: '#solutions-grid',
+            variant: 'primary',
+            ariaLabel: 'Xem các giải pháp',
+          },
+          {
+            label: 'Liên hệ tư vấn',
+            href: '/contact',
+            variant: 'secondary',
+            ariaLabel: 'Liên hệ tư vấn giải pháp',
+          },
+        ],
+      },
+    ];
+
+    const pageBanners = await pageBannerRepo.save(
+      pageBannerData.map((b, i) =>
+        pageBannerRepo.create({
+          ...b,
+          imageFileId: `page-banner-image-${i + 1}`,
+          isActive: true,
+        }),
+      ),
+    );
+    console.log(`   → ${pageBanners.length} page banners`);
 
     // ── 7. Programs ────────────────────────────────────────────────
     console.log('📋 Seeding programs...');
