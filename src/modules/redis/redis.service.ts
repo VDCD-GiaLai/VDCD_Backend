@@ -13,6 +13,12 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
       host: this.config.get<string>('redis.host', 'localhost'),
       port: this.config.get<number>('redis.port', 6379),
       password: this.config.get<string>('redis.password'),
+      tls: this.config.get<boolean>('redis.tls')
+        ? {
+            rejectUnauthorized: false,
+            servername: this.config.get<string>('redis.host', 'localhost'),
+          }
+        : undefined,
     });
   }
 
