@@ -27,12 +27,14 @@ import { ArticleModule } from './modules/article/article.module';
 import { JobModule } from './modules/job/job.module';
 import { MailModule } from './modules/mail/mail.module';
 import { LeadModule } from './modules/lead/lead.module';
+import { ContactModule } from './modules/contact/contact.module';
 import { HealthModule } from './modules/health/health.module';
 import imagekitConfig from './config/imagekit.config';
 import { UploadModule } from './modules/upload/upload.module';
 import { CronjobModule } from './modules/cronjob/cronjob.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { SearchModule } from './modules/search/search.module';
+import { PageBannerModule } from './modules/page-banner/page-banner.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -51,6 +53,7 @@ import { SearchModule } from './modules/search/search.module';
     ProjectModule,
     OrganizationModule,
     SlideModule,
+    PageBannerModule,
     ProvinceModule,
     PartnerModule,
     OperationFieldModule,
@@ -60,6 +63,7 @@ import { SearchModule } from './modules/search/search.module';
     JobModule,
     MailModule,
     LeadModule,
+    ContactModule,
     HealthModule,
     UploadModule,
     CronjobModule,
