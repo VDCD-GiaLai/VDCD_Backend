@@ -35,3 +35,4 @@ export class ProjectFilterDto extends PaginationDto {
   @IsBoolean()
   isPublished?: boolean;
 }
+
