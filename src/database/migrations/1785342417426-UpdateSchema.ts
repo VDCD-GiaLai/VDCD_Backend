@@ -5,11 +5,11 @@ export class UpdateSchema1785342417426 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `ALTER TABLE "solution" ADD "website_url" character varying`,
+      `ALTER TABLE "solution" ADD IF NOT EXISTS "website_url" character varying`,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`ALTER TABLE "solution" DROP COLUMN "website_url"`);
+    await queryRunner.query(`ALTER TABLE "solution" DROP COLUMN IF EXISTS "website_url"`);
   }
 }
