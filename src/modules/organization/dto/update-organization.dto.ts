@@ -59,6 +59,14 @@ export class UpdateOrganizationDto {
   foundedYear?: number;
 
   @ApiPropertyOptional({
+    example: '123 Đường ABC, Phường X, Quận Y, TP Z',
+    description: 'Address of the organization',
+  })
+  @IsOptional()
+  @IsString()
+  address?: string;
+
+  @ApiPropertyOptional({
     example: { projects: 120, members: 45 },
     description: 'Statistics or metrics of the organization',
   })

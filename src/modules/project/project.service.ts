@@ -136,6 +136,19 @@ export class ProjectService {
       thumbnail: dto.thumbnail,
       thumbnailFileId: dto.thumbnailFileId,
       year: dto.year,
+      // Detail fields
+      challenge: dto.challenge,
+      challengeImage: dto.challengeImage,
+      challengeImageFileId: dto.challengeImageFileId,
+      services: dto.services,
+      discipline: dto.discipline,
+      transformationBefore: dto.transformationBefore,
+      transformationBeforeFileId: dto.transformationBeforeFileId,
+      transformationAfter: dto.transformationAfter,
+      transformationAfterFileId: dto.transformationAfterFileId,
+      technicalHighlights: dto.technicalHighlights,
+      nextProjectSlug: dto.nextProjectSlug,
+      // SEO
       metaTitle: dto.metaTitle,
       metaDescription: dto.metaDescription,
       isPublished: dto.isPublished ?? false,
@@ -144,15 +157,17 @@ export class ProjectService {
     });
     const saved = await this.repo.save(project);
 
-    if (dto.thumbnailFileId) {
-      this.uploadService
-        .confirmUpload(dto.thumbnailFileId)
-        .catch((err) =>
-          this.logger.warn(
-            `Failed to confirm upload: ${dto.thumbnailFileId}`,
-            err,
-          ),
-        );
+    // Confirm all uploaded files
+    const fileIds = [
+      dto.thumbnailFileId,
+      dto.challengeImageFileId,
+      dto.transformationBeforeFileId,
+      dto.transformationAfterFileId,
+    ].filter(Boolean) as string[];
+    if (fileIds.length) {
+      Promise.all(
+        fileIds.map((fid) => this.uploadService.confirmUpload(fid)),
+      ).catch((err) => this.logger.warn('Failed to confirm uploads', err));
     }
     return saved;
   }

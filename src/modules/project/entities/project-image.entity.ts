@@ -25,6 +25,9 @@ export class ProjectImage {
   @Column({ default: 0 })
   order: number;
 
+  @Column({ default: 'small' })
+  size: string;
+
   @Column({ name: 'file_id', nullable: true })
   fileId: string;
 }
