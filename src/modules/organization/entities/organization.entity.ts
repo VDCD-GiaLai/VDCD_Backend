@@ -31,6 +31,9 @@ export class Organization {
   @Column({ name: 'founded_year', nullable: true })
   foundedYear: number;
 
+  @Column({ type: 'text', nullable: true })
+  address: string;
+
   @Column({ type: 'jsonb', nullable: true })
   stats: Record<string, any>;
 

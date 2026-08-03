@@ -43,6 +43,43 @@ export class Project {
   @Column({ nullable: true })
   year: number;
 
+  // ── Detail page fields ──────────────────────────────────────
+
+  @Column({ type: 'text', nullable: true })
+  challenge: string;
+
+  @Column({ name: 'challenge_image', nullable: true })
+  challengeImage: string;
+
+  @Column({ name: 'challenge_image_file_id', nullable: true })
+  challengeImageFileId: string;
+
+  @Column({ type: 'simple-array', nullable: true })
+  services: string[];
+
+  @Column({ nullable: true })
+  discipline: string;
+
+  @Column({ name: 'transformation_before', nullable: true })
+  transformationBefore: string;
+
+  @Column({ name: 'transformation_before_file_id', nullable: true })
+  transformationBeforeFileId: string;
+
+  @Column({ name: 'transformation_after', nullable: true })
+  transformationAfter: string;
+
+  @Column({ name: 'transformation_after_file_id', nullable: true })
+  transformationAfterFileId: string;
+
+  @Column({ name: 'technical_highlights', type: 'jsonb', nullable: true })
+  technicalHighlights: { label: string; value: string }[];
+
+  @Column({ name: 'next_project_slug', nullable: true })
+  nextProjectSlug: string;
+
+  // ── SEO & Publishing ────────────────────────────────────────
+
   @Column({ name: 'meta_title', length: 255, nullable: true })
   metaTitle: string;
 

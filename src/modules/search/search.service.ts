@@ -9,6 +9,8 @@ import { Article } from '../article/entities/article.entity';
 import { Job } from '../job/entities/job.entity';
 import { Lead } from '../lead/entities/lead.entity';
 import { AdminUser } from '../admin-user/entities/admin-user.entity';
+import { Contact } from '../contact/entities/contact.entity';
+import { PageBanner } from '../page-banner/entities/page-banner.entity';
 
 import { SearchQueryDto } from './dto/search-query.dto';
 
@@ -36,6 +38,10 @@ export class SearchService {
     private leadRepo: Repository<Lead>,
     @InjectRepository(AdminUser)
     private adminUserRepo: Repository<AdminUser>,
+    @InjectRepository(Contact)
+    private contactRepo: Repository<Contact>,
+    @InjectRepository(PageBanner)
+    private pageBannerRepo: Repository<PageBanner>,
   ) {}
 
   async globalSearch(dto: SearchQueryDto, userRole: string) {
@@ -56,6 +62,8 @@ export class SearchService {
         'jobs',
         'leads',
         'admin-users',
+        'contacts',
+        'page-banners',
       ],
       editor: [
         'programs',
@@ -64,6 +72,8 @@ export class SearchService {
         'articles',
         'jobs',
         'leads',
+        'contacts',
+        'page-banners',
       ],
     };
 
@@ -189,6 +199,44 @@ export class SearchService {
               items,
               'admin-users',
               'username',
+              false,
+            );
+          }),
+      );
+    }
+
+    if (typesToSearch.includes('contacts')) {
+      promises.push(
+        this.contactRepo
+          .find({
+            where: [{ fullName: ILike(keyword) }, { email: ILike(keyword) }],
+            select: { id: true, fullName: true, email: true },
+            take: 5,
+          })
+          .then((items) => {
+            results['contacts'] = mapItems(
+              items,
+              'contacts',
+              'fullName',
+              false,
+            );
+          }),
+      );
+    }
+
+    if (typesToSearch.includes('page-banners')) {
+      promises.push(
+        this.pageBannerRepo
+          .find({
+            where: { title: ILike(keyword) },
+            select: { id: true, title: true },
+            take: 5,
+          })
+          .then((items) => {
+            results['page-banners'] = mapItems(
+              items,
+              'page-banners',
+              'title',
               false,
             );
           }),

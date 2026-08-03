@@ -11,6 +11,8 @@ import { Article } from '../article/entities/article.entity';
 import { Job } from '../job/entities/job.entity';
 import { Lead } from '../lead/entities/lead.entity';
 import { AdminUser } from '../admin-user/entities/admin-user.entity';
+import { Contact } from '../contact/entities/contact.entity';
+import { PageBanner } from '../page-banner/entities/page-banner.entity';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { AdminUser } from '../admin-user/entities/admin-user.entity';
       Job,
       Lead,
       AdminUser,
+      Contact,
+      PageBanner,
     ]),
   ],
   controllers: [SearchController],
