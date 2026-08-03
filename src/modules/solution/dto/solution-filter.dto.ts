@@ -21,3 +21,4 @@ export class SolutionFilterDto extends PaginationDto {
   @IsBoolean()
   isPublished?: boolean;
 }
+
