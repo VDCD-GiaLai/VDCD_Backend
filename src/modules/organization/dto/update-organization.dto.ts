@@ -1,9 +1,35 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsInt, IsObject, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsInt,
+  IsObject,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+
+class OperationFieldItemDto {
+  @IsString()
+  title: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+}
+
+class DevelopmentOrientationItemDto {
+  @IsString()
+  title: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+}
 
 export class UpdateOrganizationDto {
   @ApiPropertyOptional({
-    example: 'VDCD',
+    example: 'Trung tâm Đổi mới Sáng tạo Gia Lai',
     description: 'Name of the organization',
   })
   @IsOptional()
@@ -17,6 +43,14 @@ export class UpdateOrganizationDto {
   @IsOptional()
   @IsString()
   tagline?: string;
+
+  @ApiPropertyOptional({
+    example: '4101443823',
+    description: 'Business license number (Giấy CNĐKKD)',
+  })
+  @IsOptional()
+  @IsString()
+  businessLicenseNo?: string;
 
   @ApiPropertyOptional({
     example: 'Mô tả chi tiết về tổ chức...',
@@ -67,7 +101,14 @@ export class UpdateOrganizationDto {
   address?: string;
 
   @ApiPropertyOptional({
-    example: { projects: 120, members: 45 },
+    example: {
+      staff: 1500,
+      experts: 250,
+      provinces: 30,
+      centers: 12,
+      subsidiaries: 10,
+      projects: 100,
+    },
     description: 'Statistics or metrics of the organization',
   })
   @IsOptional()
@@ -84,4 +125,45 @@ export class UpdateOrganizationDto {
   @IsOptional()
   @IsObject()
   socialLinks?: Record<string, any>;
+
+  @ApiPropertyOptional({
+    example: [
+      {
+        title: 'Công nghệ số & Chuyển đổi số',
+        description: 'Nghiên cứu phát triển...',
+      },
+    ],
+    description:
+      'Operation fields displayed on the About Us page (Lĩnh vực hoạt động)',
+  })
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => OperationFieldItemDto)
+  operationFields?: OperationFieldItemDto[];
+
+  @ApiPropertyOptional({
+    example:
+      'Trung tâm kế thừa năng lực công nghệ, đội ngũ chuyên gia và mạng lưới triển khai của hệ sinh thái VDCD Group...',
+    description:
+      'Ecosystem capabilities inherited from VDCD (Năng lực kế thừa)',
+  })
+  @IsOptional()
+  @IsString()
+  ecosystemCapabilities?: string;
+
+  @ApiPropertyOptional({
+    example: [
+      {
+        title: 'Phát triển hạ tầng dữ liệu và công nghệ dùng chung',
+        description: '',
+      },
+    ],
+    description: 'Development orientations (Định hướng phát triển)',
+  })
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => DevelopmentOrientationItemDto)
+  developmentOrientations?: DevelopmentOrientationItemDto[];
 }

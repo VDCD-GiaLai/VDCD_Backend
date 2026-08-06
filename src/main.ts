@@ -26,14 +26,21 @@ async function bootstrap() {
   app.enableCors({
     origin: (origin, callback) => {
       const allowedOrigins = process.env.CORS_ORIGINS?.split(',') ?? [];
-      if (
-        !origin ||
-        process.env.NODE_ENV !== 'production' ||
-        allowedOrigins.includes(origin)
-      ) {
+      // Allow requests with no origin (server-to-server, curl, etc.)
+      if (!origin) {
         callback(null, true);
+        return;
+      }
+      // In non-production, allow all origins (reflect the request origin)
+      if (process.env.NODE_ENV !== 'production') {
+        callback(null, origin);
+        return;
+      }
+      // In production, only allow whitelisted origins
+      if (allowedOrigins.includes(origin)) {
+        callback(null, origin);
       } else {
-        callback(null, allowedOrigins.includes(origin));
+        callback(null, false);
       }
     },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],

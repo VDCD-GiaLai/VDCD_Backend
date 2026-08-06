@@ -112,23 +112,82 @@ async function seed() {
     const orgRepo = queryRunner.manager.getRepository(Organization);
     await orgRepo.save(
       orgRepo.create({
+        // ── Khối 1: Giới thiệu chung ──
         name: 'Trung tâm Đổi mới Sáng tạo Gia Lai',
         tagline: 'Kết nối – Sáng tạo – Phát triển',
-        description: `Trung tâm Đổi mới Sáng tạo Gia Lai giữ vai trò cầu nối trong hệ sinh thái đổi mới sáng tạo của tỉnh, gắn kết Nhà nước, Doanh nghiệp, Startup, Chuyên gia và Quỹ đầu tư. Với năng lực tư vấn, chuyển giao và triển khai công nghệ, Trung tâm đưa các giải pháp hiện đại vào thực tiễn phát triển kinh tế – xã hội của địa phương.`,
+        businessLicenseNo: '4101443823',
+        description: `Trung tâm Đổi mới Sáng tạo Gia Lai, là mô hình xã hội hóa do doanh nghiệp đầu tư và vận hành. Trung tâm được hình thành nhằm kết nối nguồn lực công nghệ, chuyên gia, doanh nghiệp và dữ liệu; thúc đẩy ứng dụng công nghệ, chuyển đổi số và phát triển hệ sinh thái khởi nghiệp sáng tạo tại địa phương.\n\nVới định hướng lấy nhu cầu thực tiễn làm trung tâm, Trung tâm không chỉ là không gian kết nối mà còn trực tiếp đồng hành trong quá trình tư vấn, thử nghiệm, đào tạo, chuyển giao và triển khai công nghệ.`,
+        foundedYear: 2020,
+        address: 'Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai',
+
+        // ── Khối 2: Sứ mệnh, Tầm nhìn, Giá trị cốt lõi ──
         mission:
           'Thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển bền vững cho tỉnh Gia Lai và khu vực Tây Nguyên.',
         vision:
           'Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực Tây Nguyên vào năm 2030.',
         coreValues: 'Sáng tạo – Chính trực – Hợp tác – Tác động',
-        foundedYear: 2020,
-        address: 'Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai',
+
+        // ── Khối 3: Mạng lưới (Thống kê) ──
         stats: {
-          provinces: 12,
-          centers: 8,
-          projects: 45,
-          staff: 60,
-          partners: 30,
+          staff: 1500,
+          experts: 250,
+          provinces: 30,
+          centers: 12,
+          subsidiaries: 10,
+          projects: 100,
         },
+
+        // ── Khối 4: Lĩnh vực hoạt động ──
+        operationFields: [
+          {
+            title: 'Công nghệ số & Chuyển đổi số',
+            description:
+              'Nghiên cứu phát triển và tích hợp các giải pháp trí tuệ nhân tạo (AI), Internet vạn vật (IoT), dữ liệu lớn (Big Data), điện toán đám mây (Cloud) và mô hình hóa thông tin số (Digital Twin) phục vụ tối ưu hóa vận hành.',
+          },
+          {
+            title: 'Khảo sát, Đo đạc & Số hóa bản đồ',
+            description:
+              'Thành lập bản đồ địa hình và hiện trạng độ phân giải siêu cao sử dụng thiết bị bay không người lái (UAV/Drone). Số hóa cơ sở dữ liệu đất đai, lâm nghiệp và hạ tầng kỹ thuật chính xác.',
+          },
+          {
+            title: 'Giải pháp hạ tầng thông minh',
+            description:
+              'Thiết kế, xây dựng và tích hợp hệ thống trung tâm điều hành thông minh (IOC/DOC), giải pháp đô thị thông minh (Smart City) và hệ thống giám sát tự động AutoTimelapse.',
+          },
+          {
+            title: 'Sản xuất & Chế tạo thiết bị công nghệ',
+            description:
+              'Chế tạo các thiết bị robot công nghiệp, lắp ráp các hệ thống thiết bị bay không người lái (Drone/UAV) chuyên dụng, camera AI thông minh và phần cứng IoT phục vụ đa lĩnh vực.',
+          },
+        ],
+
+        // ── Khối 5: Năng lực kế thừa từ hệ sinh thái VDCD ──
+        ecosystemCapabilities:
+          'Trung tâm kế thừa năng lực công nghệ, đội ngũ chuyên gia và mạng lưới triển khai của hệ sinh thái VDCD Group trong các lĩnh vực khảo sát, dữ liệu không gian, trí tuệ nhân tạo, mô hình thông tin công trình, hạ tầng dữ liệu và phần mềm quản lý.',
+
+        // ── Khối 6: Định hướng phát triển ──
+        developmentOrientations: [
+          {
+            title: 'Phát triển hạ tầng dữ liệu và công nghệ dùng chung',
+            description: '',
+          },
+          {
+            title:
+              'Thúc đẩy ứng dụng công nghệ trong các ngành kinh tế chủ lực',
+            description: '',
+          },
+          {
+            title: 'Hỗ trợ startup và doanh nghiệp đổi mới mô hình hoạt động',
+            description: '',
+          },
+          {
+            title:
+              'Kết nối Gia Lai với mạng lưới chuyên gia, công nghệ và đầu tư trong nước',
+            description: '',
+          },
+        ],
+
+        // ── Social Links ──
         socialLinks: {
           facebook: 'https://www.facebook.com/VDCDGIALAI',
           tiktok: 'https://www.tiktok.com/@vdcdgialai',
@@ -311,54 +370,54 @@ async function seed() {
     const slideRepo = queryRunner.manager.getRepository(Slide);
     const slideData = [
       {
-        title: 'KIẾN TẠO HỆ SINH THÁI SỐ',
-        subTitle: 'TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI',
+        title: 'PHÁT TRIỂN ĐỊA PHƯƠNG',
+        subtitle: 'TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI',
         description:
-          'Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.',
+          'Nghiên cứu, chuyển giao và ứng dụng công nghệ số nhằm hỗ trợ chính quyền, doanh nghiệp và cộng đồng trong hành trình chuyển đổi số và đổi mới sáng tạo.',
         ctaText: 'Tìm hiểu thêm',
         ctaUrl: '/#',
         imageUrl:
-          'https://ik.imagekit.io/huy01040104/vdcd/slides/kientaotuonglai.jpeg',
+          'https://ik.imagekit.io/huy01040104/vdcd/slides/81B72404-9A7A-4E02-B5C6-4D8AA67AF50F.PNG',
       },
       {
-        title: 'NÔNG NGHIỆP THÔNG MINH',
-        subTitle: 'NÔNG NGHIỆP CÔNG NGHỆ CAO',
+        title: 'ĐÔ THỊ THÔNG MINH',
+        subtitle: 'TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI',
         description:
-          'Ứng dụng các giải pháp số hóa IoT, tự động hóa và AI nhằm tối ưu hóa chuỗi giá trị, nâng cao năng suất và gia tăng giá trị bền vững cho nông sản chủ lực Gia Lai.',
-        ctaText: 'Xem giải pháp',
+          'Tích hợp Camera AI, UAV, AutoTimelapse, nền tảng 3DGIS hoặc Autotimelaspe PRO để giám sát, phân tích dữ liệu và hỗ trợ điều hành đô thị theo thời gian thực.',
+        ctaText: 'Tìm hiểu thêm',
         ctaUrl: '/#',
         imageUrl:
-          'https://ik.imagekit.io/huy01040104/vdcd/slides/farm_area_drone_view.jpg',
+          'https://ik.imagekit.io/huy01040104/vdcd/slides/quynhon_herobanner.jpg',
       },
       {
-        title: 'HỆ THỐNG ĐÔ THỊ SỐ',
-        subTitle: 'QUẢN LÝ ĐÔ THỊ THÔNG MINH',
+        title: 'XÂY DỰNG CƠ SỞ DỮ LIỆU',
+        subtitle: 'TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI',
         description:
-          'Giải pháp quản lý, giám sát và điều hành đô thị thông minh IOC giúp tối ưu hóa dịch vụ công cộng và hỗ trợ ra quyết định kịp thời cho chính quyền và doanh nghiệp.',
-        ctaText: 'Xem dự án',
+          'Ứng dụng UAV, AI và nền tảng 3DGIS để khảo sát, thành lập bản đồ 2D/3D, xây dựng cơ sở dữ liệu và quản lý đất đai phục vụ quy hoạch, quản lý và chuyển đổi số.',
+        ctaText: 'Tìm hiểu thêm',
         ctaUrl: '/#',
         imageUrl:
           'https://ik.imagekit.io/huy01040104/vdcd/slides/hethongdothiso.jpg',
       },
       {
-        title: 'TRUNG TÂM DỮ LIỆU VÙNG',
-        subTitle: 'HẠ TẦNG KỸ THUẬT SỐ',
+        title: 'QUẢN LÝ TÀI NGUYÊN RỪNG',
+        subtitle: 'TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI',
         description:
-          'Hạ tầng lưu trữ đám mây và xử lý dữ liệu lớn chuẩn quốc tế, đảm bảo tính an toàn, bảo mật tối đa và khả năng mở rộng không giới hạn cho các tổ chức, doanh nghiệp.',
-        ctaText: 'Tải hồ sơ',
+          'Ứng dụng UAV, AI và nền tảng 3DGIS dữ liệu không gian trong kiểm kê, giám sát, phân tích hiện trạng và theo dõi biến động tài nguyên rừng theo thời gian thực.',
+        ctaText: 'Tìm hiểu thêm',
+        ctaUrl: '/#',
+        imageUrl:
+          'https://ik.imagekit.io/huy01040104/vdcd/slides/24514AFA-9CB5-4DC3-98A5-EEA103201F96.png',
+      },
+      {
+        title: 'HẠ TẦNG DỮ LIỆU SỐ',
+        subtitle: 'TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI',
+        description:
+          'Hạ tầng lưu trữ dữ liệu đám mây (Cloud Storage) và xử lý dữ liệu lớn (Big Data) chuẩn quốc tế, đảm bảo tính an toàn, bảo mật và khả năng mở rộng cho các tổ chức, doanh nghiệp.',
+        ctaText: 'Tìm hiểu thêm',
         ctaUrl: '/#',
         imageUrl:
           'https://ik.imagekit.io/huy01040104/vdcd/slides/data_center.jpg',
-      },
-      {
-        title: 'LIÊN KẾT PHÁT TRIỂN',
-        subTitle: 'HỆ SINH THÁI VDCD GROUP',
-        description:
-          'Hội tụ năng lực công nghệ lõi và nguồn lực tài chính bền vững trong hệ sinh thái, làm cầu nối vững chắc đưa các giải pháp hiện đại đi vào thực tiễn cuộc sống.',
-        ctaText: 'Liên hệ',
-        ctaUrl: '/#',
-        imageUrl:
-          'https://ik.imagekit.io/huy01040104/vdcd/slides/quynhon_herobanner.jpg',
       },
     ];
     const slides = await slideRepo.save(
