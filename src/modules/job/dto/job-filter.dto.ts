@@ -5,6 +5,15 @@ import { Transform } from 'class-transformer';
 
 export class JobFilterDto extends PaginationDto {
   @ApiPropertyOptional({
+    example: 'frontend',
+    description:
+      'Search jobs by keyword (case-insensitive match on title, description, department)',
+  })
+  @IsOptional()
+  @IsString()
+  search?: string;
+
+  @ApiPropertyOptional({
     example: 'full-time',
     description: 'Filter jobs by employment type',
     enum: ['full-time', 'part-time', 'intern'],
@@ -22,6 +31,14 @@ export class JobFilterDto extends PaginationDto {
   location?: string;
 
   @ApiPropertyOptional({
+    example: 'Kỹ thuật',
+    description: 'Filter jobs by department (exact match)',
+  })
+  @IsOptional()
+  @IsString()
+  department?: string;
+
+  @ApiPropertyOptional({
     example: true,
     description: 'Filter jobs by active status',
   })
@@ -34,3 +51,4 @@ export class JobFilterDto extends PaginationDto {
   @IsBoolean()
   isActive?: boolean;
 }
+

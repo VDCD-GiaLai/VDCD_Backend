@@ -24,17 +24,36 @@ export class JobService {
   }
 
   async findAll(dto: JobFilterDto) {
-    const { page = 1, limit = 10, type, location } = dto;
+    const { page = 1, limit = 10, type, location, search, department } = dto;
     const qb = this.repo.createQueryBuilder('j').where('j.is_active = true');
     if (type) qb.andWhere('j.type = :type', { type });
     if (location)
       qb.andWhere('j.location ILIKE :location', { location: `%${location}%` });
+    if (department)
+      qb.andWhere('j.department = :department', { department });
+    if (search) {
+      qb.andWhere(
+        '(j.title ILIKE :search OR j.description ILIKE :search OR j.department ILIKE :search)',
+        { search: `%${search}%` },
+      );
+    }
     qb.orderBy('j.is_urgent', 'DESC')
       .addOrderBy('j.created_at', 'DESC')
       .skip((page - 1) * limit)
       .take(limit);
     const [data, total] = await qb.getManyAndCount();
-    return { data, total, page, limit };
+
+    // Return distinct department list for frontend filter chips
+    const deptRows: { department: string }[] = await this.repo
+      .createQueryBuilder('j')
+      .select('DISTINCT j.department', 'department')
+      .where('j.is_active = true')
+      .andWhere('j.department IS NOT NULL')
+      .orderBy('j.department', 'ASC')
+      .getRawMany();
+    const departments = deptRows.map((r) => r.department);
+
+    return { data, total, page, limit, departments };
   }
 
   async findAllAdmin(dto: JobFilterDto) {
