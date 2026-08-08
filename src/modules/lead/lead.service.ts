@@ -55,6 +55,7 @@ export class LeadService {
         email: true,
         phone: true,
         subject: true,
+        source: true,
         isRead: true,
         createdAt: true,
       },
