@@ -28,7 +28,7 @@ export class UploadService {
   private readonly imagekit: ImageKit;
 
   private readonly IMAGE_MAX_SIZE = 5 * 1024 * 1024;
-  private readonly FILE_MAX_SIZE = 10 * 1024 * 1024;
+  private readonly FILE_MAX_SIZE = 5 * 1024 * 1024;
 
   private readonly ALLOWED_IMAGE_TYPES = [
     'image/jpeg',
@@ -40,6 +40,10 @@ export class UploadService {
     'application/pdf',
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'image/jpeg',
+    'image/png',
+    'image/webp',
+    'image/gif',
   ];
 
   constructor(
@@ -90,8 +94,12 @@ export class UploadService {
     file: Express.Multer.File,
     uploadedBy?: string,
   ): Promise<UploadResult> {
-    this.validateMimetype(file, this.ALLOWED_FILE_TYPES, 'pdf, doc, docx');
-    this.validateSize(file, this.FILE_MAX_SIZE, '10MB');
+    this.validateMimetype(
+      file,
+      this.ALLOWED_FILE_TYPES,
+      'pdf, doc, docx, jpg, png, webp, gif',
+    );
+    this.validateSize(file, this.FILE_MAX_SIZE, '5MB');
     return this.doUpload(file, 'attachments', uploadedBy);
   }
 

@@ -11,7 +11,7 @@ import { UploadController } from './upload.controller';
     TypeOrmModule.forFeature([UploadTemp]),
     MulterModule.register({
       storage: memoryStorage(),
-      limits: { fileSize: 10 * 1024 * 1024 },
+      limits: { fileSize: 5 * 1024 * 1024 },
     }),
   ],
   providers: [UploadService],

@@ -1,16 +1,34 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between } from 'typeorm';
 import { Contact } from './entities/contact.entity';
 import { MailService } from '../mail/mail.service';
+import { RedisService } from '../redis/redis.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { FilterContactDto } from './dto/filter-contact.dto';
+import {
+  normalizeEmail,
+  isDisposableEmail,
+  hasMxRecords,
+} from '../../common/utils/email-validation.util';
+import {
+  checkEmailRateLimit,
+  recordEmailSend,
+} from '../../common/utils/email-rate-limit.util';
 
 @Injectable()
 export class ContactService {
+  private readonly logger = new Logger(ContactService.name);
+
   constructor(
     @InjectRepository(Contact) private repo: Repository<Contact>,
     private mailService: MailService,
+    private redisService: RedisService,
   ) {}
 
   async create(dto: CreateContactDto) {
@@ -18,9 +36,42 @@ export class ContactService {
     if (dto.website)
       return { message: 'Gửi thành công. Chúng tôi sẽ liên hệ sớm nhất!' };
 
+    // ── Email validation ──
+    const email = normalizeEmail(dto.email);
+
+    if (isDisposableEmail(email)) {
+      throw new BadRequestException({
+        success: false,
+        code: 'DISPOSABLE_EMAIL',
+        message: 'Email tạm thời không được chấp nhận.',
+      });
+    }
+
+    const hasMx = await hasMxRecords(email);
+    if (!hasMx) {
+      throw new BadRequestException({
+        success: false,
+        code: 'INVALID_EMAIL',
+        message: 'Địa chỉ email không hợp lệ.',
+      });
+    }
+
+    // ── Rate limit check ──
+    const redis = this.redisService.getClient();
+    const { allowed } = await checkEmailRateLimit(redis, email);
+    if (!allowed) {
+      throw new BadRequestException({
+        success: false,
+        code: 'EMAIL_RATE_LIMITED',
+        message:
+          'Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau 24 giờ.',
+      });
+    }
+
+    // ── Save to DB ──
     const contact = this.repo.create({
       fullName: dto.fullName,
-      email: dto.email,
+      email,
       phone: dto.phone,
       subject: dto.subject,
       message: dto.message,
@@ -28,10 +79,14 @@ export class ContactService {
     });
     await this.repo.save(contact);
 
-    // Gửi email async, không block response
-    this.mailService
-      .sendContactNotification(contact)
-      .catch((err) => console.error('Contact mail error:', err));
+    // ── Send email & record rate limit on success ──
+    try {
+      await this.mailService.sendContactNotification(contact);
+      await recordEmailSend(redis, email);
+    } catch (err) {
+      // Mail failed — don't consume rate-limit slot, still return success for DB save
+      this.logger.error('Contact mail error:', err);
+    }
 
     return { message: 'Gửi thành công. Chúng tôi sẽ liên hệ sớm nhất!' };
   }
