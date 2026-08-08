@@ -25,6 +25,13 @@ export class LeadService {
       subject: dto.subject,
       message: dto.message,
       attachment: dto.attachment,
+      dob: dto.dob ? new Date(dto.dob) : undefined,
+      address: dto.address,
+      experienceYears: dto.experienceYears,
+      expectedSalary: dto.expectedSalary,
+      portfolioUrl: dto.portfolioUrl,
+      coverLetter: dto.coverLetter,
+      source: dto.source,
     });
     await this.repo.save(lead);
 

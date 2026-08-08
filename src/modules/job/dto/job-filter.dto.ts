@@ -16,7 +16,7 @@ export class JobFilterDto extends PaginationDto {
   @ApiPropertyOptional({
     example: 'full-time',
     description: 'Filter jobs by employment type',
-    enum: ['full-time', 'part-time', 'intern'],
+    enum: ['full-time', 'part-time', 'intern', 'contract'],
   })
   @IsOptional()
   @IsString()
@@ -39,6 +39,14 @@ export class JobFilterDto extends PaginationDto {
   department?: string;
 
   @ApiPropertyOptional({
+    example: '1 - 3 năm',
+    description: 'Filter jobs by experience requirement (substring match)',
+  })
+  @IsOptional()
+  @IsString()
+  experience?: string;
+
+  @ApiPropertyOptional({
     example: true,
     description: 'Filter jobs by active status',
   })
@@ -51,4 +59,3 @@ export class JobFilterDto extends PaginationDto {
   @IsBoolean()
   isActive?: boolean;
 }
-

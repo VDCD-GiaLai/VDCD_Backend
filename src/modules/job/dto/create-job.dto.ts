@@ -6,6 +6,7 @@ import {
   IsBoolean,
   IsIn,
   IsDateString,
+  IsArray,
   MaxLength,
 } from 'class-validator';
 
@@ -48,9 +49,9 @@ export class CreateJobDto {
   @ApiProperty({
     example: 'full-time',
     description: 'Employment type',
-    enum: ['full-time', 'part-time', 'intern'],
+    enum: ['full-time', 'part-time', 'intern', 'contract'],
   })
-  @IsIn(['full-time', 'part-time', 'intern'])
+  @IsIn(['full-time', 'part-time', 'intern', 'contract'])
   type: string;
 
   @ApiPropertyOptional({
@@ -92,6 +93,25 @@ export class CreateJobDto {
   @IsOptional()
   @IsString()
   benefits?: string;
+
+  @ApiPropertyOptional({
+    example: '1 - 3 năm',
+    description: 'Experience requirement (e.g. "1 - 3 năm", "Không yêu cầu")',
+    maxLength: 100,
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  experience?: string;
+
+  @ApiPropertyOptional({
+    example: ['NestJS', 'Next.js', 'TypeScript'],
+    description: 'List of required skills/technologies',
+  })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  tags?: string[];
 
   @ApiPropertyOptional({
     example: false,

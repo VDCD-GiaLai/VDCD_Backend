@@ -105,8 +105,6 @@ export class UpdateOrganizationDto {
       staff: 1500,
       experts: 250,
       provinces: 30,
-      centers: 12,
-      subsidiaries: 10,
       projects: 100,
     },
     description: 'Statistics or metrics of the organization',

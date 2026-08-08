@@ -1,7 +1,6 @@
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 import * as bcrypt from 'bcrypt';
-import { faker } from '@faker-js/faker/locale/vi';
 
 import { AdminUser } from '../../modules/admin-user/entities/admin-user.entity';
 import { Organization } from '../../modules/organization/entities/organization.entity';
@@ -132,8 +131,6 @@ async function seed() {
           staff: 1500,
           experts: 250,
           provinces: 30,
-          centers: 12,
-          subsidiaries: 10,
           projects: 100,
         },
 
@@ -1195,178 +1192,256 @@ async function seed() {
     const jobData = [
       {
         title: 'Kỹ sư phần mềm Full-stack',
-        slug: 'ky-su-phan-mem-full-stack',
-        department: 'Công nghệ',
+        slug: 'ky-su-phan-mem-fullstack',
+        department: 'Kỹ thuật',
         location: 'TP. Pleiku, Gia Lai',
         type: 'full-time',
-        salaryRange: '15 – 25 triệu',
-        description:
-          'Thiết kế và phát triển các ứng dụng web, API và hệ thống quản lý nội bộ phục vụ chuyển đổi số cho các cơ quan và doanh nghiệp.',
-        requirements:
-          'Yêu cầu kinh nghiệm 2 – 4 năm. Kỹ năng thành thạo: React, Node.js, TypeScript, PostgreSQL.',
-        benefits:
-          'Mức lương cạnh tranh 15 – 25 triệu, bảo hiểm toàn diện, môi trường làm việc hiện đại.',
+        salaryRange: '15 - 25 triệu',
+        deadline: new Date('2026-09-30'),
+        experience: '1 - 3 năm',
+        tags: ['NestJS', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker'],
         isUrgent: true,
+        isActive: true,
+        description:
+          '## Mô tả công việc\n\nThiết kế và phát triển các ứng dụng web, RESTful API và hệ thống quản lý nội bộ phục vụ chuyển đổi số.\n\n- Phát triển frontend với Next.js và backend với NestJS.\n- Thiết kế database schema với TypeORM + PostgreSQL.\n- Tích hợp ImageKit, Gmail SMTP, Redis cache.\n- Code review và đảm bảo coverage > 80%.',
+        requirements:
+          '## Yêu cầu\n\n- Tốt nghiệp ĐH chuyên ngành CNTT.\n- 1+ năm kinh nghiệm TypeScript, Node.js.\n- Thành thạo React/Next.js, NestJS.\n- Hiểu biết PostgreSQL, Redis, Docker.',
+        benefits:
+          '## Quyền lợi\n\n- Lương: 15 - 25 triệu.\n- Thưởng KPI + dự án + Tết.\n- BHXH, BHYT + VDCD Care.\n- Tài trợ 100% chứng chỉ quốc tế.\n- Hybrid work, nghỉ phép 14 ngày/năm.',
       },
       {
-        title: 'Chuyên viên AI & Machine Learning',
-        slug: 'chuyen-vien-ai-machine-learning',
-        department: 'Nghiên cứu & Phát triển',
+        title: 'Kỹ sư IoT / Nhúng',
+        slug: 'ky-su-iot-nhung',
+        department: 'Kỹ thuật',
         location: 'TP. Pleiku, Gia Lai',
         type: 'full-time',
-        salaryRange: '20 – 35 triệu',
-        description:
-          'Nghiên cứu và triển khai các mô hình AI/ML phục vụ nhận diện hình ảnh, phân tích dữ liệu địa lý và nông nghiệp thông minh.',
-        requirements:
-          'Yêu cầu kinh nghiệm 3 – 5 năm. Kỹ năng thành thạo: Python, TensorFlow, Computer Vision, Deep Learning.',
-        benefits:
-          'Mức lương cạnh tranh 20 – 35 triệu, đào tạo chuyên sâu, cơ hội tham gia các dự án công nghệ cấp tỉnh.',
+        salaryRange: '20 - 35 triệu',
+        deadline: new Date('2026-09-30'),
+        experience: '2 - 5 năm',
+        tags: ['ESP32', 'STM32', 'MQTT', 'LoRa', 'C/C++', 'Python'],
         isUrgent: true,
-      },
-      {
-        title: 'Kỹ sư DevOps & Cloud',
-        slug: 'ky-su-devops-cloud',
-        department: 'Công nghệ',
-        location: 'TP. Hồ Chí Minh',
-        type: 'full-time',
-        salaryRange: '18 – 30 triệu',
+        isActive: true,
         description:
-          'Quản lý hạ tầng cloud, CI/CD pipeline, container orchestration và giám sát hiệu năng hệ thống cho các dự án chuyển đổi số.',
+          '## Mô tả công việc\n\nNghiên cứu và triển khai giải pháp IoT phục vụ nông nghiệp thông minh, giám sát môi trường tại Tây Nguyên.\n\n- Thiết kế mạch, lập trình firmware ESP32/STM32.\n- Tích hợp MQTT, LoRaWAN với cloud backend.\n- Xây dựng dashboard giám sát realtime.\n- Khảo sát thực địa và lắp đặt thiết bị.',
         requirements:
-          'Yêu cầu kinh nghiệm 2 – 4 năm. Kỹ năng thành thạo: Docker, Kubernetes, AWS, Terraform.',
+          '## Yêu cầu\n\n- Tốt nghiệp ĐH Điện tử, Tự động hóa hoặc CNTT.\n- 2+ năm lập trình nhúng.\n- Thành thạo C/C++, Python.\n- Hiểu biết MQTT, CoAP, LoRaWAN.',
         benefits:
-          'Mức lương cạnh tranh 18 – 30 triệu, chế độ làm việc linh hoạt hybrid.',
-        isUrgent: false,
+          '## Quyền lợi\n\n- Lương: 20 - 35 triệu.\n- Thưởng KPI + dự án.\n- Tiếp cận thiết bị công nghệ mới nhất.\n- Nghiên cứu thực địa Tây Nguyên.',
       },
       {
-        title: 'Thiết kế UI/UX',
-        slug: 'thiet-ke-ui-ux',
-        department: 'Dịch vụ số',
+        title: 'Chuyên viên Tư vấn Chuyển đổi Số',
+        slug: 'chuyen-vien-tu-van-chuyen-doi-so',
+        department: 'Tư vấn & Triển khai',
         location: 'TP. Pleiku, Gia Lai',
         type: 'full-time',
-        salaryRange: '12 – 20 triệu',
-        description:
-          'Thiết kế giao diện người dùng cho các sản phẩm số, ứng dụng di động và nền tảng web phục vụ chính quyền và doanh nghiệp.',
-        requirements:
-          'Yêu cầu kinh nghiệm 1 – 3 năm. Kỹ năng thành thạo: Figma, Design System, Prototyping, User Research.',
-        benefits:
-          'Mức lương cạnh tranh 12 – 20 triệu, trang bị thiết bị làm việc cấu hình cao.',
+        salaryRange: '15 - 25 triệu',
+        deadline: new Date('2026-09-30'),
+        experience: '1 - 3 năm',
+        tags: ['Digital Transformation', 'Business Analysis', 'Agile', 'BPMN'],
         isUrgent: false,
+        isActive: true,
+        description:
+          '## Mô tả công việc\n\nTư vấn chuyển đổi số cho cơ quan nhà nước và doanh nghiệp tại Gia Lai.\n\n- Khảo sát, phân tích nhu cầu chuyển đổi số.\n- Xây dựng đề xuất giải pháp và roadmap.\n- Chuyển yêu cầu thành spec kỹ thuật.\n- Đào tạo khách hàng sử dụng hệ thống.',
+        requirements:
+          '## Yêu cầu\n\n- Tốt nghiệp ĐH CNTT, QTKD hoặc tương đương.\n- Hiểu biết chuyển đổi số, chính quyền điện tử.\n- Kỹ năng phân tích nghiệp vụ, viết tài liệu.\n- Ưu tiên có PMP, Scrum Master.',
+        benefits:
+          '## Quyền lợi\n\n- Lương: 15 - 25 triệu.\n- Phụ cấp công tác, di chuyển.\n- Thưởng theo dự án.\n- Đào tạo nâng cao kỹ năng tư vấn.',
       },
       {
-        title: 'Chuyên viên Hành chính - Nhân sự',
-        slug: 'chuyen-vien-hanh-chinh-nhan-su',
-        department: 'Nhân sự',
-        location: 'TP. Pleiku, Gia Lai',
+        title: 'Chuyên viên Marketing Số',
+        slug: 'chuyen-vien-marketing-so',
+        department: 'Marketing',
+        location: 'TP. Pleiku, Gia Lai / Remote',
         type: 'full-time',
-        salaryRange: '10 – 15 triệu',
-        description:
-          'Quản lý hồ sơ nhân sự, tuyển dụng, đào tạo phát triển nhân viên và xây dựng văn hóa doanh nghiệp.',
-        requirements:
-          'Yêu cầu kinh nghiệm 1 – 2 năm. Kỹ năng thành thạo: Tuyển dụng, Đào tạo, C&B, Luật lao động.',
-        benefits:
-          'Mức lương 10 – 15 triệu, du lịch hàng năm, đầy đủ chế độ bảo hiểm.',
+        salaryRange: '12 - 18 triệu',
+        deadline: new Date('2026-09-30'),
+        experience: '1 - 2 năm',
+        tags: [
+          'SEO',
+          'Google Ads',
+          'Facebook Ads',
+          'Content Marketing',
+          'Analytics',
+        ],
         isUrgent: false,
+        isActive: true,
+        description:
+          '## Mô tả công việc\n\nTriển khai chiến lược marketing số cho VDCD Group.\n\n- Quản lý chiến dịch Google Ads, Facebook Ads, LinkedIn.\n- Sản xuất content (bài viết, video, infographic).\n- Phân tích hiệu suất, báo cáo ROI.\n- Quản lý website và social media.',
+        requirements:
+          '## Yêu cầu\n\n- Tốt nghiệp ĐH Marketing, Truyền thông.\n- 1+ năm Digital Marketing.\n- Thành thạo Google Analytics, Google Ads.\n- Kỹ năng viết content tốt.',
+        benefits:
+          '## Quyền lợi\n\n- Lương: 12 - 18 triệu.\n- Hỗ trợ làm việc remote.\n- Ngân sách quảng cáo thực hành.\n- Đào tạo nâng cao marketing.',
       },
       {
-        title: 'Kỹ sư Khảo sát UAV/Drone',
-        slug: 'ky-su-khao-sat-uav-drone',
-        department: 'Khảo sát & Đo đạc',
-        location: 'TP. Pleiku, Gia Lai',
+        title: 'Lập trình viên Full-stack Senior (NestJS + Next.js)',
+        slug: 'lap-trinh-vien-fullstack-senior',
+        department: 'Kỹ thuật',
+        location: 'Remote',
         type: 'full-time',
-        salaryRange: '14 – 22 triệu',
-        description:
-          'Vận hành và bảo trì thiết bị bay không người lái phục vụ khảo sát địa hình, lập bản đồ và giám sát tự động.',
-        requirements:
-          'Yêu cầu kinh nghiệm 1 – 3 năm. Kỹ năng thành thạo: UAV, GIS, Photogrammetry, AutoCAD.',
-        benefits:
-          'Mức lương 14 – 22 triệu, phụ cấp công tác phí và bảo hiểm tai nạn rủi ro.',
+        salaryRange: '25 - 45 triệu',
+        deadline: new Date('2026-09-30'),
+        experience: '3 - 5 năm',
+        tags: [
+          'NestJS',
+          'Next.js',
+          'TypeScript',
+          'GraphQL',
+          'Redis',
+          'Kubernetes',
+        ],
         isUrgent: false,
+        isActive: true,
+        description:
+          '## Mô tả công việc\n\nDẫn dắt kỹ thuật, phát triển hệ thống phần mềm quy mô lớn. 100% remote.\n\n- Kiến trúc hệ thống, thiết kế API.\n- Mentoring junior developers, code review.\n- Tối ưu hiệu năng và bảo mật.\n- Nghiên cứu áp dụng công nghệ mới.',
+        requirements:
+          '## Yêu cầu\n\n- 3+ năm Full-stack development.\n- Expert TypeScript, NestJS, Next.js.\n- Thành thạo PostgreSQL, Redis, Docker, CI/CD.\n- Kinh nghiệm microservices, message queue.',
+        benefits:
+          '## Quyền lợi\n\n- Lương: 25 - 45 triệu.\n- 100% remote.\n- Trang bị thiết bị làm việc.\n- Stock option cho nhân sự cốt lõi.',
       },
       {
-        title: 'Thực tập sinh Phát triển phần mềm',
-        slug: 'thuc-tap-sinh-phat-trien-phan-mem',
-        department: 'Công nghệ',
+        title: 'Thực tập sinh Phân tích Dữ liệu',
+        slug: 'thuc-tap-sinh-phan-tich-du-lieu',
+        department: 'Data & AI',
         location: 'TP. Pleiku, Gia Lai',
         type: 'intern',
-        salaryRange: '3 – 5 triệu',
+        salaryRange: '3 - 5 triệu',
+        deadline: new Date('2026-09-30'),
+        experience: 'Không yêu cầu',
+        tags: ['Python', 'SQL', 'Power BI', 'Pandas', 'Machine Learning'],
+        isUrgent: false,
+        isActive: true,
         description:
-          'Tham gia phát triển các dự án thực tế, được đào tạo và mentoring bởi đội ngũ kỹ sư giàu kinh nghiệm.',
+          '## Mô tả công việc\n\nThực tập 6 tháng tại phòng Data & AI.\n\n- Thu thập, làm sạch và xử lý dữ liệu.\n- Xây dựng dashboard Power BI.\n- Hỗ trợ xây dựng mô hình ML đơn giản.\n- Tham gia seminar và đào tạo nội bộ.',
         requirements:
-          'Sinh viên năm cuối ngành CNTT hoặc tương đương. Kỹ năng cơ bản: JavaScript, React, Git, Agile.',
+          '## Yêu cầu\n\n- Sinh viên năm cuối hoặc mới tốt nghiệp CNTT, Toán, Thống kê.\n- Kiến thức cơ bản Python, SQL.\n- Ham học hỏi, chủ động.\n- Làm việc 5 ngày/tuần tại văn phòng.',
         benefits:
-          'Hỗ trợ thực tập 3 – 5 triệu/tháng, cơ hội chuyển thành nhân viên chính thức.',
-        isUrgent: false,
-      },
-      {
-        title: 'Kế toán tổng hợp',
-        slug: 'ke-toan-tong-hop',
-        department: 'Tài chính',
-        location: 'TP. Pleiku, Gia Lai',
-        type: 'full-time',
-        salaryRange: '10 – 16 triệu',
-        description:
-          'Thực hiện nghiệp vụ kế toán tổng hợp, báo cáo tài chính, quản lý thuế và công nợ cho hệ thống doanh nghiệp.',
-        requirements:
-          'Yêu cầu kinh nghiệm 2 – 4 năm. Kỹ năng thành thạo: Kế toán, Thuế, SAP, Báo cáo tài chính.',
-        benefits: 'Mức lương 10 – 16 triệu, thưởng tháng 13 và KPI hấp dẫn.',
-        isUrgent: false,
-      },
-      {
-        title: 'Chuyên viên Quản lý dự án CNTT',
-        slug: 'chuyen-vien-quan-ly-du-an-cntt',
-        department: 'Dịch vụ số',
-        location: 'TP. Hồ Chí Minh',
-        type: 'full-time',
-        salaryRange: '18 – 28 triệu',
-        description:
-          'Lập kế hoạch, điều phối và giám sát các dự án chuyển đổi số, đảm bảo tiến độ và chất lượng triển khai.',
-        requirements:
-          'Yêu cầu kinh nghiệm 3 – 5 năm. Kỹ năng thành thạo: PMP, Agile, Scrum, JIRA.',
-        benefits: 'Mức lương 18 – 28 triệu, thưởng hoàn thành dự án.',
-        isUrgent: false,
-      },
-      {
-        title: 'Chuyên viên IoT & Embedded',
-        slug: 'chuyen-vien-iot-embedded',
-        department: 'Nghiên cứu & Phát triển',
-        location: 'TP. Pleiku, Gia Lai',
-        type: 'full-time',
-        salaryRange: '15 – 25 triệu',
-        description:
-          'Phát triển firmware và phần cứng IoT cho các hệ thống giám sát môi trường, nông nghiệp thông minh và đô thị số.',
-        requirements:
-          'Yêu cầu kinh nghiệm 2 – 4 năm. Kỹ năng thành thạo: C/C++, ESP32, MQTT, PCB Design.',
-        benefits: 'Mức lương 15 – 25 triệu, phòng lab trang thiết bị hiện đại.',
-        isUrgent: true,
+          '## Quyền lợi\n\n- Trợ cấp: 3 - 5 triệu/tháng.\n- Mentoring bởi Senior Data Engineer.\n- Cơ hội chính thức sau thực tập.\n- Chứng nhận hoàn thành chương trình.',
       },
     ];
 
-    const deadline = new Date();
-    deadline.setDate(deadline.getDate() + 30);
-
-    await jobRepo.save(
-      jobData.map((j) =>
-        jobRepo.create({
-          ...j,
-          deadline,
-          isActive: true,
-        }),
-      ),
-    );
+    await jobRepo.save(jobData.map((j) => jobRepo.create(j)));
     console.log(`   → ${jobData.length} jobs`);
 
     // ── 12. Leads ───────────────────────────────────────────────────
     console.log('✉️  Seeding leads...');
     const leadRepo = queryRunner.manager.getRepository(Lead);
-    const leadData = Array.from({ length: 15 }).map(() => ({
-      fullName: faker.person.fullName(),
-      email: faker.internet.email(),
-      phone: faker.phone.number({ style: 'national' }),
-      subject: faker.lorem.sentence(5),
-      message: faker.lorem.paragraph(),
-      isRead: faker.datatype.boolean(),
-    }));
+    const leadData = [
+      // ── Career form leads (ứng tuyển) ──
+      {
+        fullName: 'Nguyễn Văn An',
+        email: 'nguyenvanan@gmail.com',
+        phone: '0912345678',
+        subject: '[Ứng tuyển] Kỹ sư phần mềm Full-stack',
+        message: '',
+        attachment: 'https://ik.imagekit.io/vdcd/cv/nguyen-van-an-cv.pdf',
+        dob: new Date('1998-05-15'),
+        address: 'TP. Pleiku, Gia Lai',
+        experienceYears: '1 - 3 năm',
+        expectedSalary: '15 - 20 triệu',
+        portfolioUrl: 'https://github.com/nguyenvanan',
+        coverLetter:
+          'Tôi rất hứng thú với vị trí Kỹ sư Full-stack tại VDCD. Với 2 năm kinh nghiệm NestJS + Next.js, tôi tin mình có thể đóng góp tốt cho đội ngũ phát triển sản phẩm chuyển đổi số của công ty.',
+        source: 'career_form',
+        isRead: false,
+      },
+      {
+        fullName: 'Trần Thị Bình',
+        email: 'tranthib@gmail.com',
+        phone: '0987654321',
+        subject: '[Ứng tuyển] Kỹ sư IoT / Nhúng',
+        message: '',
+        attachment: 'https://ik.imagekit.io/vdcd/cv/tran-thi-binh-cv.pdf',
+        dob: new Date('1995-11-20'),
+        address: 'TP. Buôn Ma Thuột, Đắk Lắk',
+        experienceYears: '2 - 5 năm',
+        expectedSalary: '25 - 30 triệu',
+        portfolioUrl: 'https://linkedin.com/in/tranthib',
+        coverLetter:
+          'Với 3 năm kinh nghiệm lập trình nhúng ESP32 và tích hợp MQTT/LoRa, tôi mong muốn được đồng hành cùng VDCD triển khai các giải pháp IoT cho nông nghiệp Tây Nguyên.',
+        source: 'career_form',
+        isRead: true,
+      },
+      {
+        fullName: 'Lê Hoàng Cường',
+        email: 'lehoangcuong@outlook.com',
+        phone: '0905123456',
+        subject: '[Ứng tuyển] Lập trình viên Full-stack Senior',
+        message: '',
+        attachment: 'https://ik.imagekit.io/vdcd/cv/le-hoang-cuong-cv.pdf',
+        dob: new Date('1993-03-08'),
+        address: 'Quận 7, TP. Hồ Chí Minh',
+        experienceYears: '3 - 5 năm',
+        expectedSalary: '35 - 40 triệu',
+        portfolioUrl: 'https://github.com/lhcuong',
+        coverLetter:
+          'Tôi có 5 năm kinh nghiệm Full-stack với TypeScript, NestJS, Next.js. Hiện đang tìm kiếm cơ hội remote để đóng góp cho các dự án chuyển đổi số có tác động xã hội.',
+        source: 'career_form',
+        isRead: false,
+      },
+      {
+        fullName: 'Phạm Minh Đức',
+        email: 'phamminhduc@gmail.com',
+        phone: '0918765432',
+        subject: '[Ứng tuyển] Chuyên viên Marketing Số',
+        message: '',
+        attachment: 'https://ik.imagekit.io/vdcd/cv/pham-minh-duc-cv.pdf',
+        dob: new Date('2000-07-25'),
+        address: 'TP. Pleiku, Gia Lai',
+        experienceYears: '1 - 2 năm',
+        expectedSalary: '14 - 16 triệu',
+        portfolioUrl: 'https://behance.net/phamminhduc',
+        coverLetter:
+          'Là người con Gia Lai, tôi rất muốn đóng góp cho sự phát triển công nghệ tại quê hương. Với kinh nghiệm Google Ads và content marketing, tôi tự tin đáp ứng yêu cầu công việc.',
+        source: 'career_form',
+        isRead: true,
+      },
+      {
+        fullName: 'Võ Thị Hạnh',
+        email: 'vothihanh.sv@gmail.com',
+        phone: '0933456789',
+        subject: '[Ứng tuyển] Thực tập sinh Phân tích Dữ liệu',
+        message: '',
+        dob: new Date('2003-12-10'),
+        address: 'Huyện Chư Sê, Gia Lai',
+        experienceYears: 'Không yêu cầu',
+        expectedSalary: '4 - 5 triệu',
+        coverLetter:
+          'Em là sinh viên năm cuối ngành Toán ứng dụng, Đại học Quy Nhơn. Em có kiến thức Python, SQL và rất mong được thực tập tại VDCD để học hỏi thực tế.',
+        source: 'career_form',
+        isRead: false,
+      },
+      // ── Contact form leads (liên hệ) ──
+      {
+        fullName: 'Nguyễn Thị Mai',
+        email: 'ntmai@ubndpleiku.gov.vn',
+        phone: '0269381xxxx',
+        subject: 'Hỏi về giải pháp chuyển đổi số cho UBND',
+        message:
+          'Chúng tôi muốn tìm hiểu về giải pháp số hóa quy trình quản lý hành chính cho UBND TP. Pleiku. Xin vui lòng liên hệ để trao đổi chi tiết.',
+        source: 'contact_form',
+        isRead: true,
+      },
+      {
+        fullName: 'Trần Văn Phúc',
+        email: 'phuc.tran@htxgialai.vn',
+        phone: '0905987654',
+        subject: 'Tư vấn giải pháp IoT nông nghiệp',
+        message:
+          'HTX chúng tôi đang canh tác 50ha cà phê tại Đắk Đoa. Muốn tìm hiểu hệ thống giám sát IoT tưới tự động và cảm biến đất của VDCD.',
+        source: 'contact_form',
+        isRead: false,
+      },
+      {
+        fullName: 'Lê Quốc Hùng',
+        email: 'hung.lq@doanhnghiep.vn',
+        phone: '0911222333',
+        subject: 'Hợp tác triển khai AutoTimelapse cho công trình',
+        message:
+          'Công ty xây dựng chúng tôi đang thi công dự án tại Kon Tum, muốn triển khai giải pháp AutoTimelapse giám sát tiến độ. Xin báo giá và demo.',
+        source: 'contact_form',
+        isRead: false,
+      },
+    ];
     await leadRepo.save(leadData.map((l) => leadRepo.create(l)));
     console.log(`   → ${leadData.length} leads`);
 

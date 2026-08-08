@@ -24,16 +24,27 @@ export class JobService {
   }
 
   async findAll(dto: JobFilterDto) {
-    const { page = 1, limit = 10, type, location, search, department } = dto;
+    const {
+      page = 1,
+      limit = 10,
+      type,
+      location,
+      search,
+      department,
+      experience,
+    } = dto;
     const qb = this.repo.createQueryBuilder('j').where('j.is_active = true');
     if (type) qb.andWhere('j.type = :type', { type });
     if (location)
       qb.andWhere('j.location ILIKE :location', { location: `%${location}%` });
-    if (department)
-      qb.andWhere('j.department = :department', { department });
+    if (department) qb.andWhere('j.department = :department', { department });
+    if (experience)
+      qb.andWhere('j.experience ILIKE :experience', {
+        experience: `%${experience}%`,
+      });
     if (search) {
       qb.andWhere(
-        '(j.title ILIKE :search OR j.description ILIKE :search OR j.department ILIKE :search)',
+        '(j.title ILIKE :search OR j.description ILIKE :search OR j.department ILIKE :search OR j.experience ILIKE :search OR j.tags::text ILIKE :search)',
         { search: `%${search}%` },
       );
     }
@@ -53,20 +64,38 @@ export class JobService {
       .getRawMany();
     const departments = deptRows.map((r) => r.department);
 
-    return { data, total, page, limit, departments };
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+      departments,
+    };
   }
 
   async findAllAdmin(dto: JobFilterDto) {
-    const { page = 1, limit = 10, type, isActive } = dto;
+    const { page = 1, limit = 10, type, isActive, search } = dto;
     const qb = this.repo.createQueryBuilder('j');
     if (type) qb.andWhere('j.type = :type', { type });
     if (isActive !== undefined)
       qb.andWhere('j.is_active = :isActive', { isActive });
+    if (search) {
+      qb.andWhere('(j.title ILIKE :search OR j.department ILIKE :search)', {
+        search: `%${search}%`,
+      });
+    }
     qb.orderBy('j.created_at', 'DESC')
       .skip((page - 1) * limit)
       .take(limit);
     const [data, total] = await qb.getManyAndCount();
-    return { data, total, page, limit };
+    return {
+      items: data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   async findOneBySlug(slug: string) {

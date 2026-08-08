@@ -41,6 +41,12 @@ export class Job {
   @Column({ type: 'text', nullable: true })
   benefits: string;
 
+  @Column({ nullable: true, length: 100 })
+  experience: string;
+
+  @Column({ type: 'jsonb', nullable: true })
+  tags: string[];
+
   @Column({ name: 'is_urgent', default: false })
   isUrgent: boolean;
 

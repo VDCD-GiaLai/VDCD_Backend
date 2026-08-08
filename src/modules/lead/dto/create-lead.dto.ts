@@ -59,6 +59,64 @@ export class CreateLeadDto {
   @IsString()
   attachment?: string;
 
+  @ApiPropertyOptional({ example: '1998-05-15', description: 'Date of birth' })
+  @IsOptional()
+  @IsString()
+  dob?: string;
+
+  @ApiPropertyOptional({
+    example: 'TP. Pleiku, Gia Lai',
+    description: 'Current address',
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  address?: string;
+
+  @ApiPropertyOptional({
+    example: '1 - 3 năm',
+    description: 'Years of experience',
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  experienceYears?: string;
+
+  @ApiPropertyOptional({
+    example: '15 - 20 triệu',
+    description: 'Expected salary',
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  expectedSalary?: string;
+
+  @ApiPropertyOptional({
+    example: 'https://github.com/username',
+    description: 'Portfolio/LinkedIn/GitHub URL',
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(500)
+  portfolioUrl?: string;
+
+  @ApiPropertyOptional({
+    example: 'Tôi rất quan tâm đến vị trí này...',
+    description: 'Cover letter content',
+  })
+  @IsOptional()
+  @IsString()
+  coverLetter?: string;
+
+  @ApiPropertyOptional({
+    example: 'career_form',
+    description: 'Lead source',
+    enum: ['career_form', 'contact_form', 'landing_page'],
+  })
+  @IsOptional()
+  @IsString()
+  source?: string;
+
   @ApiPropertyOptional({
     example: '',
     description: 'Honeypot field for bot detection (leave empty)',

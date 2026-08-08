@@ -31,20 +31,26 @@ export class ArticleService {
   }
 
   async findAll(dto: ArticleFilterDto) {
-    const { page = 1, limit = 10, category, tags } = dto;
+    const { page = 1, limit = 10, category, tags, search } = dto;
     const qb = this.repo.createQueryBuilder('a').where('a.is_published = true');
     if (category)
       qb.andWhere('a.category ILIKE :category', { category: `%${category}%` });
     if (tags) qb.andWhere('a.tags ILIKE :tags', { tags: `%${tags}%` });
+    if (search) {
+      qb.andWhere(
+        '(a.title ILIKE :search OR a.content ILIKE :search OR a.category ILIKE :search OR a.tags ILIKE :search)',
+        { search: `%${search}%` },
+      );
+    }
     qb.orderBy('a.published_at', 'DESC')
       .skip((page - 1) * limit)
       .take(limit);
     const [data, total] = await qb.getManyAndCount();
-    return { data, total, page, limit };
+    return { data, total, page, limit, totalPages: Math.ceil(total / limit) };
   }
 
   async findAllAdmin(dto: ArticleFilterDto) {
-    const { page = 1, limit = 10, category, tags, isPublished } = dto;
+    const { page = 1, limit = 10, category, tags, isPublished, search } = dto;
     const qb = this.repo
       .createQueryBuilder('a')
       .leftJoinAndSelect('a.project', 'project')
@@ -55,11 +61,23 @@ export class ArticleService {
     if (tags) qb.andWhere('a.tags ILIKE :tags', { tags: `%${tags}%` });
     if (isPublished !== undefined)
       qb.andWhere('a.is_published = :isPublished', { isPublished });
+    if (search) {
+      qb.andWhere(
+        '(a.title ILIKE :search OR a.category ILIKE :search OR a.tags ILIKE :search)',
+        { search: `%${search}%` },
+      );
+    }
     qb.orderBy('a.created_at', 'DESC')
       .skip((page - 1) * limit)
       .take(limit);
     const [data, total] = await qb.getManyAndCount();
-    return { data, total, page, limit };
+    return {
+      items: data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   async findOneBySlug(slug: string, adminMode = false) {

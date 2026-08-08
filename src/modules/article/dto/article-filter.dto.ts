@@ -5,6 +5,15 @@ import { Transform } from 'class-transformer';
 
 export class ArticleFilterDto extends PaginationDto {
   @ApiPropertyOptional({
+    example: 'chuyển đổi số',
+    description:
+      'Search articles by keyword (case-insensitive match on title, content, category, tags)',
+  })
+  @IsOptional()
+  @IsString()
+  search?: string;
+
+  @ApiPropertyOptional({
     example: 'Tin tức',
     description: 'Filter articles by category name',
   })
