@@ -30,6 +30,7 @@ import { LeadModule } from './modules/lead/lead.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { HealthModule } from './modules/health/health.module';
 import imagekitConfig from './config/imagekit.config';
+import googleDriveConfig from './config/google-drive.config';
 import { UploadModule } from './modules/upload/upload.module';
 import { CronjobModule } from './modules/cronjob/cronjob.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
@@ -40,7 +41,14 @@ import { PageBannerModule } from './modules/page-banner/page-banner.module';
     ConfigModule.forRoot({
       isGlobal: true,
       validate: validateEnv,
-      load: [appConfig, dbConfig, jwtConfig, redisConfig, imagekitConfig],
+      load: [
+        appConfig,
+        dbConfig,
+        jwtConfig,
+        redisConfig,
+        imagekitConfig,
+        googleDriveConfig,
+      ],
       envFilePath: [`.env.${process.env.NODE_ENV ?? 'development'}`, '.env'],
     }),
     WinstonModule.forRoot(loggerConfig),
