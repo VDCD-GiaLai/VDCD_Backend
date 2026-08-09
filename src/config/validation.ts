@@ -43,7 +43,17 @@ class EnvironmentVariables {
   @IsString() @IsNotEmpty() MAIL_USER: string;
   @IsString() @IsNotEmpty() MAIL_PASSWORD: string;
   @IsString() @IsNotEmpty() MAIL_FROM: string;
+
+  // Google Drive Backup (optional — backup cron skips gracefully if not set)
+  @IsString() @IsOptional() GOOGLE_DRIVE_FOLDER_ID?: string;
+  @IsString() @IsOptional() GOOGLE_DRIVE_CLIENT_ID?: string;
+  @IsString() @IsOptional() GOOGLE_DRIVE_CLIENT_SECRET?: string;
+  @IsString() @IsOptional() GOOGLE_DRIVE_REFRESH_TOKEN?: string;
+  @IsString() @IsOptional() GOOGLE_SERVICE_ACCOUNT_KEY_BASE64?: string;
+  @IsString() @IsOptional() BACKUP_CRON?: string;
+  @IsInt() @IsOptional() BACKUP_RETAIN_COUNT?: number;
 }
+
 
 export function validateEnv(config: Record<string, unknown>) {
   const validated = plainToInstance(EnvironmentVariables, config, {

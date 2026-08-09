@@ -21,6 +21,7 @@ RUN pnpm build
 FROM node:22-alpine AS runner
 WORKDIR /app
 
+RUN apk add --no-cache postgresql15-client
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 ENV NODE_ENV=production
