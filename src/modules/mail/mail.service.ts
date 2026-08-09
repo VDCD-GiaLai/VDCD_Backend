@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Resend } from 'resend';
+// Tạm thời comment Resend SDK do lỗi trên production, chuyển sang dùng Google SMTP (Nodemailer)
+// import { Resend } from 'resend';
 import * as nodemailer from 'nodemailer';
 import { Lead } from '../lead/entities/lead.entity';
 import { Contact } from '../contact/entities/contact.entity';
@@ -12,10 +13,11 @@ import { renderContactConfirmationTemplate } from './templates/contact-confirmat
 @Injectable()
 export class MailService {
   private readonly logger = new Logger(MailService.name);
-  private resend?: Resend;
+  // private resend?: Resend;
   private transporter?: nodemailer.Transporter;
 
   constructor(private config: ConfigService) {
+    /* Tạm thời comment Resend logic do lỗi production:
     const resendApiKey =
       config.get<string>('RESEND_API_KEY') ||
       (config.get<string>('MAIL_PASSWORD')?.startsWith('re_')
@@ -25,7 +27,9 @@ export class MailService {
     if (resendApiKey) {
       this.resend = new Resend(resendApiKey);
       this.logger.log('MailService initialized with Resend SDK');
-    } else if (config.get('MAIL_HOST')) {
+    } else
+    */
+    if (config.get('MAIL_HOST')) {
       this.transporter = nodemailer.createTransport({
         host: config.get('MAIL_HOST'),
         port: config.get<number>('MAIL_PORT', 587),
@@ -35,9 +39,9 @@ export class MailService {
           pass: config.get('MAIL_PASSWORD'),
         },
       });
-      this.logger.log('MailService initialized with Nodemailer SMTP');
+      this.logger.log('MailService initialized with Nodemailer SMTP (Google)');
     } else {
-      this.logger.warn('No mail provider configured (RESEND_API_KEY or MAIL_HOST missing)');
+      this.logger.warn('No mail provider configured (MAIL_HOST missing)');
     }
   }
 
@@ -52,6 +56,7 @@ export class MailService {
     subject: string;
     html: string;
   }): Promise<void> {
+    /* Tạm thời comment Resend logic:
     if (this.resend) {
       const { data, error } = await this.resend.emails.send({
         from,
@@ -65,7 +70,9 @@ export class MailService {
         throw new Error(error.message);
       }
       this.logger.log(`Email sent via Resend to ${to} (id: ${data?.id})`);
-    } else if (this.transporter) {
+    } else
+    */
+    if (this.transporter) {
       await this.transporter.sendMail({ from, to, subject, html });
       this.logger.log(`Email sent via SMTP to ${to}`);
     } else {
@@ -73,11 +80,20 @@ export class MailService {
     }
   }
 
+  private getFromEmail(): string {
+    return (
+      this.config.get('MAIL_FROM') ||
+      (this.config.get('MAIL_USER')
+        ? `VDCD Group <${this.config.get('MAIL_USER')}>`
+        : 'VDCD Group <noreply@vdcd.vn>')
+    );
+  }
+
   /** Send internal notification for a new recruitment lead & confirmation email to candidate */
   async sendLeadNotification(lead: Lead) {
     const adminUrl = this.config.get('ADMIN_URL') || 'http://localhost:3002';
     const appEnv = this.config.get('NODE_ENV') || 'development';
-    const from = this.config.get('MAIL_FROM') || 'VDCD <onboarding@resend.dev>';
+    const from = this.getFromEmail();
     const adminMail = this.config.get('MAIL_ADMIN');
 
     // 1. Internal notification to Admin
@@ -118,7 +134,7 @@ export class MailService {
   async sendContactNotification(contact: Contact) {
     const adminUrl = this.config.get('ADMIN_URL') || 'http://localhost:3002';
     const appEnv = this.config.get('NODE_ENV') || 'development';
-    const from = this.config.get('MAIL_FROM') || 'VDCD <onboarding@resend.dev>';
+    const from = this.getFromEmail();
     const adminMail = this.config.get('MAIL_ADMIN');
 
     // 1. Internal notification to Admin
@@ -155,3 +171,4 @@ export class MailService {
     }
   }
 }
+
