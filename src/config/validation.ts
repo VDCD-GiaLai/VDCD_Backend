@@ -38,10 +38,12 @@ class EnvironmentVariables {
   @IsString() @IsNotEmpty() IMAGEKIT_PRIVATE_KEY: string;
   @IsString() @IsNotEmpty() IMAGEKIT_URL_ENDPOINT: string;
 
-  @IsString() @IsNotEmpty() MAIL_HOST: string;
-  @IsInt() MAIL_PORT: number;
-  @IsString() @IsNotEmpty() MAIL_USER: string;
-  @IsString() @IsNotEmpty() MAIL_PASSWORD: string;
+  @IsString() @IsOptional() RESEND_API_KEY?: string;
+
+  @IsString() @IsOptional() MAIL_HOST?: string;
+  @IsInt() @IsOptional() MAIL_PORT?: number;
+  @IsString() @IsOptional() MAIL_USER?: string;
+  @IsString() @IsOptional() MAIL_PASSWORD?: string;
   @IsString() @IsNotEmpty() MAIL_FROM: string;
 
   // Google Drive Backup (optional — backup cron skips gracefully if not set)
