@@ -14,8 +14,7 @@ import { ConfigService } from '@nestjs/config';
         password: config.get('DB_PASSWORD'),
         database: config.get('DB_NAME'),
         ssl:
-          config.get('DB_SSL') === 'true' ||
-          config.get('NODE_ENV') === 'production'
+          config.get('DB_SSL') === 'true'
             ? { rejectUnauthorized: false }
             : false,
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
