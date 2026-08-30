@@ -4,6 +4,9 @@ on:
   push:
     branches: [deployment]
 
+permissions:
+  statuses: write
+
 env:
   IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/vdcd-backend
 
@@ -110,17 +113,20 @@ jobs:
     name: Deploy to VPS
     needs: docker
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASS: ${{ secrets.DOCKER_PASSWORD }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
-          script_stop: true
+          timeout: 60s
+          envs: DOCKER_USER,DOCKER_PASS
           script: |
             set -e
 
@@ -133,6 +139,9 @@ jobs:
 
             cd "$DEPLOY_DIR"
 
+            # Docker login
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+
             # Save current image tag for rollback
             CURRENT_TAG=$(docker inspect --format='{{.Config.Image}}' vdcd-backend 2>/dev/null | awk -F: '{print $2}') || CURRENT_TAG="latest"
             echo "$CURRENT_TAG" > .last-deployed-tag
@@ -141,8 +150,9 @@ jobs:
             echo "[PULL] Image: $IMAGE:$SHORT_SHA"
             docker pull "$IMAGE:$SHORT_SHA"
 
-            # Update .env with new image tag
-            sed -i "s|^IMAGE_TAG=.*|IMAGE_TAG=$SHORT_SHA|" .env
+            # Update .env with new image tag and Docker image name
+            grep -q '^IMAGE_TAG=' .env && sed -i "s|^IMAGE_TAG=.*|IMAGE_TAG=$SHORT_SHA|" .env || echo "IMAGE_TAG=$SHORT_SHA" >> .env
+            grep -q '^DOCKER_IMAGE=' .env && sed -i "s|^DOCKER_IMAGE=.*|DOCKER_IMAGE=$IMAGE|" .env || echo "DOCKER_IMAGE=$IMAGE" >> .env
 
             # Deploy with zero-downtime
             echo "[START] Starting new container..."
@@ -153,7 +163,7 @@ jobs:
             MAX_RETRIES=15
             RETRY_INTERVAL=4
             for i in $(seq 1 $MAX_RETRIES); do
-              if curl -sf http://localhost:3001/api/v1/health > /dev/null 2>&1; then
+              if docker exec vdcd-backend wget -qO- http://localhost:3001/api/v1/health > /dev/null 2>&1; then
                 echo "[OK] Health check passed (attempt $i/$MAX_RETRIES)"
                 break
               fi
@@ -164,7 +174,7 @@ jobs:
                 docker compose -f docker-compose.prod.yml up -d --no-deps --force-recreate backend
                 echo "[HEALTH] Waiting for rollback health check..."
                 sleep 10
-                if curl -sf http://localhost:3001/api/v1/health > /dev/null 2>&1; then
+                if docker exec vdcd-backend wget -qO- http://localhost:3001/api/v1/health > /dev/null 2>&1; then
                   echo "[OK] Rollback successful"
                 else
                   echo "[CRITICAL] Rollback also failed — manual intervention required!"
