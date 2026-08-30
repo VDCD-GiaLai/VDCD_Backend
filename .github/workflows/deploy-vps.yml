@@ -163,7 +163,7 @@ jobs:
             MAX_RETRIES=15
             RETRY_INTERVAL=4
             for i in $(seq 1 $MAX_RETRIES); do
-              if curl -sf http://localhost:3001/api/v1/health > /dev/null 2>&1; then
+              if docker exec vdcd-backend wget -qO- http://localhost:3001/api/v1/health > /dev/null 2>&1; then
                 echo "[OK] Health check passed (attempt $i/$MAX_RETRIES)"
                 break
               fi
@@ -174,7 +174,7 @@ jobs:
                 docker compose -f docker-compose.prod.yml up -d --no-deps --force-recreate backend
                 echo "[HEALTH] Waiting for rollback health check..."
                 sleep 10
-                if curl -sf http://localhost:3001/api/v1/health > /dev/null 2>&1; then
+                if docker exec vdcd-backend wget -qO- http://localhost:3001/api/v1/health > /dev/null 2>&1; then
                   echo "[OK] Rollback successful"
                 else
                   echo "[CRITICAL] Rollback also failed — manual intervention required!"
