@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { execFile } from 'child_process';
 import { promisify } from 'util';
 import { createReadStream, createWriteStream, existsSync, mkdirSync } from 'fs';
-import { unlink, readdir } from 'fs/promises';
+import { unlink } from 'fs/promises';
 import { join } from 'path';
 import { createGzip } from 'zlib';
 import { pipeline } from 'stream/promises';
