@@ -6,7 +6,7 @@ services:
     restart: always
     ports:
       - "80:80"
-      - "443:443"
+      - "8443:443"
     volumes:
       - ./nginx/vdcd-api.conf:/etc/nginx/conf.d/default.conf:ro
       - ./ssl/certbot/conf:/etc/letsencrypt:ro
