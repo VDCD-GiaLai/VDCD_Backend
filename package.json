@@ -29,6 +29,8 @@
     "migration:show": "pnpm typeorm-ts-node-commonjs migration:show -d src/database/data-source.ts",
     "seed": "ts-node -r tsconfig-paths/register src/database/seeds/index.ts",
     "seed:prod": "NODE_ENV=production ts-node -r tsconfig-paths/register src/database/seeds/index.ts",
+    "seed:full": "ts-node -r tsconfig-paths/register src/database/seeds/full-database.seed.ts",
+    "seed:full:prod": "NODE_ENV=production ts-node -r tsconfig-paths/register src/database/seeds/full-database.seed.ts",
     "import:projects": "ts-node -r tsconfig-paths/register src/database/seeds/import-crawled-projects.ts"
   },
   "dependencies": {

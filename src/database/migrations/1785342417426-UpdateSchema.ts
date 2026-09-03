@@ -10,6 +10,8 @@ export class UpdateSchema1785342417426 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`ALTER TABLE "solution" DROP COLUMN IF EXISTS "website_url"`);
+    await queryRunner.query(
+      `ALTER TABLE "solution" DROP COLUMN IF EXISTS "website_url"`,
+    );
   }
 }

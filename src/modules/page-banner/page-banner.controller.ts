@@ -96,10 +96,7 @@ export class PageBannerController {
     type: PageBanner,
   })
   @ApiResponse({ status: 404, description: 'Page banner not found.' })
-  update(
-    @Param('pageKey') pageKey: string,
-    @Body() dto: UpdatePageBannerDto,
-  ) {
+  update(@Param('pageKey') pageKey: string, @Body() dto: UpdatePageBannerDto) {
     return this.service.update(pageKey, dto);
   }
 
@@ -111,7 +108,10 @@ export class PageBannerController {
       'Permanently delete a page banner by ID. Restricted to superadmin.',
   })
   @ApiParam({ name: 'id', description: 'The ID of the banner to delete' })
-  @ApiResponse({ status: 200, description: 'Page banner deleted successfully.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Page banner deleted successfully.',
+  })
   @ApiResponse({ status: 404, description: 'Page banner not found.' })
   remove(@Param('id') id: string) {
     return this.service.remove(id);

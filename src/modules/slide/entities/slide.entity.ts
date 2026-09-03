@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  OneToOne,
 } from 'typeorm';
+import { SlideDetailBlog } from '../../slide-detail-blog/entities/slide-detail-blog.entity';
 
 @Entity('slide')
 export class Slide {
@@ -40,4 +42,7 @@ export class Slide {
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+
+  @OneToOne(() => SlideDetailBlog, (blog) => blog.slide)
+  detailBlog: SlideDetailBlog;
 }

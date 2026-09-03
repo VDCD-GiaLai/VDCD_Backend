@@ -31,12 +31,20 @@ async function main() {
   const clientSecret = process.argv[3];
 
   if (!clientId || !clientSecret) {
-    console.error('\n❌ Usage: npx ts-node src/scripts/get-drive-token.ts <CLIENT_ID> <CLIENT_SECRET>\n');
-    console.error('Get these from: Google Cloud Console → APIs & Services → Credentials → OAuth 2.0 Client IDs');
+    console.error(
+      '\n❌ Usage: npx ts-node src/scripts/get-drive-token.ts <CLIENT_ID> <CLIENT_SECRET>\n',
+    );
+    console.error(
+      'Get these from: Google Cloud Console → APIs & Services → Credentials → OAuth 2.0 Client IDs',
+    );
     process.exit(1);
   }
 
-  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, REDIRECT_URI);
+  const oauth2Client = new google.auth.OAuth2(
+    clientId,
+    clientSecret,
+    REDIRECT_URI,
+  );
 
   const authUrl = oauth2Client.generateAuthUrl({
     access_type: 'offline',
@@ -44,16 +52,26 @@ async function main() {
     prompt: 'consent',
   });
 
-  console.log('\n═══════════════════════════════════════════════════════════════');
+  console.log(
+    '\n═══════════════════════════════════════════════════════════════',
+  );
   console.log('  🔐 Google Drive Authorization');
-  console.log('═══════════════════════════════════════════════════════════════');
+  console.log(
+    '═══════════════════════════════════════════════════════════════',
+  );
   console.log('\n📋 IMPORTANT: Make sure you have added this redirect URI');
-  console.log('   in Google Cloud Console → OAuth 2.0 Client → Authorized redirect URIs:');
+  console.log(
+    '   in Google Cloud Console → OAuth 2.0 Client → Authorized redirect URIs:',
+  );
   console.log(`\n   ${REDIRECT_URI}\n`);
-  console.log('───────────────────────────────────────────────────────────────');
+  console.log(
+    '───────────────────────────────────────────────────────────────',
+  );
   console.log('\n👉 Open this URL in your browser:\n');
   console.log(authUrl);
-  console.log('\n───────────────────────────────────────────────────────────────\n');
+  console.log(
+    '\n───────────────────────────────────────────────────────────────\n',
+  );
 
   // Try to open browser automatically
   try {
@@ -68,7 +86,9 @@ async function main() {
       exec(`xdg-open "${authUrl}"`);
     }
   } catch {
-    console.log('⚠️  Could not open browser automatically. Please open the URL above manually.\n');
+    console.log(
+      '⚠️  Could not open browser automatically. Please open the URL above manually.\n',
+    );
   }
 
   // Wait for callback
@@ -78,13 +98,19 @@ async function main() {
 
   const { tokens } = await oauth2Client.getToken(code);
 
-  console.log('═══════════════════════════════════════════════════════════════');
+  console.log(
+    '═══════════════════════════════════════════════════════════════',
+  );
   console.log('  📋 Copy these values to your .env file:');
-  console.log('═══════════════════════════════════════════════════════════════');
+  console.log(
+    '═══════════════════════════════════════════════════════════════',
+  );
   console.log(`\nGOOGLE_DRIVE_CLIENT_ID=${clientId}`);
   console.log(`GOOGLE_DRIVE_CLIENT_SECRET=${clientSecret}`);
   console.log(`GOOGLE_DRIVE_REFRESH_TOKEN=${tokens.refresh_token}\n`);
-  console.log('═══════════════════════════════════════════════════════════════\n');
+  console.log(
+    '═══════════════════════════════════════════════════════════════\n',
+  );
 
   process.exit(0);
 }
@@ -107,7 +133,9 @@ function waitForCallback(): Promise<string> {
 
         if (code) {
           res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-          res.end('<h2>✅ Authorization successful!</h2><p>You can close this tab and return to the terminal.</p>');
+          res.end(
+            '<h2>✅ Authorization successful!</h2><p>You can close this tab and return to the terminal.</p>',
+          );
           server.close();
           resolve(code);
         } else {
@@ -121,19 +149,27 @@ function waitForCallback(): Promise<string> {
 
     server.on('error', (err: NodeJS.ErrnoException) => {
       if (err.code === 'EADDRINUSE') {
-        reject(new Error(`Port ${REDIRECT_PORT} is already in use. Run: npx kill-port ${REDIRECT_PORT}`));
+        reject(
+          new Error(
+            `Port ${REDIRECT_PORT} is already in use. Run: npx kill-port ${REDIRECT_PORT}`,
+          ),
+        );
       } else {
         reject(err);
       }
     });
 
     server.listen(REDIRECT_PORT, () => {
-      console.log(`⏳ Waiting for authorization callback on port ${REDIRECT_PORT}... (timeout: ${TIMEOUT_MS / 60000} min)\n`);
+      console.log(
+        `⏳ Waiting for authorization callback on port ${REDIRECT_PORT}... (timeout: ${TIMEOUT_MS / 60000} min)\n`,
+      );
     });
 
     setTimeout(() => {
       server.close();
-      reject(new Error(`Authorization timed out (${TIMEOUT_MS / 60000} minutes)`));
+      reject(
+        new Error(`Authorization timed out (${TIMEOUT_MS / 60000} minutes)`),
+      );
     }, TIMEOUT_MS);
   });
 }

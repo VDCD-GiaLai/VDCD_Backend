@@ -57,7 +57,11 @@ export class PageBannerService {
       throw new NotFoundException(`Banner for page '${pageKey}' not found`);
     }
 
-    if (dto.imageUrl && dto.imageUrl !== banner.imageUrl && banner.imageFileId) {
+    if (
+      dto.imageUrl &&
+      dto.imageUrl !== banner.imageUrl &&
+      banner.imageFileId
+    ) {
       this.uploadService
         .deleteFile(banner.imageFileId)
         .catch((err) =>
@@ -71,7 +75,11 @@ export class PageBannerService {
     Object.assign(banner, dto);
     const saved = await this.repo.save(banner);
 
-    if (dto.imageUrl && dto.imageUrl !== banner.imageUrl && banner.imageFileId) {
+    if (
+      dto.imageUrl &&
+      dto.imageUrl !== banner.imageUrl &&
+      banner.imageFileId
+    ) {
       this.uploadService
         .confirmUpload(dto.imageUrl)
         .catch((err) =>
