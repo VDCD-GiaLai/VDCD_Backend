@@ -104,7 +104,7 @@ async function seed() {
         isActive: true,
       }),
     ]);
-    console.log(`   → ${users.length} admin users`);
+    console.log(`  → ${users.length} admin users`);
 
     // ── 2. Organization ────────────────────────────────────────────
     console.log('🏢 Seeding organization...');
