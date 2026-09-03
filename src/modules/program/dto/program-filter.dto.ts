@@ -21,4 +21,3 @@ export class ProgramFilterDto extends PaginationDto {
   @IsBoolean()
   isPublished?: boolean;
 }
-

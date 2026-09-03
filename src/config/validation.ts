@@ -56,7 +56,6 @@ class EnvironmentVariables {
   @IsInt() @IsOptional() BACKUP_RETAIN_COUNT?: number;
 }
 
-
 export function validateEnv(config: Record<string, unknown>) {
   const validated = plainToInstance(EnvironmentVariables, config, {
     enableImplicitConversion: true,

@@ -99,15 +99,7 @@ export class ContactController {
     const rows = [
       'id,full_name,email,phone,subject,message,created_at',
       ...contacts.map((c) =>
-        [
-          c.id,
-          c.fullName,
-          c.email,
-          c.phone,
-          c.subject,
-          c.message,
-          c.createdAt,
-        ]
+        [c.id, c.fullName, c.email, c.phone, c.subject, c.message, c.createdAt]
           .map((v) => `"${(v ?? '').toString().replace(/"/g, '""')}"`)
           .join(','),
       ),

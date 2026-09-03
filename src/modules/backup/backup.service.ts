@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { execFile } from 'child_process';
 import { promisify } from 'util';
 import { createReadStream, createWriteStream, existsSync, mkdirSync } from 'fs';
-import { unlink, readdir } from 'fs/promises';
+import { unlink } from 'fs/promises';
 import { join } from 'path';
 import { createGzip } from 'zlib';
 import { pipeline } from 'stream/promises';
@@ -25,7 +25,11 @@ export class BackupService {
   /**
    * Full backup flow: dump → compress → upload → cleanup
    */
-  async runBackup(): Promise<{ success: boolean; fileName?: string; error?: string }> {
+  async runBackup(): Promise<{
+    success: boolean;
+    fileName?: string;
+    error?: string;
+  }> {
     const startTime = Date.now();
     let sqlFilePath: string | undefined;
     let gzFilePath: string | undefined;
@@ -46,7 +50,10 @@ export class BackupService {
       this.logger.log(`✅ Uploaded to Google Drive (fileId: ${driveFileId})`);
 
       // 4. Clean old backups on Drive
-      const retainCount = this.configService.get<number>('BACKUP_RETAIN_COUNT', 30);
+      const retainCount = this.configService.get<number>(
+        'BACKUP_RETAIN_COUNT',
+        30,
+      );
       const deletedCount = await this.cleanOldBackups(retainCount);
       if (deletedCount > 0) {
         this.logger.log(`🗑️  Cleaned ${deletedCount} old backup(s) from Drive`);
@@ -59,7 +66,10 @@ export class BackupService {
       return { success: true, fileName };
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      this.logger.error(`❌ Backup failed: ${message}`, error instanceof Error ? error.stack : '');
+      this.logger.error(
+        `❌ Backup failed: ${message}`,
+        error instanceof Error ? error.stack : '',
+      );
       return { success: false, error: message };
     } finally {
       // Cleanup temp files
@@ -78,11 +88,15 @@ export class BackupService {
     const user = this.configService.getOrThrow<string>('database.user');
     const password = this.configService.getOrThrow<string>('database.password');
 
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const timestamp = new Date()
+      .toISOString()
+      .replace(/[:.]/g, '-')
+      .slice(0, 19);
     const fileName = `${dbName}_${timestamp}.sql`;
     const filePath = join(this.tmpDir, fileName);
 
-    const isProduction = this.configService.get<string>('NODE_ENV') === 'production';
+    const isProduction =
+      this.configService.get<string>('NODE_ENV') === 'production';
 
     if (isProduction) {
       // Production: pg_dump is available directly (installed in Dockerfile)
@@ -90,13 +104,18 @@ export class BackupService {
       await execFileAsync(
         'pg_dump',
         [
-          '-h', host,
-          '-p', String(port),
-          '-U', user,
-          '-d', dbName,
+          '-h',
+          host,
+          '-p',
+          String(port),
+          '-U',
+          user,
+          '-d',
+          dbName,
           '--no-owner',
           '--no-acl',
-          '-f', filePath,
+          '-f',
+          filePath,
         ],
         { env, timeout: 120_000 },
       );
@@ -107,13 +126,18 @@ export class BackupService {
         'docker',
         [
           'exec',
-          '-e', `PGPASSWORD=${password}`,
+          '-e',
+          `PGPASSWORD=${password}`,
           containerName,
           'pg_dump',
-          '-h', host,
-          '-p', String(port),
-          '-U', user,
-          '-d', dbName,
+          '-h',
+          host,
+          '-p',
+          String(port),
+          '-U',
+          user,
+          '-d',
+          dbName,
           '--no-owner',
           '--no-acl',
         ],
@@ -144,7 +168,9 @@ export class BackupService {
   // ────────────────────────────────────────────────
   private async uploadToDrive(filePath: string): Promise<string> {
     const drive = this.getDriveClient();
-    const folderId = this.configService.getOrThrow<string>('google-drive.folderId');
+    const folderId = this.configService.getOrThrow<string>(
+      'google-drive.folderId',
+    );
     const fileName = filePath.split(/[\\/]/).pop()!;
 
     const response = await drive.files.create({
@@ -168,7 +194,9 @@ export class BackupService {
   // ────────────────────────────────────────────────
   async cleanOldBackups(retainCount: number): Promise<number> {
     const drive = this.getDriveClient();
-    const folderId = this.configService.getOrThrow<string>('google-drive.folderId');
+    const folderId = this.configService.getOrThrow<string>(
+      'google-drive.folderId',
+    );
 
     const response = await drive.files.list({
       q: `'${folderId}' in parents and trashed=false`,
@@ -194,12 +222,18 @@ export class BackupService {
   // Supports OAuth2 (personal accounts) and Service Account (Shared Drive)
   // ────────────────────────────────────────────────
   private getDriveClient() {
-    const refreshToken = this.configService.get<string>('google-drive.refreshToken');
+    const refreshToken = this.configService.get<string>(
+      'google-drive.refreshToken',
+    );
 
     if (refreshToken) {
       // OAuth2 approach — works with personal Google accounts
-      const clientId = this.configService.getOrThrow<string>('google-drive.clientId');
-      const clientSecret = this.configService.getOrThrow<string>('google-drive.clientSecret');
+      const clientId = this.configService.getOrThrow<string>(
+        'google-drive.clientId',
+      );
+      const clientSecret = this.configService.getOrThrow<string>(
+        'google-drive.clientSecret',
+      );
 
       const oauth2Client = new google.auth.OAuth2(clientId, clientSecret);
       oauth2Client.setCredentials({ refresh_token: refreshToken });
@@ -208,8 +242,12 @@ export class BackupService {
     }
 
     // Service Account approach — works with Shared Drives (Google Workspace)
-    const keyBase64 = this.configService.getOrThrow<string>('google-drive.serviceAccountKeyBase64');
-    const keyJson = JSON.parse(Buffer.from(keyBase64, 'base64').toString('utf-8'));
+    const keyBase64 = this.configService.getOrThrow<string>(
+      'google-drive.serviceAccountKeyBase64',
+    );
+    const keyJson = JSON.parse(
+      Buffer.from(keyBase64, 'base64').toString('utf-8'),
+    );
 
     const auth = new google.auth.GoogleAuth({
       credentials: keyJson,
