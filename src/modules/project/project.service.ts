@@ -39,12 +39,13 @@ export class ProjectService {
   }
 
   async findAll(dto: ProjectFilterDto) {
-    const { page = 1, limit = 12, fieldId, provinceId, year } = dto;
+    const { page = 1, limit = 12, search, fieldId, provinceId, year } = dto;
     const qb = this.repo
       .createQueryBuilder('p')
       .leftJoinAndSelect('p.field', 'field')
       .leftJoinAndSelect('p.province', 'province')
       .where('p.is_published = true');
+    if (search) qb.andWhere('p.title ILIKE :search', { search: `%${search}%` });
     if (fieldId) qb.andWhere('field.id = :fieldId', { fieldId });
     if (provinceId) qb.andWhere('province.id = :provinceId', { provinceId });
     if (year) qb.andWhere('p.year = :year', { year });
@@ -59,6 +60,7 @@ export class ProjectService {
     const {
       page = 1,
       limit = 12,
+      search,
       fieldId,
       provinceId,
       year,
@@ -68,6 +70,7 @@ export class ProjectService {
       .createQueryBuilder('p')
       .leftJoinAndSelect('p.field', 'field')
       .leftJoinAndSelect('p.province', 'province');
+    if (search) qb.andWhere('p.title ILIKE :search', { search: `%${search}%` });
     if (fieldId) qb.andWhere('field.id = :fieldId', { fieldId });
     if (provinceId) qb.andWhere('province.id = :provinceId', { provinceId });
     if (year) qb.andWhere('p.year = :year', { year });

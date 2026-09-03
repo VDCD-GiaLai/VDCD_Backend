@@ -36,6 +36,7 @@ import { CronjobModule } from './modules/cronjob/cronjob.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { SearchModule } from './modules/search/search.module';
 import { PageBannerModule } from './modules/page-banner/page-banner.module';
+import { SlideDetailBlogModule } from './modules/slide-detail-blog/slide-detail-blog.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -61,6 +62,7 @@ import { PageBannerModule } from './modules/page-banner/page-banner.module';
     ProjectModule,
     OrganizationModule,
     SlideModule,
+    SlideDetailBlogModule,
     PageBannerModule,
     ProvinceModule,
     PartnerModule,

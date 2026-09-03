@@ -5,6 +5,7 @@ import {
   Delete,
   Param,
   Query,
+  Body,
   UseGuards,
   UseInterceptors,
   UploadedFile,
@@ -38,7 +39,10 @@ import {
 
 // Memory storage — Don't save file to disk, just send to ImageKit
 const memoryUpload = () =>
-  FileInterceptor('file', { storage: memoryStorage() });
+  FileInterceptor('file', {
+    storage: memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 },
+  });
 
 @ApiTags('Upload')
 @Controller('upload')
@@ -65,7 +69,11 @@ export class UploadController {
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
   uploadImage(@UploadedFile() file: Express.Multer.File, @Request() req) {
-    return this.service.uploadImage(file, 'images', req.user.id);
+    return this.service.uploadImage(
+      file,
+      'images',
+      req.user?.id as string | undefined,
+    );
   }
 
   // ── Image in specific folder ──────────────────────────────────────
@@ -87,7 +95,10 @@ export class UploadController {
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
   uploadThumbnail(@UploadedFile() file: Express.Multer.File, @Request() req) {
-    return this.service.uploadThumbnail(file, req.user.id);
+    return this.service.uploadThumbnail(
+      file,
+      req.user?.id as string | undefined,
+    );
   }
 
   @Post('image/project')
@@ -111,7 +122,10 @@ export class UploadController {
     @UploadedFile() file: Express.Multer.File,
     @Request() req,
   ) {
-    return this.service.uploadProjectImage(file, req.user.id);
+    return this.service.uploadProjectImage(
+      file,
+      req.user?.id as string | undefined,
+    );
   }
 
   @Post('image/slide')
@@ -121,18 +135,107 @@ export class UploadController {
   @ApiOperation({
     summary: 'Upload slide image',
     description:
-      'Upload a slide image file to ImageKit under the "slides" folder. Restricted to superadmin and editor.',
+      'Upload a slide image file to ImageKit under "slides" or a subfolder like "slides/<subfolder>". Restricted to superadmin and editor.',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({ type: FileUploadDto })
+  @ApiQuery({
+    name: 'subfolder',
+    required: false,
+    description:
+      'Optional subfolder name under "slides" (e.g. "bai-viet", "so-hoa-du-lieu")',
+    example: 'bai-viet',
+  })
   @ApiResponse({
     status: 201,
     description: 'Slide image uploaded successfully.',
     type: UploadResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
-  uploadSlideImage(@UploadedFile() file: Express.Multer.File, @Request() req) {
-    return this.service.uploadSlideImage(file, req.user.id);
+  uploadSlideImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+    @Query('subfolder') subfolderQuery?: string,
+    @Body('subfolder') subfolderBody?: string,
+  ) {
+    const subfolder = subfolderQuery || subfolderBody;
+    return this.service.uploadSlideImage(
+      file,
+      req.user?.id as string | undefined,
+      subfolder,
+    );
+  }
+
+  @Post('image/slide/:subfolder')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload slide image into specific subfolder',
+    description:
+      'Upload a slide image file to ImageKit under "slides/<subfolder>". Restricted to superadmin and editor.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiParam({
+    name: 'subfolder',
+    description: 'Subfolder name under "slides" (e.g. "bai-viet")',
+    example: 'bai-viet',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Slide image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadSlideImageInSubfolder(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('subfolder') subfolder: string,
+    @Request() req,
+  ) {
+    return this.service.uploadSlideImage(
+      file,
+      req.user?.id as string | undefined,
+      subfolder,
+    );
+  }
+
+  @Post('image/slide-detail-blog')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload image for slide detail blog',
+    description:
+      'Upload an image for a slide detail blog to ImageKit under "slides/<subfolder>" (e.g. /vdcd/slides/bai-viet). If subfolder is not specified, defaults to "slides/detail-blogs".',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiQuery({
+    name: 'subfolder',
+    required: false,
+    description:
+      'Subfolder name or blog slug (e.g. "bai-viet", "so-hoa-du-lieu")',
+    example: 'bai-viet',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Slide detail blog image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadSlideDetailBlogImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+    @Query('subfolder') subfolderQuery?: string,
+    @Body('subfolder') subfolderBody?: string,
+  ) {
+    const subfolder = subfolderQuery || subfolderBody;
+    return this.service.uploadSlideDetailBlogImage(
+      file,
+      req.user?.id as string | undefined,
+      subfolder,
+    );
   }
 
   @Post('image/partner')
@@ -153,7 +256,10 @@ export class UploadController {
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
   uploadPartnerLogo(@UploadedFile() file: Express.Multer.File, @Request() req) {
-    return this.service.uploadPartnerLogo(file, req.user.id);
+    return this.service.uploadPartnerLogo(
+      file,
+      req.user?.id as string | undefined,
+    );
   }
 
   // ── Attached file (public — guest send CV) ───────────────────────

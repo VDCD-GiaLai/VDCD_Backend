@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, LessThan } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import ImageKit from 'imagekit';
+import slugify from 'slugify';
 import { randomUUID } from 'crypto';
 import { extname } from 'path';
 import { UploadTemp } from './entities/upload-temp.entity';
@@ -27,8 +28,8 @@ export class UploadService {
   private readonly logger = new Logger(UploadService.name);
   private readonly imagekit: ImageKit;
 
-  private readonly IMAGE_MAX_SIZE = 5 * 1024 * 1024;
-  private readonly FILE_MAX_SIZE = 5 * 1024 * 1024;
+  private readonly IMAGE_MAX_SIZE = 10 * 1024 * 1024;
+  private readonly FILE_MAX_SIZE = 10 * 1024 * 1024;
 
   private readonly ALLOWED_IMAGE_TYPES = [
     'image/jpeg',
@@ -69,7 +70,7 @@ export class UploadService {
       this.ALLOWED_IMAGE_TYPES,
       'jpg, png, webp, gif',
     );
-    this.validateSize(file, this.IMAGE_MAX_SIZE, '5MB');
+    this.validateSize(file, this.IMAGE_MAX_SIZE, '10MB');
     return this.doUpload(file, folder, uploadedBy);
   }
 
@@ -81,8 +82,42 @@ export class UploadService {
     return this.uploadImage(file, 'projects', uploadedBy);
   }
 
-  async uploadSlideImage(file: Express.Multer.File, uploadedBy?: string) {
-    return this.uploadImage(file, 'slides', uploadedBy);
+  /**
+   * Sanitize a subfolder string to be URL and CDN safe on ImageKit.
+   * Converts accents to ASCII, removes special characters, and prevents path traversal.
+   * Example: "bài-viết" -> "bai-viet", "Bài viết mới 2026!" -> "bai-viet-moi-2026"
+   */
+  sanitizeSubfolder(subfolder?: string): string {
+    if (!subfolder) return '';
+    return subfolder
+      .split('/')
+      .map((part) =>
+        slugify(part, { lower: true, locale: 'vi', strict: true, trim: true }),
+      )
+      .filter(Boolean)
+      .join('/');
+  }
+
+  async uploadSlideImage(
+    file: Express.Multer.File,
+    uploadedBy?: string,
+    subfolder?: string,
+  ) {
+    const cleanSubfolder = this.sanitizeSubfolder(subfolder);
+    const folder = cleanSubfolder ? `slides/${cleanSubfolder}` : 'slides';
+    return this.uploadImage(file, folder, uploadedBy);
+  }
+
+  async uploadSlideDetailBlogImage(
+    file: Express.Multer.File,
+    uploadedBy?: string,
+    subfolder?: string,
+  ) {
+    const cleanSubfolder = this.sanitizeSubfolder(subfolder);
+    const folder = cleanSubfolder
+      ? `slides/${cleanSubfolder}`
+      : 'slides/detail-blogs';
+    return this.uploadImage(file, folder, uploadedBy);
   }
 
   async uploadPartnerLogo(file: Express.Multer.File, uploadedBy?: string) {
@@ -99,7 +134,7 @@ export class UploadService {
       this.ALLOWED_FILE_TYPES,
       'pdf, doc, docx, jpg, png, webp, gif',
     );
-    this.validateSize(file, this.FILE_MAX_SIZE, '5MB');
+    this.validateSize(file, this.FILE_MAX_SIZE, '10MB');
     return this.doUpload(file, 'attachments', uploadedBy);
   }
 
@@ -193,7 +228,7 @@ export class UploadService {
         fileName,
         folder: `/vdcd/${folder}`,
         useUniqueFileName: false,
-        tags: ['vdcd', folder],
+        tags: ['vdcd', ...folder.split('/')],
       });
 
       // Save to temp table, confirmed = false

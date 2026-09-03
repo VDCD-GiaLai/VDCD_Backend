@@ -63,8 +63,7 @@ export class ContactService {
       throw new BadRequestException({
         success: false,
         code: 'EMAIL_RATE_LIMITED',
-        message:
-          'Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau 24 giờ.',
+        message: 'Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau 24 giờ.',
       });
     }
 

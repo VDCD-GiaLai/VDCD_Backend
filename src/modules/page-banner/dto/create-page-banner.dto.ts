@@ -14,7 +14,8 @@ import { PageBannerCtaButton } from '../entities/page-banner.entity';
 export class CreatePageBannerDto {
   @ApiProperty({
     example: 'careers',
-    description: 'Unique key of the page (e.g. careers, projects, programs, news, contact, about, solutions)',
+    description:
+      'Unique key of the page (e.g. careers, projects, programs, news, contact, about, solutions)',
   })
   @IsString()
   @IsNotEmpty()
@@ -31,7 +32,8 @@ export class CreatePageBannerDto {
   title: string;
 
   @ApiPropertyOptional({
-    example: 'Gia nhập VDCD Group để cùng xây dựng hệ sinh thái công nghệ tiên phong...',
+    example:
+      'Gia nhập VDCD Group để cùng xây dựng hệ sinh thái công nghệ tiên phong...',
     description: 'Subtitle of the banner',
     nullable: true,
   })
@@ -71,7 +73,12 @@ export class CreatePageBannerDto {
 
   @ApiPropertyOptional({
     example: [
-      { label: 'Xem vị trí', href: '#positions', variant: 'primary', ariaLabel: 'Xem các vị trí tuyển dụng' },
+      {
+        label: 'Xem vị trí',
+        href: '#positions',
+        variant: 'primary',
+        ariaLabel: 'Xem các vị trí tuyển dụng',
+      },
     ],
     description: 'CTA buttons list for the banner',
     nullable: true,

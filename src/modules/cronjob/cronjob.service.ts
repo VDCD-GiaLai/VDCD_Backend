@@ -37,9 +37,7 @@ export class CronjobService {
         `Scheduled database backup completed: ${result.fileName}`,
       );
     } else {
-      this.logger.error(
-        `Scheduled database backup failed: ${result.error}`,
-      );
+      this.logger.error(`Scheduled database backup failed: ${result.error}`);
     }
   }
 }

@@ -1,9 +1,23 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsBoolean, IsInt, IsOptional, IsUUID } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { PaginationDto } from '../../../common/dto/pagination.dto';
 
 export class ProjectFilterDto extends PaginationDto {
+  @ApiPropertyOptional({
+    example: 'trung tâm dữ liệu',
+    description: 'Search by project title (case-insensitive, partial match)',
+  })
+  @IsOptional()
+  @IsString()
+  search?: string;
+
   @ApiPropertyOptional({
     example: 'uuid-field-id',
     description: 'Filter by field ID',
@@ -35,4 +49,3 @@ export class ProjectFilterDto extends PaginationDto {
   @IsBoolean()
   isPublished?: boolean;
 }
-

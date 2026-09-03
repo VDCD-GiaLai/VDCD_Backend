@@ -10,7 +10,7 @@ import {
 export interface PageBannerCtaButton {
   label: string;
   href: string;
-  variant?: string;
+  variant?: 'primary' | 'secondary' | (string & {});
   ariaLabel?: string;
 }
 
