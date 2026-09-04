@@ -158,8 +158,8 @@ export class UploadService {
 
   // ── Cleanup orphan files ──────────────────────────
   async cleanOrphanFiles(): Promise<void> {
-    // Delete files uploaded more than 2 hours ago that haven't been confirmed
-    const expiredAt = new Date(Date.now() - 2 * 60 * 60 * 1000);
+    // Delete files uploaded more than 24 hours ago that haven't been confirmed
+    const expiredAt = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
     const orphans = await this.uploadTempRepo.find({
       where: {
