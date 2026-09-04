@@ -248,6 +248,16 @@ export class SlideDetailBlogService {
         );
     }
 
+    // Confirm all image fileIds inside content blocks (prevent orphan cleanup)
+    const contentImageIds = extractImageFileIds(saved.content as BlogContent);
+    for (const fileId of contentImageIds) {
+      this.uploadService
+        .confirmUpload(fileId)
+        .catch((err) =>
+          this.logger.warn(`Failed to confirm content image: ${fileId}`, err),
+        );
+    }
+
     return saved;
   }
 
@@ -328,6 +338,18 @@ export class SlideDetailBlogService {
             `Failed to confirm upload: ${dto.heroImageFileId}`,
             err,
           ),
+        );
+    }
+
+    // Confirm all NEW image fileIds inside content blocks (prevent orphan cleanup)
+    const newContentImageIds = extractImageFileIds(
+      saved.content as BlogContent,
+    );
+    for (const fileId of newContentImageIds) {
+      this.uploadService
+        .confirmUpload(fileId)
+        .catch((err) =>
+          this.logger.warn(`Failed to confirm content image: ${fileId}`, err),
         );
     }
 
