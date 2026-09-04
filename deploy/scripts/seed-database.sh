@@ -187,7 +187,7 @@ fi
 # Check backend health
 if docker ps --format '{{.Names}}' | grep -q '^vdcd-backend$'; then
   echo -e "🩺 Checking Backend Health..."
-  if docker exec vdcd-backend wget -qO- http://localhost:3001/api/v1/health > /dev/null 2>&1; then
+  if docker exec vdcd-backend wget -qO- -T 5 http://localhost:3001/api/v1/health > /dev/null 2>&1; then
     echo -e "    ${GREEN}✅ Backend is healthy and responding to /api/v1/health!${NC}"
   else
     echo -e "    ${YELLOW}⚠️ Backend health check did not return HTTP 200.${NC}"
