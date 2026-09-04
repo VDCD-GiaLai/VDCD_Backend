@@ -2,7 +2,7 @@
 /**
  * VDCD Full Database Seeding Script (Independent)
  * Generated at: 2026-09-03T16:01:24.201Z
- * Total tables: 16 | Total records: 178
+ * Total tables: 16 | Total records: 183
  */
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
@@ -95,7 +95,7 @@ async function run() {
     console.log('   - contact             : 0 rows');
     console.log('   - page_banner         : 7 rows');
     console.log('   - slide               : 5 rows');
-    console.log('   - program             : 6 rows');
+    console.log('   - program             : 11 rows');
     console.log('   - solution            : 19 rows');
     console.log('   - project             : 16 rows');
     console.log('   - slide_detail_blog   : 1 rows');

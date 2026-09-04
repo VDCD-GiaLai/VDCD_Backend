@@ -30,11 +30,11 @@ export class SlideService {
   async create(dto: CreateSlideDto) {
     const slide = this.repo.create(dto);
     const saved = await this.repo.save(slide);
-    if (dto.imageUrl) {
+    if (dto.imageFileId) {
       this.uploadService
-        .confirmUpload(dto.imageUrl)
+        .confirmUpload(dto.imageFileId)
         .catch((err) =>
-          this.logger.warn(`Failed to confirm upload: ${dto.imageUrl}`, err),
+          this.logger.warn(`Failed to confirm upload: ${dto.imageFileId}`, err),
         );
     }
     return saved;
@@ -57,11 +57,11 @@ export class SlideService {
 
     Object.assign(slide, dto);
     const saved = await this.repo.save(slide);
-    if (dto.imageUrl && dto.imageUrl !== slide.imageUrl && slide.imageFileId) {
+    if (dto.imageFileId && dto.imageFileId !== slide.imageFileId) {
       this.uploadService
-        .confirmUpload(dto.imageUrl)
+        .confirmUpload(dto.imageFileId)
         .catch((err) =>
-          this.logger.warn(`Failed to confirm upload: ${dto.imageUrl}`, err),
+          this.logger.warn(`Failed to confirm upload: ${dto.imageFileId}`, err),
         );
     }
 
