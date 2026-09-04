@@ -100,7 +100,7 @@ async function run() {
     console.log('   - project             : 16 rows');
     console.log('   - slide_detail_blog   : 1 rows');
     console.log('   - project_image       : 54 rows');
-    console.log('   - article             : 10 rows');
+    console.log('   - article             : 11 rows');
   } catch (error) {
     console.error('❌ Seeding failed:', error);
     throw error;
