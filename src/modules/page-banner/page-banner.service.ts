@@ -40,11 +40,11 @@ export class PageBannerService {
 
     const saved = await this.repo.save(banner);
 
-    if (dto.imageUrl) {
+    if (dto.imageFileId) {
       this.uploadService
-        .confirmUpload(dto.imageUrl)
+        .confirmUpload(dto.imageFileId)
         .catch((err) =>
-          this.logger.warn(`Failed to confirm upload: ${dto.imageUrl}`, err),
+          this.logger.warn(`Failed to confirm upload: ${dto.imageFileId}`, err),
         );
     }
 
@@ -75,15 +75,11 @@ export class PageBannerService {
     Object.assign(banner, dto);
     const saved = await this.repo.save(banner);
 
-    if (
-      dto.imageUrl &&
-      dto.imageUrl !== banner.imageUrl &&
-      banner.imageFileId
-    ) {
+    if (dto.imageFileId && dto.imageFileId !== banner.imageFileId) {
       this.uploadService
-        .confirmUpload(dto.imageUrl)
+        .confirmUpload(dto.imageFileId)
         .catch((err) =>
-          this.logger.warn(`Failed to confirm upload: ${dto.imageUrl}`, err),
+          this.logger.warn(`Failed to confirm upload: ${dto.imageFileId}`, err),
         );
     }
 
