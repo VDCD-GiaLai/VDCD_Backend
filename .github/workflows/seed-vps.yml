@@ -1,0 +1,109 @@
+name: Seed Database to VPS
+
+on:
+  workflow_dispatch:
+    inputs:
+      seed_mode:
+        description: 'Phương thức seed dữ liệu'
+        required: true
+        type: choice
+        options:
+          - sql_file
+          - typeorm_script
+        default: sql_file
+      auto_backup:
+        description: 'Tự động sao lưu database trước khi seed (Khuyên dùng)'
+        required: true
+        type: boolean
+        default: true
+      clear_cache:
+        description: 'Xóa Redis cache sau khi hoàn tất (FLUSHDB)'
+        required: true
+        type: boolean
+        default: true
+      confirm_action:
+        description: 'Nhập "YES" để xác nhận thực thi nạp dữ liệu'
+        required: true
+        type: string
+        default: 'YES'
+
+permissions:
+  contents: read
+
+jobs:
+  seed:
+    name: Seed Database on VPS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔒 Validate Confirmation
+        run: |
+          if [ "${{ github.event.inputs.confirm_action }}" != "YES" ]; then
+            echo "❌ [ABORTED] Xác nhận không hợp lệ. Bạn phải nhập chính xác chữ 'YES' để thực thi."
+            exit 1
+          fi
+          echo "✅ Đã xác nhận lệnh seed dữ liệu vào VPS."
+
+      - name: 🔑 Setup SSH Connection
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SSH_HOST: ${{ secrets.VPS_HOST }}
+          SSH_PORT: ${{ secrets.VPS_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: 📦 Transfer Seed Files to VPS
+        env:
+          SSH_HOST: ${{ secrets.VPS_HOST }}
+          SSH_USER: ${{ secrets.VPS_USER }}
+          SSH_PORT: ${{ secrets.VPS_PORT }}
+        run: |
+          echo "Connecting to $SSH_USER@$SSH_HOST:$SSH_PORT..."
+          ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" "mkdir -p /opt/vdcd/tmp /opt/vdcd/backups"
+          
+          echo "Copying seed SQL file and helper script to VPS..."
+          scp -P "$SSH_PORT" -o StrictHostKeyChecking=no docs/full-database-seed.sql "$SSH_USER@$SSH_HOST:/opt/vdcd/tmp/full-database-seed.sql"
+          scp -P "$SSH_PORT" -o StrictHostKeyChecking=no deploy/scripts/seed-database.sh "$SSH_USER@$SSH_HOST:/opt/vdcd/tmp/seed-database.sh"
+          ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" "chmod +x /opt/vdcd/tmp/seed-database.sh"
+          echo "✅ Files uploaded successfully."
+
+      - name: 🚀 Execute Seed on VPS
+        env:
+          SSH_HOST: ${{ secrets.VPS_HOST }}
+          SSH_USER: ${{ secrets.VPS_USER }}
+          SSH_PORT: ${{ secrets.VPS_PORT }}
+          MODE: ${{ github.event.inputs.seed_mode }}
+          BACKUP: ${{ github.event.inputs.auto_backup }}
+          CLEAR_CACHE: ${{ github.event.inputs.clear_cache }}
+        run: |
+          ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" \
+            "/opt/vdcd/tmp/seed-database.sh --mode '$MODE' --backup '$BACKUP' --clear-cache '$CLEAR_CACHE' --sql-file '/opt/vdcd/tmp/full-database-seed.sql'"
+
+      - name: 🧹 Cleanup Temporary Files on VPS
+        if: always()
+        env:
+          SSH_HOST: ${{ secrets.VPS_HOST }}
+          SSH_USER: ${{ secrets.VPS_USER }}
+          SSH_PORT: ${{ secrets.VPS_PORT }}
+        run: |
+          ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" "rm -f /opt/vdcd/tmp/full-database-seed.sql /opt/vdcd/tmp/seed-database.sh" || true
+          echo "✅ Temporary files cleaned up."
+
+      - name: 📋 Generate Step Summary
+        if: always()
+        run: |
+          echo "## 📊 Kết Quả Seed Database VPS" >> $GITHUB_STEP_SUMMARY
+          echo "- **Trạng thái:** ${{ job.status == 'success' && '✅ Thành công' || '❌ Thất bại' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Phương thức:** \`${{ github.event.inputs.seed_mode }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tự động Backup:** \`${{ github.event.inputs.auto_backup }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Xóa Cache Redis:** \`${{ github.event.inputs.clear_cache }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Thời gian:** \`$(date -u '+%Y-%m-%d %H:%M:%S UTC')\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "> [!TIP]" >> $GITHUB_STEP_SUMMARY
+          echo "> Nếu cần khôi phục lại dữ liệu trước khi seed, kiểm tra thư mục \`/opt/vdcd/backups/\` trên VPS." >> $GITHUB_STEP_SUMMARY
