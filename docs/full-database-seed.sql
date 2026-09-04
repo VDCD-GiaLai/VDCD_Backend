@@ -3,7 +3,7 @@
 -- Exported at: 2026-09-03T16:01:24.198Z
 -- Database: postgres @ localhost
 -- Total tables: 16
--- Total business records: 178
+-- Total business records: 183
 --
 -- Table Statistics:
 --   admin_user          : 3 rows
@@ -16,7 +16,7 @@
 --   contact             : 0 rows
 --   page_banner         : 7 rows
 --   slide               : 5 rows
---   program             : 6 rows
+--   program             : 11 rows
 --   solution            : 19 rows
 --   project             : 16 rows
 --   slide_detail_blog   : 1 rows
@@ -283,7 +283,7 @@ INSERT INTO "slide" ("id", "title", "description", "cta_text", "cta_url", "image
   ('2609eb18-f74a-451d-a01c-bff702a8ada7', 'TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI', 'Kết nối công nghệ, chuyên gia và doanh nghiệp, thúc đẩy chuyển đổi số và phát triển hệ sinh thái khởi nghiệp đổi mới sáng tạo tại địa phương.', 'Tìm hiểu thêm', '/slides/so-hoa-du-lieu-dat-dai', 'https://ik.imagekit.io/eo8dcxsjx8/vdcd/slides/1788429211721-48490265ae67.png', 0, TRUE, '2026-08-31T20:04:50.107Z', '', '6a99439dead997d09afb7fed');
 
 -- ------------------------------------------------------------------------------
--- TABLE: program (6 rows)
+-- TABLE: program (11 rows)
 -- ------------------------------------------------------------------------------
 INSERT INTO "program" ("id", "title", "slug", "short_description", "content", "thumbnail", "meta_title", "meta_description", "is_published", "created_at", "updated_at", "field_id", "thumbnail_file_id") VALUES
   ('c7b032a5-795c-44ef-9c02-c974ede3787b', 'Chương trình Chuyển đổi số Nông nghiệp Tây Nguyên', 'chuyen-doi-so-nong-nghiep-tay-nguyen', 'Ứng dụng công nghệ IoT, dữ liệu lớn và trí tuệ nhân tạo vào quản lý chuỗi cung ứng nông sản, giám sát canh tác và tối ưu hóa năng suất cho nông hộ tại Gia Lai và các tỉnh Tây Nguyên.', '<h2>Giới thiệu chương trình</h2>
@@ -339,7 +339,699 @@ INSERT INTO "program" ("id", "title", "slug", "short_description", "content", "t
 <li>Mentoring từ chuyên gia công nghệ và kinh doanh</li>
 <li>Kết nối với quỹ đầu tư và nhà đầu tư thiên thần</li>
 <li>Hỗ trợ đăng ký kinh doanh và sở hữu trí tuệ</li>
-</ul>', 'https://picsum.photos/seed/khoi-nghiep-sang-tao-gia-lai/800/500', 'Khởi nghiệp Sáng tạo Gia Lai | VDCD Group', 'Vườn ươm khởi nghiệp công nghệ Gia Lai — co-working, mentoring, kết nối đầu tư.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'e1760c66-386b-4de3-8490-5d71680649cf', 'program-thumb-khoi-nghiep-sang-tao-gia-lai');
+</ul>', 'https://picsum.photos/seed/khoi-nghiep-sang-tao-gia-lai/800/500', 'Khởi nghiệp Sáng tạo Gia Lai | VDCD Group', 'Vườn ươm khởi nghiệp công nghệ Gia Lai — co-working, mentoring, kết nối đầu tư.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'e1760c66-386b-4de3-8490-5d71680649cf', 'program-thumb-khoi-nghiep-sang-tao-gia-lai'),
+  ('a1b2c3d4-e5f6-4a7b-8c9d-012345678901', 'Ươm tạo khởi nghiệp sáng tạo', 'uom-tao-khoi-nghiep-sang-tao', 'Từ ý tưởng đến mô hình có thể thử nghiệm và thương mại hóa. Hỗ trợ dự án hoàn thiện mô hình kinh doanh, phát triển sản phẩm thử nghiệm, kiểm chứng thị trường và kết nối nguồn lực để thương mại hóa.', '<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ƯƠM TẠO KHỞI NGHIỆP SÁNG TẠO</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Từ ý tưởng đến mô hình có thể thử nghiệm và thương mại hóa</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai hỗ trợ cá nhân, nhóm dự án, startup, hợp tác xã và doanh nghiệp từng bước kiểm chứng ý tưởng, hoàn thiện mô hình kinh doanh, phát triển sản phẩm thử nghiệm và tiếp cận các nguồn lực phù hợp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mục tiêu của chương trình không chỉ là hoàn thiện một bản kế hoạch, mà giúp dự án trả lời được những câu hỏi quan trọng: Sản phẩm giải quyết vấn đề gì? Ai sẵn sàng sử dụng? Mô hình có khả thi không? Và cần làm gì tiếp theo để đưa sản phẩm vào thực tế?</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image110.png?tr=w-1200,q-80,f-auto" alt="Ông Trần Tuấn Cường đang nêu những khó khăn đang gặp phải tại Gia Lai" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Ông Trần Tuấn Cường đang nêu những khó khăn đang gặp phải tại Gia Lai</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">Ý TƯỞNG TỐT VẪN CẦN MỘT LỘ TRÌNH ĐÚNG</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nhiều ý tưởng khởi nghiệp được hình thành từ những vấn đề gần gũi trong đời sống, sản xuất và nhu cầu của địa phương. Tuy nhiên, để biến ý tưởng thành một dự án có khả năng phát triển, đội ngũ sáng lập thường gặp phải những điểm nghẽn:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chưa xác định rõ khách hàng và nhu cầu thực tế.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chưa biết cách kiểm chứng tính khả thi của ý tưởng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sản phẩm còn ở dạng khái niệm, chưa có phiên bản thử nghiệm.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mô hình kinh doanh và phương án tạo doanh thu chưa rõ ràng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thiếu kinh nghiệm về quản trị, tài chính, pháp lý và thị trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chưa tiếp cận được công nghệ, chuyên gia và đối tác phù hợp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chưa có hồ sơ đủ thuyết phục để giới thiệu dự án.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chương trình ươm tạo giúp dự án nhận diện đúng điểm nghẽn, xác định việc cần ưu tiên và xây dựng lộ trình phát triển phù hợp với nguồn lực hiện có.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐỐI TƯỢNG THAM GIA</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cá nhân và nhóm có ý tưởng</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Có ý tưởng giải quyết một vấn đề thực tế nhưng chưa biết bắt đầu hoặc chưa hình thành mô hình kinh doanh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Startup và dự án khởi nghiệp</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đã có sản phẩm ban đầu, cần kiểm chứng thị trường, hoàn thiện mô hình hoặc chuẩn bị cho giai đoạn phát triển tiếp theo.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sinh viên và nhóm nghiên cứu</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Có sáng kiến, kết quả nghiên cứu hoặc sản phẩm công nghệ cần đánh giá khả năng ứng dụng và thương mại hóa.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hợp tác xã và doanh nghiệp</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Muốn đổi mới sản phẩm, quy trình, phương thức vận hành hoặc phát triển mô hình kinh doanh mới trên nền tảng công nghệ.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">HÀNH TRÌNH ƯƠM TẠO</h2>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">01. Tiếp nhận và đánh giá</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tìm hiểu ý tưởng, đội ngũ, sản phẩm, thị trường dự kiến và những khó khăn dự án đang gặp phải. Kết quả đánh giá giúp xác định giai đoạn phát triển và nội dung cần ưu tiên.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">02. Kiểm chứng vấn đề và khách hàng</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Làm rõ đối tượng khách hàng, nhu cầu cần giải quyết và giá trị mà sản phẩm mang lại. Dự án được định hướng khảo sát, phỏng vấn và thu thập phản hồi từ người dùng thực tế.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">03. Hoàn thiện mô hình kinh doanh</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xác định khách hàng mục tiêu, giá trị cốt lõi, nguồn doanh thu, cơ cấu chi phí, kênh tiếp cận thị trường và những nguồn lực cần thiết.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">04. Phát triển sản phẩm thử nghiệm</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hỗ trợ dự án xây dựng mô hình mẫu, phiên bản khả dụng tối thiểu (MVP) hoặc bản chứng minh tính khả thi của giải pháp (POC).</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tùy theo nhu cầu, dự án có thể được kết nối với năng lực công nghệ trong hệ sinh thái VDCD Group như AI, phần mềm, dữ liệu, UAV, GIS, mô hình 3D và hạ tầng tính toán.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">05. Thử nghiệm và hoàn thiện</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đưa sản phẩm đến nhóm người dùng hoặc đối tác tiềm năng để thu thập phản hồi, đánh giá khả năng sử dụng và tiếp tục điều chỉnh sản phẩm, phương án vận hành và chiến lược thị trường.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">06. Trình bày và kết nối nguồn lực</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hoàn thiện hồ sơ giới thiệu, nội dung thuyết trình và kế hoạch phát triển. Những dự án phù hợp có thể được giới thiệu đến chuyên gia, doanh nghiệp, đơn vị công nghệ, chương trình hỗ trợ hoặc nguồn lực đầu tư.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">DỰ ÁN ĐƯỢC HỖ TRỢ NHỮNG GÌ?</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sản phẩm và mô hình kinh doanh</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Làm rõ vấn đề, giá trị khác biệt, khách hàng mục tiêu, phương thức tạo doanh thu và khả năng mở rộng của dự án.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Công nghệ và phát triển giải pháp</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết nối đội ngũ kỹ thuật, công nghệ và hạ tầng phù hợp để hỗ trợ hoàn thiện sản phẩm mẫu hoặc phiên bản thử nghiệm.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thị trường và vận hành</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng cách tiếp cận khách hàng, kế hoạch truyền thông, phương án vận hành, tài chính và sử dụng nguồn lực.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chuyên gia và hệ sinh thái</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết nối chuyên gia, cố vấn, doanh nghiệp, trường đại học, tổ chức nghiên cứu và đối tác có khả năng hỗ trợ dự án trong từng giai đoạn.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mỗi dự án có một điểm xuất phát khác nhau. Sau bước đánh giá ban đầu, Trung tâm Đổi mới Sáng tạo Gia Lai sẽ đề xuất nội dung và lộ trình phù hợp, thay vì áp dụng một chương trình giống nhau cho tất cả.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image115.png?tr=w-1200,q-80,f-auto" alt="Ông Cao Quân Vũ trực tiếp tư vấn cho các doanh nghiệp địa phương" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Ông Cao Quân Vũ trực tiếp tư vấn cho các doanh nghiệp địa phương</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">KẾT QUẢ DỰ ÁN HƯỚNG ĐẾN</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tùy theo mức độ phát triển, dự án có thể hoàn thiện một hoặc nhiều đầu ra:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Định vị và hồ sơ dự án rõ ràng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết quả kiểm chứng nhu cầu khách hàng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mô hình kinh doanh được hoàn thiện.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sản phẩm mẫu, MVP hoặc POC.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kế hoạch tiếp cận và thử nghiệm thị trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phương án vận hành và tài chính ban đầu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Bộ hồ sơ hoặc bài thuyết trình dự án.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Lộ trình phát triển trong giai đoạn tiếp theo.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mạng lưới chuyên gia, doanh nghiệp và đối tác phù hợp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết quả của chương trình được đánh giá bằng mức độ dự án hiểu thị trường rõ hơn, sản phẩm cụ thể hơn và xác định được bước đi tiếp theo.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1200,q-80,f-auto" alt="Startup trao đổi về ý tưởng mới tại hội thảo." class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Startup trao đổi về ý tưởng mới tại hội thảo.</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">HỆ SINH THÁI ĐỒNG HÀNH CÙNG DỰ ÁN</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai kết nối nguồn lực trong hệ sinh thái VDCD Group, bao gồm:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mạng lưới chuyên gia và cố vấn đa lĩnh vực.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đội ngũ nghiên cứu, kỹ thuật và phát triển sản phẩm.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Năng lực về UAV, AI, GIS, phần mềm và dữ liệu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hạ tầng trung tâm dữ liệu và tính toán.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Doanh nghiệp, trường đại học và tổ chức nghiên cứu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đối tác thị trường, truyền thông và thương mại.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm đóng vai trò tổ chức, định hướng và kết nối nguồn lực; đội ngũ sáng lập vẫn là chủ thể trực tiếp phát triển sản phẩm và đưa dự án vào thực tế.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐƯA Ý TƯỞNG ĐI XA HƠN BẰNG NHỮNG BƯỚC ĐI CỤ THỂ</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Khởi nghiệp sáng tạo không bắt đầu bằng một kế hoạch hoàn hảo. Nó bắt đầu bằng việc hiểu đúng vấn đề, kiểm chứng từng giả định và liên tục hoàn thiện sản phẩm từ phản hồi thực tế.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐĂNG KÝ THAM GIA CHƯƠNG TRÌNH ƯƠM TẠO</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Gửi thông tin về ý tưởng, đội ngũ, sản phẩm hiện có và nhu cầu cần hỗ trợ. Trung tâm Đổi mới Sáng tạo Gia Lai sẽ tiếp nhận, đánh giá ban đầu và trao đổi về lộ trình phù hợp.</p>
+
+<div class="project-style-cta border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-8 md:p-14 space-y-6 relative overflow-hidden transition-all duration-300 text-center my-12">
+  <div class="flex items-center justify-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-1">
+    <span class="w-2 h-2 rounded-full bg-accent-red animate-pulse"></span>
+    Ươm tạo khởi nghiệp
+  </div>
+
+  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold font-heading tracking-tight uppercase max-w-3xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300">
+    Đưa ý tưởng đi xa hơn bằng những bước đi cụ thể
+  </h3>
+
+  <p class="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-2 transition-colors duration-300 font-sans">
+    Gửi thông tin về ý tưởng, đội ngũ, sản phẩm hiện có và nhu cầu cần hỗ trợ. Trung tâm Đổi mới Sáng tạo Gia Lai sẽ tiếp nhận, đánh giá ban đầu và trao đổi về lộ trình phù hợp.
+  </p>
+
+  <div class="flex flex-wrap justify-center gap-4 pt-2 relative z-10">
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-primary inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>GỬI HỒ SƠ DỰ ÁN</span>
+      <span class="w-8 h-8 bg-white/10 dark:bg-black/10 flex items-center justify-center text-inherit group-hover:bg-white/20 dark:group-hover:bg-black/20 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </span>
+    </a>
+
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-secondary inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>TRAO ĐỔI VỚI TRUNG TÂM</span>
+      <span class="w-8 h-8 bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </span>
+    </a>
+  </div>
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-1200,q-85,f-auto', 'Ươm tạo khởi nghiệp sáng tạo | VDCD Gia Lai', 'Hỗ trợ dự án hoàn thiện mô hình kinh doanh, phát triển sản phẩm thử nghiệm, kiểm chứng thị trường và kết nối nguồn lực để thương mại hóa.', TRUE, '2026-03-01T08:00:00.000Z', '2026-08-31T09:00:00.000Z', 'e1760c66-386b-4de3-8490-5d71680649cf', 'program-thumb-uom-tao-khoi-nghiep-sang-tao'),
+  ('a1b2c3d4-e5f6-4a7b-8c9d-012345678902', 'Đào tạo công nghệ và chuyển đổi số', 'dao-tao-cong-nghe-va-chuyen-doi-so', 'Chương trình đào tạo theo nhu cầu thực tế về chuyển đổi số, UAV, AI, GIS, BIM và quản trị dữ liệu số cho doanh nghiệp và các sở ban ngành.', '<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐÀO TẠO</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Học để hiểu, thực hành để làm được</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức các chương trình đào tạo gắn với nhu cầu thực tế của cơ quan, doanh nghiệp, trường học và đội ngũ triển khai tại địa phương.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nội dung được xây dựng theo từng nhóm đối tượng, kết hợp kiến thức nền tảng, tình huống thực tế và hoạt động thực hành. Mục tiêu sau đào tạo không chỉ là hiểu thêm về công nghệ, mà là biết cách lựa chọn, vận hành và đưa công nghệ vào công việc cụ thể.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image57.png?tr=w-1200,q-80,f-auto" alt="Ông Dương Đức Cảnh - Phó viện trưởng viện thiết kế số, Phó GIÁM ĐỐC TRUNG TÂM ĐÀO TẠO VÀ CHUYỂN GIAO CÔNG NGHỆ" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Ông Dương Đức Cảnh - Phó viện trưởng viện thiết kế số, Phó GIÁM ĐỐC TRUNG TÂM ĐÀO TẠO VÀ CHUYỂN GIAO CÔNG NGHỆ</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐÀO TẠO BẮT ĐẦU TỪ NHU CẦU THỰC TẾ</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mỗi đơn vị có một điểm xuất phát khác nhau. Có nơi cần trang bị kiến thức nền tảng về chuyển đổi số; có đội ngũ cần nâng cao kỹ năng vận hành thiết bị; cũng có doanh nghiệp muốn đào tạo nhân sự để triển khai một giải pháp mới.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nếu nội dung đào tạo không gắn với công việc, kiến thức sẽ khó được áp dụng sau chương trình. Vì vậy, Trung tâm Đổi mới Sáng tạo Gia Lai tiếp cận đào tạo theo ba nguyên tắc:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đúng đối tượng: Nội dung phù hợp với vai trò và trình độ người học.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đúng nhu cầu: Tập trung vào những vấn đề đơn vị đang cần giải quyết.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Có thực hành: Kết hợp tình huống, dữ liệu, thiết bị hoặc phần mềm thực tế.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐỐI TƯỢNG ĐÀO TẠO</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cơ quan và đơn vị quản lý</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nâng cao nhận thức về chuyển đổi số, quản trị dữ liệu và khả năng ứng dụng công nghệ trong công tác chuyên môn.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Doanh nghiệp và hợp tác xã</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trang bị kiến thức, kỹ năng và phương pháp để cải tiến quy trình, khai thác dữ liệu và nâng cao hiệu quả vận hành.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đội ngũ kỹ thuật</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đào tạo vận hành thiết bị, thu thập dữ liệu hiện trường, xử lý nội nghiệp và sử dụng các nền tảng công nghệ chuyên môn.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sinh viên và người trẻ</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tiếp cận công nghệ mới, rèn luyện kỹ năng thực hành và hiểu rõ hơn nhu cầu nhân lực trong môi trường số.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image62.png?tr=w-1200,q-80,f-auto" alt="https://www.facebook.com/share/1GqPWZPHFJ/Đào tạo Bim cho các nhân sự của doanh nghiệp tại địa phương" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">https://www.facebook.com/share/1GqPWZPHFJ/Đào tạo Bim cho các nhân sự của doanh nghiệp tại địa phương</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">CÁC NHÓM CHƯƠNG TRÌNH ĐÀO TẠO</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chuyển đổi số và quản trị dữ liệu</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Giúp học viên hiểu đúng về chuyển đổi số, nhận diện các quy trình có thể cải tiến và xây dựng tư duy quản lý dựa trên dữ liệu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nội dung có thể bao gồm:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nhận thức và tư duy chuyển đổi số.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Số hóa quy trình và hồ sơ.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thu thập, chuẩn hóa và quản trị dữ liệu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">An toàn và khai thác dữ liệu trong hoạt động.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Ứng dụng nền tảng số vào quản lý, sản xuất và kinh doanh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">UAV, bản đồ số và GIS</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trang bị kiến thức từ vận hành thiết bị ngoài thực địa đến xử lý, kiểm tra và khai thác dữ liệu sau thu thập.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nội dung có thể bao gồm:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kiến thức cơ bản và an toàn vận hành UAV.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Lập kế hoạch bay và thu thập dữ liệu hiện trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sử dụng GNSS và thiết lập điểm khống chế.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xử lý bình đồ ảnh, mô hình 2D và 3D.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Biên tập, quản lý và khai thác dữ liệu trên GIS.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phối hợp giữa công tác ngoại nghiệp và nội nghiệp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">AI, phần mềm và khai thác dữ liệu</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Giúp học viên hiểu khả năng ứng dụng AI và phần mềm vào từng bài toán cụ thể, từ nhận diện hình ảnh đến tự động hóa quy trình.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nội dung có thể bao gồm:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kiến thức nền tảng về AI và dữ liệu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Ứng dụng AI trong phân tích hình ảnh, video.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nhận diện, đếm và phân loại đối tượng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sử dụng phần mềm và dashboard quản lý.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Khai thác dữ liệu phục vụ báo cáo và ra quyết định.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sử dụng AI có trách nhiệm và kiểm soát kết quả đầu ra.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Khởi nghiệp và đổi mới sáng tạo</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trang bị phương pháp giúp cá nhân và nhóm dự án phát triển ý tưởng theo hướng thực tế hơn.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nội dung có thể bao gồm:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xác định vấn đề và khách hàng mục tiêu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng mô hình kinh doanh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phát triển sản phẩm thử nghiệm.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kiểm chứng nhu cầu thị trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng thương hiệu và kế hoạch tiếp cận khách hàng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hoàn thiện hồ sơ và kỹ năng trình bày dự án.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phần đào tạo cung cấp kiến thức và công cụ thực hành. Những dự án cần đồng hành chuyên sâu từ ý tưởng đến thương mại hóa sẽ được định hướng sang chương trình Ươm tạo khởi nghiệp sáng tạo.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image112.png?tr=w-1200,q-80,f-auto" alt="Hơn 600+ học viên đến từ các sở ban ngành tham dự buổi đạo tào" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Hơn 600+ học viên đến từ các sở ban ngành tham dự buổi đạo tào</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">QUY TRÌNH XÂY DỰNG CHƯƠNG TRÌNH</h2>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">01. Khảo sát nhu cầu</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tìm hiểu đối tượng học viên, mục tiêu của đơn vị, kiến thức hiện có và vấn đề cần giải quyết sau đào tạo.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">02. Thiết kế nội dung</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng chủ đề, thời lượng, hình thức tổ chức và hoạt động thực hành phù hợp với yêu cầu thực tế.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">03. Tổ chức đào tạo</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết hợp trình bày kiến thức, minh họa công nghệ, trao đổi tình huống và hướng dẫn thực hành.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">04. Thực hành và xử lý tình huống</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Học viên trực tiếp làm việc với thiết bị, phần mềm, dữ liệu mẫu hoặc bài toán mô phỏng phù hợp với chương trình.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">05. Đánh giá và đề xuất áp dụng</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đánh giá mức độ tiếp thu, tổng hợp phản hồi và đề xuất những nội dung đơn vị có thể tiếp tục triển khai sau đào tạo.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">HÌNH THỨC TỔ CHỨC LINH HOẠT</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tùy theo mục tiêu và điều kiện triển khai, chương trình có thể được tổ chức dưới nhiều hình thức:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hội thảo và chương trình nâng cao nhận thức.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Lớp đào tạo tập trung theo chuyên đề.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đào tạo trực tiếp tại đơn vị.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thực hành ngoài hiện trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hướng dẫn sử dụng thiết bị và phần mềm.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chương trình ngắn hạn theo nhu cầu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đào tạo kết hợp trực tiếp và trực tuyến.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thời lượng và nội dung được điều chỉnh theo nhóm học viên, thay vì sử dụng một giáo trình cố định cho mọi đối tượng.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">KẾT QUẢ SAU ĐÀO TẠO</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tùy theo từng chương trình, đơn vị và học viên có thể nhận được:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chương trình được thiết kế theo nhu cầu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tài liệu và hướng dẫn thực hành.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kiến thức nền tảng về lĩnh vực đào tạo.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kỹ năng sử dụng thiết bị hoặc phần mềm.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Bài tập và tình huống gắn với công việc.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết quả đánh giá mức độ tiếp thu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đề xuất áp dụng sau chương trình.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xác nhận hoàn thành nếu chương trình có áp dụng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mỗi chương trình cần xác định rõ học viên sẽ hiểu được gì, làm được gì và có thể áp dụng vào đâu.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">KẾT NỐI CHUYÊN MÔN VÀ CÔNG NGHỆ</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai kết nối nguồn lực trong hệ sinh thái VDCD Group để xây dựng và tổ chức các chương trình phù hợp:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mạng lưới chuyên gia, giảng viên và đội ngũ kỹ thuật.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kinh nghiệm triển khai công nghệ tại hiện trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hệ thống UAV, AI, GIS, phần mềm và dữ liệu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hạ tầng trung tâm dữ liệu và tính toán.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mạng lưới doanh nghiệp, trường đại học và tổ chức nghiên cứu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chuyên gia được lựa chọn theo chủ đề và mục tiêu của chương trình, giúp nội dung đào tạo vừa có nền tảng chuyên môn, vừa gắn với kinh nghiệm triển khai thực tế.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image107.png?tr=w-1200,q-80,f-auto" alt="Chuyên gia đang đào tạo cho nhân sự mới ra trường" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Chuyên gia đang đào tạo cho nhân sự mới ra trường</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">XÂY DỰNG NĂNG LỰC ĐỂ CÔNG NGHỆ ĐƯỢC ÁP DỤNG THỰC CHẤT</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Công nghệ chỉ tạo ra giá trị khi đội ngũ hiểu, sử dụng đúng và có khả năng duy trì trong công việc hằng ngày.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai hướng đến các chương trình đào tạo thiết thực, dễ tiếp cận và có khả năng chuyển hóa kiến thức thành năng lực triển khai.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐỀ XUẤT CHƯƠNG TRÌNH ĐÀO TẠO</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cơ quan, doanh nghiệp và tổ chức có thể gửi nhu cầu về đối tượng học viên, chủ đề, mục tiêu và hình thức tổ chức. Trung tâm sẽ khảo sát và đề xuất nội dung phù hợp.</p>
+
+<div class="project-style-cta border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-8 md:p-14 space-y-6 relative overflow-hidden transition-all duration-300 text-center my-12">
+  <div class="flex items-center justify-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-1">
+    <span class="w-2 h-2 rounded-full bg-accent-red animate-pulse"></span>
+    Đào tạo công nghệ
+  </div>
+
+  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold font-heading tracking-tight uppercase max-w-3xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300">
+    Xây dựng năng lực để công nghệ được áp dụng thực chất
+  </h3>
+
+  <p class="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-2 transition-colors duration-300 font-sans">
+    Cơ quan, doanh nghiệp và tổ chức có thể gửi nhu cầu về đối tượng học viên, chủ đề, mục tiêu và hình thức tổ chức. Trung tâm sẽ khảo sát và đề xuất nội dung phù hợp.
+  </p>
+
+  <div class="flex flex-wrap justify-center gap-4 pt-2 relative z-10">
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-primary inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>ĐĂNG KÝ NHU CẦU ĐÀO TẠO</span>
+      <span class="w-8 h-8 bg-white/10 dark:bg-black/10 flex items-center justify-center text-inherit group-hover:bg-white/20 dark:group-hover:bg-black/20 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </span>
+    </a>
+
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-secondary inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>TRAO ĐỔI VỚI TRUNG TÂM</span>
+      <span class="w-8 h-8 bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </span>
+    </a>
+  </div>
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1200,q-85,f-auto', 'Đào tạo công nghệ và chuyển đổi số | VDCD Gia Lai', 'Chương trình đào tạo theo nhu cầu thực tế về chuyển đổi số, UAV, AI, GIS, BIM và quản trị dữ liệu số cho doanh nghiệp và các sở ban ngành.', TRUE, '2026-03-05T08:00:00.000Z', '2026-08-31T09:00:00.000Z', 'e1760c66-386b-4de3-8490-5d71680649cf', 'program-thumb-dao-tao-cong-nghe-va-chuyen-doi-so'),
+  ('a1b2c3d4-e5f6-4a7b-8c9d-012345678903', 'Kết nối chuyên gia và hệ sinh thái', 'ket-noi-chuyen-gia-va-he-sinh-thai', 'Kết nối đúng chuyên môn – Tháo gỡ đúng nút thắt – Mở rộng cơ hội hợp tác giữa chính quyền, doanh nghiệp, viện nghiên cứu và trường đại học.', '<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">KẾT NỐI CHUYÊN GIA</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đúng bài toán - Đúng chuyên gia - Đúng thời điểm</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Một vấn đề chỉ có thể được giải quyết hiệu quả khi đơn vị tiếp cận đúng người có chuyên môn, kinh nghiệm và khả năng đồng hành phù hợp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai kết nối cơ quan, doanh nghiệp, hợp tác xã, startup và tổ chức nghiên cứu với mạng lưới chuyên gia trong nhiều lĩnh vực. Không chỉ giới thiệu thông tin liên hệ, Trung tâm hỗ trợ làm rõ nhu cầu, lựa chọn chuyên gia và tổ chức hình thức trao đổi phù hợp với từng bài toán.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image105.png?tr=w-1200,q-80,f-auto" alt="Kí kết hợp tác chiến lược với Vietadge" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Kí kết hợp tác chiến lược với Vietadge</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">KHI BÀI TOÁN ĐÃ CÓ NHƯNG CHƯA TÌM ĐƯỢC ĐÚNG NGƯỜI</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trong quá trình triển khai công việc, nhiều đơn vị gặp những nhu cầu như:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cần đánh giá tính khả thi của một ý tưởng hoặc giải pháp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cần ý kiến chuyên môn trước khi triển khai dự án.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Muốn ứng dụng công nghệ nhưng chưa xác định phương án phù hợp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cần chuyên gia phản biện sản phẩm, quy trình hoặc mô hình kinh doanh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cần đối tác có năng lực kỹ thuật để phối hợp triển khai.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Muốn tiếp cận mạng lưới doanh nghiệp, trường đại học và tổ chức nghiên cứu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Việc tìm được một chuyên gia giỏi chưa chắc đã đủ. Chuyên gia cần có kinh nghiệm phù hợp với lĩnh vực, hiểu đúng vấn đề và tham gia theo hình thức đáp ứng được mục tiêu của đơn vị.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai đóng vai trò tiếp nhận bài toán, xác định nhu cầu và kết nối đúng nguồn lực chuyên môn.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐỐI TƯỢNG KẾT NỐI</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cơ quan và đơn vị quản lý</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cần ý kiến chuyên môn, phản biện giải pháp hoặc kết nối nguồn lực phục vụ chương trình và dự án tại địa phương.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Doanh nghiệp và hợp tác xã</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cần chuyên gia hỗ trợ về công nghệ, vận hành, sản phẩm, thị trường hoặc đổi mới mô hình kinh doanh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Startup và nhóm dự án</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cần cố vấn đánh giá ý tưởng, hoàn thiện sản phẩm, kiểm chứng mô hình và chuẩn bị cho giai đoạn phát triển tiếp theo.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trường đại học và tổ chức nghiên cứu</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cần kết nối doanh nghiệp, chuyên gia thực tiễn hoặc đối tác để hợp tác nghiên cứu, chuyển giao và ứng dụng công nghệ.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">7(5).JPG</h2>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image114.png?tr=w-1200,q-80,f-auto" alt="Kí kết MOU với Trường Đại học Quy Nhơn" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Kí kết MOU với Trường Đại học Quy Nhơn</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">LĨNH VỰC CHUYÊN GIA KẾT NỐI</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Công nghệ và chuyển đổi số</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng chiến lược và lộ trình chuyển đổi số.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Quản trị, số hóa và khai thác dữ liệu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phát triển phần mềm và nền tảng quản lý.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hạ tầng công nghệ, trung tâm dữ liệu và an toàn thông tin.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">UAV, AI và dữ liệu không gian</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">UAV, trắc địa và bản đồ số.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">GIS, mô hình 2D, 3D và dữ liệu không gian.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trí tuệ nhân tạo và phân tích hình ảnh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tự động hóa, giám sát và cảnh báo thông minh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Quản lý và phát triển dự án</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng mô hình tổ chức và vận hành.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đánh giá tính khả thi của giải pháp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Quản lý dự án và kiểm soát tiến độ.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phát triển sản phẩm và ứng dụng công nghệ.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Khởi nghiệp và thị trường</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hoàn thiện mô hình kinh doanh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng thương hiệu và chiến lược thị trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cố vấn sản phẩm và phát triển khách hàng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hồ sơ dự án và định hướng tiếp cận nguồn lực.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Các lĩnh vực chuyên ngành</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thông qua hệ sinh thái VDCD Group, Trung tâm có thể kết nối chuyên gia trong các lĩnh vực như trắc địa, xây dựng, quy hoạch, đất đai, tài nguyên, môi trường, nông nghiệp, lâm nghiệp và hạ tầng đô thị.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">HÌNH THỨC KẾT NỐI</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tùy theo tính chất của từng nhu cầu, hoạt động kết nối có thể được tổ chức dưới nhiều hình thức:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trao đổi trực tiếp với chuyên gia</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phù hợp với những vấn đề cụ thể, cần làm rõ hướng tiếp cận hoặc nhận ý kiến chuyên môn ban đầu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phiên tư vấn và phản biện</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chuyên gia nghiên cứu thông tin, trao đổi với đơn vị và đưa ra nhận định, khuyến nghị hoặc phương án đề xuất.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hội đồng chuyên gia</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tập hợp chuyên gia từ nhiều lĩnh vực để đánh giá một dự án, sản phẩm hoặc giải pháp có tính liên ngành.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hội thảo và tọa đàm chuyên đề</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tạo không gian trao đổi giữa chuyên gia, cơ quan quản lý, doanh nghiệp và cộng đồng về một chủ đề thực tiễn.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết nối hợp tác triển khai</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Giới thiệu chuyên gia, doanh nghiệp hoặc đơn vị kỹ thuật có khả năng tiếp tục tham gia nghiên cứu, thử nghiệm hay phối hợp triển khai.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hoạt động kết nối tạo cơ hội để các bên gặp gỡ và đánh giá khả năng hợp tác; không đồng nghĩa với cam kết dự án, đầu tư hoặc kết quả thương mại.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">QUY TRÌNH KẾT NỐI CHUYÊN GIA</h2>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">01. Tiếp nhận nhu cầu</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đơn vị cung cấp thông tin về vấn đề, mục tiêu, lĩnh vực chuyên môn và kết quả mong muốn.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">02. Làm rõ bài toán</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm trao đổi để xác định phạm vi, mức độ chuyên sâu, hình thức làm việc và năng lực chuyên gia cần có.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">03. Lựa chọn chuyên gia phù hợp</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tìm kiếm và đề xuất chuyên gia dựa trên lĩnh vực chuyên môn, kinh nghiệm thực tế và mức độ phù hợp với yêu cầu.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">04. Tổ chức kết nối</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Điều phối lịch làm việc, cung cấp thông tin cần thiết và tổ chức buổi trao đổi, tư vấn hoặc phản biện.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">05. Theo dõi và mở rộng hợp tác</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tổng hợp nội dung trao đổi, tiếp nhận phản hồi và hỗ trợ kết nối các bước tiếp theo nếu hai bên có nhu cầu.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">GIÁ TRỊ NHẬN ĐƯỢC</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thông qua hoạt động kết nối, đơn vị có thể:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tiếp cận chuyên gia phù hợp trong thời gian ngắn hơn.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nhận góc nhìn độc lập và có cơ sở chuyên môn.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nhận diện sớm rủi ro trước khi triển khai.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Làm rõ hướng công nghệ, sản phẩm hoặc mô hình hoạt động.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mở rộng quan hệ với doanh nghiệp và tổ chức nghiên cứu.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hình thành cơ hội hợp tác hoặc chuyển giao công nghệ.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Có cơ sở xác định bước đi tiếp theo cho bài toán của mình.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">MẠNG LƯỚI CHUYÊN MÔN ĐA LĨNH VỰC</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai kết nối mạng lưới chuyên gia, kỹ sư, nhà nghiên cứu, doanh nghiệp công nghệ và các đơn vị thành viên trong hệ sinh thái VDCD Group.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nguồn lực đa lĩnh vực giúp Trung tâm không chỉ tìm người có chuyên môn phù hợp, mà còn có khả năng kết nối các nhóm chuyên gia khi bài toán cần sự phối hợp giữa công nghệ, quản lý và thực tiễn triển khai.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image103.png?tr=w-1200,q-80,f-auto" alt="Kí kết MOU với Trường Đại học FPT Quy Nhơn" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Kí kết MOU với Trường Đại học FPT Quy Nhơn</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">KẾT NỐI ĐÚNG NGƯỜI ĐỂ BÀI TOÁN ĐI ĐÚNG HƯỚNG</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Không phải mọi vấn đề đều cần một chương trình đào tạo dài hạn hay một dự án tư vấn tổng thể. Đôi khi, điều đơn vị cần nhất là được tiếp cận đúng chuyên gia để nhìn rõ vấn đề và xác định bước đi tiếp theo.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">GỬI NHU CẦU KẾT NỐI CHUYÊN GIA</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Cung cấp thông tin về lĩnh vực, vấn đề cần giải quyết và hình thức hỗ trợ mong muốn. Trung tâm Đổi mới Sáng tạo Gia Lai sẽ tiếp nhận, làm rõ và đề xuất phương án kết nối phù hợp.</p>
+
+<div class="project-style-cta border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-8 md:p-14 space-y-6 relative overflow-hidden transition-all duration-300 text-center my-12">
+  <div class="flex items-center justify-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-1">
+    <span class="w-2 h-2 rounded-full bg-accent-red animate-pulse"></span>
+    Kết nối chuyên gia
+  </div>
+
+  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold font-heading tracking-tight uppercase max-w-3xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300">
+    Kết nối đúng chuyên môn – Tháo gỡ đúng nút thắt
+  </h3>
+
+  <p class="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-2 transition-colors duration-300 font-sans">
+    Gửi thông tin về bài toán hoặc nhu cầu hợp tác của đơn vị. Trung tâm Đổi mới Sáng tạo Gia Lai sẽ tiếp nhận, làm rõ yêu cầu và kết nối với chuyên gia hoặc đối tác phù hợp.
+  </p>
+
+  <div class="flex flex-wrap justify-center gap-4 pt-2 relative z-10">
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-primary inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>GỬI NHU CẦU CHUYÊN GIA</span>
+      <span class="w-8 h-8 bg-white/10 dark:bg-black/10 flex items-center justify-center text-inherit group-hover:bg-white/20 dark:group-hover:bg-black/20 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </span>
+    </a>
+
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-secondary inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>TRAO ĐỔI VỚI TRUNG TÂM</span>
+      <span class="w-8 h-8 bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </span>
+    </a>
+  </div>
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image114.png?tr=w-1200,q-80,f-auto', 'Kết nối chuyên gia và hệ sinh thái | VDCD Gia Lai', 'Kết nối đúng chuyên môn – Tháo gỡ đúng nút thắt – Mở rộng cơ hội hợp tác giữa chính quyền, doanh nghiệp, viện nghiên cứu và trường đại học.', TRUE, '2026-03-10T08:00:00.000Z', '2026-08-31T09:00:00.000Z', '5292c9c5-7499-4353-9430-11aa730c63d8', 'program-thumb-ket-noi-chuyen-gia-va-he-sinh-thai'),
+  ('a1b2c3d4-e5f6-4a7b-8c9d-012345678904', 'Tư vấn chuyển đổi số cấp tỉnh', 'tu-van-chuyen-doi-so-cap-tinh', 'Tư vấn chuyển đổi số từ bài toán thực tế đến lộ trình khả thi. Khảo sát hiện trạng, xây dựng danh mục ưu tiên và dashboard giám sát toàn diện cho địa phương.', '<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">TƯ VẤN CHUYỂN ĐỔI SỐ</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Từ bài toán của từng đơn vị đến lộ trình chuyển đổi số toàn diện</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chuyển đổi số không đơn thuần là trang bị phần mềm, thiết bị hay đưa hồ sơ giấy lên máy tính. Giá trị thực sự chỉ được tạo ra khi công nghệ giúp cải tiến quy trình, kết nối dữ liệu và nâng cao hiệu quả quản lý, điều hành.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai kết nối chuyên gia và hệ sinh thái công nghệ để hỗ trợ tỉnh, các sở, ban, ngành, địa phương và doanh nghiệp đánh giá hiện trạng, xác định bài toán ưu tiên, xây dựng lộ trình và thử nghiệm giải pháp phù hợp.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image4.png?tr=w-1200,q-80,f-auto" alt="DashBoard quản lí toàn bộ dự án thuộc Gia Lai" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">DashBoard quản lí toàn bộ dự án thuộc Gia Lai</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">CHUYỂN ĐỔI SỐ NÊN BẮT ĐẦU TỪ ĐÂU?</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nhiều đơn vị nhận thấy cần chuyển đổi số nhưng chưa xác định rõ nên triển khai khâu nào trước, lựa chọn công nghệ gì và đánh giá hiệu quả bằng cách nào.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Những điểm nghẽn thường gặp gồm:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Quy trình còn phụ thuộc nhiều vào thao tác thủ công.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Dữ liệu phân tán giữa hồ sơ, phần mềm và các phòng ban.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hệ thống hiện có chưa kết nối hoặc khó mở rộng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Việc tổng hợp báo cáo mất nhiều thời gian.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Khó theo dõi tiến độ và hoạt động theo thời gian thực.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đã đầu tư công nghệ nhưng chưa khai thác hiệu quả.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nhân sự chưa sẵn sàng tiếp nhận quy trình và công cụ mới.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chưa có lộ trình và tiêu chí đánh giá rõ ràng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tư vấn chuyển đổi số giúp đơn vị trả lời ba câu hỏi quan trọng:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Vấn đề nào cần giải quyết? Công nghệ nào phù hợp? Triển khai theo thứ tự nào để tạo ra hiệu quả?</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">TƯ VẤN CHUYỂN ĐỔI SỐ CẤP TỈNH VÀ LIÊN NGÀNH</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chuyển đổi số cấp tỉnh không thể triển khai riêng lẻ tại từng cơ quan. Quy trình, dữ liệu và nhiệm vụ của các sở, ban, ngành có mối liên hệ chặt chẽ, đòi hỏi một lộ trình tổng thể nhưng vẫn phải phù hợp với đặc thù của từng lĩnh vực.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai có khả năng phối hợp tư vấn:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Khảo sát hiện trạng chuyển đổi số tại các sở, ban, ngành.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tổng hợp nhu cầu và mức độ sẵn sàng của từng đơn vị.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Rà soát quy trình, phần mềm và nguồn dữ liệu hiện có.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xác định dữ liệu chuyên ngành và dữ liệu có thể chia sẻ.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng danh mục nhiệm vụ chuyển đổi số theo mức độ ưu tiên.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đề xuất kiến trúc tích hợp và nền tảng dữ liệu dùng chung.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng dashboard theo dõi tiến độ và hỗ trợ điều hành.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Lựa chọn mô hình thí điểm trước khi triển khai diện rộng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đào tạo và chuyển giao cho đội ngũ vận hành tại địa phương.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phạm vi có thể bao gồm hành chính công, đất đai, tài nguyên và môi trường, xây dựng, đô thị, giao thông, nông nghiệp, lâm nghiệp, giáo dục, y tế, du lịch và quản lý hạ tầng.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image109.png?tr=w-1200,q-80,f-auto" alt="Tham dự tư vấn chuyển đổi số tại UBND xã Tây Sơn" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Tham dự tư vấn chuyển đổi số tại UBND xã Tây Sơn</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">NỘI DUNG TƯ VẤN</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đánh giá hiện trạng và xác định ưu tiên</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Khảo sát quy trình, dữ liệu, phần mềm, thiết bị, hạ tầng và năng lực nhân sự. Qua đó xác định những điểm nghẽn cần giải quyết, khả năng kế thừa hệ thống hiện có và các nhiệm vụ nên triển khai trước.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Số hóa quy trình và quản trị dữ liệu</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Rà soát các bước xử lý công việc, giảm thao tác trùng lặp và đề xuất phương án số hóa phù hợp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Dữ liệu được định hướng thu thập, chuẩn hóa, phân quyền và khai thác thống nhất để phục vụ tra cứu, báo cáo và hỗ trợ ra quyết định.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kiến trúc công nghệ và tích hợp hệ thống</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Giải pháp được lựa chọn dựa trên bài toán và điều kiện vận hành, có thể kết hợp:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">UAV, GIS và dữ liệu không gian.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">AI và phân tích hình ảnh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Camera AI, cảm biến và IoT.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phần mềm, dashboard và nền tảng quản lý.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm dữ liệu và hạ tầng tính toán.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Các hệ thống được định hướng kết nối, chia sẻ và hạn chế hình thành những kho dữ liệu riêng lẻ, khó khai thác.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thí điểm và mở rộng giải pháp</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Một quy trình, khu vực hoặc bài toán ưu tiên được lựa chọn để xây dựng mô hình thử nghiệm, POC hoặc chương trình thí điểm.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết quả được đo lường và điều chỉnh trước khi mở rộng, giúp đơn vị kiểm soát chi phí, hạn chế rủi ro và đánh giá được hiệu quả thực tế.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">QUY TRÌNH TƯ VẤN CHUYỂN ĐỔI SỐ</h2>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">01. Tiếp nhận nhu cầu</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trao đổi về hiện trạng, khó khăn, mục tiêu và phạm vi cần tư vấn.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">02. Khảo sát và phân tích</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đánh giá quy trình, dữ liệu, hệ thống, hạ tầng và nguồn lực liên quan.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">03. Xây dựng danh mục ưu tiên</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xác định những bài toán có tính cấp thiết, khả thi và khả năng tạo ra giá trị rõ ràng.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">04. Đề xuất lộ trình và giải pháp</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Xây dựng các giai đoạn triển khai, kiến trúc công nghệ, nguồn lực và tiêu chí đánh giá.</p>
+<h3 class="text-lg md:text-xl font-bold font-heading text-black dark:text-white mt-6 mb-2 tracking-tight">05. Thí điểm, đánh giá và mở rộng</h3>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thử nghiệm trong phạm vi phù hợp, đo lường kết quả, điều chỉnh và đề xuất kế hoạch nhân rộng.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">SẢN PHẨM TƯ VẤN</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tùy theo phạm vi, sản phẩm có thể bao gồm:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Báo cáo khảo sát và đánh giá hiện trạng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sơ đồ quy trình và các điểm nghẽn cần cải tiến.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Danh mục nhiệm vụ chuyển đổi số ưu tiên.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Danh mục dữ liệu chuyên ngành và dữ liệu dùng chung.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đề xuất kiến trúc công nghệ và phương án tích hợp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Lộ trình triển khai theo từng giai đoạn.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kế hoạch thí điểm hoặc mô hình POC.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Dashboard theo dõi tiến độ và kết quả.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Bộ chỉ số đánh giá hiệu quả.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kế hoạch đào tạo, chuyển giao và vận hành.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sản phẩm tư vấn cần giúp đơn vị biết rõ việc gì cần làm trước, nguồn lực nào cần chuẩn bị và hiệu quả được đánh giá ra sao.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">NĂNG LỰC KẾT NỐI GIẢI PHÁP</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai kết nối nguồn lực trong hệ sinh thái VDCD Group:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mạng lưới chuyên gia và đội ngũ kỹ thuật đa lĩnh vực.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Năng lực khảo sát và thu thập dữ liệu hiện trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Công nghệ UAV, AI, GIS, IoT và mô hình 3D.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phần mềm, dashboard và nền tảng quản lý.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hạ tầng trung tâm dữ liệu và tính toán.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Khả năng thử nghiệm, tích hợp và chuyển giao giải pháp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm tiếp cận theo nguyên tắc bài toán đi trước công nghệ, kế thừa hệ thống hiện có, triển khai theo từng giai đoạn và hướng đến khả năng vận hành lâu dài.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image111.png?tr=w-1200,q-80,f-auto" alt="Chủ tịch HĐQT VDCD Group đại diện đề xuất các công nghệ chuyển đổi số" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  <p class="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400 py-3 px-4 bg-zinc-50 dark:bg-zinc-900/50 italic border-t border-zinc-200 dark:border-zinc-800">Chủ tịch HĐQT VDCD Group đại diện đề xuất các công nghệ chuyển đổi số</p>
+</div>
+
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">BẮT ĐẦU TỪ MỘT BÀI TOÁN CỤ THỂ</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Không có một mô hình chuyển đổi số duy nhất phù hợp với mọi tổ chức. Một lộ trình hiệu quả phải phản ánh đúng hiện trạng, giải quyết đúng nhu cầu và phù hợp với nguồn lực triển khai.</p>
+<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐĂNG KÝ KHẢO SÁT NHU CẦU CHUYỂN ĐỔI SỐ</h2>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Gửi thông tin về hiện trạng, vấn đề cần giải quyết và mục tiêu dự kiến. Trung tâm Đổi mới Sáng tạo Gia Lai sẽ tiếp nhận, trao đổi và đề xuất phương án khảo sát phù hợp.</p>
+
+<div class="project-style-cta border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-8 md:p-14 space-y-6 relative overflow-hidden transition-all duration-300 text-center my-12">
+  <div class="flex items-center justify-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-1">
+    <span class="w-2 h-2 rounded-full bg-accent-red animate-pulse"></span>
+    Tư vấn chuyển đổi số
+  </div>
+
+  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold font-heading tracking-tight uppercase max-w-3xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300">
+    Bắt đầu từ một bài toán cụ thể
+  </h3>
+
+  <p class="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-2 transition-colors duration-300 font-sans">
+    Gửi thông tin về hiện trạng, vấn đề cần giải quyết và mục tiêu dự kiến. Trung tâm Đổi mới Sáng tạo Gia Lai sẽ tiếp nhận, trao đổi và đề xuất phương án khảo sát phù hợp.
+  </p>
+
+  <div class="flex flex-wrap justify-center gap-4 pt-2 relative z-10">
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-primary inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>ĐĂNG KÝ KHẢO SÁT</span>
+      <span class="w-8 h-8 bg-white/10 dark:bg-black/10 flex items-center justify-center text-inherit group-hover:bg-white/20 dark:group-hover:bg-black/20 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </span>
+    </a>
+
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-secondary inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>TRAO ĐỔI VỚI TRUNG TÂM</span>
+      <span class="w-8 h-8 bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </span>
+    </a>
+  </div>
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image4.png?tr=w-1200,q-80,f-auto', 'Tư vấn chuyển đổi số cấp tỉnh | VDCD Gia Lai', 'Tư vấn chuyển đổi số từ bài toán thực tế đến lộ trình khả thi. Khảo sát hiện trạng, xây dựng danh mục ưu tiên và dashboard giám sát toàn diện cho địa phương.', TRUE, '2026-03-15T08:00:00.000Z', '2026-08-31T09:00:00.000Z', '5292c9c5-7499-4353-9430-11aa730c63d8', 'program-thumb-tu-van-chuyen-doi-so-cap-tinh'),
+  ('a1b2c3d4-e5f6-4a7b-8c9d-012345678905', 'Hội thảo, sự kiện đổi mới sáng tạo', 'hoi-thao-su-kien', 'Diễn đàn chia sẻ tri thức công nghệ, kết nối mạng lưới doanh nghiệp, nhà khoa học và xúc tiến các chương trình đổi mới sáng tạo toàn diện.', '<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Keyword chính: hệ sinh thái khởi nghiệp sáng tạo Gia Lai</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Keyword phụ: Trung tâm Đổi mới Sáng tạo Gia Lai, khởi nghiệp sáng tạo Gia Lai, liên kết 3 nhà, chuyển đổi số Gia Lai, đổi mới sáng tạo, hỗ trợ startup, khoa học công nghệ Gia Lai.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết nối “3 nhà” - Xây dựng hệ sinh thái khởi nghiệp sáng tạo Gia Lai từ những bài toán thực tế</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Ngày 18/05/2026, Hội thảo truyền thông chính sách về khởi nghiệp sáng tạo được tổ chức tại Gia Lai, tạo không gian kết nối giữa cơ quan quản lý, trường đại học, doanh nghiệp và cộng đồng khởi nghiệp. Trong đó, mô hình liên kết “3 nhà” - Nhà nước, Nhà trường và Doanh nghiệp - được xác định là một trong những nền tảng quan trọng để đưa công nghệ, tri thức và nguồn lực đến gần hơn với những bài toán thực tế của thị trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đối với Trung tâm Đổi mới Sáng tạo Gia Lai (VDCD Gia Lai), một hệ sinh thái đổi mới sáng tạo chỉ thực sự vận hành khi các thành phần bên trong có khả năng kết nối và bổ trợ cho nhau.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Nhà nước tạo hành lang và môi trường phát triển. Nhà trường cung cấp tri thức, nghiên cứu và nguồn nhân lực. Doanh nghiệp đưa ra bài toán, thị trường và trực tiếp chuyển hóa công nghệ thành sản phẩm, dịch vụ.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Khi ba nguồn lực này cùng vận hành trong một hệ thống, đổi mới sáng tạo có thể đi xa hơn các hoạt động phong trào để tiến tới những kết quả cụ thể: ý tưởng được thử nghiệm, công nghệ được ứng dụng và doanh nghiệp tạo ra giá trị mới.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image80.png?tr=w-1200,q-80,f-auto" alt="VDCD Gia Lai" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  
+</div>
+
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hội thảo tạo không gian kết nối giữa cơ quan quản lý, trường đại học, doanh nghiệp và cộng đồng khởi nghiệp sáng tạo tại Gia Lai.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Từ hỗ trợ khởi nghiệp đến kiến tạo hệ sinh thái</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Sự phát triển của một startup không chỉ phụ thuộc vào chất lượng ý tưởng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Một dự án có thể sở hữu giải pháp tốt nhưng vẫn gặp khó khăn khi thiếu dữ liệu, công nghệ, chuyên gia, thị trường hoặc nguồn lực để kiểm chứng mô hình. Đây cũng là những điểm nghẽn thường xuất hiện trong quá trình phát triển của doanh nghiệp đổi mới sáng tạo.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Vì vậy, xây dựng hệ sinh thái không đơn thuần là gia tăng số lượng chương trình hỗ trợ mà cần tạo ra mạng lưới có khả năng đưa đúng nguồn lực đến đúng dự án vào đúng thời điểm.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tại hội thảo, những vấn đề về tiếp cận công nghệ, thị trường, cơ chế hỗ trợ và mức độ liên kết giữa các chủ thể trong hệ sinh thái đã được đặt ra. Đồng thời, tư duy hỗ trợ doanh nghiệp cũng được mở rộng theo hướng chủ động kiến tạo môi trường để đổi mới sáng tạo phát triển.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Với cách tiếp cận đó, startup không phải chủ thể duy nhất của hệ sinh thái. Các cơ quan quản lý, trường đại học, doanh nghiệp công nghệ, chuyên gia và nhà đầu tư đều trở thành những mắt xích trong cùng một chuỗi giá trị.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Phát biểu khai mạc hội thảo, ông Trần Kim Kha - Giám đốc Sở Khoa học và Công nghệ tỉnh Gia Lai nhấn mạnh: Khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số đang trở thành động lực quan trọng thúc đẩy phát triển kinh tế - xã hội nhanh và bền vững. Nghị quyết số 57-NQ/TW của Bộ Chính trị đã xác định phát triển khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số là “đột phá quan trọng hàng đầu”, góp phần nâng cao năng lực cạnh tranh quốc gia.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image34.png?tr=w-1200,q-80,f-auto" alt="VDCD Gia Lai" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  
+</div>
+
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Ông Trần Kim Kha - Giám đốc Sở KH&CN phát biểu khai mạc hội thảo.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">VDCD Gia Lai - Kết nối bài toán với giải pháp</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tại chương trình, Trung tâm Đổi mới Sáng tạo Gia Lai giới thiệu mô hình trung tâm đổi mới sáng tạo do doanh nghiệp làm chủ, với định hướng tập trung vào khả năng triển khai và nhu cầu thực tế của thị trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thay vì bắt đầu bằng câu hỏi “công nghệ nào đang là xu hướng?”, cách tiếp cận của Trung tâm hướng đến câu hỏi quan trọng hơn: Doanh nghiệp đang gặp vấn đề gì và công nghệ có thể giải quyết vấn đề đó như thế nào?</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Từ bài toán cụ thể, Trung tâm có thể kết nối doanh nghiệp với đơn vị công nghệ, chuyên gia, trường đại học hoặc các nguồn lực phù hợp để phát triển giải pháp.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mô hình này tạo thành một pipeline tương đối rõ ràng:</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Bài toán → Giải pháp → Thử nghiệm → Đánh giá → Triển khai → Mở rộng.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Công nghệ vì vậy không phải đích đến cuối cùng. Giá trị nằm ở việc công nghệ có thể giúp doanh nghiệp tối ưu vận hành, nâng cao năng suất, phát triển sản phẩm mới hay tạo ra lợi thế cạnh tranh như thế nào.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image104.png?tr=w-1200,q-80,f-auto" alt="VDCD Gia Lai" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  
+</div>
+
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đại diện Công ty Cổ phần Trung tâm Đổi mới sáng tạo Gia Lai (VDCD Gia Lai) giới thiệu mô hình trung tâm đổi mới sáng tạo do doanh nghiệp làm chủ.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Công nghệ và chuyển đổi số phải tạo ra giá trị đo lường được</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Một nội dung quan trọng khác tại chương trình là khả năng ứng dụng khoa học – công nghệ và chuyển đổi số vào hoạt động của doanh nghiệp. Các vấn đề từ truy xuất nguồn gốc, quản trị dữ liệu đến các giải pháp chuyển đổi số được đặt trong bối cảnh thực tế thay vì tiếp cận công nghệ như một xu hướng độc lập.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đây cũng là nguyên tắc quan trọng khi triển khai chuyển đổi số. Một hệ thống mới chỉ thực sự có giá trị khi nó giải quyết được một điểm nghẽn. Một nền tảng dữ liệu chỉ có ý nghĩa khi dữ liệu có thể hỗ trợ quá trình vận hành và ra quyết định. Một giải pháp tự động hóa chỉ hiệu quả khi giúp giảm thao tác, thời gian hoặc chi phí.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Do đó, hiệu quả của đổi mới sáng tạo cần được đánh giá thông qua outcome – kết quả mà doanh nghiệp và người dùng thực sự nhận được – thay vì chỉ dựa trên số lượng công nghệ được triển khai.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Liên kết “3 nhà” để rút ngắn khoảng cách từ nghiên cứu đến thị trường</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hội thảo cũng đánh dấu nhiều hoạt động ký kết hợp tác giữa các thành phần của hệ sinh thái. Trong đó có thỏa thuận giữa Sở Khoa học và Công nghệ Gia Lai và Trung tâm Đổi mới Sáng tạo Gia Lai, giữa Sở Khoa học và Công nghệ với Trường Đại học FPT tại Quy Nhơn, cùng thỏa thuận hợp tác giữa VDCD Gia Lai và Trường Đại học Quy Nhơn.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Các kết nối này tạo nền tảng cho một mô hình hợp tác rộng hơn giữa chính sách nghiên cứu  đào tạo công nghệ doanh nghiệp thị trường.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đặc biệt, sự tham gia của các trường đại học giúp mở rộng nguồn lực nghiên cứu và nguồn nhân lực trẻ cho hệ sinh thái. Những kết quả nghiên cứu tiềm năng có thêm cơ hội tiếp cận bài toán của doanh nghiệp, được thử nghiệm trong môi trường thực tế và tiến gần hơn đến khả năng thương mại hóa.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Ở chiều ngược lại, doanh nghiệp có thể đưa nhu cầu thực tế trở lại môi trường đào tạo và nghiên cứu, giúp rút ngắn khoảng cách giữa kiến thức, công nghệ và yêu cầu của thị trường.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image12.png?tr=w-1200,q-80,f-auto" alt="VDCD Gia Lai" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  
+</div>
+
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đại diện Sở KH&CN Gia Lai và Công ty Cổ phần Trung tâm Đổi mới sáng tạo Gia Lai (VDCD Gia Lai) ký kết thỏa thuận hợp tác phát triển hệ sinh thái khởi nghiệp sáng tạo.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đồng hành cùng 30 doanh nghiệp và 10 dự án khởi nghiệp sáng tạo</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Một trong những mục tiêu cụ thể được VDCD Gia Lai đặt ra tại chương trình là kết nối và đồng hành cùng 30 doanh nghiệp cùng 10 nhóm, cá nhân khởi nghiệp sáng tạo trong quá trình phát triển sản phẩm, hoàn thiện ý tưởng và mở rộng khả năng kết nối với hệ sinh thái. Đây là bước chuyển từ xây dựng mạng lưới sang triển khai trên những đối tượng cụ thể.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Tùy theo giai đoạn phát triển, mỗi dự án sẽ có nhu cầu khác nhau: hoàn thiện sản phẩm, tiếp cận công nghệ, tìm kiếm chuyên gia, kiểm chứng thị trường, xây dựng mô hình kinh doanh hoặc kết nối với các nguồn lực tiếp theo. Vai trò của hệ sinh thái là giúp những nhu cầu đó tìm được đúng điểm kết nối.</p>
+
+<div class="my-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md">
+  <img src="https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image72.png?tr=w-1200,q-80,f-auto" alt="VDCD Gia Lai" class="w-full h-auto object-cover max-h-[550px]" loading="lazy" />
+  
+</div>
+
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đại diện VDCD Gia Lai trao cam kết hỗ trợ cho các doanh nghiệp, dự án khởi nghiệp sáng tạo trên địa bàn tỉnh.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Một hệ sinh thái được đo bằng kết quả</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đối với Trung tâm Đổi mới Sáng tạo Gia Lai, số lượng sự kiện hay kết nối không phải thước đo cuối cùng của một hệ sinh thái đổi mới sáng tạo.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Điều quan trọng hơn là sau những kết nối đó, bao nhiêu bài toán tìm được giải pháp, bao nhiêu ý tưởng bước vào giai đoạn thử nghiệm, bao nhiêu công nghệ được ứng dụng và bao nhiêu doanh nghiệp tạo ra giá trị mới.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Mô hình liên kết “3 nhà” vì vậy không chỉ là một cấu trúc hợp tác. Đây là cách tạo ra một vòng tuần hoàn nguồn lực: chính sách mở đường cho đổi mới; trường đại học cung cấp tri thức và con người; doanh nghiệp đưa công nghệ vào thị trường; còn kết quả từ thị trường tiếp tục tạo ra những bài toán mới cho nghiên cứu và đổi mới.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Thông qua việc mở rộng mạng lưới hợp tác và triển khai các chương trình hỗ trợ cụ thể, Trung tâm Đổi mới Sáng tạo Gia Lai hướng đến xây dựng một hệ sinh thái nơi ý tưởng có không gian để thử nghiệm, doanh nghiệp có công nghệ để tăng trưởng và những kết nối có thể chuyển hóa thành giá trị thực tế cho địa phương.</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Hội nghị Xúc tiến đầu tư</p>
+<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Từ khóa chính: Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026</p>
+
+<div class="project-style-cta border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-8 md:p-14 space-y-6 relative overflow-hidden transition-all duration-300 text-center my-12">
+  <div class="flex items-center justify-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-1">
+    <span class="w-2 h-2 rounded-full bg-accent-red animate-pulse"></span>
+    Hội thảo & Sự kiện
+  </div>
+
+  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold font-heading tracking-tight uppercase max-w-3xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300">
+    Diễn đàn kết nối hệ sinh thái số Gia Lai
+  </h3>
+
+  <p class="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-2 transition-colors duration-300 font-sans">
+    Đăng ký tham dự các chương trình hội thảo, diễn đàn chuyển đổi số và sự kiện đổi mới sáng tạo để mở rộng mạng lưới hợp tác.
+  </p>
+
+  <div class="flex flex-wrap justify-center gap-4 pt-2 relative z-10">
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-primary inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>ĐĂNG KÝ THAM GIA</span>
+      <span class="w-8 h-8 bg-white/10 dark:bg-black/10 flex items-center justify-center text-inherit group-hover:bg-white/20 dark:group-hover:bg-black/20 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </span>
+    </a>
+
+    <a
+      href="/contact"
+      class="program-cta-btn cta-btn-secondary inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer !no-underline"
+      style="text-decoration: none !important;"
+    >
+      <span>TRAO ĐỔI VỚI TRUNG TÂM</span>
+      <span class="w-8 h-8 bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </span>
+    </a>
+  </div>
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1200,q-80,f-auto', 'Hội thảo, sự kiện đổi mới sáng tạo | VDCD Gia Lai', 'Diễn đàn chia sẻ tri thức công nghệ, kết nối mạng lưới doanh nghiệp, nhà khoa học và xúc tiến các chương trình đổi mới sáng tạo toàn diện.', TRUE, '2026-03-20T08:00:00.000Z', '2026-08-31T09:00:00.000Z', '5292c9c5-7499-4353-9430-11aa730c63d8', 'program-thumb-hoi-thao-su-kien');
 
 -- ------------------------------------------------------------------------------
 -- TABLE: solution (19 rows)
