@@ -72,7 +72,7 @@ INSERT INTO "operation_field" ("id", "name", "slug", "icon", "short_description"
   ('5292c9c5-7499-4353-9430-11aa730c63d8', 'Chuyển đổi số', 'chuyen-doi-so', 'cpu', 'Lĩnh vực Chuyển đổi số – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 1),
   ('e1760c66-386b-4de3-8490-5d71680649cf', 'Giáo dục & Đào tạo', 'giao-duc-dao-tao', 'graduation-cap', 'Lĩnh vực Giáo dục & Đào tạo – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 2),
   ('5192c2da-2ca6-4c81-bbaa-fb0e9d4e02ae', 'Y tế & Sức khỏe', 'y-te-suc-khoe', 'heart-pulse', 'Lĩnh vực Y tế & Sức khỏe – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 3),
-  ('8cf42e59-62b2-44f9-9ad6-9adfa4ff12a7', 'Du lịch thông minh', 'du-lich-thong-minh', 'map', 'Lĩnh vực Du lịch thông minh – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 4),
+  ('8cf42e59-62b2-44f9-9ab6-9adfa4ff12a7', 'Du lịch thông minh', 'du-lich-thong-minh', 'map', 'Lĩnh vực Du lịch thông minh – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 4),
   ('65bcaab7-d62c-481c-b264-2e0581503c78', 'Năng lượng tái tạo', 'nang-luong-tai-tao', 'zap', 'Lĩnh vực Năng lượng tái tạo – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 5),
   ('c0110001-0000-4000-a000-000000000001', 'Ươm tạo khởi nghiệp', 'uom-tao-khoi-nghiep', 'rocket-launch', 'Hỗ trợ các dự án đổi mới sáng tạo từ ý tưởng đến mô hình thử nghiệm và thương mại hóa.', 10),
   ('c0110001-0000-4000-a000-000000000002', 'Đào tạo công nghệ', 'dao-tao-cong-nghe', 'school', 'Chương trình đào tạo thực chiến về chuyển đổi số, UAV, AI, GIS và BIM cho doanh nghiệp và chính quyền.', 11),
