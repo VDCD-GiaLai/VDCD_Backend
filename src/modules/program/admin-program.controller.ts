@@ -1,4 +1,4 @@
-// src/modules/program/program.controller.ts
+// src/modules/program/admin-program.controller.ts
 import {
   Controller,
   Get,
@@ -22,7 +22,6 @@ import {
 import { ProgramService } from './program.service';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
-import { Public } from '../../common/decorators/public.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { Program } from './entities/program.entity';
 import { CreateProgramDto } from './dto/create-program.dto';
@@ -30,46 +29,30 @@ import { UpdateProgramDto } from './dto/update-program.dto';
 import { ProgramFilterDto } from './dto/program-filter.dto';
 import { TogglePublishDto } from './dto/toggle-publish.dto';
 
-@ApiTags('Programs')
-@Controller('programs')
+@ApiTags('Admin Programs')
+@Controller('admin/programs')
 @UseGuards(JwtAuthGuard, RolesGuard)
-export class ProgramController {
+@ApiBearerAuth()
+export class AdminProgramController {
   constructor(private readonly service: ProgramService) {}
 
-  @Public()
   @Get()
-  @ApiOperation({
-    summary: 'Get all published programs',
-    description:
-      'Retrieve a list of public/published programs with pagination and filtering. Public access.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Published programs retrieved successfully.',
-  })
-  findAll(@Query() dto: ProgramFilterDto) {
-    return this.service.findAll(dto);
-  }
-
-  @Get('all')
   @Roles('superadmin', 'editor', 'viewer')
-  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Get all programs (Admin)',
     description:
-      'Retrieve a list of all programs (published and unpublished) with filtering. Accessible by superadmin, editor, and viewer.',
+      'Retrieve a list of all programs (including drafts) with filtering and pagination. Accessible by superadmin, editor, and viewer.',
   })
   @ApiResponse({
     status: 200,
     description: 'All programs retrieved successfully.',
   })
-  findAllAdmin(@Query() dto: ProgramFilterDto) {
+  findAll(@Query() dto: ProgramFilterDto) {
     return this.service.findAllAdmin(dto);
   }
 
-  @Get('admin/:id')
+  @Get(':id')
   @Roles('superadmin', 'editor', 'viewer')
-  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Get program details by ID (Admin)',
     description:
@@ -82,34 +65,16 @@ export class ProgramController {
     type: Program,
   })
   @ApiResponse({ status: 404, description: 'Program not found.' })
-  findById(@Param('id') id: string) {
+  findOne(@Param('id') id: string) {
     return this.service.findById(id);
-  }
-
-  @Public()
-  @Get(':slug')
-  @ApiOperation({
-    summary: 'Get a published program by slug',
-    description:
-      'Retrieve program details and its related articles by slug. Only published programs are returned to the public.',
-  })
-  @ApiParam({ name: 'slug', description: 'The slug or UUID of the program' })
-  @ApiResponse({
-    status: 200,
-    description: 'Program details retrieved successfully.',
-  })
-  @ApiResponse({ status: 404, description: 'Program not found.' })
-  findOne(@Param('slug') slug: string) {
-    return this.service.findOneBySlug(slug, false);
   }
 
   @Post()
   @Roles('superadmin', 'editor')
-  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Create a new program',
+    summary: 'Create a new program (Admin)',
     description:
-      'Create a new program record with Block Document content. Restricted to superadmin and editor.',
+      'Create a new program with block-based Document Content. Restricted to superadmin and editor.',
   })
   @ApiBody({ type: CreateProgramDto })
   @ApiResponse({
@@ -123,13 +88,12 @@ export class ProgramController {
 
   @Put(':id')
   @Roles('superadmin', 'editor')
-  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Update a program (PUT)',
+    summary: 'Update a program with PUT (Admin)',
     description:
-      'Update program details and content document by ID. Restricted to superadmin and editor.',
+      'Update program details and block document by ID. Restricted to superadmin and editor.',
   })
-  @ApiParam({ name: 'id', description: 'The ID of the program to update' })
+  @ApiParam({ name: 'id', description: 'UUID of the program to update' })
   @ApiBody({ type: UpdateProgramDto })
   @ApiResponse({
     status: 200,
@@ -143,13 +107,12 @@ export class ProgramController {
 
   @Patch(':id')
   @Roles('superadmin', 'editor')
-  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Update a program (PATCH)',
+    summary: 'Update a program with PATCH (Admin)',
     description:
-      'Update program details and content document by ID. Restricted to superadmin and editor.',
+      'Update program details and block document by ID. Restricted to superadmin and editor.',
   })
-  @ApiParam({ name: 'id', description: 'The ID of the program to update' })
+  @ApiParam({ name: 'id', description: 'UUID of the program to update' })
   @ApiBody({ type: UpdateProgramDto })
   @ApiResponse({
     status: 200,
@@ -163,13 +126,12 @@ export class ProgramController {
 
   @Patch(':id/publish')
   @Roles('superadmin', 'editor')
-  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Toggle program publish status',
+    summary: 'Toggle program publish status (Admin)',
     description:
       'Publish or unpublish a program by ID. Restricted to superadmin and editor.',
   })
-  @ApiParam({ name: 'id', description: 'The ID of the program' })
+  @ApiParam({ name: 'id', description: 'The UUID of the program' })
   @ApiBody({ type: TogglePublishDto })
   @ApiResponse({
     status: 200,
@@ -182,13 +144,12 @@ export class ProgramController {
 
   @Delete(':id')
   @Roles('superadmin')
-  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Delete a program',
+    summary: 'Delete a program (Admin)',
     description:
-      'Permanently delete a program and associated ImageKit media by ID. Restricted to superadmin.',
+      'Permanently delete a program and clean up all media from ImageKit. Restricted to superadmin.',
   })
-  @ApiParam({ name: 'id', description: 'The ID of the program to delete' })
+  @ApiParam({ name: 'id', description: 'UUID of the program to delete' })
   @ApiResponse({ status: 200, description: 'Program deleted successfully.' })
   @ApiResponse({ status: 404, description: 'Program not found.' })
   remove(@Param('id') id: string) {

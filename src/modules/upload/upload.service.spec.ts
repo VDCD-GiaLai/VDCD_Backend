@@ -216,4 +216,73 @@ describe('UploadService', () => {
       );
     });
   });
+
+  describe('uploadProgramImage folder target', () => {
+    it('should use sanitized slug when slug/title is provided', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadProgramImage(
+        fakeFile,
+        'user-1',
+        'Ươm Tạo Khởi Nghiệp Đổi Mới Sáng Tạo 2026',
+      );
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        'programs/uom-tao-khoi-nghiep-doi-moi-sang-tao-2026',
+        'user-1',
+      );
+    });
+
+    it('should generate a random subfolder when slug/title is omitted or empty', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadProgramImage(fakeFile, 'user-1', '');
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        expect.stringMatching(/^programs\/[a-f0-9]{10}$/),
+        'user-1',
+      );
+    });
+
+    it('should generate a random subfolder when slug/title is undefined', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadProgramImage(fakeFile, 'user-1');
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        expect.stringMatching(/^programs\/[a-f0-9]{10}$/),
+        'user-1',
+      );
+    });
+  });
 });

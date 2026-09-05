@@ -325,6 +325,99 @@ export class UploadController {
     );
   }
 
+  @Post('image/program')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload image for program',
+    description:
+      'Upload an image for a program to ImageKit under "vdcd/programs/<slug>". If no slug or title is provided, a random subfolder is generated.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiQuery({
+    name: 'slug',
+    required: false,
+    description: 'Program slug (e.g. "uom-tao-khoi-nghiep")',
+    example: 'uom-tao-khoi-nghiep',
+  })
+  @ApiQuery({
+    name: 'title',
+    required: false,
+    description: 'Program title to be slugified if slug is not provided',
+    example: 'Chương trình ươm tạo',
+  })
+  @ApiQuery({
+    name: 'subfolder',
+    required: false,
+    description: 'Subfolder name or slug',
+    example: 'uom-tao-khoi-nghiep',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Program image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadProgramImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+    @Query('slug') slugQuery?: string,
+    @Query('title') titleQuery?: string,
+    @Query('subfolder') subfolderQuery?: string,
+    @Body('slug') slugBody?: string,
+    @Body('title') titleBody?: string,
+    @Body('subfolder') subfolderBody?: string,
+  ) {
+    const slugOrTitle =
+      slugQuery ||
+      titleQuery ||
+      subfolderQuery ||
+      slugBody ||
+      titleBody ||
+      subfolderBody;
+    return this.service.uploadProgramImage(
+      file,
+      req.user?.id as string | undefined,
+      slugOrTitle,
+    );
+  }
+
+  @Post('image/program/:slug')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload image for program under specific slug',
+    description:
+      'Upload an image for a program to ImageKit under "vdcd/programs/<slug>".',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiParam({
+    name: 'slug',
+    description: 'Program slug (e.g. "uom-tao-khoi-nghiep")',
+    example: 'uom-tao-khoi-nghiep',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Program image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadProgramImageWithSlug(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('slug') slug: string,
+    @Request() req,
+  ) {
+    return this.service.uploadProgramImage(
+      file,
+      req.user?.id as string | undefined,
+      slug,
+    );
+  }
+
   @Post('image/partner')
   @Roles('superadmin', 'editor')
   @ApiBearerAuth()

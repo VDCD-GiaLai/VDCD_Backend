@@ -7,6 +7,7 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 import { OperationField } from '../../operation-field/entities/operation-field.entity';
 
@@ -15,36 +16,59 @@ export class Program {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   title: string;
 
-  @Column({ unique: true })
+  @Column({ type: 'varchar', length: 255, unique: true })
   slug: string;
 
-  @Column({ name: 'thumbnail_file_id', nullable: true })
-  thumbnailFileId: string;
+  @Column({ type: 'varchar', name: 'thumbnail_file_id', nullable: true })
+  thumbnailFileId: string | null;
 
-  @Column({ name: 'short_description', type: 'text', nullable: true })
-  shortDescription: string;
+  @Column({ type: 'text', name: 'short_description', nullable: true })
+  shortDescription: string | null;
 
-  @Column({ type: 'text', nullable: true })
-  content: string;
+  // ── Block-based structured JSON document ───────────────────────────
+  @Column({
+    type: 'jsonb',
+    default: () => `'{"version":1,"blocks":[]}'`,
+  })
+  content: Record<string, any>;
 
-  @Column({ nullable: true })
-  thumbnail: string;
+  @Column({
+    name: 'content_html_backup',
+    type: 'text',
+    nullable: true,
+    select: false,
+  })
+  contentHtmlBackup: string | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  thumbnail: string | null;
 
   @ManyToOne(() => OperationField, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'field_id' })
-  field: OperationField;
+  @Index('IDX_program_field_id')
+  field: OperationField | null;
 
-  @Column({ name: 'meta_title', length: 255, nullable: true })
-  metaTitle: string;
+  @Column({ type: 'varchar', name: 'meta_title', length: 255, nullable: true })
+  metaTitle: string | null;
 
-  @Column({ name: 'meta_description', length: 255, nullable: true })
-  metaDescription: string;
+  @Column({
+    type: 'varchar',
+    name: 'meta_description',
+    length: 255,
+    nullable: true,
+  })
+  metaDescription: string | null;
 
-  @Column({ name: 'is_published', default: false })
+  @Column({ type: 'boolean', name: 'is_published', default: false })
+  @Index('IDX_program_is_published')
   isPublished: boolean;
+
+  @Column({ type: 'timestamp', name: 'published_at', nullable: true })
+  @Index('IDX_program_published_at')
+  publishedAt: Date | null;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
