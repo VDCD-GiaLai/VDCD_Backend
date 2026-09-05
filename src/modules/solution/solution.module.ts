@@ -5,12 +5,13 @@ import { Solution } from './entities/solution.entity';
 import { Article } from '../article/entities/article.entity';
 import { SolutionService } from './solution.service';
 import { SolutionController } from './solution.controller';
+import { AdminSolutionController } from './admin-solution.controller';
 import { UploadModule } from '../upload/upload.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Solution, Article]), UploadModule],
   providers: [SolutionService],
-  controllers: [SolutionController],
+  controllers: [AdminSolutionController, SolutionController],
   exports: [SolutionService],
 })
 export class SolutionModule {}

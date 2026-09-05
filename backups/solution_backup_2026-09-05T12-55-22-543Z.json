@@ -1,0 +1,515 @@
+[
+  {
+    "id": "ae1465ef-94da-46df-b35f-d254f9e5f008",
+    "title": "Tài nguyên môi trường",
+    "slug": "quan-ly-tai-nguyen-quan-trac-moi-truong",
+    "short_description": "Giải pháp quan trắc môi trường giúp theo dõi dữ liệu thời gian thực, cảnh báo sớm rủi ro sinh thái.",
+    "content_html_backup": "Giải pháp quan trắc môi trường giúp theo dõi dữ liệu thời gian thực, cảnh báo sớm rủi ro sinh thái.",
+    "content": {
+      "blocks": [
+        {
+          "id": "634fcb62-b2bc-409b-98be-e6ca5b097d74",
+          "text": "Giải pháp quan trắc môi trường giúp theo dõi dữ liệu thời gian thực, cảnh báo sớm rủi ro sinh thái.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2026/06/z7913610376494_aabfc4669de386a5916480d8fb3f34cd-1024x490.jpg",
+    "thumbnail_file_id": "solution-thumb-quan-ly-tai-nguyen-quan-trac-moi-truong",
+    "website_url": "/solution/quan-ly-tai-nguyen-quan-trac-moi-truong",
+    "field_id": "5192c2da-2ca6-4c81-bbaa-fb0e9d4e02ae",
+    "meta_title": "Tài nguyên môi trường | VDCD",
+    "meta_description": "Giải pháp quan trắc môi trường giúp theo dõi dữ liệu thời gian thực, cảnh báo sớm rủi ro sinh thái.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "52a1acf2-6453-4eb5-9226-4a55b4a46b7c",
+    "title": "Cứu hộ cứu nạn",
+    "slug": "cuu-ho-cuu-nan-phong-chong-thien-tai",
+    "short_description": "Ứng dụng công nghệ tích hợp giúp cảnh báo sớm rủi ro thiên tai và hỗ trợ tìm kiếm cứu nạn.",
+    "content_html_backup": "Ứng dụng công nghệ tích hợp giúp cảnh báo sớm rủi ro thiên tai và hỗ trợ tìm kiếm cứu nạn.",
+    "content": {
+      "blocks": [
+        {
+          "id": "76cdff50-6ed6-488a-96ea-169658f593fc",
+          "text": "Ứng dụng công nghệ tích hợp giúp cảnh báo sớm rủi ro thiên tai và hỗ trợ tìm kiếm cứu nạn.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2026/06/z7908953163351_e6a394ecff68dca617c06ebed9a5ecbc-1024x768.jpg",
+    "thumbnail_file_id": "solution-thumb-cuu-ho-cuu-nan-phong-chong-thien-tai",
+    "website_url": "/solution/cuu-ho-cuu-nan-phong-chong-thien-tai",
+    "field_id": "5292c9c5-7499-4353-9430-11aa730c63d8",
+    "meta_title": "Cứu hộ cứu nạn | VDCD",
+    "meta_description": "Ứng dụng công nghệ tích hợp giúp cảnh báo sớm rủi ro thiên tai và hỗ trợ tìm kiếm cứu nạn.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "9446a120-855a-4f3c-a028-e3948cfe74b5",
+    "title": "Trung tâm Bản đồ số",
+    "slug": "trung-tam-ban-do-so",
+    "short_description": "Cung cấp các dịch vụ bay quét 3D, trắc địa số hóa và thành lập bản đồ địa hình độ chính xác cao bằng máy bay không người lái.",
+    "content_html_backup": "Cung cấp các dịch vụ bay quét 3D, trắc địa số hóa và thành lập bản đồ địa hình độ chính xác cao bằng máy bay không người lái.",
+    "content": {
+      "blocks": [
+        {
+          "id": "49a3529f-2a93-4a97-8dde-118a148a6344",
+          "text": "Cung cấp các dịch vụ bay quét 3D, trắc địa số hóa và thành lập bản đồ địa hình độ chính xác cao bằng máy bay không người lái.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2024/03/5-768x431.jpg",
+    "thumbnail_file_id": "solution-thumb-trung-tam-ban-do-so",
+    "website_url": "https://vietflycam.vn/dich-vu/bay-quet-3d-trac-dia-so-va-thanh-lap-ban-do",
+    "field_id": "e20f8cfa-92dd-4302-a746-fe50562e19b4",
+    "meta_title": "Trung tâm Bản đồ số | VDCD",
+    "meta_description": "Cung cấp các dịch vụ bay quét 3D, trắc địa số hóa và thành lập bản đồ địa hình độ chính xác cao bằng máy bay không người lái.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "e621aa78-097e-4b73-8d2c-8b74c433b100",
+    "title": "Du lịch thông minh - Số hóa di sản",
+    "slug": "du-lich-thong-minh-so-hoa-di-san",
+    "short_description": "Ứng dụng công nghệ để số hóa di sản, xây dựng bản đồ du lịch thông minh và nâng tầm trải nghiệm thực tế ảo.",
+    "content_html_backup": "Ứng dụng công nghệ để số hóa di sản, xây dựng bản đồ du lịch thông minh và nâng tầm trải nghiệm thực tế ảo.",
+    "content": {
+      "blocks": [
+        {
+          "id": "d14d61a9-ba29-443b-86e9-a31d0b876480",
+          "text": "Ứng dụng công nghệ để số hóa di sản, xây dựng bản đồ du lịch thông minh và nâng tầm trải nghiệm thực tế ảo.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2026/06/Lotte-Mall-1-1-1-scaled.jpg",
+    "thumbnail_file_id": "solution-thumb-du-lich-thong-minh-so-hoa-di-san",
+    "website_url": "/solution/du-lich-thong-minh-so-hoa-di-san",
+    "field_id": "8cf42e59-62b2-44f9-9ab6-9adfa4ff12a7",
+    "meta_title": "Du lịch thông minh - Số hóa di sản | VDCD",
+    "meta_description": "Ứng dụng công nghệ để số hóa di sản, xây dựng bản đồ du lịch thông minh và nâng tầm trải nghiệm thực tế ảo.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "4b124ed2-25ae-4e1d-b408-538f470043ec",
+    "title": "Trung tâm phần mềm VDCD – Soft",
+    "slug": "trung-tam-phan-mem-vdcd-soft",
+    "short_description": "Phát triển các phần mềm quản lý doanh nghiệp, giải pháp chuyển đổi số chuyên sâu phục vụ hệ sinh thái kinh tế vùng và cả nước.",
+    "content_html_backup": "Phát triển các phần mềm quản lý doanh nghiệp, giải pháp chuyển đổi số chuyên sâu phục vụ hệ sinh thái kinh tế vùng và cả nước.",
+    "content": {
+      "blocks": [
+        {
+          "id": "21080bc4-e4cc-45b9-b805-fbb3cd319973",
+          "text": "Phát triển các phần mềm quản lý doanh nghiệp, giải pháp chuyển đổi số chuyên sâu phục vụ hệ sinh thái kinh tế vùng và cả nước.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-768x768.png",
+    "thumbnail_file_id": "solution-thumb-trung-tam-phan-mem-vdcd-soft",
+    "website_url": "https://geneat.vn",
+    "field_id": "5292c9c5-7499-4353-9430-11aa730c63d8",
+    "meta_title": "Trung tâm phần mềm VDCD – Soft | VDCD",
+    "meta_description": "Phát triển các phần mềm quản lý doanh nghiệp, giải pháp chuyển đổi số chuyên sâu phục vụ hệ sinh thái kinh tế vùng và cả nước.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "72d9f19f-af32-4233-afe6-4d5e74d91a14",
+    "title": "Viện Thiết Kế Số",
+    "slug": "vien-thiet-ke-so",
+    "short_description": "Nghiên cứu, phát triển ứng dụng mô hình thông tin công trình (BIM) và các giải pháp thiết kế số trong lĩnh vực xây dựng, kiến trúc.",
+    "content_html_backup": "Nghiên cứu, phát triển ứng dụng mô hình thông tin công trình (BIM) và các giải pháp thiết kế số trong lĩnh vực xây dựng, kiến trúc.",
+    "content": {
+      "blocks": [
+        {
+          "id": "c7be9e3e-ea07-46a3-b7b4-eacdcfaff6c6",
+          "text": "Nghiên cứu, phát triển ứng dụng mô hình thông tin công trình (BIM) và các giải pháp thiết kế số trong lĩnh vực xây dựng, kiến trúc.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-768x768.png",
+    "thumbnail_file_id": "solution-thumb-vien-thiet-ke-so",
+    "website_url": "https://bimv.vn/",
+    "field_id": "5292c9c5-7499-4353-9430-11aa730c63d8",
+    "meta_title": "Viện Thiết Kế Số | VDCD",
+    "meta_description": "Nghiên cứu, phát triển ứng dụng mô hình thông tin công trình (BIM) và các giải pháp thiết kế số trong lĩnh vực xây dựng, kiến trúc.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "8601ae3f-e0e3-45c5-ba1c-e7de47b20abd",
+    "title": "Trung Tâm Giám Sát Số",
+    "slug": "trung-tam-giam-sat-so",
+    "short_description": "Cung cấp hệ thống Auto Timelapse giám sát thông minh tiến độ xây dựng công trình, nông nghiệp và môi trường một cách tự động, trực quan.",
+    "content_html_backup": "Cung cấp hệ thống Auto Timelapse giám sát thông minh tiến độ xây dựng công trình, nông nghiệp và môi trường một cách tự động, trực quan.",
+    "content": {
+      "blocks": [
+        {
+          "id": "61f8d11b-4086-4a33-9ad5-5f678f7b6a82",
+          "text": "Cung cấp hệ thống Auto Timelapse giám sát thông minh tiến độ xây dựng công trình, nông nghiệp và môi trường một cách tự động, trực quan.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2024/03/3123-768x512.jpg",
+    "thumbnail_file_id": "solution-thumb-trung-tam-giam-sat-so",
+    "website_url": "https://autotimelapse.com",
+    "field_id": "5292c9c5-7499-4353-9430-11aa730c63d8",
+    "meta_title": "Trung Tâm Giám Sát Số | VDCD",
+    "meta_description": "Cung cấp hệ thống Auto Timelapse giám sát thông minh tiến độ xây dựng công trình, nông nghiệp và môi trường một cách tự động, trực quan.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "c159272a-0884-4e1a-b664-5f8e0ad78054",
+    "title": "Trung tâm dữ liệu siêu máy tính và đào tạo AI",
+    "slug": "trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
+    "short_description": "Xây dựng hạ tầng tính toán hiệu năng cao (HPC) và tổ chức các chương trình đào tạo trí tuệ nhân tạo chuyên sâu phục vụ chuyển đổi số doanh nghiệp.",
+    "content_html_backup": "Xây dựng hạ tầng tính toán hiệu năng cao (HPC) và tổ chức các chương trình đào tạo trí tuệ nhân tạo chuyên sâu phục vụ chuyển đổi số doanh nghiệp.",
+    "content": {
+      "blocks": [
+        {
+          "id": "066dd4a1-cd90-4f08-a45d-8bc6456b17bf",
+          "text": "Xây dựng hạ tầng tính toán hiệu năng cao (HPC) và tổ chức các chương trình đào tạo trí tuệ nhân tạo chuyên sâu phục vụ chuyển đổi số doanh nghiệp.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2025/10/z7173282299491_651f9e392555944f94acd55dab050480-768x576.jpg",
+    "thumbnail_file_id": "solution-thumb-trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
+    "website_url": "https://vdcd.vn/services/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai/",
+    "field_id": "e1760c66-386b-4de3-8490-5d71680649cf",
+    "meta_title": "Trung tâm dữ liệu siêu máy tính và đào tạo AI | VDCD",
+    "meta_description": "Xây dựng hạ tầng tính toán hiệu năng cao (HPC) và tổ chức các chương trình đào tạo trí tuệ nhân tạo chuyên sâu phục vụ chuyển đổi số doanh nghiệp.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "2626ca50-c83c-4712-b055-620cf5996f33",
+    "title": "Viện Nghiên cứu công nghệ không gian và dưới nước",
+    "slug": "vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc",
+    "short_description": "Nghiên cứu và ứng dụng các công nghệ tiên tiến trong không gian vũ trụ và thám hiểm, đo đạc môi trường dưới nước.",
+    "content_html_backup": "Nghiên cứu và ứng dụng các công nghệ tiên tiến trong không gian vũ trụ và thám hiểm, đo đạc môi trường dưới nước.",
+    "content": {
+      "blocks": [
+        {
+          "id": "211348dc-5943-4b97-a305-d4c945c3792c",
+          "text": "Nghiên cứu và ứng dụng các công nghệ tiên tiến trong không gian vũ trụ và thám hiểm, đo đạc môi trường dưới nước.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2025/10/Vien-khong-gian-va-duoi-nuoc-BK-768x499.jpg",
+    "thumbnail_file_id": "solution-thumb-vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc",
+    "website_url": "https://iig.vn",
+    "field_id": "e1760c66-386b-4de3-8490-5d71680649cf",
+    "meta_title": "Viện Nghiên cứu công nghệ không gian và dưới nước | VDCD",
+    "meta_description": "Nghiên cứu và ứng dụng các công nghệ tiên tiến trong không gian vũ trụ và thám hiểm, đo đạc môi trường dưới nước.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "f9ba2c8b-6f6b-4f4c-b259-f1c718e3544b",
+    "title": "Trung Tâm Đổi Mới Sáng Tạo Tỉnh",
+    "slug": "trung-tam-doi-moi-sang-tao-tinh",
+    "short_description": "Hỗ trợ ươm tạo khởi nghiệp, phát triển ý tưởng sáng tạo và thúc đẩy chuyển giao công nghệ tại địa phương.",
+    "content_html_backup": "Hỗ trợ ươm tạo khởi nghiệp, phát triển ý tưởng sáng tạo và thúc đẩy chuyển giao công nghệ tại địa phương.",
+    "content": {
+      "blocks": [
+        {
+          "id": "c9be4b84-8be3-4221-b24e-3a4b23e4d83c",
+          "text": "Hỗ trợ ươm tạo khởi nghiệp, phát triển ý tưởng sáng tạo và thúc đẩy chuyển giao công nghệ tại địa phương.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2025/11/S3-1-1-768x590.jpg",
+    "thumbnail_file_id": "solution-thumb-trung-tam-doi-moi-sang-tao-tinh",
+    "website_url": "https://vdcd.vn/services/trung-tam-doi-moi-sang-tao-tinh/",
+    "field_id": "5292c9c5-7499-4353-9430-11aa730c63d8",
+    "meta_title": "Trung Tâm Đổi Mới Sáng Tạo Tỉnh | VDCD",
+    "meta_description": "Hỗ trợ ươm tạo khởi nghiệp, phát triển ý tưởng sáng tạo và thúc đẩy chuyển giao công nghệ tại địa phương.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "5ebe0e7b-1b5f-44a1-bd8a-d874625e2c7b",
+    "title": "Trung Tâm Chuyển giao Công Nghệ",
+    "slug": "trung-tam-chuyen-giao-cong-nghe",
+    "short_description": "Cầu nối chuyển giao các công nghệ tiên tiến từ viện nghiên cứu, trường đại học đến các doanh nghiệp địa phương ứng dụng thực tiễn.",
+    "content_html_backup": "Cầu nối chuyển giao các công nghệ tiên tiến từ viện nghiên cứu, trường đại học đến các doanh nghiệp địa phương ứng dụng thực tiễn.",
+    "content": {
+      "blocks": [
+        {
+          "id": "1b2bd983-5798-4be7-a094-0683ae309ab2",
+          "text": "Cầu nối chuyển giao các công nghệ tiên tiến từ viện nghiên cứu, trường đại học đến các doanh nghiệp địa phương ứng dụng thực tiễn.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2025/10/BOT06612-768x512.jpg",
+    "thumbnail_file_id": "solution-thumb-trung-tam-chuyen-giao-cong-nghe",
+    "website_url": "https://vdcd.vn/services/trung-tam-chuyen-giao-cong-nghe/",
+    "field_id": "5292c9c5-7499-4353-9430-11aa730c63d8",
+    "meta_title": "Trung Tâm Chuyển giao Công Nghệ | VDCD",
+    "meta_description": "Cầu nối chuyển giao các công nghệ tiên tiến từ viện nghiên cứu, trường đại học đến các doanh nghiệp địa phương ứng dụng thực tiễn.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "b7558158-7043-488f-b189-51bc1728035a",
+    "title": "Máy Bay Việt",
+    "slug": "may-bay-viet",
+    "short_description": "Đơn vị cung cấp giải pháp máy bay không người lái phục vụ nông nghiệp thông minh, khảo sát công nghiệp và quay chụp chuyên nghiệp.",
+    "content_html_backup": "Đơn vị cung cấp giải pháp máy bay không người lái phục vụ nông nghiệp thông minh, khảo sát công nghiệp và quay chụp chuyên nghiệp.",
+    "content": {
+      "blocks": [
+        {
+          "id": "f88c4d1e-8f79-4f93-af79-2a761d7007aa",
+          "text": "Đơn vị cung cấp giải pháp máy bay không người lái phục vụ nông nghiệp thông minh, khảo sát công nghiệp và quay chụp chuyên nghiệp.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2025/10/1WUpukaXKpD5fkPMSNblWMSh6WCwXJ6Jj6f9AaF0YHj7OHjPJMzUbLBU1IEVPY2B2vQ-768x432.jpg",
+    "thumbnail_file_id": "solution-thumb-may-bay-viet",
+    "website_url": "https://maybayviet.com",
+    "field_id": "e20f8cfa-92dd-4302-a746-fe50562e19b4",
+    "meta_title": "Máy Bay Việt | VDCD",
+    "meta_description": "Đơn vị cung cấp giải pháp máy bay không người lái phục vụ nông nghiệp thông minh, khảo sát công nghiệp và quay chụp chuyên nghiệp.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "b6b431e4-4ea6-4908-a38d-ad45e8e00df9",
+    "title": "Trung tâm phát triển Robot & AI",
+    "slug": "trung-tam-phat-trien-robot-ai",
+    "short_description": "Nghiên cứu chế tạo các hệ thống cánh tay robot tự động hóa, xe tự hành (AGV) kết hợp trí tuệ nhân tạo nhận diện hình ảnh và tối ưu vận hành.",
+    "content_html_backup": "Nghiên cứu chế tạo các hệ thống cánh tay robot tự động hóa, xe tự hành (AGV) kết hợp trí tuệ nhân tạo nhận diện hình ảnh và tối ưu vận hành.",
+    "content": {
+      "blocks": [
+        {
+          "id": "ed6081d6-b1bf-4913-9489-1a4bbc915d96",
+          "text": "Nghiên cứu chế tạo các hệ thống cánh tay robot tự động hóa, xe tự hành (AGV) kết hợp trí tuệ nhân tạo nhận diện hình ảnh và tối ưu vận hành.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2024/03/ImageForArticle_702_172159750532-768x432.jpg",
+    "thumbnail_file_id": "solution-thumb-trung-tam-phat-trien-robot-ai",
+    "website_url": "https://vdcd.vn/services/trung-tam-phat-trien-robot-ai/",
+    "field_id": "e1760c66-386b-4de3-8490-5d71680649cf",
+    "meta_title": "Trung tâm phát triển Robot & AI | VDCD",
+    "meta_description": "Nghiên cứu chế tạo các hệ thống cánh tay robot tự động hóa, xe tự hành (AGV) kết hợp trí tuệ nhân tạo nhận diện hình ảnh và tối ưu vận hành.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "5c7a3230-66c9-4e2e-beef-9cbf31a2421e",
+    "title": "Trung Tâm Sản Xuất Phim",
+    "slug": "trung-tam-san-xuat-phim",
+    "short_description": "Sản xuất video clip giới thiệu dự án, quay phim khảo sát, flycam sự kiện chuyên nghiệp với trang thiết bị hiện đại hàng đầu.",
+    "content_html_backup": "Sản xuất video clip giới thiệu dự án, quay phim khảo sát, flycam sự kiện chuyên nghiệp với trang thiết bị hiện đại hàng đầu.",
+    "content": {
+      "blocks": [
+        {
+          "id": "341499d1-fd0b-4a54-9d6c-640ae3e51027",
+          "text": "Sản xuất video clip giới thiệu dự án, quay phim khảo sát, flycam sự kiện chuyên nghiệp với trang thiết bị hiện đại hàng đầu.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2025/10/75474-768x576.jpg",
+    "thumbnail_file_id": "solution-thumb-trung-tam-san-xuat-phim",
+    "website_url": "https://vietflycam.vn/dich-vu/quay-phim-chup-anh-bang-flycam",
+    "field_id": "8cf42e59-62b2-44f9-9ab6-9adfa4ff12a7",
+    "meta_title": "Trung Tâm Sản Xuất Phim | VDCD",
+    "meta_description": "Sản xuất video clip giới thiệu dự án, quay phim khảo sát, flycam sự kiện chuyên nghiệp với trang thiết bị hiện đại hàng đầu.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "7b2d1698-d06a-4002-990d-f3557f027140",
+    "title": "Trung tâm nghiên cứu và phát triển sản phẩm R&D",
+    "slug": "trung-tam-nghien-cuu-va-phat-trien-san-pham-rd",
+    "short_description": "Đội ngũ chuyên gia chuyên nghiên cứu phát triển các sản phẩm phần cứng và giải pháp công nghệ mới bắt kịp xu hướng thế giới.",
+    "content_html_backup": "Đội ngũ chuyên gia chuyên nghiên cứu phát triển các sản phẩm phần cứng và giải pháp công nghệ mới bắt kịp xu hướng thế giới.",
+    "content": {
+      "blocks": [
+        {
+          "id": "dd0d8c47-39aa-4301-95cd-e598d6f3fbbb",
+          "text": "Đội ngũ chuyên gia chuyên nghiên cứu phát triển các sản phẩm phần cứng và giải pháp công nghệ mới bắt kịp xu hướng thế giới.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2024/03/64576458-768x512.jpg",
+    "thumbnail_file_id": "solution-thumb-trung-tam-nghien-cuu-va-phat-trien-san-pham-rd",
+    "website_url": "https://vdcd.vn/services/trung-tam-nghien-cuu-va-phat-trien-san-pham/",
+    "field_id": "e1760c66-386b-4de3-8490-5d71680649cf",
+    "meta_title": "Trung tâm nghiên cứu và phát triển sản phẩm R&D | VDCD",
+    "meta_description": "Đội ngũ chuyên gia chuyên nghiên cứu phát triển các sản phẩm phần cứng và giải pháp công nghệ mới bắt kịp xu hướng thế giới.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "6e922f73-1e8a-4446-99e2-dbec49419db4",
+    "title": "Nông nghiệp - Lâm nghiệp",
+    "slug": "nong-nghiep-lam-nghiep",
+    "short_description": "Giải pháp nông nghiệp thông minh, giúp tối ưu hóa canh tác, tối ưu chi phí và truy xuất nguồn gốc dễ dàng.",
+    "content_html_backup": "Giải pháp nông nghiệp thông minh, giúp tối ưu hóa canh tác, tối ưu chi phí và truy xuất nguồn gốc dễ dàng.",
+    "content": {
+      "blocks": [
+        {
+          "id": "9696598e-43e5-44de-8da6-00ac0a9f7c8b",
+          "text": "Giải pháp nông nghiệp thông minh, giúp tối ưu hóa canh tác, tối ưu chi phí và truy xuất nguồn gốc dễ dàng.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2026/06/Ban-sao-cua-IMG_2462-1024x768.jpg",
+    "thumbnail_file_id": "solution-thumb-nong-nghiep-lam-nghiep",
+    "website_url": "/solution/nong-nghiep-lam-nghiep",
+    "field_id": "e20f8cfa-92dd-4302-a746-fe50562e19b4",
+    "meta_title": "Nông nghiệp - Lâm nghiệp | VDCD",
+    "meta_description": "Giải pháp nông nghiệp thông minh, giúp tối ưu hóa canh tác, tối ưu chi phí và truy xuất nguồn gốc dễ dàng.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "2b1ea734-43ae-48f9-833e-dda1b7df1551",
+    "title": "Giám sát an ninh",
+    "slug": "an-ninh-giam-sat-an-ninh",
+    "short_description": "Ứng dụng công nghệ AutoTimelapse giám sát trực quan 24/7, tự động cảnh báo xâm nhập và lưu trữ bảo mật.",
+    "content_html_backup": "Ứng dụng công nghệ AutoTimelapse giám sát trực quan 24/7, tự động cảnh báo xâm nhập và lưu trữ bảo mật.",
+    "content": {
+      "blocks": [
+        {
+          "id": "fb9ae0b2-7b57-46b4-b5b4-1838bd305fb2",
+          "text": "Ứng dụng công nghệ AutoTimelapse giám sát trực quan 24/7, tự động cảnh báo xâm nhập và lưu trữ bảo mật.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2026/06/z7896992273679_a63ab25fd7af7b68be795587ac4a41fb-1-1024x683.jpg",
+    "thumbnail_file_id": "solution-thumb-an-ninh-giam-sat-an-ninh",
+    "website_url": "/solution/an-ninh-giam-sat-an-ninh",
+    "field_id": "5292c9c5-7499-4353-9430-11aa730c63d8",
+    "meta_title": "Giám sát an ninh | VDCD",
+    "meta_description": "Ứng dụng công nghệ AutoTimelapse giám sát trực quan 24/7, tự động cảnh báo xâm nhập và lưu trữ bảo mật.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "e39bd0a0-1f85-42fb-b9c3-268ad88bcb94",
+    "title": "Điện - Năng lượng",
+    "slug": "dien-nang-luong",
+    "short_description": "Hệ sinh thái số hóa tích hợp giúp tối ưu khảo sát, bảo trì lưới điện và giám sát an toàn.",
+    "content_html_backup": "Hệ sinh thái số hóa tích hợp giúp tối ưu khảo sát, bảo trì lưới điện và giám sát an toàn.",
+    "content": {
+      "blocks": [
+        {
+          "id": "1aa798d8-65f3-4314-befe-14fad107c4df",
+          "text": "Hệ sinh thái số hóa tích hợp giúp tối ưu khảo sát, bảo trì lưới điện và giám sát an toàn.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2026/06/Dien-gio-Quang-Tri-1-1410x720.jpg",
+    "thumbnail_file_id": "solution-thumb-dien-nang-luong",
+    "website_url": "/solution/dien-nang-luong",
+    "field_id": "5292c9c5-7499-4353-9430-11aa730c63d8",
+    "meta_title": "Điện - Năng lượng | VDCD",
+    "meta_description": "Hệ sinh thái số hóa tích hợp giúp tối ưu khảo sát, bảo trì lưới điện và giám sát an toàn.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  },
+  {
+    "id": "179fa443-256e-487d-8028-c2fa16567181",
+    "title": "Khai thác khoáng sản",
+    "slug": "tai-nguyen-khai-thac-khoang-san",
+    "short_description": "Giải pháp số hóa toàn diện khu vực mỏ giúp kiểm soát trạm cân, minh bạch hóa dữ liệu và tối ưu vận hành mỏ.",
+    "content_html_backup": "Giải pháp số hóa toàn diện khu vực mỏ giúp kiểm soát trạm cân, minh bạch hóa dữ liệu và tối ưu vận hành mỏ.",
+    "content": {
+      "blocks": [
+        {
+          "id": "2bf1f68b-5b3c-476a-ac92-53e55bf75a6a",
+          "text": "Giải pháp số hóa toàn diện khu vực mỏ giúp kiểm soát trạm cân, minh bạch hóa dữ liệu và tối ưu vận hành mỏ.",
+          "type": "paragraph"
+        }
+      ],
+      "version": 1
+    },
+    "thumbnail": "https://vdcd.vn/wp-content/uploads/2026/06/z7903688360376_37c98f8dadd2f5e6419362c107fe4ca4-1-1024x509.jpg",
+    "thumbnail_file_id": "solution-thumb-tai-nguyen-khai-thac-khoang-san",
+    "website_url": "/solution/tai-nguyen-khai-thac-khoang-san",
+    "field_id": "5292c9c5-7499-4353-9430-11aa730c63d8",
+    "meta_title": "Khai thác khoáng sản | VDCD",
+    "meta_description": "Giải pháp số hóa toàn diện khu vực mỏ giúp kiểm soát trạm cân, minh bạch hóa dữ liệu và tối ưu vận hành mỏ.",
+    "is_published": true,
+    "published_at": "2026-08-31T13:04:50.107Z",
+    "created_at": "2026-08-31T13:04:50.107Z",
+    "updated_at": "2026-08-31T13:04:50.107Z"
+  }
+]

@@ -19,6 +19,7 @@ import { Partner } from '../../modules/partner/entities/partner.entity';
 import { PageBanner } from '../../modules/page-banner/entities/page-banner.entity';
 import { convertHtmlToBlocks } from '../../modules/article/utils/html-to-blocks.util';
 import { convertProgramHtmlToBlocks } from '../../modules/program/utils/html-to-blocks.util';
+import { convertSolutionHtmlToBlocks } from '../../modules/solution/utils/html-to-blocks.util';
 import { PROJECTS_DATA } from './project.data';
 
 dotenv.config({ path: '.env.development' });
@@ -936,7 +937,7 @@ async function seed() {
           title: s.title,
           slug: s.slug,
           shortDescription: s.shortDescription,
-          content: s.content,
+          content: convertSolutionHtmlToBlocks(s.content),
           thumbnail: s.imageUrl,
           thumbnailFileId: `solution-thumb-${s.slug}`,
           websiteUrl: s.websiteUrl,
@@ -944,9 +945,11 @@ async function seed() {
           metaTitle: `${s.title} | VDCD`,
           metaDescription: s.shortDescription,
           isPublished: true,
+          publishedAt: new Date(),
         }),
       ),
     );
+
     console.log(`   → ${solutions.length} solutions`);
 
     // ── 9. Projects ────────────────────────────────────────────────

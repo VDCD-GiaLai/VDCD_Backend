@@ -418,12 +418,114 @@ export class UploadController {
     );
   }
 
+  @Post('image/solution')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload image for solution',
+    description:
+      'Upload an image for a solution to ImageKit under "/vdcd/solutions/<slug-or-key>". If no slug/key is provided, a stable random subfolder is generated.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiQuery({
+    name: 'slug',
+    required: false,
+    description: 'Solution slug (e.g. "giai-phap-nong-nghiep")',
+    example: 'giai-phap-nong-nghiep',
+  })
+  @ApiQuery({
+    name: 'title',
+    required: false,
+    description: 'Solution title to be slugified if slug is not provided',
+    example: 'Giải pháp nông nghiệp',
+  })
+  @ApiQuery({
+    name: 'tempFolderKey',
+    required: false,
+    description: 'Temporary stable folder key before slug exists',
+    example: 'solution-a8f39c2',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Solution image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadSolutionImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+    @Query('slug') slugQuery?: string,
+    @Query('title') titleQuery?: string,
+    @Query('tempFolderKey') tempFolderKeyQuery?: string,
+    @Query('solutionSlug') solutionSlugQuery?: string,
+    @Query('subfolder') subfolderQuery?: string,
+    @Body('slug') slugBody?: string,
+    @Body('title') titleBody?: string,
+    @Body('tempFolderKey') tempFolderKeyBody?: string,
+    @Body('solutionSlug') solutionSlugBody?: string,
+    @Body('subfolder') subfolderBody?: string,
+  ) {
+    const resolvedKey =
+      slugQuery ||
+      solutionSlugQuery ||
+      tempFolderKeyQuery ||
+      titleQuery ||
+      subfolderQuery ||
+      slugBody ||
+      solutionSlugBody ||
+      tempFolderKeyBody ||
+      titleBody ||
+      subfolderBody;
+    return this.service.uploadSolutionImage(
+      file,
+      req.user?.id as string | undefined,
+      resolvedKey,
+    );
+  }
+
+  @Post('image/solution/:slug')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload image for solution under specific slug',
+    description:
+      'Upload an image for a solution to ImageKit under "/vdcd/solutions/<slug>".',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiParam({
+    name: 'slug',
+    description: 'Solution slug (e.g. "giai-phap-nong-nghiep")',
+    example: 'giai-phap-nong-nghiep',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Solution image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadSolutionImageWithSlug(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('slug') slug: string,
+    @Request() req,
+  ) {
+    return this.service.uploadSolutionImage(
+      file,
+      req.user?.id as string | undefined,
+      slug,
+    );
+  }
+
   @Post('image/partner')
   @Roles('superadmin', 'editor')
   @ApiBearerAuth()
   @UseInterceptors(memoryUpload())
   @ApiOperation({
     summary: 'Upload partner logo',
+
     description:
       'Upload a partner logo image file to ImageKit under the "partners" folder. Restricted to superadmin and editor.',
   })

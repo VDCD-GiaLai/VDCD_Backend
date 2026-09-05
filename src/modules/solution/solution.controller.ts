@@ -64,6 +64,24 @@ export class SolutionController {
     return this.service.findAllAdmin(dto);
   }
 
+  @Get('admin/:id')
+  @Roles('superadmin', 'editor', 'viewer')
+  @ApiOperation({
+    summary: 'Get solution details by ID (Admin)',
+    description:
+      'Retrieve solution details by ID regardless of publish status. Accessible by superadmin, editor, and viewer.',
+  })
+  @ApiParam({ name: 'id', description: 'The UUID of the solution' })
+  @ApiResponse({
+    status: 200,
+    description: 'Solution details retrieved successfully.',
+    type: Solution,
+  })
+  @ApiResponse({ status: 404, description: 'Solution not found.' })
+  findOneAdmin(@Param('id') id: string) {
+    return this.service.findById(id);
+  }
+
   @Public()
   @Get(':slug')
   @ApiOperation({
@@ -132,7 +150,7 @@ export class SolutionController {
   })
   @ApiResponse({ status: 404, description: 'Solution not found.' })
   togglePublish(@Param('id') id: string, @Body() dto: TogglePublishDto) {
-    return this.service.togglePublish(id, dto.isPublished);
+    return this.service.togglePublish(id, dto.isPublished, dto.publishedAt);
   }
 
   @Delete(':id')

@@ -156,6 +156,55 @@ export class UploadService {
     return this.uploadImage(file, folder, uploadedBy);
   }
 
+  /**
+   * Upload a solution image (thumbnail or content block image) to ImageKit.
+   * Server strictly enforces folder structure: /vdcd/solutions/{slug-or-stable-key}.
+   * Client folder overrides or arbitrary path traversal are stripped and forbidden.
+   */
+  async uploadSolutionImage(
+    file: Express.Multer.File,
+    uploadedBy?: string,
+    keyOrSlug?: string,
+  ): Promise<UploadResult> {
+    let cleanKey = this.sanitizeSubfolder(keyOrSlug);
+    // Path traversal, directory separator, or empty protection
+    cleanKey = cleanKey
+      .replace(/\.\./g, '')
+      .replace(/^\/+|\/+$/g, '')
+      .replace(/\//g, '-')
+      .trim();
+    if (!cleanKey) {
+      cleanKey = `solution-${randomUUID().replace(/-/g, '').slice(0, 8)}`;
+    }
+    const folder = `solutions/${cleanKey}`;
+    return this.uploadImage(file, folder, uploadedBy);
+  }
+
+  /**
+   * Safely move folder in ImageKit if supported, with non-blocking error handling and fallback.
+   */
+  async moveFolder(
+    sourceFolderPath: string,
+    destinationPath: string,
+  ): Promise<boolean> {
+    try {
+      await this.imagekit.moveFolder({
+        sourceFolderPath,
+        destinationPath,
+      });
+      this.logger.log(
+        `Moved folder from ${sourceFolderPath} to ${destinationPath}`,
+      );
+      return true;
+    } catch (err) {
+      this.logger.warn(
+        `Failed to move ImageKit folder from ${sourceFolderPath} to ${destinationPath}. Fallback: existing URLs remain intact.`,
+        err,
+      );
+      return false;
+    }
+  }
+
   async uploadPartnerLogo(file: Express.Multer.File, uploadedBy?: string) {
     return this.uploadImage(file, 'partners', uploadedBy);
   }
@@ -163,6 +212,7 @@ export class UploadService {
   // ── Upload file ────────────────────────────────────────
   async uploadFile(
     file: Express.Multer.File,
+
     uploadedBy?: string,
   ): Promise<UploadResult> {
     this.validateMimetype(

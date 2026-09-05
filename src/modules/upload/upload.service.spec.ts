@@ -285,4 +285,93 @@ describe('UploadService', () => {
       );
     });
   });
+  describe('uploadSolutionImage folder target', () => {
+    it('should use sanitized slug when slug/title is provided (Case 1)', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadSolutionImage(fakeFile, 'user-1', 'giai-phap-gis');
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        'solutions/giai-phap-gis',
+        'user-1',
+      );
+    });
+
+    it('should generate stable temporary key solution-{random-id} when slug is omitted (Case 2)', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadSolutionImage(fakeFile, 'user-1', '');
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        expect.stringMatching(/^solutions\/solution-[a-f0-9]{8}$/),
+        'user-1',
+      );
+    });
+
+    it('should sanitize arbitrary folder injections and path traversal (Security)', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadSolutionImage(fakeFile, 'user-1', '../../etc/passwd');
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        'solutions/etc-passwd',
+        'user-1',
+      );
+    });
+
+    it('should sanitize nested admin path injection to single level under solutions/ (Security)', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadSolutionImage(
+        fakeFile,
+        'user-1',
+        '/vdcd/admin/secret',
+      );
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        'solutions/vdcd-admin-secret',
+        'user-1',
+      );
+    });
+  });
 });
