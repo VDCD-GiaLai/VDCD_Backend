@@ -238,6 +238,93 @@ export class UploadController {
     );
   }
 
+  @Post('image/article')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload image for article',
+    description:
+      'Upload an image for an article to ImageKit under "vdcd/articles/<slug>". If no slug or title is provided, a random subfolder is generated.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiQuery({
+    name: 'slug',
+    required: false,
+    description: 'Article slug (e.g. "chuyen-doi-so-gia-lai")',
+    example: 'chuyen-doi-so-gia-lai',
+  })
+  @ApiQuery({
+    name: 'title',
+    required: false,
+    description: 'Article title to be slugified if slug is not provided',
+    example: 'Chuyển đổi số Gia Lai',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Article image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadArticleImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+    @Query('slug') slugQuery?: string,
+    @Query('title') titleQuery?: string,
+    @Query('subfolder') subfolderQuery?: string,
+    @Body('slug') slugBody?: string,
+    @Body('title') titleBody?: string,
+    @Body('subfolder') subfolderBody?: string,
+  ) {
+    const slugOrTitle =
+      slugQuery ||
+      titleQuery ||
+      subfolderQuery ||
+      slugBody ||
+      titleBody ||
+      subfolderBody;
+    return this.service.uploadArticleImage(
+      file,
+      req.user?.id as string | undefined,
+      slugOrTitle,
+    );
+  }
+
+  @Post('image/article/:slug')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload image for article under specific slug',
+    description:
+      'Upload an image for an article to ImageKit under "vdcd/articles/<slug>".',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiParam({
+    name: 'slug',
+    description: 'Article slug (e.g. "chuyen-doi-so-gia-lai")',
+    example: 'chuyen-doi-so-gia-lai',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Article image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadArticleImageWithSlug(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('slug') slug: string,
+    @Request() req,
+  ) {
+    return this.service.uploadArticleImage(
+      file,
+      req.user?.id as string | undefined,
+      slug,
+    );
+  }
+
   @Post('image/partner')
   @Roles('superadmin', 'editor')
   @ApiBearerAuth()

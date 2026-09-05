@@ -1,3 +1,4 @@
+// src/modules/article/dto/create-article.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsString,
@@ -5,6 +6,7 @@ import {
   IsOptional,
   IsUUID,
   IsBoolean,
+  IsObject,
   MaxLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -21,21 +23,48 @@ export class CreateArticleDto {
   title: string;
 
   @ApiPropertyOptional({
+    example: 'Hợp tác phát triển hạ tầng dữ liệu số khu vực Tây Nguyên',
+    description: 'Subtitle / lead paragraph of the article',
+  })
+  @IsOptional()
+  @IsString()
+  subtitle?: string;
+
+  @ApiPropertyOptional({
     example: 'gioi-thieu-vdcd-gia-lai',
     description:
       'Custom slug for the article. If not provided, it will be auto-generated from the title.',
   })
   @IsOptional()
   @IsString()
+  @MaxLength(255)
   slug?: string;
 
   @ApiPropertyOptional({
-    example: '<p>Nội dung chi tiết...</p>',
-    description: 'The HTML or text content of the article',
+    example: 'Tóm tắt nội dung bài viết phục vụ SEO và card preview...',
+    description: 'Short excerpt or summary of the article',
   })
   @IsOptional()
   @IsString()
-  content?: string;
+  excerpt?: string;
+
+  @ApiPropertyOptional({
+    example: {
+      version: 1,
+      blocks: [
+        {
+          id: 'blk-1',
+          type: 'paragraph',
+          text: 'Nội dung chi tiết bài viết...',
+        },
+      ],
+    },
+    description:
+      'Block-based structured JSON document content. Validated by document-content validator.',
+  })
+  @IsOptional()
+  @IsObject()
+  content?: Record<string, unknown>;
 
   @ApiPropertyOptional({
     example: 'https://example.com/images/thumbnail.png',
@@ -59,6 +88,7 @@ export class CreateArticleDto {
   })
   @IsOptional()
   @IsString()
+  @MaxLength(100)
   category?: string;
 
   @ApiPropertyOptional({
@@ -67,6 +97,7 @@ export class CreateArticleDto {
   })
   @IsOptional()
   @IsString()
+  @MaxLength(255)
   tags?: string;
 
   @ApiPropertyOptional({
@@ -105,12 +136,12 @@ export class CreateArticleDto {
 
   @ApiPropertyOptional({
     example: 'Chi tiết giới thiệu về Hiệp hội Phát triển dữ liệu số Gia Lai',
-    description: 'SEO Meta Description (max 255 chars)',
-    maxLength: 255,
+    description: 'SEO Meta Description (max 500 chars)',
+    maxLength: 500,
   })
   @IsOptional()
   @IsString()
-  @MaxLength(255)
+  @MaxLength(500)
   metaDescription?: string;
 
   @ApiPropertyOptional({

@@ -4,12 +4,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
 import { ArticleService } from './article.service';
 import { ArticleController } from './article.controller';
+import { AdminArticleController } from './admin-article.controller';
 import { UploadModule } from '../upload/upload.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Article]), UploadModule],
   providers: [ArticleService],
-  controllers: [ArticleController],
+  controllers: [ArticleController, AdminArticleController],
   exports: [ArticleService],
 })
 export class ArticleModule {}

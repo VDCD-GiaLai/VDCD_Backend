@@ -120,6 +120,24 @@ export class UploadService {
     return this.uploadImage(file, folder, uploadedBy);
   }
 
+  /**
+   * Upload an article image (thumbnail or content block image) to ImageKit.
+   * Folder structure: vdcd/articles/<slug>
+   * If slug/title is not provided or empty, a random string is generated for the subfolder.
+   */
+  async uploadArticleImage(
+    file: Express.Multer.File,
+    uploadedBy?: string,
+    slugOrTitle?: string,
+  ): Promise<UploadResult> {
+    let cleanSlug = this.sanitizeSubfolder(slugOrTitle);
+    if (!cleanSlug) {
+      cleanSlug = randomUUID().replace(/-/g, '').slice(0, 10);
+    }
+    const folder = `articles/${cleanSlug}`;
+    return this.uploadImage(file, folder, uploadedBy);
+  }
+
   async uploadPartnerLogo(file: Express.Multer.File, uploadedBy?: string) {
     return this.uploadImage(file, 'partners', uploadedBy);
   }
