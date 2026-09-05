@@ -138,6 +138,24 @@ export class UploadService {
     return this.uploadImage(file, folder, uploadedBy);
   }
 
+  /**
+   * Upload a program image (thumbnail or content block image) to ImageKit.
+   * Folder structure: vdcd/programs/<slug>
+   * If slug/title is not provided or empty, a random string is generated for the subfolder.
+   */
+  async uploadProgramImage(
+    file: Express.Multer.File,
+    uploadedBy?: string,
+    slugOrTitle?: string,
+  ): Promise<UploadResult> {
+    let cleanSlug = this.sanitizeSubfolder(slugOrTitle);
+    if (!cleanSlug) {
+      cleanSlug = randomUUID().replace(/-/g, '').slice(0, 10);
+    }
+    const folder = `programs/${cleanSlug}`;
+    return this.uploadImage(file, folder, uploadedBy);
+  }
+
   async uploadPartnerLogo(file: Express.Multer.File, uploadedBy?: string) {
     return this.uploadImage(file, 'partners', uploadedBy);
   }

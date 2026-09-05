@@ -1,3 +1,4 @@
+// src/modules/program/dto/create-program.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsBoolean,
@@ -5,13 +6,16 @@ import {
   IsOptional,
   IsString,
   IsUUID,
+  IsObject,
   MaxLength,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateProgramDto {
   @ApiProperty({
     example: 'Chương trình phát triển Năng lượng xanh',
     description: 'Tiêu đề của chương trình',
+    maxLength: 255,
   })
   @IsString()
   @IsNotEmpty()
@@ -21,9 +25,11 @@ export class CreateProgramDto {
   @ApiPropertyOptional({
     example: 'chuong-trinh-phat-trien-nang-luong-xanh',
     description: 'Slug của chương trình (nếu trống sẽ tự sinh từ tiêu đề)',
+    maxLength: 255,
   })
   @IsOptional()
   @IsString()
+  @MaxLength(255)
   slug?: string;
 
   @ApiPropertyOptional({
@@ -35,20 +41,30 @@ export class CreateProgramDto {
   shortDescription?: string;
 
   @ApiPropertyOptional({
+    example: {
+      version: 1,
+      blocks: [
+        {
+          id: 'blk-1',
+          type: 'paragraph',
+          text: 'Nội dung chi tiết chương trình...',
+        },
+      ],
+    },
+    description:
+      'Block-based structured JSON document content. Validated by document-content validator.',
+  })
+  @IsOptional()
+  @IsObject()
+  content?: Record<string, unknown>;
+
+  @ApiPropertyOptional({
     example: 'uuid-thumbnail-file-id',
     description: 'ID của file thumbnail chương trình',
   })
   @IsOptional()
   @IsString()
   thumbnailFileId?: string;
-
-  @ApiPropertyOptional({
-    example: 'Nội dung chi tiết của chương trình...',
-    description: 'Nội dung chi tiết của chương trình',
-  })
-  @IsOptional()
-  @IsString()
-  content?: string;
 
   @ApiPropertyOptional({
     example: 'https://example.com/images/thumbnail.jpg',
@@ -69,6 +85,7 @@ export class CreateProgramDto {
   @ApiPropertyOptional({
     example: 'Năng lượng xanh VDCD',
     description: 'Meta Title phục vụ SEO (tối đa 255 ký tự)',
+    maxLength: 255,
   })
   @IsOptional()
   @IsString()
@@ -78,6 +95,7 @@ export class CreateProgramDto {
   @ApiPropertyOptional({
     example: 'Thông tin chi tiết về chương trình năng lượng xanh của VDCD...',
     description: 'Meta Description phục vụ SEO (tối đa 255 ký tự)',
+    maxLength: 255,
   })
   @IsOptional()
   @IsString()
@@ -87,8 +105,18 @@ export class CreateProgramDto {
   @ApiPropertyOptional({
     example: false,
     description: 'Trạng thái xuất bản của chương trình',
+    default: false,
   })
   @IsOptional()
   @IsBoolean()
   isPublished?: boolean;
+
+  @ApiPropertyOptional({
+    example: '2026-07-11T00:00:00.000Z',
+    description:
+      'Publication date. Defaults to current date if published and not provided.',
+  })
+  @IsOptional()
+  @Type(() => Date)
+  publishedAt?: Date;
 }

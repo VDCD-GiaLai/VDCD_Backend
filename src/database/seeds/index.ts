@@ -18,6 +18,7 @@ import { Lead } from '../../modules/lead/entities/lead.entity';
 import { Partner } from '../../modules/partner/entities/partner.entity';
 import { PageBanner } from '../../modules/page-banner/entities/page-banner.entity';
 import { convertHtmlToBlocks } from '../../modules/article/utils/html-to-blocks.util';
+import { convertProgramHtmlToBlocks } from '../../modules/program/utils/html-to-blocks.util';
 import { PROJECTS_DATA } from './project.data';
 
 dotenv.config({ path: '.env.development' });
@@ -680,13 +681,14 @@ async function seed() {
           title: p.title,
           slug: p.slug,
           shortDescription: p.shortDescription,
-          content: p.content,
+          content: convertProgramHtmlToBlocks(p.content),
           thumbnail: `https://picsum.photos/seed/${p.slug}/800/500`,
           thumbnailFileId: `program-thumb-${p.slug}`,
           field: fields[p.fieldIndex],
           metaTitle: p.metaTitle,
           metaDescription: p.metaDescription,
           isPublished: true,
+          publishedAt: new Date(),
         }),
       ),
     );
