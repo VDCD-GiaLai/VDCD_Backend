@@ -147,4 +147,73 @@ describe('UploadService', () => {
       );
     });
   });
+
+  describe('uploadArticleImage folder target', () => {
+    it('should use sanitized slug when slug/title is provided', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadArticleImage(
+        fakeFile,
+        'user-1',
+        'Chuyển Đổi Số Gia Lai 2026',
+      );
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        'articles/chuyen-doi-so-gia-lai-2026',
+        'user-1',
+      );
+    });
+
+    it('should generate a random subfolder when slug/title is omitted or empty', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadArticleImage(fakeFile, 'user-1', '');
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        expect.stringMatching(/^articles\/[a-f0-9]{10}$/),
+        'user-1',
+      );
+    });
+
+    it('should generate a random subfolder when slug/title is undefined', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadArticleImage(fakeFile, 'user-1');
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        expect.stringMatching(/^articles\/[a-f0-9]{10}$/),
+        'user-1',
+      );
+    });
+  });
 });

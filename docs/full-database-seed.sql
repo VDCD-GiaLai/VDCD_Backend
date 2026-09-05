@@ -8,7 +8,7 @@
 -- Table Statistics:
 --   admin_user          : 3 rows
 --   organization        : 1 rows
---   operation_field     : 6 rows
+--   operation_field     : 11 rows
 --   province            : 14 rows
 --   partner             : 22 rows
 --   job                 : 6 rows
@@ -16,12 +16,12 @@
 --   contact             : 0 rows
 --   page_banner         : 7 rows
 --   slide               : 5 rows
---   program             : 11 rows
+--   program             : 5 rows
 --   solution            : 19 rows
 --   project             : 16 rows
 --   slide_detail_blog   : 1 rows
 --   project_image       : 54 rows
---   article             : 10 rows
+--   article             : 11 rows
 -- ==============================================================================
 
 BEGIN;
@@ -73,7 +73,12 @@ INSERT INTO "operation_field" ("id", "name", "slug", "icon", "short_description"
   ('e1760c66-386b-4de3-8490-5d71680649cf', 'Giáo dục & Đào tạo', 'giao-duc-dao-tao', 'graduation-cap', 'Lĩnh vực Giáo dục & Đào tạo – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 2),
   ('5192c2da-2ca6-4c81-bbaa-fb0e9d4e02ae', 'Y tế & Sức khỏe', 'y-te-suc-khoe', 'heart-pulse', 'Lĩnh vực Y tế & Sức khỏe – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 3),
   ('8cf42e59-62b2-44f9-9ab6-9adfa4ff12a7', 'Du lịch thông minh', 'du-lich-thong-minh', 'map', 'Lĩnh vực Du lịch thông minh – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 4),
-  ('65bcaab7-d62c-481c-b264-2e0581503c78', 'Năng lượng tái tạo', 'nang-luong-tai-tao', 'zap', 'Lĩnh vực Năng lượng tái tạo – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 5);
+  ('65bcaab7-d62c-481c-b264-2e0581503c78', 'Năng lượng tái tạo', 'nang-luong-tai-tao', 'zap', 'Lĩnh vực Năng lượng tái tạo – thúc đẩy đổi mới sáng tạo và ứng dụng công nghệ hiện đại.', 5),
+  ('c0110001-0000-4000-a000-000000000001', 'Ươm tạo khởi nghiệp', 'uom-tao-khoi-nghiep', 'rocket-launch', 'Hỗ trợ các dự án đổi mới sáng tạo từ ý tưởng đến mô hình thử nghiệm và thương mại hóa.', 10),
+  ('c0110001-0000-4000-a000-000000000002', 'Đào tạo công nghệ', 'dao-tao-cong-nghe', 'school', 'Chương trình đào tạo thực chiến về chuyển đổi số, UAV, AI, GIS và BIM cho doanh nghiệp và chính quyền.', 11),
+  ('c0110001-0000-4000-a000-000000000003', 'Kết nối chuyên gia', 'ket-noi-chuyen-gia', 'handshake', 'Kết nối doanh nghiệp, tổ chức với mạng lưới chuyên gia công nghệ, viện nghiên cứu và trường đại học.', 12),
+  ('c0110001-0000-4000-a000-000000000004', 'Tư vấn chuyển đổi số', 'tu-van-chuyen-doi-so', 'lightbulb-on', 'Tư vấn chiến lược và xây dựng lộ trình chuyển đổi số thực chất, khả thi cấp tỉnh và doanh nghiệp.', 13),
+  ('c0110001-0000-4000-a000-000000000005', 'Hội thảo & Sự kiện', 'hoi-thao-su-kien', 'bullhorn', 'Diễn đàn kết nối tri thức, chia sẻ xu hướng công nghệ mới và xúc tiến đổi mới sáng tạo.', 14);
 
 -- ------------------------------------------------------------------------------
 -- TABLE: province (14 rows)
@@ -283,63 +288,10 @@ INSERT INTO "slide" ("id", "title", "description", "cta_text", "cta_url", "image
   ('2609eb18-f74a-451d-a01c-bff702a8ada7', 'TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI', 'Kết nối công nghệ, chuyên gia và doanh nghiệp, thúc đẩy chuyển đổi số và phát triển hệ sinh thái khởi nghiệp đổi mới sáng tạo tại địa phương.', 'Tìm hiểu thêm', '/slides/so-hoa-du-lieu-dat-dai', 'https://ik.imagekit.io/eo8dcxsjx8/vdcd/slides/1788429211721-48490265ae67.png', 0, TRUE, '2026-08-31T20:04:50.107Z', '', '6a99439dead997d09afb7fed');
 
 -- ------------------------------------------------------------------------------
--- TABLE: program (11 rows)
+-- ------------------------------------------------------------------------------
+-- TABLE: program (5 rows)
 -- ------------------------------------------------------------------------------
 INSERT INTO "program" ("id", "title", "slug", "short_description", "content", "thumbnail", "meta_title", "meta_description", "is_published", "created_at", "updated_at", "field_id", "thumbnail_file_id") VALUES
-  ('c7b032a5-795c-44ef-9c02-c974ede3787b', 'Chương trình Chuyển đổi số Nông nghiệp Tây Nguyên', 'chuyen-doi-so-nong-nghiep-tay-nguyen', 'Ứng dụng công nghệ IoT, dữ liệu lớn và trí tuệ nhân tạo vào quản lý chuỗi cung ứng nông sản, giám sát canh tác và tối ưu hóa năng suất cho nông hộ tại Gia Lai và các tỉnh Tây Nguyên.', '<h2>Giới thiệu chương trình</h2>
-<p>Chương trình Chuyển đổi số Nông nghiệp Tây Nguyên là sáng kiến chiến lược của VDCD Group nhằm đưa công nghệ hiện đại vào lĩnh vực nông nghiệp — ngành kinh tế trọng điểm của khu vực Tây Nguyên.</p>
-<h2>Mục tiêu</h2>
-<ul>
-<li>Triển khai hệ thống IoT giám sát môi trường canh tác tại 50+ nông hộ</li>
-<li>Xây dựng nền tảng dữ liệu nông nghiệp tập trung cho tỉnh Gia Lai</li>
-<li>Đào tạo kỹ năng số cho 200+ nông dân và kỹ thuật viên nông nghiệp</li>
-</ul>
-<h2>Kết quả dự kiến</h2>
-<p>Tăng năng suất 15-20%, giảm chi phí vật tư 10-15%, và xây dựng mô hình nông nghiệp thông minh có thể nhân rộng ra toàn khu vực.</p>', 'https://picsum.photos/seed/chuyen-doi-so-nong-nghiep-tay-nguyen/800/500', 'Chuyển đổi số Nông nghiệp Tây Nguyên | VDCD Group', 'Chương trình ứng dụng IoT, AI vào nông nghiệp Tây Nguyên — nâng cao năng suất, giảm chi phí cho nông hộ Gia Lai.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'e20f8cfa-92dd-4302-a746-fe50562e19b4', 'program-thumb-chuyen-doi-so-nong-nghiep-tay-nguyen'),
-  ('6264c29d-a78e-4502-8e54-3f2b91493abd', 'Đề án Đô thị Thông minh Pleiku 2030', 'de-an-do-thi-thong-minh-pleiku-2030', 'Quy hoạch và triển khai hạ tầng đô thị số cho thành phố Pleiku, bao gồm hệ thống quản lý giao thông, dịch vụ công trực tuyến và giám sát môi trường đô thị.', '<h2>Tổng quan đề án</h2>
-<p>Đề án Đô thị Thông minh Pleiku 2030 hướng đến xây dựng một thành phố hiện đại, bền vững, lấy công nghệ làm nền tảng phát triển kinh tế-xã hội.</p>
-<h2>Các hạng mục chính</h2>
-<ul>
-<li>Hệ thống camera giám sát giao thông thông minh</li>
-<li>Cổng dịch vụ công trực tuyến mức độ 4</li>
-<li>Trung tâm điều hành đô thị thông minh (IOC)</li>
-<li>Mạng cảm biến môi trường đô thị</li>
-</ul>', 'https://picsum.photos/seed/de-an-do-thi-thong-minh-pleiku-2030/800/500', 'Đề án Đô thị Thông minh Pleiku 2030 | VDCD Group', 'Quy hoạch hạ tầng đô thị số Pleiku — giao thông thông minh, dịch vụ công trực tuyến, giám sát môi trường.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', '5292c9c5-7499-4353-9430-11aa730c63d8', 'program-thumb-de-an-do-thi-thong-minh-pleiku-2030'),
-  ('66075c7c-9a15-4f52-904a-a523a35e6938', 'Chương trình Đào tạo Kỹ năng số cho Thanh niên', 'dao-tao-ky-nang-so-thanh-nien', 'Khóa đào tạo kỹ năng lập trình, phân tích dữ liệu và thiết kế số dành cho thanh niên 18-30 tuổi tại các tỉnh Tây Nguyên, nhằm phát triển nguồn nhân lực công nghệ tại chỗ.', '<h2>Mục tiêu chương trình</h2>
-<p>Trang bị kỹ năng số thiết yếu cho thế hệ trẻ Tây Nguyên, tạo nguồn nhân lực chất lượng cao phục vụ chuyển đổi số địa phương.</p>
-<h2>Nội dung đào tạo</h2>
-<ul>
-<li>Lập trình web cơ bản (HTML, CSS, JavaScript)</li>
-<li>Phân tích dữ liệu với Python</li>
-<li>Thiết kế đồ họa và UI/UX</li>
-<li>Kỹ năng khởi nghiệp sáng tạo</li>
-</ul>', 'https://picsum.photos/seed/dao-tao-ky-nang-so-thanh-nien/800/500', 'Đào tạo Kỹ năng số cho Thanh niên | VDCD Group', 'Khóa đào tạo lập trình, phân tích dữ liệu và kỹ năng số cho thanh niên Tây Nguyên.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'e1760c66-386b-4de3-8490-5d71680649cf', 'program-thumb-dao-tao-ky-nang-so-thanh-nien'),
-  ('f759942b-f430-4c9b-a162-b16b068afa9d', 'Chương trình Năng lượng Xanh cho Tây Nguyên', 'nang-luong-xanh-tay-nguyen', 'Triển khai giải pháp năng lượng mặt trời và biomass cho các vùng nông thôn Tây Nguyên, hỗ trợ phát triển kinh tế bền vững và giảm phát thải carbon.', '<h2>Bối cảnh</h2>
-<p>Tây Nguyên sở hữu tiềm năng năng lượng tái tạo lớn với lượng bức xạ mặt trời trung bình 5-6 kWh/m²/ngày và nguồn biomass dồi dào từ phế phẩm nông nghiệp.</p>
-<h2>Phạm vi triển khai</h2>
-<ul>
-<li>Lắp đặt hệ thống điện mặt trời áp mái cho 100 hộ gia đình</li>
-<li>Xây dựng 5 trạm sạc năng lượng mặt trời cộng đồng</li>
-<li>Triển khai 3 hệ thống biomass xử lý phế phẩm nông nghiệp</li>
-</ul>', 'https://picsum.photos/seed/nang-luong-xanh-tay-nguyen/800/500', 'Năng lượng Xanh cho Tây Nguyên | VDCD Group', 'Giải pháp năng lượng mặt trời và biomass cho vùng nông thôn Tây Nguyên — phát triển kinh tế bền vững.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', '65bcaab7-d62c-481c-b264-2e0581503c78', 'program-thumb-nang-luong-xanh-tay-nguyen'),
-  ('343f39a5-1d01-4291-a6e0-323ccd9f9c8f', 'Chương trình Hỗ trợ Doanh nghiệp Chuyển đổi số', 'ho-tro-doanh-nghiep-chuyen-doi-so', 'Tư vấn chiến lược và hỗ trợ triển khai chuyển đổi số cho doanh nghiệp vừa và nhỏ tại Gia Lai, bao gồm số hóa quy trình, quản lý khách hàng và thương mại điện tử.', '<h2>Đối tượng</h2>
-<p>Các doanh nghiệp vừa và nhỏ (SME) tại tỉnh Gia Lai muốn ứng dụng công nghệ để nâng cao hiệu quả hoạt động và mở rộng thị trường.</p>
-<h2>Gói hỗ trợ</h2>
-<ul>
-<li>Đánh giá mức độ sẵn sàng chuyển đổi số</li>
-<li>Tư vấn lộ trình chuyển đổi số phù hợp</li>
-<li>Triển khai phần mềm quản lý (ERP, CRM)</li>
-<li>Đào tạo nhân sự vận hành hệ thống</li>
-</ul>', 'https://picsum.photos/seed/ho-tro-doanh-nghiep-chuyen-doi-so/800/500', 'Hỗ trợ Doanh nghiệp Chuyển đổi số | VDCD Group', 'Tư vấn và triển khai chuyển đổi số cho doanh nghiệp SME tại Gia Lai — ERP, CRM, thương mại điện tử.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', '5292c9c5-7499-4353-9430-11aa730c63d8', 'program-thumb-ho-tro-doanh-nghiep-chuyen-doi-so'),
-  ('b1f29e31-216d-4e30-ba70-4a9703f96d4f', 'Chương trình Khởi nghiệp Sáng tạo Gia Lai', 'khoi-nghiep-sang-tao-gia-lai', 'Vườn ươm khởi nghiệp dành cho các startup công nghệ tại Gia Lai, cung cấp không gian làm việc, mentoring, kết nối nhà đầu tư và hỗ trợ pháp lý.', '<h2>Giới thiệu</h2>
-<p>Chương trình Khởi nghiệp Sáng tạo Gia Lai là nền tảng hỗ trợ toàn diện cho các dự án khởi nghiệp công nghệ, từ ý tưởng đến hiện thực hóa sản phẩm.</p>
-<h2>Quyền lợi tham gia</h2>
-<ul>
-<li>Không gian co-working miễn phí 6 tháng</li>
-<li>Mentoring từ chuyên gia công nghệ và kinh doanh</li>
-<li>Kết nối với quỹ đầu tư và nhà đầu tư thiên thần</li>
-<li>Hỗ trợ đăng ký kinh doanh và sở hữu trí tuệ</li>
-</ul>', 'https://picsum.photos/seed/khoi-nghiep-sang-tao-gia-lai/800/500', 'Khởi nghiệp Sáng tạo Gia Lai | VDCD Group', 'Vườn ươm khởi nghiệp công nghệ Gia Lai — co-working, mentoring, kết nối đầu tư.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'e1760c66-386b-4de3-8490-5d71680649cf', 'program-thumb-khoi-nghiep-sang-tao-gia-lai'),
   ('a1b2c3d4-e5f6-4a7b-8c9d-012345678901', 'Ươm tạo khởi nghiệp sáng tạo', 'uom-tao-khoi-nghiep-sang-tao', 'Từ ý tưởng đến mô hình có thể thử nghiệm và thương mại hóa. Hỗ trợ dự án hoàn thiện mô hình kinh doanh, phát triển sản phẩm thử nghiệm, kiểm chứng thị trường và kết nối nguồn lực để thương mại hóa.', '<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ƯƠM TẠO KHỞI NGHIỆP SÁNG TẠO</h2>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Từ ý tưởng đến mô hình có thể thử nghiệm và thương mại hóa</p>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai hỗ trợ cá nhân, nhóm dự án, startup, hợp tác xã và doanh nghiệp từng bước kiểm chứng ý tưởng, hoàn thiện mô hình kinh doanh, phát triển sản phẩm thử nghiệm và tiếp cận các nguồn lực phù hợp.</p>
@@ -468,7 +420,7 @@ INSERT INTO "program" ("id", "title", "slug", "short_description", "content", "t
       </span>
     </a>
   </div>
-</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-1200,q-85,f-auto', 'Ươm tạo khởi nghiệp sáng tạo | VDCD Gia Lai', 'Hỗ trợ dự án hoàn thiện mô hình kinh doanh, phát triển sản phẩm thử nghiệm, kiểm chứng thị trường và kết nối nguồn lực để thương mại hóa.', TRUE, '2026-03-01T08:00:00.000Z', '2026-08-31T09:00:00.000Z', 'e1760c66-386b-4de3-8490-5d71680649cf', 'program-thumb-uom-tao-khoi-nghiep-sang-tao'),
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-1200,q-85,f-auto', 'Ươm tạo khởi nghiệp sáng tạo | VDCD Gia Lai', 'Hỗ trợ dự án hoàn thiện mô hình kinh doanh, phát triển sản phẩm thử nghiệm, kiểm chứng thị trường và kết nối nguồn lực để thương mại hóa.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'c0110001-0000-4000-a000-000000000001', 'program-thumb-uom-tao-khoi-nghiep-sang-tao'),
   ('a1b2c3d4-e5f6-4a7b-8c9d-012345678902', 'Đào tạo công nghệ và chuyển đổi số', 'dao-tao-cong-nghe-va-chuyen-doi-so', 'Chương trình đào tạo theo nhu cầu thực tế về chuyển đổi số, UAV, AI, GIS, BIM và quản trị dữ liệu số cho doanh nghiệp và các sở ban ngành.', '<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">ĐÀO TẠO</h2>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Học để hiểu, thực hành để làm được</p>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức các chương trình đào tạo gắn với nhu cầu thực tế của cơ quan, doanh nghiệp, trường học và đội ngũ triển khai tại địa phương.</p>
@@ -632,7 +584,7 @@ INSERT INTO "program" ("id", "title", "slug", "short_description", "content", "t
       </span>
     </a>
   </div>
-</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1200,q-85,f-auto', 'Đào tạo công nghệ và chuyển đổi số | VDCD Gia Lai', 'Chương trình đào tạo theo nhu cầu thực tế về chuyển đổi số, UAV, AI, GIS, BIM và quản trị dữ liệu số cho doanh nghiệp và các sở ban ngành.', TRUE, '2026-03-05T08:00:00.000Z', '2026-08-31T09:00:00.000Z', 'e1760c66-386b-4de3-8490-5d71680649cf', 'program-thumb-dao-tao-cong-nghe-va-chuyen-doi-so'),
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1200,q-85,f-auto', 'Đào tạo công nghệ và chuyển đổi số | VDCD Gia Lai', 'Chương trình đào tạo theo nhu cầu thực tế về chuyển đổi số, UAV, AI, GIS, BIM và quản trị dữ liệu số cho doanh nghiệp và các sở ban ngành.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'c0110001-0000-4000-a000-000000000002', 'program-thumb-dao-tao-cong-nghe-va-chuyen-doi-so'),
   ('a1b2c3d4-e5f6-4a7b-8c9d-012345678903', 'Kết nối chuyên gia và hệ sinh thái', 'ket-noi-chuyen-gia-va-he-sinh-thai', 'Kết nối đúng chuyên môn – Tháo gỡ đúng nút thắt – Mở rộng cơ hội hợp tác giữa chính quyền, doanh nghiệp, viện nghiên cứu và trường đại học.', '<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">KẾT NỐI CHUYÊN GIA</h2>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Đúng bài toán - Đúng chuyên gia - Đúng thời điểm</p>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Một vấn đề chỉ có thể được giải quyết hiệu quả khi đơn vị tiếp cận đúng người có chuyên môn, kinh nghiệm và khả năng đồng hành phù hợp.</p>
@@ -776,7 +728,7 @@ INSERT INTO "program" ("id", "title", "slug", "short_description", "content", "t
       </span>
     </a>
   </div>
-</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image114.png?tr=w-1200,q-80,f-auto', 'Kết nối chuyên gia và hệ sinh thái | VDCD Gia Lai', 'Kết nối đúng chuyên môn – Tháo gỡ đúng nút thắt – Mở rộng cơ hội hợp tác giữa chính quyền, doanh nghiệp, viện nghiên cứu và trường đại học.', TRUE, '2026-03-10T08:00:00.000Z', '2026-08-31T09:00:00.000Z', '5292c9c5-7499-4353-9430-11aa730c63d8', 'program-thumb-ket-noi-chuyen-gia-va-he-sinh-thai'),
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image114.png?tr=w-1200,q-80,f-auto', 'Kết nối chuyên gia và hệ sinh thái | VDCD Gia Lai', 'Kết nối đúng chuyên môn – Tháo gỡ đúng nút thắt – Mở rộng cơ hội hợp tác giữa chính quyền, doanh nghiệp, viện nghiên cứu và trường đại học.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'c0110001-0000-4000-a000-000000000003', 'program-thumb-ket-noi-chuyen-gia-va-he-sinh-thai'),
   ('a1b2c3d4-e5f6-4a7b-8c9d-012345678904', 'Tư vấn chuyển đổi số cấp tỉnh', 'tu-van-chuyen-doi-so-cap-tinh', 'Tư vấn chuyển đổi số từ bài toán thực tế đến lộ trình khả thi. Khảo sát hiện trạng, xây dựng danh mục ưu tiên và dashboard giám sát toàn diện cho địa phương.', '<h2 class="text-xl md:text-2xl font-bold font-heading text-black dark:text-white mt-10 mb-4 tracking-tight uppercase">TƯ VẤN CHUYỂN ĐỔI SỐ</h2>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Từ bài toán của từng đơn vị đến lộ trình chuyển đổi số toàn diện</p>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Chuyển đổi số không đơn thuần là trang bị phần mềm, thiết bị hay đưa hồ sơ giấy lên máy tính. Giá trị thực sự chỉ được tạo ra khi công nghệ giúp cải tiến quy trình, kết nối dữ liệu và nâng cao hiệu quả quản lý, điều hành.</p>
@@ -917,7 +869,7 @@ INSERT INTO "program" ("id", "title", "slug", "short_description", "content", "t
       </span>
     </a>
   </div>
-</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image4.png?tr=w-1200,q-80,f-auto', 'Tư vấn chuyển đổi số cấp tỉnh | VDCD Gia Lai', 'Tư vấn chuyển đổi số từ bài toán thực tế đến lộ trình khả thi. Khảo sát hiện trạng, xây dựng danh mục ưu tiên và dashboard giám sát toàn diện cho địa phương.', TRUE, '2026-03-15T08:00:00.000Z', '2026-08-31T09:00:00.000Z', '5292c9c5-7499-4353-9430-11aa730c63d8', 'program-thumb-tu-van-chuyen-doi-so-cap-tinh'),
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image4.png?tr=w-1200,q-80,f-auto', 'Tư vấn chuyển đổi số cấp tỉnh | VDCD Gia Lai', 'Tư vấn chuyển đổi số từ bài toán thực tế đến lộ trình khả thi. Khảo sát hiện trạng, xây dựng danh mục ưu tiên và dashboard giám sát toàn diện cho địa phương.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'c0110001-0000-4000-a000-000000000004', 'program-thumb-tu-van-chuyen-doi-so-cap-tinh'),
   ('a1b2c3d4-e5f6-4a7b-8c9d-012345678905', 'Hội thảo, sự kiện đổi mới sáng tạo', 'hoi-thao-su-kien', 'Diễn đàn chia sẻ tri thức công nghệ, kết nối mạng lưới doanh nghiệp, nhà khoa học và xúc tiến các chương trình đổi mới sáng tạo toàn diện.', '<p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Keyword chính: hệ sinh thái khởi nghiệp sáng tạo Gia Lai</p>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Keyword phụ: Trung tâm Đổi mới Sáng tạo Gia Lai, khởi nghiệp sáng tạo Gia Lai, liên kết 3 nhà, chuyển đổi số Gia Lai, đổi mới sáng tạo, hỗ trợ startup, khoa học công nghệ Gia Lai.</p>
 <p class="text-secondary dark:text-zinc-300 text-sm md:text-base leading-relaxed mb-4">Kết nối “3 nhà” - Xây dựng hệ sinh thái khởi nghiệp sáng tạo Gia Lai từ những bài toán thực tế</p>
@@ -1031,7 +983,7 @@ INSERT INTO "program" ("id", "title", "slug", "short_description", "content", "t
       </span>
     </a>
   </div>
-</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1200,q-80,f-auto', 'Hội thảo, sự kiện đổi mới sáng tạo | VDCD Gia Lai', 'Diễn đàn chia sẻ tri thức công nghệ, kết nối mạng lưới doanh nghiệp, nhà khoa học và xúc tiến các chương trình đổi mới sáng tạo toàn diện.', TRUE, '2026-03-20T08:00:00.000Z', '2026-08-31T09:00:00.000Z', '5292c9c5-7499-4353-9430-11aa730c63d8', 'program-thumb-hoi-thao-su-kien');
+</div>', 'https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1200,q-80,f-auto', 'Hội thảo, sự kiện đổi mới sáng tạo | VDCD Gia Lai', 'Diễn đàn chia sẻ tri thức công nghệ, kết nối mạng lưới doanh nghiệp, nhà khoa học và xúc tiến các chương trình đổi mới sáng tạo toàn diện.', TRUE, '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', 'c0110001-0000-4000-a000-000000000005', 'program-thumb-hoi-thao-su-kien');
 
 -- ------------------------------------------------------------------------------
 -- TABLE: solution (19 rows)
@@ -1146,19 +1098,815 @@ INSERT INTO "project_image" ("id", "url", "caption", "order", "project_id", "fil
   ('543b3404-7333-41d3-a7cd-53ef83e0ab5a', 'https://vdcd.vn/wp-content/uploads/2024/03/Screenshot_73-min-1024x537-1.png', 'VR360 toàn cảnh bãi Xép', 5, '0fb14fff-ff7f-43a7-a793-e9ee76d0c0a0', 'project-img-bai-xep-phu-yen-6', 'small');
 
 -- ------------------------------------------------------------------------------
--- TABLE: article (10 rows)
 -- ------------------------------------------------------------------------------
-INSERT INTO "article" ("id", "title", "slug", "content", "thumbnail", "category", "tags", "meta_title", "meta_description", "is_published", "published_at", "created_at", "updated_at", "project_id", "program_id", "solution_id", "thumbnail_file_id") VALUES
-  ('78543435-99dd-4420-b6b1-c811e3ad8a7f', 'Trung tâm Đổi mới Sáng tạo Gia Lai ký kết hợp tác chiến lược với Vietedge thúc đẩy chuyển đổi số', 'trung-tam-dmst-gia-lai-ky-ket-vietedge', '<p>Tháng 7/2026, Công ty Cổ phần Trung tâm Đổi mới Sáng tạo Gia Lai (thành viên VDCD Group) chính thức ký kết Biên bản ghi nhớ hợp tác (MOU) với Vietedge — đơn vị tiên phong trong lĩnh vực công nghệ và đầu tư số tại Việt Nam.</p><h2>Nội dung hợp tác</h2><ul><li>Thúc đẩy hệ sinh thái công nghệ và đổi mới sáng tạo tại tỉnh Gia Lai</li><li>Xúc tiến thương mại, kết nối đầu tư vào các dự án công nghệ số</li><li>Phát triển nguồn nhân lực số chất lượng cao cho khu vực Tây Nguyên</li><li>Chuyển giao công nghệ và ứng dụng giải pháp AI, IoT, dữ liệu lớn</li></ul>', 'https://picsum.photos/seed/trung-tam-dmst-gia-lai-ky-ket-vietedge/800/500', 'Tin tức', 'hợp tác,Vietedge,đổi mới sáng tạo,chuyển đổi số,Gia Lai', 'Trung tâm Đổi mới Sáng tạo Gia Lai ký kết hợp tác chiến lược với Vietedge thúc đẩy chuyển đổi số | VDCD', 'Trung tâm Đổi mới Sáng tạo Gia Lai và Vietedge ký kết MOU thúc đẩy hệ sinh thái công nghệ, chuyển đổi số tại Tây Nguyên.', TRUE, '2026-07-18T09:00:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', NULL, '343f39a5-1d01-4291-a6e0-323ccd9f9c8f', NULL, 'article-thumb-trung-tam-dmst-gia-lai-ky-ket-vietedge'),
-  ('150af21c-a54f-4882-b5ed-4ba351ba9cc4', 'Xã Tây Sơn trở thành "Xã hạt nhân số" đầu tiên của tỉnh Gia Lai', 'xa-tay-son-xa-hat-nhan-so-dau-tien-gia-lai', '<p>Xã Tây Sơn (huyện An Khê, Gia Lai) được UBND tỉnh lựa chọn làm đơn vị thí điểm xây dựng mô hình "Xã hạt nhân về khoa học công nghệ, đổi mới sáng tạo và chuyển đổi số", với sự phối hợp của Trung tâm Đổi mới Sáng tạo Gia Lai (VDCD).</p><h2>Kết quả đạt được</h2><ul><li>100% thủ tục hành chính xử lý trực tuyến — thời gian đăng ký hộ kinh doanh giảm từ 3 ngày xuống 3 giờ</li><li>Tỷ lệ hài lòng của người dân đạt 100%</li><li>Triển khai mô hình "chợ số" — tiểu thương thanh toán không dùng tiền mặt</li><li>Tỷ lệ phủ sóng 5G đạt 99,3% dân số</li></ul>', 'https://picsum.photos/seed/xa-tay-son-xa-hat-nhan-so-dau-tien-gia-lai/800/500', 'Chuyển đổi số', 'xã hạt nhân số,Tây Sơn,chuyển đổi số,chính quyền số,Gia Lai', 'Xã Tây Sơn trở thành "Xã hạt nhân số" đầu tiên của tỉnh Gia Lai | VDCD', 'Mô hình xã hạt nhân số tại Tây Sơn giảm thời gian TTHC từ 3 ngày xuống 3 giờ, phủ sóng 5G 99,3% dân số.', TRUE, '2026-07-12T14:00:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', NULL, NULL, NULL, 'article-thumb-xa-tay-son-xa-hat-nhan-so-dau-tien-gia-lai'),
-  ('8f25d11f-0a0a-4017-85b0-059d82407cae', 'VDCD Group ký MOU với Trường Đại học Quy Nhơn — Xây dựng hệ sinh thái khởi nghiệp trong môi trường đại học', 'vdcd-ky-mou-dai-hoc-quy-nhon', '<p>Ngày 18/05/2026, Trường Đại học Quy Nhơn và Công ty Cổ phần Trung tâm Đổi mới Sáng tạo Gia Lai (thành viên VDCD Group) chính thức ký kết Bản thỏa thuận hợp tác (MOU).</p><h2>Nội dung hợp tác trọng tâm</h2><ul><li>Xây dựng hệ sinh thái khởi nghiệp đổi mới sáng tạo trong môi trường đại học</li><li>Chuyển giao công nghệ và ứng dụng kết quả nghiên cứu vào thực tiễn doanh nghiệp</li><li>Đào tạo nguồn nhân lực chất lượng cao trong các lĩnh vực AI, IoT, GIS, UAV</li></ul>', 'https://picsum.photos/seed/vdcd-ky-mou-dai-hoc-quy-nhon/800/500', 'Sự kiện', 'Đại học Quy Nhơn,hợp tác,khởi nghiệp,đào tạo,nhân lực', 'VDCD Group ký MOU với Trường Đại học Quy Nhơn — Xây dựng hệ sinh thái khởi nghiệp trong môi trường đại học | VDCD', 'VDCD Group ký kết hợp tác với Đại học Quy Nhơn xây dựng hệ sinh thái khởi nghiệp, chuyển giao công nghệ.', TRUE, '2026-05-20T08:30:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', NULL, 'b1f29e31-216d-4e30-ba70-4a9703f96d4f', NULL, 'article-thumb-vdcd-ky-mou-dai-hoc-quy-nhon'),
-  ('241de565-78be-4e38-8e83-43224eb9a174', 'Khánh thành hạ tầng Data Center và 6 phòng Lab chuyên ngành tại Trung tâm ĐMST Gia Lai', 'khanh-thanh-data-center-phong-lab-trung-tam-dmst-gia-lai', '<p>Trung tâm Đổi mới Sáng tạo Gia Lai chính thức đưa vào vận hành hệ thống hạ tầng công nghệ hiện đại, bao gồm Data Center, siêu máy tính AI và 6 phòng lab chuyên ngành.</p><h2>6 phòng Lab chuyên ngành</h2><ul><li><strong>Lab UAV:</strong> Bay chụp, khảo sát địa hình, lập bản đồ 3D</li><li><strong>Lab AI:</strong> Xử lý ảnh, nhận diện, chatbot, phân tích dữ liệu</li><li><strong>Lab GIS:</strong> Hệ thống thông tin địa lý, bản đồ số, quy hoạch</li><li><strong>Lab Nông nghiệp công nghệ cao:</strong> IoT cảm biến, tưới tự động</li><li><strong>Lab Công nghệ sinh học:</strong> Nuôi cấy mô, phân tích mẫu</li><li><strong>Lab STEM:</strong> Giáo dục STEM cho học sinh, sinh viên</li></ul>', 'https://picsum.photos/seed/khanh-thanh-data-center-phong-lab-trung-tam-dmst-gia-lai/800/500', 'Tin tức', 'Data Center,phòng lab,AI,UAV,GIS,hạ tầng,Gia Lai', 'Khánh thành hạ tầng Data Center và 6 phòng Lab chuyên ngành tại Trung tâm ĐMST Gia Lai | VDCD', 'VDCD đưa vào vận hành Data Center, siêu máy tính AI và 6 phòng lab chuyên ngành UAV, AI, GIS, Nông nghiệp, STEM.', TRUE, '2026-06-25T10:00:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', NULL, NULL, NULL, 'article-thumb-khanh-thanh-data-center-phong-lab-trung-tam-dmst-gia-lai'),
-  ('c798a7bf-9038-41a8-8c80-3a025b0df0ce', 'Ứng dụng UAV/Drone trong đo đạc, lập bản đồ địa chính — VDCD triển khai thành công tại Hà Tĩnh', 'ung-dung-uav-drone-do-dac-ban-do-dia-chinh-ha-tinh', '<p>VDCD Group đã triển khai thành công công nghệ bay không người lái (UAV/Drone) trong công tác đo đạc, lập bản đồ địa chính tại xã Đồng Tiến, tỉnh Hà Tĩnh.</p><h2>Quy trình triển khai</h2><ul><li>Bay chụp ảnh hàng không bằng drone chuyên dụng</li><li>Xử lý ảnh, tạo bản đồ trực ảnh độ phân giải cao</li><li>Chiết xuất dữ liệu ranh giới thửa đất</li><li>Cung cấp bản đồ số phục vụ quản lý đất đai</li></ul><h2>Hiệu quả</h2><p>Giảm 70% thời gian khảo sát, tăng độ chính xác gấp 3 lần so với phương pháp truyền thống.</p>', 'https://picsum.photos/seed/ung-dung-uav-drone-do-dac-ban-do-dia-chinh-ha-tinh/800/500', 'Công nghệ', 'UAV,drone,đo đạc,bản đồ,địa chính,GIS,Hà Tĩnh', 'Ứng dụng UAV/Drone trong đo đạc, lập bản đồ địa chính — VDCD triển khai thành công tại Hà Tĩnh | VDCD', 'VDCD triển khai công nghệ drone đo đạc, lập bản đồ địa chính tại Hà Tĩnh — giảm 70% thời gian khảo sát.', TRUE, '2026-06-15T09:00:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', NULL, NULL, '9446a120-855a-4f3c-a028-e3948cfe74b5', 'article-thumb-ung-dung-uav-drone-do-dac-ban-do-dia-chinh-ha-tinh'),
-  ('45894c54-3fb4-4727-8616-27092bcd1eb6', 'Sở KH&CN An Giang, Hiệp hội Doanh nghiệp tỉnh và VDCD Group ký kết hợp tác phát triển hệ sinh thái khởi nghiệp', 'so-khcn-an-giang-hiep-hoi-dn-vdcd-ky-ket-khoi-nghiep', '<p>Ngày 28/07/2026, tại TP. Long Xuyên, Sở Khoa học và Công nghệ tỉnh An Giang, Hiệp hội Doanh nghiệp tỉnh An Giang và VDCD Group chính thức ký kết hợp tác ba bên.</p><h2>Mô hình Trung tâm ĐMST</h2><p>VDCD Group đề xuất xây dựng Trung tâm Đổi mới Sáng tạo tỉnh An Giang theo hình thức xã hội hóa — 100% vốn doanh nghiệp, không sử dụng ngân sách nhà nước.</p><h2>Quy trình hỗ trợ</h2><p>Khảo sát nhu cầu → Tư vấn giải pháp → Demo thử nghiệm → Triển khai thực tế → Đào tạo vận hành.</p>', 'https://picsum.photos/seed/so-khcn-an-giang-hiep-hoi-dn-vdcd-ky-ket-khoi-nghiep/800/500', 'Sự kiện', 'An Giang,Sở KH&CN,khởi nghiệp,hệ sinh thái,ký kết', 'Sở KH&CN An Giang, Hiệp hội Doanh nghiệp tỉnh và VDCD Group ký kết hợp tác phát triển hệ sinh thái khởi nghiệp | VDCD', 'VDCD Group ký kết 3 bên với Sở KH&CN và Hiệp hội DN An Giang phát triển hệ sinh thái khởi nghiệp.', TRUE, '2026-07-28T10:00:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', NULL, 'b1f29e31-216d-4e30-ba70-4a9703f96d4f', NULL, 'article-thumb-so-khcn-an-giang-hiep-hoi-dn-vdcd-ky-ket-khoi-nghiep'),
-  ('35b8fd1a-bab2-4292-a18c-c68995395a74', 'VDCD Group mở rộng mô hình Trung tâm ĐMST tại Quảng Ninh, Cao Bằng và Hưng Yên', 'vdcd-mo-rong-mo-hinh-dmst-quang-ninh-cao-bang-hung-yen', '<p>Trong năm 2026, VDCD Group tiếp tục mở rộng mô hình "Trung tâm Đổi mới sáng tạo do doanh nghiệp làm chủ" ra nhiều tỉnh thành trên cả nước.</p><h2>Tiến độ triển khai</h2><ul><li><strong>Lạng Sơn (02/2026):</strong> Sở KH&CN họp xem xét đề án thành lập</li><li><strong>Hưng Yên (03/2026):</strong> Làm việc về phương án đầu tư</li><li><strong>Quảng Ninh (03/2026):</strong> Đề xuất thành lập phục vụ kinh tế biển và du lịch số</li><li><strong>Cao Bằng (07/2026):</strong> UBND tỉnh họp cho ý kiến về đề án</li></ul><p>VDCD Group hiện sở hữu hệ sinh thái với 12 trung tâm nghiên cứu chuyên sâu.</p>', 'https://picsum.photos/seed/vdcd-mo-rong-mo-hinh-dmst-quang-ninh-cao-bang-hung-yen/800/500', 'Tin tức', 'mở rộng,Quảng Ninh,Cao Bằng,Hưng Yên,Lạng Sơn,ĐMST', 'VDCD Group mở rộng mô hình Trung tâm ĐMST tại Quảng Ninh, Cao Bằng và Hưng Yên | VDCD', 'VDCD Group mở rộng mô hình Trung tâm ĐMST do doanh nghiệp làm chủ tại nhiều tỉnh thành trên cả nước.', TRUE, '2026-07-05T08:30:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', NULL, NULL, NULL, 'article-thumb-vdcd-mo-rong-mo-hinh-dmst-quang-ninh-cao-bang-hung-yen'),
-  ('25f0be1e-789a-449a-86a7-aca8781acf59', 'AutoTimelapse — Giải pháp giám sát công trình thông minh 24/7 của VDCD Group', 'autotimelapse-giai-phap-giam-sat-cong-trinh-thong-minh', '<p>AutoTimelapse là giải pháp giám sát trực quan công trình 24/7 do VDCD Group phát triển.</p><h2>Tính năng nổi bật</h2><ul><li>Camera thông minh kết hợp AI — giám sát 24/7</li><li>Tự động tạo video timelapse, so sánh tiến độ thực tế với kế hoạch</li><li>Cảnh báo sớm các sai lệch về tiến độ, an toàn lao động</li><li>Dashboard quản lý trực quan — truy cập từ xa qua web và mobile</li></ul><p>Hệ thống đã được triển khai thành công trên nhiều gói thầu quan trọng của các dự án hạ tầng lớn trên cả nước.</p>', 'https://picsum.photos/seed/autotimelapse-giai-phap-giam-sat-cong-trinh-thong-minh/800/500', 'Công nghệ', 'AutoTimelapse,giám sát công trình,AI,camera thông minh,timelapse', 'AutoTimelapse — Giải pháp giám sát công trình thông minh 24/7 của VDCD Group | VDCD', 'AutoTimelapse — giải pháp giám sát trực quan công trình 24/7 bằng AI, tự động tạo timelapse và cảnh báo sớm.', TRUE, '2026-06-01T08:00:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', '652e4771-4d89-4968-a4d6-f72e0beded5c', NULL, '8601ae3f-e0e3-45c5-ba1c-e7de47b20abd', 'article-thumb-autotimelapse-giai-phap-giam-sat-cong-trinh-thong-minh'),
-  ('9012572f-07d9-45d5-927c-367696cd1051', 'Hội thảo truyền thông chính sách khởi nghiệp sáng tạo — VDCD giới thiệu mô hình ĐMST do doanh nghiệp làm chủ', 'hoi-thao-truyen-thong-chinh-sach-khoi-nghiep-sang-tao-gia-lai', '<p>Tháng 5/2026, Sở Khoa học và Công nghệ tỉnh Gia Lai tổ chức Hội thảo truyền thông chính sách khởi nghiệp sáng tạo.</p><h2>Các giải pháp được giới thiệu</h2><ul><li>Hạ tầng dữ liệu số và bản đồ số cho quản lý đô thị</li><li>Ứng dụng AI trong nông nghiệp thông minh</li><li>Giải pháp UAV/Drone cho khảo sát và giám sát</li><li>Chương trình hỗ trợ chuyển đổi số cho doanh nghiệp SME</li></ul>', 'https://picsum.photos/seed/hoi-thao-truyen-thong-chinh-sach-khoi-nghiep-sang-tao-gia-lai/800/500', 'Sự kiện', 'hội thảo,khởi nghiệp,Sở KH&CN,Gia Lai,chính sách', 'Hội thảo truyền thông chính sách khởi nghiệp sáng tạo — VDCD giới thiệu mô hình ĐMST do doanh nghiệp làm chủ | VDCD', 'VDCD giới thiệu mô hình Trung tâm ĐMST do doanh nghiệp làm chủ tại Hội thảo chính sách khởi nghiệp Gia Lai.', TRUE, '2026-05-10T09:00:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', NULL, '343f39a5-1d01-4291-a6e0-323ccd9f9c8f', NULL, 'article-thumb-hoi-thao-truyen-thong-chinh-sach-khoi-nghiep-sang-tao-gia-lai'),
-  ('7e21a3c4-3c12-49b2-a23b-417f95ff0785', 'Phong trào "Bình dân học vụ số" tại Gia Lai — VDCD đồng hành cùng Tổ công nghệ số cộng đồng', 'binh-dan-hoc-vu-so-gia-lai-vdcd-to-cong-nghe-so', '<p>Trung tâm Đổi mới Sáng tạo Gia Lai (VDCD) phối hợp cùng các Tổ công nghệ số cộng đồng triển khai phong trào "Bình dân học vụ số".</p><h2>Nội dung hỗ trợ</h2><ul><li>Hướng dẫn cài đặt và sử dụng ứng dụng iGiaLai</li><li>Đăng ký tài khoản định danh điện tử (VNeID)</li><li>Sử dụng thanh toán không dùng tiền mặt qua ví điện tử, QR Code</li><li>Bảo mật thông tin cá nhân trên không gian mạng</li></ul><p>Phong trào đã tiếp cận hơn 2.000 người dân trong 3 tháng đầu, với tỷ lệ cài đặt ứng dụng thành công đạt trên 85%.</p>', 'https://picsum.photos/seed/binh-dan-hoc-vu-so-gia-lai-vdcd-to-cong-nghe-so/800/500', 'Chuyển đổi số', 'bình dân học vụ số,iGiaLai,công dân số,cộng đồng,Gia Lai', 'Phong trào "Bình dân học vụ số" tại Gia Lai — VDCD đồng hành cùng Tổ công nghệ số cộng đồng | VDCD', 'VDCD hỗ trợ hơn 2.000 người dân Gia Lai cài đặt ứng dụng số qua phong trào Bình dân học vụ số.', TRUE, '2026-04-20T08:00:00.000Z', '2026-08-31T20:04:50.107Z', '2026-08-31T20:04:50.107Z', NULL, NULL, NULL, 'article-thumb-binh-dan-hoc-vu-so-gia-lai-vdcd-to-cong-nghe-so');
+-- TABLE: article (11 rows - 100% chính xác từ Google Docs)
+-- ------------------------------------------------------------------------------
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111101',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai ký kết MOU cùng Trường Đại học FPT, thúc đẩy đổi mới sáng tạo và phát triển nguồn nhân lực',
+  'trung-tam-doi-moi-sang-tao-gia-lai-ky-ket-mou-cung-truong-dai-hoc-fpt-thuc-day-doi-moi-sang-tao-va-p',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ngày 27/06/2026, tại Trường Đại học FPT Quy Nhơn AI Campus, Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT đã chính thức ký kết Biên bản ghi nhớ hợp tác (MOU), mở ra giai đoạn hợp tác mới trong phát triển nguồn nhân lực chất lượng cao, kết nối hệ sinh thái đổi mới sáng tạo và triển khai các dự án ứng dụng công nghệ vào thực tiễn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Sự kiện diễn ra trong khuôn khổ Seminar “Văn hóa khởi nghiệp thời AI”, với sự tham dự của ông Cao Quân Vũ - Giám đốc Trung tâm Đổi mới Sáng tạo Gia Lai, đại diện Ban Giám hiệu Trường Đại học FPT cùng các đại biểu, giảng viên và sinh viên.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_2_E-oIRGdGQO_6N6EoxMxo.jpg" alt="Đại diện Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT tại Lễ ký kết Biên bản ghi nhớ hợp tác (MOU) ngày 27/06/2026." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">Đại diện Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT tại Lễ ký kết Biên bản ghi nhớ hợp tác (MOU) ngày 27/06/2026.</figcaption></figure>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Đồng hành cùng thế hệ trẻ trong kỷ nguyên AI</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trước lễ ký kết, đại diện Trung tâm Đổi mới Sáng tạo Gia Lai đã tham dự Seminar “Văn hóa khởi nghiệp thời AI” và lắng nghe những chia sẻ từ Thầy Trần Ngọc Tuấn – Phó Hiệu trưởng Trường Đại học FPT.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong bối cảnh trí tuệ nhân tạo đang tác động mạnh mẽ đến phương thức học tập, làm việc và vận hành doanh nghiệp, khởi nghiệp không còn chỉ được nhìn nhận dưới góc độ thành lập một doanh nghiệp mới. Quan trọng hơn, đó là khả năng phát hiện vấn đề, chủ động tìm kiếm giải pháp, kiểm chứng ý tưởng và sử dụng công nghệ để tạo ra những giá trị thực tiễn. Tinh thần này cũng được Trường Đại học FPT nhấn mạnh trong các chương trình về “Văn hóa khởi nghiệp thời AI”: khởi nghiệp được mở rộng thành một năng lực tư duy, khuyến khích người trẻ chủ động đặt câu hỏi, nhìn nhận vấn đề từ nhiều góc độ và tìm ra lời giải mới thay vì đi theo những lối mòn sẵn có.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với Trung tâm Đổi mới Sáng tạo Gia Lai, việc xây dựng tư duy đổi mới, tinh thần doanh chủ và năng lực ứng dụng công nghệ cho thế hệ trẻ là một trong những nền tảng quan trọng để hình thành nguồn nhân lực có khả năng thích ứng với tốc độ phát triển của AI và nền kinh tế số.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_3_E-l1_mdSoe_lspDIwhJ9.jpg" alt="Sinh viên Trường Đại học FPT tham gia Seminar “Văn hóa khởi nghiệp thời AI” trong khuôn khổ chương trình ngày 27/06/2026." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">Sinh viên Trường Đại học FPT tham gia Seminar “Văn hóa khởi nghiệp thời AI” trong khuôn khổ chương trình ngày 27/06/2026.</figcaption></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ký kết MOU - Mở rộng hợp tác giữa nhà trường và hệ sinh thái đổi mới sáng tạo</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Điểm nhấn của chương trình là Lễ ký kết Biên bản ghi nhớ hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc ký kết đánh dấu bước phát triển mới trong quan hệ hợp tác giữa hai đơn vị, hướng đến tăng cường kết nối đào tạo, phát triển nguồn nhân lực, doanh nghiệp, công nghệ và đổi mới sáng tạo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thay vì giới hạn hoạt động hợp tác trong trao đổi học thuật, MOU hướng tới việc đưa nguồn lực của hai bên vào những chương trình và dự án có tính ứng dụng thực tế, qua đó tạo thêm cơ hội cho sinh viên tiếp cận môi trường doanh nghiệp, đồng thời thúc đẩy sự tham gia của nhà trường vào hệ sinh thái đổi mới sáng tạo tại địa phương.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_4_E-U9ia6qbb_pHQr981Hv.jpg" alt="Lễ ký kết MOU đánh dấu bước tiến mới trong quan hệ hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">Lễ ký kết MOU đánh dấu bước tiến mới trong quan hệ hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT.</figcaption></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ba định hướng hợp tác trọng tâm</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Theo nội dung hợp tác, Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT tập trung vào ba định hướng trọng tâm.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phát triển nguồn nhân lực chất lượng cao</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hai bên sẽ tăng cường kết nối trong hoạt động thực tập doanh nghiệp (On-the-Job Training – OJT), đào tạo gắn với thực tiễn và tuyển dụng, tạo điều kiện để sinh viên được tiếp xúc sớm với môi trường làm việc thực tế. Đây cũng là hướng tiếp cận phù hợp với mô hình đào tạo của Trường Đại học FPT. Sinh viên được học tập thông qua các dự án thực tế và có học kỳ đào tạo tại doanh nghiệp, từ đó từng bước chuyển hóa kiến thức chuyên môn thành năng lực giải quyết vấn đề trong môi trường nghề nghiệp.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua sự hợp tác này, sinh viên có thêm cơ hội trải nghiệm các bài toán thực tế; trong khi doanh nghiệp và các tổ chức tại địa phương có thêm kênh tiếp cận nguồn nhân lực trẻ được đào tạo về công nghệ, tư duy số và đổi mới sáng tạo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Kết nối hệ sinh thái đổi mới sáng tạo</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Định hướng thứ hai là tăng cường kết nối giữa nhà trường, doanh nghiệp, chuyên gia, tổ chức hỗ trợ khởi nghiệp và hệ sinh thái đổi mới sáng tạo. Sự kết nối này có ý nghĩa quan trọng trong việc đưa những ý tưởng tiềm năng ra khỏi phạm vi giảng đường, tạo điều kiện để chúng được thử nghiệm, hoàn thiện và tiến gần hơn tới khả năng ứng dụng thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong đó, Trung tâm Đổi mới Sáng tạo Gia Lai đóng vai trò cầu nối giữa các nguồn lực của địa phương với mạng lưới chuyên gia, doanh nghiệp và cơ sở đào tạo; qua đó góp phần thúc đẩy các hoạt động khởi nghiệp, ứng dụng công nghệ và chuyển đổi số.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_5_E-WP__uIYS_EVRSeL60W.jpg" alt="Hợp tác giữa hai đơn vị hướng đến tăng cường kết nối nhà trường, doanh nghiệp và hệ sinh thái đổi mới sáng tạo." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">Hợp tác giữa hai đơn vị hướng đến tăng cường kết nối nhà trường, doanh nghiệp và hệ sinh thái đổi mới sáng tạo.</figcaption></figure>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Thúc đẩy các dự án ứng dụng thông qua Innovation Lab</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một nội dung đáng chú ý khác trong MOU là định hướng kết nối và triển khai các dự án chung thông qua mạng lưới Innovation Lab tại Trường Đại học FPT Quy Nhơn AI Campus. Các hoạt động này được kỳ vọng tạo môi trường để sinh viên, chuyên gia và các đơn vị liên quan cùng nghiên cứu, thử nghiệm và phát triển giải pháp cho những vấn đề thực tiễn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trường Đại học FPT Quy Nhơn hiện là AI Campus duy nhất trong hệ thống Trường Đại học FPT, nằm trong hệ sinh thái nghiên cứu và phát triển trí tuệ nhân tạo tại Quy Nhơn. Môi trường đào tạo tại đây chú trọng việc kết hợp công nghệ, nghiên cứu, dự án thực tế và nhu cầu doanh nghiệp, đặc biệt trong các lĩnh vực như trí tuệ nhân tạo, kỹ thuật phần mềm, an toàn thông tin và thiết kế vi mạch bán dẫn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây là nền tảng thuận lợi để những chương trình hợp tác trong khuôn khổ MOU từng bước được chuyển hóa thành các hoạt động nghiên cứu, thử nghiệm và ứng dụng cụ thể.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_6_E-d3FUsmt3__bLLPAWOE.jpg" alt="FPT Quy Nhơn AI Campus tạo môi trường kết nối đào tạo, nghiên cứu công nghệ và các dự án ứng dụng thực tiễn." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">FPT Quy Nhơn AI Campus tạo môi trường kết nối đào tạo, nghiên cứu công nghệ và các dự án ứng dụng thực tiễn.</figcaption></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hướng đến những giá trị hợp tác bền vững</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Lễ ký kết MOU không chỉ đánh dấu mối quan hệ hợp tác giữa hai đơn vị mà còn thể hiện định hướng gắn kết nguồn lực giáo dục với nhu cầu phát triển thực tiễn của địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua hợp tác cùng Trường Đại học FPT, Trung tâm Đổi mới Sáng tạo Gia Lai kỳ vọng từng bước mở rộng mạng lưới kết nối nguồn nhân lực, công nghệ, doanh nghiệp và các dự án đổi mới sáng tạo; đồng thời tạo thêm môi trường để người trẻ được học tập, trải nghiệm và phát triển các ý tưởng có khả năng giải quyết những bài toán thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong kỷ nguyên AI, lợi thế cạnh tranh không chỉ nằm ở khả năng tiếp cận công nghệ mới mà còn ở năng lực đưa công nghệ vào giải quyết vấn đề và tạo ra giá trị. Vì vậy, sự phối hợp giữa cơ sở đào tạo, doanh nghiệp và các tổ chức thúc đẩy đổi mới sáng tạo sẽ là một mắt xích quan trọng để hình thành nguồn nhân lực có năng lực thực hành, tư duy sáng tạo và khả năng thích ứng với thị trường lao động tương lai.</p>
+<p class="italic text-zinc-500 dark:text-zinc-400 text-center my-3">Đại diện hai đơn vị cùng các bạn sinh viên Trường Đại Học  FPT  tại chương trình ký kết hợp tác ngày 27/06/2026.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc ký kết MOU giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT vì thế là tiền đề để hai bên tiếp tục xây dựng những chương trình hợp tác cụ thể, từng bước đưa các cam kết từ biên bản ghi nhớ thành hoạt động thực tiễn, mang lại giá trị cho sinh viên, doanh nghiệp, cộng đồng và hệ sinh thái đổi mới sáng tạo của địa phương.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_1_E--DJi8pn3_4CJrvhsbyK.jpg',
+  '6a9a86b3ead997d09a0e4d16',
+  'Hợp tác',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai, Trường Đại học FPT, ký kết MOU, đổi mới sáng tạo Gia Lai, FPT Quy Nhơn AI Campus, hệ sinh thái đổi mới sáng tạo, nguồn nhân lực chất lượng cao, Văn hóa khởi nghiệp thời AI.',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai ký kết MOU cùng Trường Đại học FPT, thúc đẩy đổi mới sáng tạo và phát triển nguồn nhân lực | VDCD Gia Lai',
+  'Ngày 27/06/2026, tại Trường Đại học FPT Quy Nhơn AI Campus, Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT đã chính thức ký kết Biên bản ghi nhớ hợp tác (MOU), mở ra giai đoạn hợp tác mới trong phát triển nguồn nhân lực chất lượng cao, kết ...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111102',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học Quy Nhơn thiết lập hợp tác chiến lược về công nghệ, đổi mới sáng tạo và nguồn nhân lực',
+  'trung-tam-doi-moi-sang-tao-gia-lai-va-truong-dai-hoc-quy-nhon-thiet-lap-hop-tac-chien-luoc-ve-cong-n',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ngày 18/05/2026, Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học Quy Nhơn chính thức ký kết Biên bản ghi nhớ hợp tác (MOU), mở ra một mô hình kết nối mới giữa nghiên cứu, công nghệ, nguồn nhân lực và nhu cầu triển khai thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Sự kiện diễn ra trong khuôn khổ Hội thảo truyền thông chính sách về khởi nghiệp sáng tạo do Sở Khoa học và Công nghệ Gia Lai tổ chức. Đại diện hai đơn vị tham gia ký kết gồm ông Cao Quân Vũ - Giám đốc Trung tâm Đổi mới Sáng tạo Gia Lai và PGS.TS. Đoàn Đức Tùng - Hiệu trưởng Trường Đại học Quy Nhơn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua thỏa thuận hợp tác, hai bên hướng đến xây dựng một cơ chế phối hợp dài hạn, nơi các nguồn lực nghiên cứu của trường đại học có thể kết nối trực tiếp với doanh nghiệp, hạ tầng công nghệ và những bài toán thực tế tại địa phương.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_2_exact_2_E-7oi20YmA_X1f5KSOX1.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học Quy Nhơn thiết lập hợp tác chiến lược về công nghệ, đổi mới sáng tạo và nguồn nhân lực" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học Quy Nhơn chính thức thiết lập quan hệ hợp tác trong lĩnh vực công nghệ và đổi mới sáng tạo.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Từ nghiên cứu đến ứng dụng thực tế</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Khoảng cách giữa nghiên cứu và thị trường vẫn là một trong những thách thức lớn của hoạt động đổi mới sáng tạo. Một ý tưởng có giá trị chỉ thực sự tạo ra tác động khi có đủ môi trường để thử nghiệm, dữ liệu để kiểm chứng và đối tác để triển khai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây cũng là một trong những trọng tâm của mối quan hệ hợp tác lần này. Trung tâm Đổi mới Sáng tạo Gia Lai sẽ phối hợp cùng Trường Đại học Quy Nhơn trong việc kết nối các nhóm nghiên cứu, giảng viên và sinh viên với những nhu cầu công nghệ đến từ doanh nghiệp và thực tiễn địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua mô hình này, các kết quả nghiên cứu có thể được tiếp tục phát triển thành prototype, giải pháp thử nghiệm hoặc dự án ứng dụng, thay vì chỉ dừng lại ở phạm vi học thuật. Đặc biệt, các lĩnh vực như trí tuệ nhân tạo, dữ liệu số, viễn thám và tự động hóa được xác định là những hướng có nhiều tiềm năng để hai bên cùng nghiên cứu và triển khai.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_2_exact_3_E-HLgaybf2_XUZpLoYJ5.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học Quy Nhơn thiết lập hợp tác chiến lược về công nghệ, đổi mới sáng tạo và nguồn nhân lực" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">MOU tạo nền tảng để đưa nguồn lực nghiên cứu và công nghệ vào những dự án có khả năng triển khai thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Xây dựng pipeline cho các dự án đổi mới sáng tạo</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những giá trị quan trọng của hợp tác giữa trường đại học và hệ sinh thái công nghệ là khả năng hình thành một pipeline đổi mới sáng tạo liên tục. Pipeline này bắt đầu từ việc phát hiện vấn đề, phát triển ý tưởng, nghiên cứu giải pháp, thử nghiệm mô hình và tiến tới triển khai trong thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong khuôn khổ hợp tác, hai bên sẽ thúc đẩy các hoạt động hỗ trợ sinh viên và giảng viên tiếp cận sâu hơn với tư duy khởi nghiệp, phát triển sản phẩm và đổi mới sáng tạo. Các chương trình đào tạo, diễn đàn chuyên môn, cuộc thi ý tưởng và hoạt động kết nối chuyên gia được kỳ vọng sẽ trở thành điểm khởi đầu để những dự án tiềm năng được phát hiện sớm và tiếp tục phát triển.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thay vì xem khởi nghiệp như một hoạt động độc lập, mô hình hợp tác hướng đến việc đặt khởi nghiệp trong một hệ sinh thái lớn hơn, nơi công nghệ, chuyên gia, dữ liệu, doanh nghiệp và thị trường cùng tham gia vào quá trình tạo ra sản phẩm.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hệ sinh thái đổi mới sáng tạo tạo điều kiện để ý tưởng được kết nối với công nghệ, chuyên gia và thị trường.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">AI, dữ liệu và tự động hóa cho những bài toán địa phương</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Chuyển đổi số chỉ thực sự có giá trị khi công nghệ được ứng dụng vào những vấn đề cụ thể.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Với lợi thế về nguồn lực nghiên cứu từ Trường Đại học Quy Nhơn và năng lực kết nối doanh nghiệp, công nghệ của Trung tâm Đổi mới Sáng tạo Gia Lai, hai bên có điều kiện để cùng phát triển những giải pháp phù hợp với nhu cầu của địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các công nghệ như AI, phân tích dữ liệu, viễn thám và tự động hóa có thể được ứng dụng trong nhiều lĩnh vực từ quản lý dữ liệu, giám sát tài nguyên đến sản xuất và nông nghiệp thông minh. Chẳng hạn, dữ liệu viễn thám kết hợp với AI có thể hỗ trợ phân tích hiện trạng tài nguyên; hệ thống dữ liệu số có thể giúp nâng cao khả năng quản lý và ra quyết định; các giải pháp tự động hóa có thể tối ưu một số quy trình sản xuất và vận hành.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Định hướng của hợp tác vì vậy không chỉ là nghiên cứu công nghệ mới, mà quan trọng hơn là xác định đúng bài toán và lựa chọn công nghệ phù hợp để giải quyết bài toán đó.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Kết nối nguồn nhân lực công nghệ với doanh nghiệp</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một hệ sinh thái công nghệ muốn phát triển bền vững cần song song cả hạ tầng và con người. Trong thỏa thuận hợp tác, hai bên xác định phát triển nguồn nhân lực là một trong những yếu tố then chốt. Sinh viên sẽ có thêm cơ hội tham gia hoạt động trải nghiệm doanh nghiệp, nghiên cứu ứng dụng và các dự án thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Điều này giúp rút ngắn khoảng cách giữa kiến thức được đào tạo và kỹ năng doanh nghiệp thực sự cần. Ở chiều ngược lại, doanh nghiệp có cơ hội tiếp cận sớm hơn với nguồn nhân lực trẻ trong các lĩnh vực khoa học, kỹ thuật và công nghệ, đồng thời có thể đưa những bài toán thực tế vào quá trình đào tạo và nghiên cứu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mô hình này tạo thành một vòng kết nối hai chiều: doanh nghiệp cung cấp bài toán, nhà trường phát triển năng lực và giải pháp,  hệ sinh thái hỗ trợ thử nghiệm và triển khai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mở rộng hệ sinh thái đổi mới sáng tạo Gia Lai</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Với Trung tâm Đổi mới Sáng tạo Gia Lai, hợp tác với các trường đại học không chỉ nhằm mở rộng mạng lưới đối tác mà còn là một phần trong chiến lược xây dựng hệ sinh thái đổi mới sáng tạo có khả năng vận hành thực chất.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong hệ sinh thái đó, trường đại học đóng vai trò cung cấp nguồn tri thức và nghiên cứu; doanh nghiệp cung cấp nhu cầu và thị trường; các chuyên gia mang đến kinh nghiệm chuyên môn; còn Trung tâm đóng vai trò kết nối các nguồn lực để hình thành những dự án cụ thể.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Sự hợp tác với Trường Đại học Quy Nhơn bổ sung thêm một mắt xích quan trọng cho hệ sinh thái này, đặc biệt trong các lĩnh vực công nghệ, nghiên cứu ứng dụng và phát triển nguồn nhân lực.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Từ MOU đến các dự án có thể đo lường</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một Biên bản ghi nhớ chỉ có giá trị khi những nội dung hợp tác được chuyển hóa thành kết quả thực tế. Vì vậy, hai bên thống nhất duy trì cơ chế rà soát và đánh giá định kỳ, từ đó xác định những chương trình phù hợp để tiếp tục triển khai trong từng giai đoạn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mục tiêu dài hạn không nằm ở số lượng hoạt động được tổ chức, mà ở khả năng tạo ra dự án ứng dụng, giải pháp công nghệ, nguồn nhân lực chất lượng và những kết nối có thể tiếp tục phát triển sau mỗi chương trình.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Lễ ký kết giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học Quy Nhơn vì vậy là bước khởi đầu cho một mô hình hợp tác hướng đến hiệu quả thực tế: kết nối nguồn lực nghiên cứu với doanh nghiệp, đưa công nghệ đến gần hơn với các bài toán của địa phương và tạo thêm không gian để những ý tưởng đổi mới có cơ hội trở thành sản phẩm.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua mạng lưới hợp tác ngày càng mở rộng, Trung tâm Đổi mới Sáng tạo Gia Lai tiếp tục hướng đến mục tiêu xây dựng một hệ sinh thái nơi công nghệ không chỉ được nghiên cứu, mà được thử nghiệm, triển khai và tạo ra giá trị thực tế.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_2_exact_1_E-QbGsXxsA_0oUYtfg0s.jpg',
+  '6a9a86c8ead997d09a0edca5',
+  'Hợp tác',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai, Đại học Quy Nhơn, ký kết MOU, đổi mới sáng tạo Gia Lai, chuyển đổi số Gia Lai, khởi nghiệp sáng tạo, chuyển giao công nghệ, AI, viễn thám, nông nghiệp công nghệ cao.',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học Quy Nhơn thiết lập hợp tác chiến lược về công nghệ, đổi mới sáng tạo và nguồn nhân lực | VDCD Gia Lai',
+  'Ngày 18/05/2026, Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học Quy Nhơn chính thức ký kết Biên bản ghi nhớ hợp tác (MOU), mở ra một mô hình kết nối mới giữa nghiên cứu, công nghệ, nguồn nhân lực và nhu cầu triển khai thực tế....',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111103',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge ký kết hợp tác, mở rộng hệ sinh thái công nghệ và đầu tư',
+  'trung-tam-doi-moi-sang-tao-gia-lai-va-vietedge-ky-ket-hop-tac-mo-rong-he-sinh-thai-cong-nghe-va-dau-',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge chính thức ký kết thỏa thuận hợp tác, hướng đến xây dựng mạng lưới kết nối giữa công nghệ, doanh nghiệp, nguồn vốn và các dự án tiềm năng. Sự hợp tác mở ra thêm cơ hội đưa các giải pháp đổi mới sáng tạo đến gần hơn với thị trường và tạo nền tảng thu hút nguồn lực đầu tư cho hệ sinh thái công nghệ tại Gia Lai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong một hệ sinh thái đổi mới sáng tạo, công nghệ chỉ là điểm khởi đầu. Để một ý tưởng có thể phát triển thành sản phẩm và một sản phẩm có khả năng tiếp cận thị trường, cần có sự tham gia đồng thời của doanh nghiệp, chuyên gia, nguồn vốn, đối tác triển khai và mạng lưới hỗ trợ.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Từ định hướng đó, Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge thiết lập quan hệ hợp tác nhằm kết nối các nguồn lực, mở rộng cơ hội cho doanh nghiệp công nghệ và thúc đẩy những dự án có khả năng tạo ra giá trị thực tế.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_3_exact_2_E-q3S62198_vYLl8msH_.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge ký kết hợp tác, mở rộng hệ sinh thái công nghệ và đầu tư" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge thiết lập quan hệ hợp tác nhằm tăng cường kết nối công nghệ, doanh nghiệp và nguồn lực đầu tư.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Kết nối công nghệ với nguồn lực đầu tư</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những thách thức phổ biến của các dự án công nghệ và startup không chỉ nằm ở việc phát triển sản phẩm, mà còn ở khả năng tiếp cận đúng nguồn lực tại đúng giai đoạn. Một giải pháp có tiềm năng cần môi trường thử nghiệm. Một startup muốn mở rộng cần thị trường. Một doanh nghiệp muốn chuyển đổi cần đối tác công nghệ phù hợp. Và khi mô hình đã được kiểm chứng, nguồn vốn trở thành yếu tố quan trọng để tăng tốc.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Sự hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge được xây dựng trên logic kết nối đó. Thông qua mạng lưới của hai bên, các dự án tiềm năng có thêm cơ hội tiếp cận doanh nghiệp, chuyên gia, nhà đầu tư và các nguồn lực cần thiết cho quá trình phát triển. Ngược lại, doanh nghiệp và nhà đầu tư cũng có thêm kênh để tìm kiếm những mô hình, giải pháp và cơ hội công nghệ phù hợp.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thay vì để từng nguồn lực vận hành riêng lẻ, mục tiêu là tạo ra một hệ thống kết nối có khả năng đưa ý tưởng tiến gần hơn đến thị trường và dòng vốn tiến gần hơn đến những dự án có tiềm năng thực tế.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_3_exact_3_E-3tTPhrua_xirkJTGtL1.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge ký kết hợp tác, mở rộng hệ sinh thái công nghệ và đầu tư" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thỏa thuận hợp tác tạo nền tảng kết nối các dự án đổi mới sáng tạo với doanh nghiệp, chuyên gia và nguồn lực đầu tư.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mở rộng hệ sinh thái cho startup và doanh nghiệp công nghệ</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với startup, một hệ sinh thái tốt không chỉ cung cấp không gian làm việc hay các chương trình đào tạo. Giá trị lớn hơn nằm ở khả năng giúp đội ngũ sáng lập tiếp cận nhanh hơn với những nguồn lực mà họ đang thiếu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đó có thể là mentor để hoàn thiện mô hình kinh doanh, chuyên gia để giải quyết vấn đề công nghệ, doanh nghiệp để thử nghiệm sản phẩm hoặc nhà đầu tư để chuẩn bị cho giai đoạn tăng trưởng tiếp theo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua hợp tác với VietEdge, Trung tâm Đổi mới Sáng tạo Gia Lai hướng đến mở rộng mạng lưới hỗ trợ này, tạo thêm cơ hội kết nối cho startup, doanh nghiệp đổi mới sáng tạo và những dự án công nghệ đang trong quá trình phát triển.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các hoạt động kết nối không chỉ tập trung vào gọi vốn mà còn hướng đến nâng cao năng lực của dự án trước khi tiếp cận nguồn vốn: từ xác định bài toán thị trường, hoàn thiện mô hình, phát triển sản phẩm đến xây dựng chiến lược tăng trưởng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bởi với một hệ sinh thái công nghệ, đầu tư không phải điểm bắt đầu mà là một phần của quá trình đưa giải pháp đủ tốt đến quy mô lớn hơn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tạo pipeline cho các dự án có tiềm năng</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những yếu tố cần thiết để phát triển hệ sinh thái đổi mới sáng tạo bền vững là khả năng liên tục phát hiện và phát triển các dự án mới.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thay vì chỉ tổ chức những chương trình riêng lẻ, Trung tâm hướng đến hình thành một pipeline dự án, trong đó các ý tưởng có thể từng bước đi qua quá trình phát hiện, đánh giá, thử nghiệm, kết nối thị trường và tiếp cận đầu tư.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mỗi giai đoạn cần một loại nguồn lực khác nhau.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ở giai đoạn đầu, dự án cần chuyên gia và môi trường kiểm chứng. Khi sản phẩm đã hình thành, nhu cầu chuyển sang khách hàng, đối tác và dữ liệu thực tế. Khi mô hình chứng minh được khả năng tăng trưởng, vốn và mạng lưới đầu tư trở thành đòn bẩy tiếp theo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc kết nối năng lực của Trung tâm với hệ sinh thái VietEdge giúp mở rộng các điểm chạm trong hành trình này, từ đó tạo thêm cơ hội để những dự án tiềm năng được phát hiện và hỗ trợ đúng thời điểm.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_3_exact_4_E-2s2dDg2P_XuKr0I-Dw.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge ký kết hợp tác, mở rộng hệ sinh thái công nghệ và đầu tư" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hai đơn vị hướng đến xây dựng pipeline hỗ trợ dự án từ phát triển ý tưởng, kiểm chứng giải pháp đến kết nối thị trường và đầu tư.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Gia Lai - không chỉ là nơi ứng dụng công nghệ</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đổi mới sáng tạo tại địa phương thường được nhìn nhận dưới góc độ đưa những công nghệ có sẵn vào ứng dụng. Tuy nhiên, tiềm năng lớn hơn nằm ở khả năng biến chính những vấn đề của địa phương thành đầu bài để phát triển giải pháp mới. Từ nông nghiệp, tài nguyên, dữ liệu, logistics đến quản trị và chuyển đổi số doanh nghiệp, mỗi bài toán thực tế đều có thể trở thành điểm xuất phát cho một sản phẩm công nghệ.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Khi doanh nghiệp địa phương được kết nối với startup, chuyên gia và các đơn vị phát triển công nghệ, quá trình đổi mới có thể diễn ra theo chiều ngược lại: bài toán xuất phát từ thị trường, công nghệ được phát triển để giải quyết bài toán và giải pháp sau khi kiểm chứng có thể tiếp tục mở rộng sang những thị trường khác.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây cũng là hướng tiếp cận mà Trung tâm Đổi mới Sáng tạo Gia Lai đang từng bước xây dựng thông qua việc mở rộng mạng lưới hợp tác với doanh nghiệp, trường đại học, tổ chức công nghệ và các đối tác đầu tư.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Xây dựng cầu nối giữa dự án và thị trường</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với một trung tâm đổi mới sáng tạo, giá trị không nằm ở số lượng kết nối được tạo ra mà nằm ở những kết nối có thể chuyển thành dự án thực tế. Vì vậy, sự hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge hướng đến việc tạo ra các điểm chạm cụ thể giữa startup, doanh nghiệp, chuyên gia và nhà đầu tư.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Khi một doanh nghiệp có nhu cầu chuyển đổi, hệ sinh thái có thể tìm kiếm giải pháp phù hợp. Khi một startup cần môi trường kiểm chứng sản phẩm, mạng lưới doanh nghiệp có thể trở thành nơi thử nghiệm. Khi một dự án đã chứng minh được tiềm năng, kết nối đầu tư có thể giúp dự án bước sang giai đoạn phát triển tiếp theo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đó là cách một hệ sinh thái chuyển từ networking sang execution – từ tạo quan hệ sang tạo ra kết quả.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Từ kết nối đến những giá trị có thể đo lường</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thỏa thuận hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge là một bước tiếp theo trong quá trình mở rộng mạng lưới đối tác công nghệ, doanh nghiệp và đầu tư của Trung tâm.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mục tiêu dài hạn không chỉ dừng lại ở việc tổ chức các hoạt động kết nối, mà hướng đến những kết quả có thể đo lường: dự án được triển khai, giải pháp được thử nghiệm, doanh nghiệp tìm được công nghệ phù hợp, startup tiếp cận thị trường và những dự án tiềm năng kết nối được nguồn lực đầu tư cần thiết.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge hướng đến những kết quả thực tế cho doanh nghiệp và hệ sinh thái đổi mới sáng tạo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua việc liên tục mở rộng mạng lưới hợp tác, Trung tâm Đổi mới Sáng tạo Gia Lai đang từng bước hình thành một hệ sinh thái nơi bài toán, công nghệ, con người, thị trường và nguồn vốn có thể tìm thấy nhau.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Sự đồng hành cùng VietEdge bổ sung thêm một mắt xích quan trọng vào hệ sinh thái đó, tạo nền tảng để các ý tưởng và dự án tiềm năng không chỉ được hình thành, mà còn có cơ hội được kiểm chứng, phát triển và tiến xa hơn trên thị trường.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_3_exact_1_E-yH2TMDor_CHCD8UY8X.jpg',
+  '6a9a86d9ead997d09a0f470c',
+  'Hợp tác',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai, VietEdge, hệ sinh thái công nghệ, hệ sinh thái đổi mới sáng tạo, đầu tư công nghệ, startup Gia Lai, kết nối đầu tư, đổi mới sáng tạo Gia Lai.',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge ký kết hợp tác, mở rộng hệ sinh thái công nghệ và đầu tư | VDCD Gia Lai',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai và VietEdge chính thức ký kết thỏa thuận hợp tác, hướng đến xây dựng mạng lưới kết nối giữa công nghệ, doanh nghiệp, nguồn vốn và các dự án tiềm năng. Sự hợp tác mở ra thêm cơ hội đưa các giải pháp đổi mới sáng tạo ...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111104',
+  'Kết nối “3 nhà” - Xây dựng hệ sinh thái khởi nghiệp sáng tạo Gia Lai từ những bài toán thực tế',
+  'ket-noi-3-nha-xay-dung-he-sinh-thai-khoi-nghiep-sang-tao-gia-lai-tu-nhung-bai-toan-thuc-te',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Keyword chính: hệ sinh thái khởi nghiệp sáng tạo Gia Lai</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Keyword phụ: Trung tâm Đổi mới Sáng tạo Gia Lai, khởi nghiệp sáng tạo Gia Lai, liên kết 3 nhà, chuyển đổi số Gia Lai, đổi mới sáng tạo, hỗ trợ startup, khoa học công nghệ Gia Lai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ngày 18/05/2026, Hội thảo truyền thông chính sách về khởi nghiệp sáng tạo được tổ chức tại Gia Lai, tạo không gian kết nối giữa cơ quan quản lý, trường đại học, doanh nghiệp và cộng đồng khởi nghiệp. Trong đó, mô hình liên kết “3 nhà” - Nhà nước, Nhà trường và Doanh nghiệp - được xác định là một trong những nền tảng quan trọng để đưa công nghệ, tri thức và nguồn lực đến gần hơn với những bài toán thực tế của thị trường.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với Trung tâm Đổi mới Sáng tạo Gia Lai (VDCD Gia Lai), một hệ sinh thái đổi mới sáng tạo chỉ thực sự vận hành khi các thành phần bên trong có khả năng kết nối và bổ trợ cho nhau.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nhà nước tạo hành lang và môi trường phát triển. Nhà trường cung cấp tri thức, nghiên cứu và nguồn nhân lực. Doanh nghiệp đưa ra bài toán, thị trường và trực tiếp chuyển hóa công nghệ thành sản phẩm, dịch vụ.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Khi ba nguồn lực này cùng vận hành trong một hệ thống, đổi mới sáng tạo có thể đi xa hơn các hoạt động phong trào để tiến tới những kết quả cụ thể: ý tưởng được thử nghiệm, công nghệ được ứng dụng và doanh nghiệp tạo ra giá trị mới.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_4_exact_2_E-WYH7uiTe_UPccXUMle.jpg" alt="Kết nối “3 nhà” - Xây dựng hệ sinh thái khởi nghiệp sáng tạo Gia Lai từ những bài toán thực tế" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hội thảo tạo không gian kết nối giữa cơ quan quản lý, trường đại học, doanh nghiệp và cộng đồng khởi nghiệp sáng tạo tại Gia Lai.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Từ hỗ trợ khởi nghiệp đến kiến tạo hệ sinh thái</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Sự phát triển của một startup không chỉ phụ thuộc vào chất lượng ý tưởng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một dự án có thể sở hữu giải pháp tốt nhưng vẫn gặp khó khăn khi thiếu dữ liệu, công nghệ, chuyên gia, thị trường hoặc nguồn lực để kiểm chứng mô hình. Đây cũng là những điểm nghẽn thường xuất hiện trong quá trình phát triển của doanh nghiệp đổi mới sáng tạo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Vì vậy, xây dựng hệ sinh thái không đơn thuần là gia tăng số lượng chương trình hỗ trợ mà cần tạo ra mạng lưới có khả năng đưa đúng nguồn lực đến đúng dự án vào đúng thời điểm.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại hội thảo, những vấn đề về tiếp cận công nghệ, thị trường, cơ chế hỗ trợ và mức độ liên kết giữa các chủ thể trong hệ sinh thái đã được đặt ra. Đồng thời, tư duy hỗ trợ doanh nghiệp cũng được mở rộng theo hướng chủ động kiến tạo môi trường để đổi mới sáng tạo phát triển.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Với cách tiếp cận đó, startup không phải chủ thể duy nhất của hệ sinh thái. Các cơ quan quản lý, trường đại học, doanh nghiệp công nghệ, chuyên gia và nhà đầu tư đều trở thành những mắt xích trong cùng một chuỗi giá trị.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phát biểu khai mạc hội thảo, ông Trần Kim Kha - Giám đốc Sở Khoa học và Công nghệ tỉnh Gia Lai nhấn mạnh: Khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số đang trở thành động lực quan trọng thúc đẩy phát triển kinh tế - xã hội nhanh và bền vững. Nghị quyết số 57-NQ/TW của Bộ Chính trị đã xác định phát triển khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số là “đột phá quan trọng hàng đầu”, góp phần nâng cao năng lực cạnh tranh quốc gia.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_4_exact_3_E-wQ_-50ou_xytxCuaD9G.jpg" alt="Kết nối “3 nhà” - Xây dựng hệ sinh thái khởi nghiệp sáng tạo Gia Lai từ những bài toán thực tế" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ông Trần Kim Kha - Giám đốc Sở KH&CN phát biểu khai mạc hội thảo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">VDCD Gia Lai - Kết nối bài toán với giải pháp</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại chương trình, Trung tâm Đổi mới Sáng tạo Gia Lai giới thiệu mô hình trung tâm đổi mới sáng tạo do doanh nghiệp làm chủ, với định hướng tập trung vào khả năng triển khai và nhu cầu thực tế của thị trường.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thay vì bắt đầu bằng câu hỏi “công nghệ nào đang là xu hướng?”, cách tiếp cận của Trung tâm hướng đến câu hỏi quan trọng hơn: Doanh nghiệp đang gặp vấn đề gì và công nghệ có thể giải quyết vấn đề đó như thế nào?</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Từ bài toán cụ thể, Trung tâm có thể kết nối doanh nghiệp với đơn vị công nghệ, chuyên gia, trường đại học hoặc các nguồn lực phù hợp để phát triển giải pháp.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Mô hình này tạo thành một pipeline tương đối rõ ràng:</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bài toán → Giải pháp → Thử nghiệm → Đánh giá → Triển khai → Mở rộng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Công nghệ vì vậy không phải đích đến cuối cùng. Giá trị nằm ở việc công nghệ có thể giúp doanh nghiệp tối ưu vận hành, nâng cao năng suất, phát triển sản phẩm mới hay tạo ra lợi thế cạnh tranh như thế nào.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_4_exact_4_E-iFTlRkCH_TbcRohpSk.jpg" alt="Kết nối “3 nhà” - Xây dựng hệ sinh thái khởi nghiệp sáng tạo Gia Lai từ những bài toán thực tế" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đại diện Công ty Cổ phần Trung tâm Đổi mới sáng tạo Gia Lai (VDCD Gia Lai) giới thiệu mô hình trung tâm đổi mới sáng tạo do doanh nghiệp làm chủ.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Công nghệ và chuyển đổi số phải tạo ra giá trị đo lường được</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một nội dung quan trọng khác tại chương trình là khả năng ứng dụng khoa học – công nghệ và chuyển đổi số vào hoạt động của doanh nghiệp. Các vấn đề từ truy xuất nguồn gốc, quản trị dữ liệu đến các giải pháp chuyển đổi số được đặt trong bối cảnh thực tế thay vì tiếp cận công nghệ như một xu hướng độc lập.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây cũng là nguyên tắc quan trọng khi triển khai chuyển đổi số. Một hệ thống mới chỉ thực sự có giá trị khi nó giải quyết được một điểm nghẽn. Một nền tảng dữ liệu chỉ có ý nghĩa khi dữ liệu có thể hỗ trợ quá trình vận hành và ra quyết định. Một giải pháp tự động hóa chỉ hiệu quả khi giúp giảm thao tác, thời gian hoặc chi phí.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Do đó, hiệu quả của đổi mới sáng tạo cần được đánh giá thông qua outcome – kết quả mà doanh nghiệp và người dùng thực sự nhận được – thay vì chỉ dựa trên số lượng công nghệ được triển khai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Liên kết “3 nhà” để rút ngắn khoảng cách từ nghiên cứu đến thị trường</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hội thảo cũng đánh dấu nhiều hoạt động ký kết hợp tác giữa các thành phần của hệ sinh thái. Trong đó có thỏa thuận giữa Sở Khoa học và Công nghệ Gia Lai và Trung tâm Đổi mới Sáng tạo Gia Lai, giữa Sở Khoa học và Công nghệ với Trường Đại học FPT tại Quy Nhơn, cùng thỏa thuận hợp tác giữa VDCD Gia Lai và Trường Đại học Quy Nhơn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các kết nối này tạo nền tảng cho một mô hình hợp tác rộng hơn giữa chính sách nghiên cứu  đào tạo công nghệ doanh nghiệp thị trường.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đặc biệt, sự tham gia của các trường đại học giúp mở rộng nguồn lực nghiên cứu và nguồn nhân lực trẻ cho hệ sinh thái. Những kết quả nghiên cứu tiềm năng có thêm cơ hội tiếp cận bài toán của doanh nghiệp, được thử nghiệm trong môi trường thực tế và tiến gần hơn đến khả năng thương mại hóa.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ở chiều ngược lại, doanh nghiệp có thể đưa nhu cầu thực tế trở lại môi trường đào tạo và nghiên cứu, giúp rút ngắn khoảng cách giữa kiến thức, công nghệ và yêu cầu của thị trường.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_4_exact_5_E-DM_QOjxr_p2tBQnEy3.jpg" alt="Kết nối “3 nhà” - Xây dựng hệ sinh thái khởi nghiệp sáng tạo Gia Lai từ những bài toán thực tế" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đại diện Sở KH&CN Gia Lai và Công ty Cổ phần Trung tâm Đổi mới sáng tạo Gia Lai (VDCD Gia Lai) ký kết thỏa thuận hợp tác phát triển hệ sinh thái khởi nghiệp sáng tạo.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Đồng hành cùng 30 doanh nghiệp và 10 dự án khởi nghiệp sáng tạo</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những mục tiêu cụ thể được VDCD Gia Lai đặt ra tại chương trình là kết nối và đồng hành cùng 30 doanh nghiệp cùng 10 nhóm, cá nhân khởi nghiệp sáng tạo trong quá trình phát triển sản phẩm, hoàn thiện ý tưởng và mở rộng khả năng kết nối với hệ sinh thái. Đây là bước chuyển từ xây dựng mạng lưới sang triển khai trên những đối tượng cụ thể.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tùy theo giai đoạn phát triển, mỗi dự án sẽ có nhu cầu khác nhau: hoàn thiện sản phẩm, tiếp cận công nghệ, tìm kiếm chuyên gia, kiểm chứng thị trường, xây dựng mô hình kinh doanh hoặc kết nối với các nguồn lực tiếp theo. Vai trò của hệ sinh thái là giúp những nhu cầu đó tìm được đúng điểm kết nối.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đại diện VDCD Gia Lai trao cam kết hỗ trợ cho các doanh nghiệp, dự án khởi nghiệp sáng tạo trên địa bàn tỉnh.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một hệ sinh thái được đo bằng kết quả</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với Trung tâm Đổi mới Sáng tạo Gia Lai, số lượng sự kiện hay kết nối không phải thước đo cuối cùng của một hệ sinh thái đổi mới sáng tạo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Điều quan trọng hơn là sau những kết nối đó, bao nhiêu bài toán tìm được giải pháp, bao nhiêu ý tưởng bước vào giai đoạn thử nghiệm, bao nhiêu công nghệ được ứng dụng và bao nhiêu doanh nghiệp tạo ra giá trị mới.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mô hình liên kết “3 nhà” vì vậy không chỉ là một cấu trúc hợp tác. Đây là cách tạo ra một vòng tuần hoàn nguồn lực: chính sách mở đường cho đổi mới; trường đại học cung cấp tri thức và con người; doanh nghiệp đưa công nghệ vào thị trường; còn kết quả từ thị trường tiếp tục tạo ra những bài toán mới cho nghiên cứu và đổi mới.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua việc mở rộng mạng lưới hợp tác và triển khai các chương trình hỗ trợ cụ thể, Trung tâm Đổi mới Sáng tạo Gia Lai hướng đến xây dựng một hệ sinh thái nơi ý tưởng có không gian để thử nghiệm, doanh nghiệp có công nghệ để tăng trưởng và những kết nối có thể chuyển hóa thành giá trị thực tế cho địa phương.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_4_exact_1_E-GUKCMoPg_Njr_YThMe.jpg',
+  '6a9a86eeead997d09a0faa90',
+  'Sự kiện',
+  'hệ sinh thái khởi nghiệp sáng tạo Gia Lai, Trung tâm Đổi mới Sáng tạo Gia Lai, liên kết 3 nhà, chuyển đổi số Gia Lai, đổi mới sáng tạo, hỗ trợ startup',
+  'Kết nối “3 nhà” - Xây dựng hệ sinh thái khởi nghiệp sáng tạo Gia Lai từ những bài toán thực tế | VDCD Gia Lai',
+  'Keyword chính: hệ sinh thái khởi nghiệp sáng tạo Gia Lai...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111105',
+  'Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026: Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số',
+  'hoi-nghi-xuc-tien-dau-tu-tinh-gia-lai-nam-2026-chuyen-doi-mo-hinh-tang-truong-trong-ky-nguyen-so',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ngày 28/03/2026, Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026 được tổ chức với chủ đề “Gia Lai - Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số”, thu hút sự tham dự của lãnh đạo Trung ương, lãnh đạo tỉnh, đại diện các cơ quan ngoại giao, tổ chức, chuyên gia, doanh nghiệp và nhà đầu tư trong và ngoài nước.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hội nghị là sự kiện quan trọng nhằm giới thiệu tiềm năng, lợi thế và định hướng phát triển của Gia Lai trong giai đoạn mới; đồng thời tạo không gian trao đổi trực tiếp giữa chính quyền, cộng đồng doanh nghiệp và các nhà đầu tư về những cơ hội hợp tác trong các lĩnh vực trọng điểm.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua Hội nghị, Gia Lai tiếp tục thể hiện quyết tâm cải thiện môi trường đầu tư, nâng cao năng lực cạnh tranh và chuyển đổi mô hình tăng trưởng theo hướng dựa trên khoa học – công nghệ, đổi mới sáng tạo, chuyển đổi số và các ngành có giá trị gia tăng cao.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_5_exact_2_E-F3XuEq5H_KdY3qRNha.jpg" alt="Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026: Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026 với chủ đề “Gia Lai - Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số”.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Gia Lai xác định những động lực tăng trưởng mới</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại Hội nghị, lãnh đạo tỉnh Gia Lai đã thông tin về tiềm năng, lợi thế, định hướng phát triển cũng như các lĩnh vực ưu tiên thu hút đầu tư trong thời gian tới.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bước vào giai đoạn phát triển mới, Gia Lai xác định mục tiêu không chỉ gia tăng quy mô đầu tư mà còn chú trọng chất lượng, hiệu quả và khả năng tạo động lực phát triển dài hạn của các dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các lĩnh vực được tỉnh quan tâm thu hút đầu tư gồm công nghiệp chế biến – chế tạo, năng lượng tái tạo, nông nghiệp công nghệ cao, thương mại – dịch vụ, du lịch, logistics cùng những ngành công nghệ mới như trí tuệ nhân tạo (AI) và chip bán dẫn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc mở rộng danh mục ưu tiên sang những ngành có hàm lượng công nghệ và tri thức cao cho thấy định hướng từng bước chuyển đổi cơ cấu kinh tế, nâng cao năng suất và hình thành những động lực tăng trưởng mới phù hợp với xu thế phát triển của nền kinh tế số.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đồng thời, Gia Lai tiếp tục phát huy các lợi thế về vị trí địa lý, quỹ đất, tài nguyên, tiềm năng năng lượng và nông nghiệp để thu hút những dự án có khả năng tạo ra chuỗi giá trị và sức lan tỏa đối với kinh tế – xã hội địa phương.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_5_exact_3_E-s4pitHBJ_xoba7pAwA.jpg" alt="Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026: Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Chủ tịch UBND tỉnh Phạm Anh Tuấn thông tin những định hướng lớn về thu hút đầu tư của tỉnh Gia Lai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại hội nghị, các chuyên gia đã có những phân tích chuyên sâu về lợi thế, tiềm năng phát triển, cơ hội đầu tư, thương mại của tỉnh Gia Lai; chia sẻ kinh nghiệm thực tiễn phong phú cùng tầm nhìn chiến lược về phát triển du lịch hiện đại gắn với bảo tồn tài nguyên và bản sắc văn hóa; gợi mở định hướng phát triển bền vững của tỉnh Gia Lai trong giai đoạn tới bằng việc chuyển đổi mô hình tăng trưởng từ “mô hình tăng trưởng chủ yếu dựa vào vốn” sang “mô hình tăng trưởng chủ yếu dựa vào  tri thức” - Đổi mới sáng tạo,chuyển đổi xanh và chuyển đổi số nhằm khai thác tiềm năng và các lợi thế vượt trội.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các nhà đầu tư mong muốn tiếp tục nhận được sự đồng hành của tỉnh Gia Lai và các đối tác để biến những định hướng thành các dự án cụ thể, tạo giá trị thiết thực cho người dân, góp phần thúc đẩy kinh tế địa phương phát triển trong dài hạn.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_5_exact_4_E-oPsGaDA6_b2gHi7WEa.jpg" alt="Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026: Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Cải thiện môi trường đầu tư, đồng hành cùng doanh nghiệp</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những nội dung được nhấn mạnh tại Hội nghị là quyết tâm tiếp tục cải thiện môi trường đầu tư, kinh doanh và nâng cao chất lượng phục vụ doanh nghiệp. Gia Lai đang tập trung hoàn thiện quy hoạch, chuẩn bị quỹ đất, đầu tư kết cấu hạ tầng, đẩy mạnh cải cách hành chính và rút ngắn thời gian giải quyết các thủ tục liên quan đến dự án đầu tư.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Theo thông tin được công bố tại Hội nghị, thời gian giải quyết thủ tục đối với dự án ngoài khu kinh tế, khu công nghiệp đã được rút từ 242 ngày xuống còn 60 ngày; đối với dự án trong khu kinh tế, khu công nghiệp, thời gian được rút từ 145 ngày xuống còn 38 ngày.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc đơn giản hóa quy trình, nâng cao tính minh bạch và tăng cường ứng dụng công nghệ trong quản lý được kỳ vọng góp phần giảm chi phí, tiết kiệm thời gian cho doanh nghiệp và tạo điều kiện thuận lợi hơn trong quá trình triển khai dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tinh thần xuyên suốt được tỉnh xác định là chuyển mạnh từ tư duy quản lý sang đồng hành, hỗ trợ và phục vụ doanh nghiệp, nhà đầu tư, kịp thời tháo gỡ những khó khăn, vướng mắc phát sinh trong quá trình thực hiện dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Doanh nghiệp và chuyên gia trao đổi về cơ hội phát triển tại Gia Lai</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong khuôn khổ Hội nghị, các đại biểu, chuyên gia và đại diện cộng đồng doanh nghiệp đã có nhiều trao đổi xoay quanh tiềm năng, cơ hội đầu tư và những giải pháp thúc đẩy tăng trưởng của tỉnh trong thời gian tới.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các ý kiến tập trung vào yêu cầu phát huy hiệu quả lợi thế hiện có, đồng thời thúc đẩy ứng dụng khoa học – công nghệ, đổi mới sáng tạo và chuyển đổi số nhằm nâng cao năng suất và sức cạnh tranh của nền kinh tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đáng chú ý, các lĩnh vực AI, bán dẫn, kinh tế số và công nghệ cao được đề cập như những hướng đi mới có khả năng bổ sung cho các thế mạnh truyền thống của địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh thu hút nguồn vốn, các ý kiến cũng nhấn mạnh vai trò của nguồn nhân lực, chất lượng hạ tầng, khả năng kết nối doanh nghiệp với các cơ sở nghiên cứu, đào tạo và việc hình thành môi trường thuận lợi cho hoạt động đổi mới sáng tạo.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_5_exact_5_E-JJrmep80_JscBYPzzC.jpg" alt="Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026: Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">TS.Trần Du Lịch - Thành viên hội đồng tư vấn tài chính tiền tệ quốc gia bàn giải pháp về chuyển đổi mô hình tăng trưởng</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh thu hút nguồn vốn, các ý kiến cũng nhấn mạnh vai trò của nguồn nhân lực, chất lượng hạ tầng, khả năng kết nối doanh nghiệp với các cơ sở nghiên cứu, đào tạo và việc hình thành môi trường thuận lợi cho hoạt động đổi mới sáng tạo.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_5_exact_6_E-v2J1GYKV_H4WUOBr33.jpg" alt="Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026: Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phó Thủ tướng Chính phủ Hồ Quốc Dũng phát biểu chỉ đạo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phát biểu tại hội nghị, Phó Thủ tướng Chính phủ Hồ Quốc Dũng đánh giá Hội nghị xúc tiến đầu tư tỉnh Gia Lai năm 2026 là sự kiện có ý nghĩa quan trọng, mang tầm chiến lược, thể hiện rõ tầm nhìn và khát vọng phát triển mạnh mẽ của địa phương trong việc cụ thể hóa các định hướng phát triển mới của đất nước và của tỉnh trong giai đoạn tới.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Theo Phó Thủ tướng, năm 2026 là năm đầu tiên triển khai Nghị quyết Đại hội lần thứ XIV của Đảng, với yêu cầu cao về tốc độ, chất lượng và tính bền vững của tăng trưởng, đặc biệt hướng tới mục tiêu tăng trưởng 02 con số trong giai đoạn 2026–2030. Trong bối cảnh đó, việc Gia Lai xây dựng kịch bản tăng trưởng GRDP đạt 10,2% cho năm 2026 được đánh giá là phù hợp với định hướng chung, thể hiện tư duy phát triển chủ động, quyết tâm chính trị cao và tinh thần dám nghĩ, dám làm.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phó Thủ tướng cũng ghi nhận nỗ lực của tỉnh trong việc từng bước tái định hình mô hình tăng trưởng theo hướng hiện đại, bền vững, dựa trên các trụ cột như công nghiệp chế biến, công nghệ cao, năng lượng tái tạo và dịch vụ giá trị gia tăng. Đây được xem là hướng đi đúng, phù hợp với chiến lược phát triển chung của cả nước trong giai đoạn tới.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Để khai thác hiệu quả tiềm năng, lợi thế và tạo đà bứt phá, Phó Thủ tướng đề nghị Gia Lai tập trung triển khai nghiêm túc, hiệu quả các nghị quyết của Đảng; đồng thời thực hiện quyết liệt 5 trụ cột tăng trưởng và 4 khâu đột phá chiến lược theo Nghị quyết Đại hội Đảng bộ tỉnh, bảo đảm sự thống nhất cao trong toàn hệ thống chính trị.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh đó, tỉnh cần nâng cao hiệu quả xúc tiến, thu hút đầu tư theo hướng có chọn lọc, trọng tâm, trọng điểm; chuyển mạnh từ thu hút theo số lượng sang chú trọng chất lượng, hiệu quả và tính bền vững. Ưu tiên các dự án ứng dụng công nghệ tiên tiến, thân thiện môi trường, có khả năng lan tỏa và tạo giá trị gia tăng cao.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phó Thủ tướng cũng nhấn mạnh yêu cầu triển khai hiệu quả các nghị quyết của Bộ Chính trị trên tất cả các lĩnh vực, trong đó chú trọng thực hiện Nghị quyết số 68-NQ/TW về phát triển kinh tế tư nhân. Đồng thời, đẩy mạnh cải cách hành chính theo hướng thực chất, lấy sự hài lòng của người dân và doanh nghiệp làm thước đo; tăng cường chuyển đổi số, minh bạch hóa quy trình, giảm thời gian và chi phí cho doanh nghiệp. Cùng với đó là yêu cầu xây dựng đội ngũ cán bộ, công chức có năng lực, trách nhiệm, kỷ luật, kỷ cương; chủ động đồng hành, hỗ trợ doanh nghiệp, kịp thời tháo gỡ khó khăn, vướng mắc trong phạm vi thẩm quyền.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phó Thủ tướng Hồ Quốc Dũng bày tỏ tin tưởng, với quyết tâm cao và tinh thần hành động quyết liệt, Đảng bộ, chính quyền và Nhân dân tỉnh Gia Lai sẽ tiếp tục phát huy truyền thống đoàn kết, đổi mới tư duy, khơi dậy khát vọng phát triển, nắm bắt cơ hội và vượt qua thách thức để thực hiện thắng lợi các mục tiêu, nhiệm vụ đã đề ra.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trao quyết định và ký kết hợp tác đối với 273 dự án</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Điểm nhấn quan trọng tại Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026 là hoạt động trao quyết định chấp thuận chủ trương đầu tư, giấy chứng nhận đăng ký đầu tư và ký kết các biên bản ghi nhớ hợp tác.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Theo thông tin tại Hội nghị, có 273 dự án được trao quyết định, giấy chứng nhận và ký kết biên bản ghi nhớ, với tổng vốn đăng ký và dự kiến đầu tư khoảng 850.000 tỷ đồng, tương đương hơn 33 tỷ USD.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các dự án thuộc nhiều lĩnh vực khác nhau, bao gồm công nghiệp chế biến – chế tạo, năng lượng, nông nghiệp công nghệ cao, thương mại, dịch vụ, du lịch, đô thị và logistics.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Kết quả này cho thấy sự quan tâm của cộng đồng doanh nghiệp, nhà đầu tư đối với môi trường và tiềm năng phát triển của Gia Lai, đồng thời tạo cơ sở để địa phương tiếp tục mở rộng các nguồn lực phục vụ mục tiêu tăng trưởng trong giai đoạn tới.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_5_exact_7_E-E-oajKOn_QouM-f6GB.jpg" alt="Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026: Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bí thư Tỉnh ủy Thái Đại Ngọc và Chủ tịch UBND tỉnh Phạm Anh Tuấn tặng hoa và trao Giấy chứng nhận đăng ký đầu tư cho dự án Trung Tâm Đổi Mới Sáng Tạo</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Khoa học, công nghệ và đổi mới sáng tạo trong mô hình tăng trưởng mới</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Với chủ đề “Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số”, Hội nghị năm nay dành sự quan tâm đáng kể đến vai trò của khoa học – công nghệ, đổi mới sáng tạo và chuyển đổi số.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong bối cảnh yêu cầu nâng cao năng suất và chất lượng tăng trưởng ngày càng trở nên cấp thiết, việc ứng dụng công nghệ được xác định là một trong những giải pháp quan trọng giúp doanh nghiệp đổi mới hoạt động sản xuất, kinh doanh và quản trị.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với những lĩnh vực có thế mạnh của Gia Lai như nông nghiệp, công nghiệp chế biến, năng lượng, logistics và du lịch, các công nghệ về dữ liệu, trí tuệ nhân tạo, tự động hóa và nền tảng số có thể hỗ trợ nâng cao hiệu quả vận hành, tăng khả năng kết nối và từng bước hình thành các chuỗi giá trị có hàm lượng công nghệ cao hơn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Song song đó, việc phát triển hệ sinh thái đổi mới sáng tạo, tăng cường kết nối giữa cơ quan quản lý, doanh nghiệp, trường đại học, viện nghiên cứu và các tổ chức khoa học – công nghệ sẽ tạo nền tảng để các sáng kiến, kết quả nghiên cứu và giải pháp công nghệ có thêm điều kiện ứng dụng vào thực tiễn..</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tạo nền tảng cho giai đoạn phát triển 2026-2030</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026 không chỉ là dịp giới thiệu danh mục dự án và tìm kiếm nguồn lực đầu tư mà còn thể hiện rõ định hướng phát triển của tỉnh trong giai đoạn mới.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Từ cải thiện môi trường kinh doanh, hoàn thiện hạ tầng, thu hút các dự án quy mô lớn đến phát triển khoa học – công nghệ, chuyển đổi số và nguồn nhân lực, Gia Lai đang từng bước chuẩn bị những điều kiện cần thiết để chuyển đổi mô hình tăng trưởng theo hướng hiện đại, bền vững và có giá trị gia tăng cao.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Kết quả của Hội nghị, đặc biệt là những thỏa thuận và dự án được công bố, là tiền đề để tỉnh tiếp tục phối hợp với doanh nghiệp và nhà đầu tư trong quá trình triển khai các chương trình, dự án cụ thể.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong thời gian tới, việc hiện thực hóa các cam kết đầu tư, đồng hành tháo gỡ khó khăn cho doanh nghiệp và tăng cường kết nối các nguồn lực sẽ có ý nghĩa quan trọng đối với mục tiêu phát triển kinh tế – xã hội của Gia Lai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Với những định hướng được xác lập tại Hội nghị, Gia Lai tiếp tục khẳng định quyết tâm xây dựng môi trường đầu tư minh bạch, thuận lợi, đẩy mạnh ứng dụng khoa học – công nghệ và đổi mới sáng tạo, qua đó tạo nền tảng cho giai đoạn tăng trưởng mới trong kỷ nguyên số.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bí thư Tỉnh ủy Thái Đại Ngọc phát biểu bế mạc hội nghị.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thay mặt Đảng bộ, chính quyền và Nhân dân tỉnh Gia Lai, Bí thư Tỉnh ủy Thái Đại Ngọc bày tỏ lời cảm ơn tới Chính phủ, các Đại sứ, Tổng Lãnh sự, các bộ, ban, ngành Trung ương, đại diện tổ chức quốc tế, cùng các chuyên gia, nhà khoa học, doanh nghiệp và nhà đầu tư đã đồng hành, đóng góp nhiều ý kiến thiết thực, chia sẻ kinh nghiệm quý và đưa ra các khuyến nghị chính sách, đề xuất hợp tác cụ thể, góp phần vào thành công của hội nghị.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bí thư Tỉnh ủy cho biết tỉnh nghiêm túc tiếp thu đầy đủ các ý kiến chỉ đạo sâu sắc, toàn diện và mang tính định hướng chiến lược của Phó Thủ tướng Chính phủ tại hội nghị.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Khẳng định quyết tâm của địa phương, Bí thư Tỉnh uỷ Thái Đại Ngọc cam kết tỉnh Gia Lai sẽ khẩn trương xây dựng kế hoạch triển khai cụ thể, phân công rõ trách nhiệm, tiến độ và kết quả; đồng thời tăng cường kiểm tra, giám sát, bảo đảm các chỉ đạo của Chính phủ được thực hiện hiệu quả, thực chất, tạo chuyển biến rõ nét trong môi trường đầu tư và phát triển kinh tế - xã hội.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bí thư Tỉnh ủy cũng bày tỏ tin tưởng sự cộng hưởng giữa các hoạt động của Năm Du lịch Quốc gia 2026 với Hội nghị xúc tiến đầu tư sẽ tạo hiệu ứng lan tỏa mạnh mẽ, góp phần thu hút nguồn lực đầu tư, thúc đẩy phát triển kinh tế - xã hội của tỉnh theo hướng nhanh và bền vững trong thời gian tới.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_5_exact_1_E-7jTWpvyj_dFQ66X4-Y.jpg',
+  '6a9a8705ead997d09a102d40',
+  'Sự kiện',
+  'Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026, xúc tiến đầu tư Gia Lai, đầu tư Gia Lai 2026, chuyển đổi mô hình tăng trưởng, chuyển đổi số Gia Lai, đổi mới sáng tạo Gia Lai, AI Gia Lai, thu hút đầu tư Gia Lai.',
+  'Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026: Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số | VDCD Gia Lai',
+  'Ngày 28/03/2026, Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026 được tổ chức với chủ đề “Gia Lai - Chuyển đổi mô hình tăng trưởng trong kỷ nguyên số”, thu hút sự tham dự của lãnh đạo Trung ương, lãnh đạo tỉnh, đại diện các cơ quan ngoại giao, tổ chức...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111106',
+  'Gia Lai đẩy mạnh ứng dụng mô hình thông tin công trình BIM trong hoạt động xây dựng',
+  'gia-lai-day-manh-ung-dung-mo-hinh-thong-tin-cong-trinh-bim-trong-hoat-dong-xay-dung',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ngày 20/03/2026, Sở Xây dựng tỉnh Gia Lai tổ chức Hội nghị tập huấn nâng cao việc áp dụng mô hình thông tin công trình (BIM) trong hoạt động đầu tư xây dựng. Chương trình góp phần nâng cao nhận thức, năng lực ứng dụng công nghệ cho các cơ quan quản lý, chủ đầu tư, doanh nghiệp và các đơn vị liên quan, hướng đến từng bước thúc đẩy chuyển đổi số và nâng cao hiệu quả quản lý trong lĩnh vực xây dựng trên địa bàn tỉnh.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hội nghị được tổ chức tại Trung tâm Hội nghị tỉnh với sự tham dự của gần 600 đại biểu là đại diện các sở, ban, ngành, UBND các xã, phường, chủ đầu tư và doanh nghiệp hoạt động trong lĩnh vực xây dựng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc tổ chức chương trình tập huấn có ý nghĩa thiết thực trong bối cảnh ngành xây dựng đang từng bước chuyển đổi từ phương thức quản lý truyền thống sang ứng dụng dữ liệu và các nền tảng số xuyên suốt vòng đời công trình.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_6_exact_2_E-TX9xsPpJ_BXCTOcSPx.jpg" alt="Gia Lai đẩy mạnh ứng dụng mô hình thông tin công trình BIM trong hoạt động xây dựng" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Gần 600 đại biểu tham dự Hội nghị tập huấn nâng cao việc áp dụng mô hình thông tin công trình trong hoạt động đầu tư xây dựng tại Gia Lai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">BIM - nền tảng quan trọng trong chuyển đổi số ngành xây dựng</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mô hình thông tin công trình, thường được biết đến với tên gọi BIM (Building Information Modeling), là phương pháp tạo lập, quản lý và sử dụng mô hình kỹ thuật số chứa thông tin của công trình trong suốt các giai đoạn từ thiết kế, thi công đến vận hành, bảo trì và các giai đoạn tiếp theo của vòng đời công trình. Khác với bản vẽ kỹ thuật truyền thống chỉ thể hiện thông tin theo từng mặt bằng hoặc hạng mục riêng lẻ, BIM cho phép các bên tham gia dự án làm việc trên một hệ thống dữ liệu có tính liên kết cao hơn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua mô hình số, các thông tin về kiến trúc, kết cấu, hệ thống kỹ thuật và nhiều dữ liệu liên quan đến công trình có thể được tích hợp, cập nhật và phối hợp trong quá trình triển khai dự án. Việc ứng dụng BIM vì vậy không đơn thuần là thay đổi công cụ thiết kế mà còn tác động đến phương thức quản lý, phối hợp và khai thác dữ liệu trong toàn bộ quá trình đầu tư xây dựng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Cùng với các công nghệ số khác, BIM đang trở thành một trong những nền tảng quan trọng thúc đẩy ngành xây dựng chuyển dịch theo hướng xây dựng thông minh.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_6_exact_3_E-5Qk8ZTxN_lVgxPpUdN.jpg" alt="Gia Lai đẩy mạnh ứng dụng mô hình thông tin công trình BIM trong hoạt động xây dựng" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các chuyên gia giới thiệu kiến thức, quy trình và giải pháp ứng dụng BIM trong hoạt động đầu tư xây dựng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nâng cao năng lực ứng dụng BIM cho các cơ quan, đơn vị và doanh nghiệp</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại Hội nghị, các chuyên gia đã cung cấp và cập nhật nhiều nội dung từ cơ bản đến chuyên sâu liên quan đến việc triển khai mô hình thông tin công trình.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong đó, chương trình tập trung giới thiệu tổng quan hướng dẫn áp dụng BIM của Bộ Xây dựng; các giải pháp hỗ trợ triển khai và quản lý dự án; phương thức phối hợp mô hình BIM trên môi trường dữ liệu chung CDE (Common Data Environment) cùng những nội dung liên quan đến quá trình ứng dụng trong thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc cập nhật kiến thức không chỉ dành cho các đơn vị trực tiếp thiết kế và thi công mà còn có ý nghĩa đối với cơ quan quản lý nhà nước, chủ đầu tư và các tổ chức tham gia vào chuỗi hoạt động xây dựng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Khi nhiều bên cùng tham gia một dự án, việc thống nhất quy trình quản lý và trao đổi dữ liệu đóng vai trò quan trọng trong bảo đảm tính đồng bộ của thông tin.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua hoạt động tập huấn, các đơn vị có điều kiện tiếp cận rõ hơn với phương pháp triển khai BIM, từ đó chuẩn bị về nhân lực, quy trình và công nghệ cho quá trình áp dụng trong thực tiễn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Gia Lai triển khai áp dụng BIM từ năm 2026</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Theo thông tin được công bố tại Hội nghị, từ năm 2026, Gia Lai sẽ áp dụng mô hình thông tin công trình trong hoạt động đầu tư xây dựng đối với các công trình xây dựng mới thuộc dự án nhóm C trở lên, thuộc trường hợp phải lập Báo cáo nghiên cứu khả thi tại thời điểm bắt đầu chuẩn bị dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây là bước triển khai cụ thể nhằm từng bước đưa BIM vào hoạt động đầu tư xây dựng trên địa bàn tỉnh theo lộ trình và hướng dẫn hiện hành.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc áp dụng đặt ra yêu cầu các cơ quan quản lý, chủ đầu tư, đơn vị tư vấn và doanh nghiệp xây dựng cần chủ động chuẩn bị về năng lực chuyên môn, nhân sự, phần mềm cũng như quy trình phối hợp dữ liệu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đồng thời, quá trình này cũng tạo điều kiện thúc đẩy việc chuẩn hóa dữ liệu và tăng cường ứng dụng công nghệ trong quản lý dự án xây dựng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nâng cao hiệu quả quản lý xuyên suốt vòng đời công trình</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những giá trị đáng chú ý của BIM nằm ở khả năng quản lý thông tin xuyên suốt nhiều giai đoạn của dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong giai đoạn thiết kế, mô hình số tạo điều kiện để các bộ môn cùng phối hợp và kiểm tra thông tin trên một hệ thống chung. Khi bước sang thi công, dữ liệu từ mô hình có thể tiếp tục hỗ trợ quá trình quản lý và phối hợp giữa các bên.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Sau khi công trình hoàn thành, dữ liệu đã được hình thành trong các giai đoạn trước cũng có thể trở thành nguồn thông tin phục vụ công tác vận hành và bảo trì.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Cách tiếp cận này góp phần hình thành một chuỗi dữ liệu xuyên suốt vòng đời công trình, thay vì thông tin bị phân tán giữa nhiều hồ sơ, đơn vị và giai đoạn triển khai khác nhau.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với cơ quan quản lý và chủ đầu tư, việc dữ liệu được số hóa và tổ chức có hệ thống cũng tạo thêm điều kiện để nâng cao khả năng theo dõi, phối hợp và quản lý dự án.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_6_exact_4_E--TgF_z4v_Uit-4scrg.jpg" alt="Gia Lai đẩy mạnh ứng dụng mô hình thông tin công trình BIM trong hoạt động xây dựng" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">BIM hỗ trợ xây dựng và quản lý mô hình kỹ thuật số xuyên suốt các giai đoạn của công trình.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Thúc đẩy chuyển đổi số trong lĩnh vực xây dựng</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc triển khai BIM tại Gia Lai là một phần trong xu hướng ứng dụng ngày càng sâu rộng khoa học công nghệ và dữ liệu số vào hoạt động quản lý, sản xuất và phát triển hạ tầng. Đối với ngành xây dựng, chuyển đổi số không chỉ nằm ở việc sử dụng phần mềm mới mà còn yêu cầu thay đổi phương thức phối hợp và quản lý thông tin giữa các chủ thể tham gia dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong đó, dữ liệu trở thành yếu tố xuyên suốt. Khi dữ liệu thiết kế, kỹ thuật và thông tin dự án được xây dựng theo hướng đồng bộ, các đơn vị có thêm cơ sở để phối hợp, cập nhật và khai thác thông tin hiệu quả hơn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc thúc đẩy BIM đồng thời tạo ra nhu cầu mới về nguồn nhân lực có khả năng làm việc với mô hình số, quản trị dữ liệu xây dựng và sử dụng các nền tảng công nghệ chuyên ngành. Đây cũng là cơ hội để doanh nghiệp xây dựng từng bước nâng cao năng lực công nghệ, chuẩn hóa quy trình và thích ứng với yêu cầu ngày càng cao của thị trường.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hướng đến ngành xây dựng hiện đại và thông minh</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phát biểu tại chương trình, đại diện Sở Xây dựng nhấn mạnh Hội nghị là dịp để nâng cao nhận thức và tạo điều kiện cho các cơ quan quản lý nhà nước, chủ đầu tư, tổ chức và cá nhân liên quan tiếp tục nghiên cứu, đẩy mạnh ứng dụng mô hình thông tin công trình trong hoạt động xây dựng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Từ hoạt động tập huấn đến quá trình triển khai thực tế, việc ứng dụng BIM cần có sự phối hợp đồng bộ giữa cơ quan quản lý, chủ đầu tư, đơn vị tư vấn, doanh nghiệp xây dựng và đội ngũ chuyên môn. Đây không chỉ là yêu cầu về công nghệ mà còn là quá trình thay đổi phương thức tổ chức và quản lý dự án trên nền tảng dữ liệu số.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc triển khai BIM đòi hỏi sự phối hợp đồng bộ giữa cơ quan quản lý, chủ đầu tư, đơn vị tư vấn và doanh nghiệp xây dựng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hội nghị tập huấn ngày 20/03/2026 là một bước chuẩn bị quan trọng để các cơ quan, đơn vị và doanh nghiệp trên địa bàn Gia Lai tiếp cận đầy đủ hơn với những yêu cầu và phương pháp triển khai BIM.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc từng bước đưa mô hình thông tin công trình vào hoạt động đầu tư xây dựng sẽ góp phần nâng cao hiệu quả quản lý, thúc đẩy số hóa dữ liệu và tạo nền tảng cho quá trình chuyển đổi số ngành xây dựng tại Gia Lai, hướng đến phương thức quản lý hiện đại, đồng bộ và phù hợp với xu hướng phát triển của ngành xây dựng thông minh.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_6_exact_1_E-r0BqjR2X_V1iM0Hqje.jpg',
+  '6a9a8722ead997d09a10dccc',
+  'Công nghệ',
+  'mô hình thông tin công trình BIM, BIM Gia Lai, ứng dụng BIM, chuyển đổi số ngành xây dựng, xây dựng thông minh, đầu tư xây dựng Gia Lai, mô hình thông tin công trình, CDE.',
+  'Gia Lai đẩy mạnh ứng dụng mô hình thông tin công trình BIM trong hoạt động xây dựng | VDCD Gia Lai',
+  'Ngày 20/03/2026, Sở Xây dựng tỉnh Gia Lai tổ chức Hội nghị tập huấn nâng cao việc áp dụng mô hình thông tin công trình (BIM) trong hoạt động đầu tư xây dựng. Chương trình góp phần nâng cao nhận thức, năng lực ứng dụng công nghệ cho các cơ quan quản l...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111107',
+  'VDCD đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi, thúc đẩy chuyển đổi số toàn diện',
+  'vdcd-de-xuat-thanh-lap-trung-tam-doi-moi-sang-tao-tinh-quang-ngai-thuc-day-chuyen-doi-so-toan-dien',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Chiều ngày 09/06/2026, Công ty Cổ phần Tổng Công ty Công nghệ Thiết kế Xây dựng Việt Nam (VDCD) đã có buổi làm việc với UBND tỉnh Quảng Ngãi, trình bày đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi cùng hệ sinh thái các giải pháp công nghệ phục vụ chuyển đổi số. Đề xuất hướng đến xây dựng hạ tầng dữ liệu đồng bộ, tăng cường ứng dụng công nghệ trong quản lý, điều hành và tạo nền tảng phát triển hệ sinh thái đổi mới sáng tạo tại địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Buổi làm việc do Phó Chủ tịch UBND tỉnh Quảng Ngãi Trần Phước Hiền chủ trì, với sự tham dự của đại diện các sở, ngành, đơn vị liên quan và VDCD.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại chương trình, hai bên tập trung trao đổi về các giải pháp đổi mới sáng tạo, hạ tầng dữ liệu và ứng dụng công nghệ trong những lĩnh vực trọng điểm, từ quản lý đất đai, quy hoạch, xây dựng đến tài nguyên môi trường, phòng chống thiên tai, du lịch và xúc tiến đầu tư.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_7_exact_2_E-hE1yA8ie_eoNl2cqFg.jpg" alt="VDCD đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi, thúc đẩy chuyển đổi số toàn diện" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phó Chủ tịch UBND tỉnh Quảng Ngãi Trần Phước Hiền chủ trì buổi làm việc về các giải pháp đổi mới sáng tạo và chuyển đổi số do VDCD đề xuất.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những nội dung trọng tâm được VDCD trình bày tại buổi làm việc là đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Theo định hướng đề xuất, Trung tâm sẽ đóng vai trò đầu mối trong việc xây dựng và vận hành hạ tầng dữ liệu của tỉnh, từng bước hình thành hệ thống có khả năng lưu trữ, xử lý, phân tích và hiển thị dữ liệu, phục vụ công tác quản lý, điều hành và hỗ trợ quá trình ra quyết định dựa trên dữ liệu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh hạ tầng dữ liệu, Trung tâm được định hướng phát triển các nền tảng công nghệ phục vụ quản trị nhà nước, hoạt động của doanh nghiệp và những ngành kinh tế trọng điểm của địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đồng thời, đây cũng sẽ là điểm kết nối giữa cơ quan quản lý, doanh nghiệp, chuyên gia, các cơ sở nghiên cứu  đào tạo và cộng đồng khởi nghiệp, góp phần thúc đẩy nghiên cứu, chuyển giao và đưa các giải pháp công nghệ vào thực tiễn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mô hình này hướng tới mục tiêu hình thành một hệ sinh thái đổi mới sáng tạo gắn với những yêu cầu phát triển cụ thể của tỉnh, trong đó dữ liệu và công nghệ đóng vai trò nền tảng.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_7_exact_3_E-0X86Mk9X_MrtJa-avQ.jpg" alt="VDCD đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi, thúc đẩy chuyển đổi số toàn diện" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đại diện VDCD trình bày đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi và định hướng xây dựng hạ tầng dữ liệu phục vụ quản lý, điều hành.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hệ sinh thái công nghệ tích hợp phục vụ chuyển đổi số</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại buổi làm việc, VDCD cũng giới thiệu hệ sinh thái giải pháp công nghệ tích hợp được xây dựng theo chuỗi từ thu thập dữ liệu, xử lý mô hình hóa,  lưu trữ,  khai thác và ứng dụng. Ở lớp thu thập dữ liệu, các công nghệ như UAV, thiết bị quét số và IoT có thể hỗ trợ khảo sát, đo đạc, số hóa hiện trạng và cập nhật dữ liệu từ thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Dữ liệu sau khi thu thập được xử lý và mô hình hóa thông qua các nền tảng công nghệ như BIM (Building Information Modeling), GIS (Geographic Information System) và trí tuệ nhân tạo (AI), tạo cơ sở để hình thành các mô hình dữ liệu trực quan, có khả năng phân tích và phục vụ nhiều nghiệp vụ quản lý khác nhau.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một thành phần quan trọng khác trong hệ sinh thái là trung tâm dữ liệu cấp tỉnh, đóng vai trò hạ tầng phục vụ lưu trữ, xử lý và khai thác dữ liệu. Cùng với đó là các phần mềm hành chính công, cổng dữ liệu mở và chương trình đào tạo, chuyển giao công nghệ, giúp các giải pháp không chỉ được triển khai về mặt kỹ thuật mà còn từng bước hình thành năng lực khai thác và vận hành tại địa phương.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_7_exact_4_E-KPhdvukA_f2wSwXRR0.jpg" alt="VDCD đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi, thúc đẩy chuyển đổi số toàn diện" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hệ sinh thái giải pháp VDCD kết nối UAV, IoT, BIM, GIS, AI và hạ tầng dữ liệu phục vụ quá trình chuyển đổi số.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Xây dựng cơ sở dữ liệu không gian số phục vụ quản lý đất đai và quy hoạch</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với Quảng Ngãi, VDCD đề xuất triển khai nhiều nhóm giải pháp gắn trực tiếp với nhu cầu quản lý của địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong đó, một trong những nội dung trọng tâm là xây dựng cơ sở dữ liệu không gian số 2D và 3D, phục vụ công tác quản lý đất đai, quy hoạch và phát triển đô thị.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Khi dữ liệu không gian được số hóa và tổ chức trên một nền tảng thống nhất, các cơ quan chuyên môn có thêm công cụ phục vụ theo dõi hiện trạng, phân tích thông tin và hỗ trợ công tác quản lý.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hệ thống đồng thời có thể hỗ trợ giám sát biến động đất đai, theo dõi trật tự xây dựng, số hóa quy hoạch thông qua mô hình số và sa bàn ảo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với lĩnh vực xây dựng, việc ứng dụng BIM được đề xuất nhằm hỗ trợ quản lý thông tin công trình và các dự án đầu tư xây dựng, từng bước nâng cao khả năng phối hợp và quản lý dữ liệu xuyên suốt quá trình triển khai dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ứng dụng dữ liệu trong tài nguyên, môi trường và phòng chống thiên tai</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Không gian ứng dụng của hệ thống dữ liệu được đề xuất mở rộng sang lĩnh vực tài nguyên và môi trường.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">VDCD đề xuất xây dựng các cơ sở dữ liệu chuyên ngành phục vụ quản lý tài nguyên, môi trường, giám sát rừng và hệ sinh thái, qua đó tăng khả năng tổng hợp, theo dõi và khai thác thông tin phục vụ công tác quản lý.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Cùng với đó, dữ liệu không gian, công nghệ quan trắc và các nền tảng phân tích có thể được nghiên cứu ứng dụng trong phòng chống thiên tai và cảnh báo sớm rủi ro.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây là nhóm bài toán đòi hỏi dữ liệu từ nhiều nguồn phải được cập nhật, tổng hợp và phân tích kịp thời. Vì vậy, việc hình thành một hạ tầng dữ liệu có khả năng liên kết giữa các lĩnh vực là điều kiện quan trọng để nâng cao hiệu quả khai thác thông tin.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Số hóa du lịch và hỗ trợ xúc tiến đầu tư</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh quản lý nhà nước, hệ sinh thái công nghệ được VDCD đề xuất còn hướng đến các lĩnh vực phát triển kinh tế của Quảng Ngãi.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong lĩnh vực du lịch, doanh nghiệp đề xuất số hóa các điểm du lịch, di tích và xây dựng bản đồ số du lịch của tỉnh, tạo thêm nền tảng để quản lý, giới thiệu và khai thác dữ liệu về điểm đến.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với hoạt động xúc tiến đầu tư, việc xây dựng cơ sở dữ liệu tập trung có thể hỗ trợ tổng hợp và trực quan hóa thông tin về quy hoạch, hạ tầng, địa điểm và những nguồn lực liên quan, giúp quá trình tiếp cận thông tin thuận lợi hơn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các giải pháp về định danh địa điểm, đánh số nhà trên nền tảng số và phát triển đô thị thông minh cũng được đưa ra để nghiên cứu, hướng đến từng bước hoàn thiện hệ thống dữ liệu không gian phục vụ quản lý và phát triển đô thị.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_7_exact_5_E-blB-Ifb__nxD-wAzvX.jpg" alt="VDCD đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi, thúc đẩy chuyển đổi số toàn diện" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đại diện các sở, ngành tỉnh Quảng Ngãi trao đổi về khả năng ứng dụng các giải pháp công nghệ vào nhu cầu thực tế của từng lĩnh vực.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hướng đến quản lý và điều hành dựa trên dữ liệu</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những mục tiêu xuyên suốt của các giải pháp được trình bày là nâng cao khả năng khai thác dữ liệu phục vụ quản lý, chỉ đạo và điều hành.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thay vì dữ liệu tồn tại riêng lẻ tại từng hệ thống hoặc từng lĩnh vực, định hướng tích hợp giúp hình thành nguồn dữ liệu có khả năng kết nối, trực quan hóa và hỗ trợ phân tích.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Qua đó, dữ liệu không chỉ được lưu trữ mà từng bước trở thành một nguồn lực phục vụ quá trình ra quyết định.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây cũng là nền tảng quan trọng trong quá trình phát triển chính quyền số và kinh tế số, khi chất lượng quản trị ngày càng gắn với khả năng thu thập, chuẩn hóa, kết nối và khai thác dữ liệu một cách hiệu quả.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nghiên cứu triển khai Trung tâm Đổi mới sáng tạo theo quy định</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Kết luận buổi làm việc, Phó Chủ tịch UBND tỉnh Quảng Ngãi Trần Phước Hiền ghi nhận và đánh giá cao các giải pháp đổi mới sáng tạo, chuyển đổi số do VDCD trình bày; đồng thời nhận định các giải pháp có tính ứng dụng, phù hợp với nhu cầu quản lý, điều hành trong bối cảnh tỉnh đang đẩy mạnh chuyển đổi số, xây dựng chính quyền số và phát triển kinh tế số.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phó Chủ tịch UBND tỉnh đề nghị các sở, ngành và địa phương chủ động trao đổi với doanh nghiệp để nghiên cứu, lựa chọn những giải pháp phù hợp với nhu cầu thực tế của từng lĩnh vực.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đáng chú ý, Sở Khoa học và Công nghệ được giao chủ trì, phối hợp với Sở Tài chính và các cơ quan liên quan làm việc với VDCD để nghiên cứu việc thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi theo quy định.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các cơ quan liên quan đồng thời được giao phối hợp nghiên cứu, đánh giá tính khả thi của những đề xuất cụ thể, bảo đảm phù hợp với quy hoạch, định hướng phát triển và quy định pháp luật.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_7_exact_6_E-TpSwgbA8_DJDTZq1Em.jpg" alt="VDCD đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi, thúc đẩy chuyển đổi số toàn diện" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phó Chủ tịch UBND tỉnh Quảng Ngãi Trần Phước Hiền kết luận buổi làm việc về các giải pháp đổi mới sáng tạo và chuyển đổi số.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Buổi làm việc ngày 09/06/2026 là bước trao đổi quan trọng để VDCD và các cơ quan của tỉnh Quảng Ngãi tiếp tục nghiên cứu khả năng triển khai những giải pháp công nghệ phù hợp với điều kiện thực tế của địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Từ hạ tầng dữ liệu, BIM, GIS, AI đến các ứng dụng trong đất đai, quy hoạch, tài nguyên, xây dựng và du lịch, đề xuất hướng đến một mục tiêu chung: xây dựng nền tảng dữ liệu đồng bộ, tăng cường ứng dụng khoa học – công nghệ và từng bước hình thành hệ sinh thái đổi mới sáng tạo phục vụ phát triển kinh tế – xã hội của tỉnh Quảng Ngãi.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_7_exact_1_E-8vcADZi1_rR_uRYAEF.jpg',
+  '6a9a8738ead997d09a116e2c',
+  'Chuyển đổi số',
+  'Trung tâm Đổi mới sáng tạo Quảng Ngãi, VDCD Quảng Ngãi, chuyển đổi số Quảng Ngãi, đổi mới sáng tạo Quảng Ngãi, dữ liệu số Quảng Ngãi, BIM GIS AI, trung tâm dữ liệu, chính quyền số Quảng Ngãi.',
+  'VDCD đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi, thúc đẩy chuyển đổi số toàn diện | VDCD Gia Lai',
+  'Chiều ngày 09/06/2026, Công ty Cổ phần Tổng Công ty Công nghệ Thiết kế Xây dựng Việt Nam (VDCD) đã có buổi làm việc với UBND tỉnh Quảng Ngãi, trình bày đề xuất thành lập Trung tâm Đổi mới sáng tạo tỉnh Quảng Ngãi cùng hệ sinh thái các giải pháp công ...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111108',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai làm việc với Sở Tài nguyên và Môi trường tỉnh Lâm Đồng về giải pháp chuyển đổi số xanh',
+  'trung-tam-doi-moi-sang-tao-gia-lai-lam-viec-voi-so-tai-nguyen-va-moi-truong-tinh-lam-dong-ve-giai-ph',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trung tâm Đổi mới Sáng tạo Gia Lai đã có buổi làm việc với Sở Tài nguyên và Môi trường tỉnh Lâm Đồng nhằm trao đổi về các giải pháp công nghệ phục vụ chuyển đổi số xanh. Tại chương trình, Trung tâm Đổi mới Sáng tạo Gia Lai tập trung giới thiệu phương án số hóa dữ liệu không gian, giám sát biến động tài nguyên và xây dựng nền tảng quản lý tích hợp, hướng đến phục vụ Đề án Chuyển đổi xanh dựa vào thiên nhiên của tỉnh Lâm Đồng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Buổi làm việc là dịp để hai bên trao đổi về khả năng ứng dụng công nghệ vào công tác quản lý tài nguyên, đặc biệt đối với các nhóm dữ liệu về đất đai, rừng, vùng trồng, mặt nước và hạ tầng. Trên cơ sở những yêu cầu thực tế, Trung tâm Đổi mới Sáng tạo Gia Lai trình bày hệ sinh thái giải pháp tích hợp nhiều công nghệ gồm viễn thám, UAV, mô hình 3D, Digital Twin, trí tuệ nhân tạo (AI) và nền tảng GIS, qua đó từng bước hình thành nguồn dữ liệu không gian có khả năng cập nhật, quản lý và khai thác tập trung.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_8_exact_2_E-LrP55GHr_fj12DT1Oc.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai làm việc với Sở Tài nguyên và Môi trường tỉnh Lâm Đồng về giải pháp chuyển đổi số xanh" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đại diện Trung tâm Đổi mới Sáng tạo Gia Lai  trao đổi cùng Sở Tài nguyên và Môi trường tỉnh Lâm Đồng về giải pháp chuyển đổi số xanh và xây dựng nền tảng dữ liệu không gian.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Số hóa dữ liệu phục vụ quản lý tài nguyên</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại buổi làm việc, Trung tâm Đổi mới Sáng tạo Gia Lai xác định số hóa dữ liệu hiện trạng là một trong những nền tảng quan trọng để nâng cao hiệu quả quản lý và theo dõi tài nguyên. Theo giải pháp được trình bày, dữ liệu không gian về đất đai, rừng, vùng trồng, mặt nước và hạ tầng có thể được thu thập, số hóa và quản lý trên nền tảng thống nhất. Mỗi khu vực, vùng, lô và đối tượng quản lý được xác lập tọa độ, diện tích, ranh giới và mã định danh, tạo cơ sở cho việc tra cứu và cập nhật dữ liệu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trên nền dữ liệu đã được chuẩn hóa, hệ thống hướng đến hỗ trợ theo dõi sự thay đổi của đất đai, rừng, cây trồng, mặt nước và các khu vực phục hồi sinh thái qua từng thời kỳ. Dữ liệu đồng thời có thể được trực quan hóa trên bản đồ số và dashboard, giúp cơ quan chuyên môn thuận lợi hơn trong quá trình tra cứu, phân tích và giám sát hiện trạng.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_8_exact_3_E-b7xm_kA-_GVeXLm8K2.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai làm việc với Sở Tài nguyên và Môi trường tỉnh Lâm Đồng về giải pháp chuyển đổi số xanh" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trung tâm Đổi mới Sáng tạo Gia Lai trình bày phương án số hóa và chuẩn hóa dữ liệu không gian phục vụ công tác quản lý tài nguyên.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ứng dụng đồng bộ Viễn thám, UAV, AI và GIS</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những nội dung trọng tâm được Trung tâm Đổi mới Sáng tạo Gia Lai giới thiệu là khả năng kết hợp nhiều công nghệ trong quá trình thu thập, xử lý và khai thác dữ liệu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Viễn thám hỗ trợ khai thác ảnh vệ tinh có độ phân giải cao và cập nhật định kỳ để theo dõi biến động địa hình, sử dụng đất trên diện rộng. Trong khi đó, UAV được sử dụng để thu thập dữ liệu hiện trạng có độ phân giải cao, phục vụ đo đạc, thành lập bản đồ 2D, 3D và hỗ trợ kiểm tra thực địa.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Dữ liệu thu thập được có thể tiếp tục xây dựng thành mô hình không gian 3D, tạo góc nhìn trực quan hơn về hiện trạng khu vực. Giải pháp Digital Twin cũng được đề xuất nhằm hình thành bản sao số, hỗ trợ mô phỏng và nghiên cứu các kịch bản phát triển.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Toàn bộ các lớp dữ liệu được định hướng tích hợp trên GIS Platform, tạo nền tảng quản lý tập trung và chia sẻ dữ liệu không gian.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh đó, trí tuệ nhân tạo được ứng dụng để hỗ trợ tự động nhận diện, phân loại và xử lý một số nhóm đối tượng từ dữ liệu thu thập được.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Đề xuất ứng dụng công nghệ vào quản lý rừng</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nội dung về quản lý và số hóa dữ liệu rừng được trao đổi cụ thể thông qua các mô hình ứng dụng. Trung tâm Đổi mới Sáng tạo Gia Lai trình bày giải pháp xây dựng bản đồ 2D hiện trạng, mô hình 3D và không gian quan sát VR360, cho phép số hóa hiện trạng rừng dưới nhiều hình thức trực quan.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trên nền tảng 3D GIS, dữ liệu có thể hỗ trợ đo đạc diện tích, đánh giá mật độ rừng, xác định chiều cao cây và quản lý thông tin theo từng ranh giới. Khả năng quan sát và tra cứu dữ liệu từ xa cũng góp phần hỗ trợ công tác chuyên môn, giảm tần suất kiểm tra thực địa trong những trường hợp không cần thiết.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đáng chú ý, Trung tâm Đổi mới Sáng tạo Gia Lai giới thiệu phương án ứng dụng AI kết hợp dữ liệu UAV/GIS để nhận diện ranh giới thửa đất, vùng trồng, khoảnh rừng, mặt nước và các đối tượng hiện trạng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">AI cũng có thể hỗ trợ nhận diện và đếm cây từ dữ liệu hình ảnh, sau đó liên kết kết quả với hệ thống quản lý để phục vụ tra cứu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Định danh dữ liệu, theo dõi biến động theo thời gian</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh số hóa hiện trạng, giải pháp của Trung tâm Đổi mới Sáng tạo Gia Lai hướng đến việc định danh từng đối tượng quản lý. Sau khi nhận diện ranh giới, từng vùng rừng có thể được gắn thông tin và mã quản lý riêng. Qua đó, dữ liệu không chỉ thể hiện vị trí trên bản đồ mà còn được liên kết với các thuộc tính phục vụ kiểm kê, giám sát biến động và truy xuất thông tin.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc duy trì dữ liệu theo từng thời kỳ tạo điều kiện so sánh sự thay đổi của hiện trạng, hỗ trợ cơ quan chuyên môn theo dõi biến động trên phạm vi rộng và xác định những khu vực cần được kiểm tra, đánh giá sâu hơn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Cách tiếp cận này hướng đến chuyển đổi từ quan sát hiện trạng sang quản lý dựa trên dữ liệu, trong đó thông tin được chuẩn hóa, cập nhật và khai thác trên cùng một nền tảng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hai bên trao đổi về khả năng khai thác dữ liệu số phục vụ kiểm kê, giám sát biến động và công tác quản lý.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hướng đến nền tảng dữ liệu phục vụ chuyển đổi xanh tại Lâm Đồng</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua buổi làm việc, Trung tâm Đổi mới Sáng tạo Gia Lai đề xuất một mô hình công nghệ theo hướng đồng bộ, tích hợp dữ liệu viễn thám, UAV, 2D/3D, AI và GIS trên nền tảng quản lý thống nhất.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Giải pháp được xây dựng theo hướng có khả năng mở rộng, nhằm đáp ứng nhu cầu cập nhật và phát triển trong từng giai đoạn, đồng thời tập trung vào khả năng ứng dụng đối với các bài toán quản lý thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trên cơ sở các nội dung đã trao đổi, Trung tâm Đổi mới Sáng tạo Gia Lai sẵn sàng phối hợp cùng tỉnh Lâm Đồng và các đơn vị liên quan trong công tác khảo sát, số hóa hiện trạng và xây dựng nền tảng dữ liệu không gian phục vụ Đề án Chuyển đổi xanh dựa vào thiên nhiên, hướng đến quản lý chủ động, minh bạch và phát triển bền vững.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Buổi làm việc đồng thời tạo cơ sở để các bên tiếp tục trao đổi, đánh giá những nhóm giải pháp phù hợp với yêu cầu thực tế, qua đó nghiên cứu khả năng ứng dụng công nghệ và dữ liệu không gian trong quá trình chuyển đổi số xanh tại Lâm Đồng.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_8_exact_1_E-kx7c_DH8_Nkb290pep.jpg',
+  '6a9a874aead997d09a11e7b0',
+  'Chuyển đổi số',
+  'chuyển đổi số xanh Lâm Đồng, Trung tâm Đổi mới Sáng tạo Gia Lai, Sở Tài nguyên và Môi trường Lâm Đồng, số hóa tài nguyên, GIS Lâm Đồng, UAV, AI GIS, số hóa dữ liệu rừng, dữ liệu không gian.',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai làm việc với Sở Tài nguyên và Môi trường tỉnh Lâm Đồng về giải pháp chuyển đổi số xanh | VDCD Gia Lai',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai đã có buổi làm việc với Sở Tài nguyên và Môi trường tỉnh Lâm Đồng nhằm trao đổi về các giải pháp công nghệ phục vụ chuyển đổi số xanh. Tại chương trình, Trung tâm Đổi mới Sáng tạo Gia Lai tập trung giới thiệu phương...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111109',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức huấn luyện nâng cao nghiệp vụ UAV, chuẩn hóa năng lực triển khai thực địa',
+  'trung-tam-doi-moi-sang-tao-gia-lai-to-chuc-huan-luyen-nang-cao-nghiep-vu-uav-chuan-hoa-nang-luc-trie',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ngày 17/08/2026, Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức chương trình huấn luyện nâng cao nghiệp vụ UAV dành cho đội ngũ kỹ thuật. Chương trình tập trung củng cố kiến thức chuyên môn, chuẩn hóa quy trình phối hợp tổ bay và nâng cao năng lực triển khai thực địa, từ khâu lập kế hoạch, thiết kế ca bay, bố trí điểm khống chế đến kiểm tra, quản lý và bàn giao dữ liệu sau chuyến bay.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong các dự án khảo sát, đo đạc và xây dựng dữ liệu không gian, UAV ngày càng giữ vai trò quan trọng nhờ khả năng thu thập dữ liệu nhanh, phạm vi rộng và độ chi tiết cao. Tuy nhiên, để bảo đảm chất lượng dữ liệu đầu ra, việc vận hành UAV cần được đặt trong một quy trình kỹ thuật đồng bộ, với sự phối hợp chặt chẽ giữa con người, thiết bị và phương án triển khai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Xuất phát từ yêu cầu đó, chương trình huấn luyện ngày 17/08 được Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức theo hướng nâng cao nghiệp vụ thực tế, đồng thời thống nhất phương pháp làm việc giữa các vị trí trong tổ bay.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_9_exact_2_E-XG50SUpR_U8OwEQteI.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức huấn luyện nâng cao nghiệp vụ UAV, chuẩn hóa năng lực triển khai thực địa" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đội ngũ kỹ thuật tham gia chương trình huấn luyện nâng cao nghiệp vụ UAV tại Trung tâm Đổi mới Sáng tạo Gia Lai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nâng cao nghiệp vụ, chuẩn hóa quy trình tổ bay UAV</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những nội dung trọng tâm của chương trình là rà soát và chuẩn hóa quy trình phối hợp tổ bay UAV từ khi tiếp nhận nhiệm vụ đến khi hoàn tất bàn giao dữ liệu. Quy trình được chia thành các giai đoạn cụ thể nhằm giúp từng thành viên xác định rõ nhiệm vụ và phối hợp hiệu quả trong quá trình triển khai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ở giai đoạn chuẩn bị T-2/T-3, tổ bay tiếp nhận nhiệm vụ, xác định khu vực, phạm vi thực hiện, yêu cầu kỹ thuật, sản phẩm đầu ra và tiến độ. Trên cơ sở đó, tổ trưởng phối hợp cùng Pilot thiết kế ca bay, chia khu vực đối với các dự án có quy mô lớn và thống nhất phương án kỹ thuật. Đến T-1, đội ngũ tập trung chuẩn bị hiện trường và nguồn lực, bao gồm thiết kế Base, điểm khống chế GCP, dẫn tọa độ về dự án, phân công nhân sự, thiết bị, tính toán phương án pin và thiết lập trước các thông số ca bay trên phần mềm UAV.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại ngày triển khai T0, tổ bay thực hiện kiểm tra điều kiện bay, thiết bị, UAV, pin, thẻ nhớ, Base/GCP và các yếu tố an toàn trước khi cất cánh. Sau mỗi ca bay, dữ liệu được kiểm tra ngay tại hiện trường để kịp thời phát hiện và xử lý các nội dung cần bổ sung. Việc chuẩn hóa theo từng giai đoạn giúp hạn chế sai sót, nâng cao khả năng phối hợp và bảo đảm tính liên tục trong toàn bộ quá trình thực hiện nhiệm vụ.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_9_exact_3_E-gahYlP8r_kAEsFYEaU.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức huấn luyện nâng cao nghiệp vụ UAV, chuẩn hóa năng lực triển khai thực địa" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Chương trình tập trung chuẩn hóa quy trình từ lập kế hoạch, chuẩn bị Base/GCP đến triển khai và kiểm tra dữ liệu sau chuyến bay.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Củng cố kỹ năng thiết kế và tổ chức ca bay</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh quy trình phối hợp, chương trình dành thời lượng cho việc củng cố kiến thức về thiết kế ca bay theo yêu cầu kỹ thuật của từng dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đội ngũ được hướng dẫn xác định các thông số như độ cao bay, phạm vi một rank, vị trí Base và khoảng cách triển khai phù hợp với tỷ lệ bản đồ cũng như điều kiện địa hình thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Theo tài liệu huấn luyện, đối với bản đồ tỷ lệ 1/500, phương án tham khảo sử dụng độ cao bay khoảng 80–100 m, quy mô một rank không quá 250 ha và khoảng cách từ Base đến vị trí bay xa nhất không quá 1 km.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Với bản đồ tỷ lệ 1/2000, độ cao tham khảo khoảng 200–250 m, quy mô một rank từ 800–1.000 ha và khoảng cách Base tối đa khoảng 2,5 km trong điều kiện địa hình đồng bằng. Đối với phương án bay 3D phục vụ địa chính, độ cao tham khảo khoảng 50 m và quy mô một rank khoảng 15–20 ha.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các thông số trên được sử dụng làm cơ sở tham khảo và cần được điều chỉnh theo địa hình, yêu cầu kỹ thuật, tỷ lệ bản đồ và phương án cụ thể của từng dự án.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_9_exact_4_E-RezR_Afe_KULSB9lz5.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức huấn luyện nâng cao nghiệp vụ UAV, chuẩn hóa năng lực triển khai thực địa" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đội ngũ kỹ thuật củng cố kỹ năng thiết kế ca bay phù hợp với tỷ lệ bản đồ, địa hình và yêu cầu sản phẩm đầu ra.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tăng cường phối hợp giữa các vị trí trong tổ bay</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Chất lượng của một nhiệm vụ UAV không chỉ phụ thuộc vào kỹ năng của Pilot mà còn đến từ khả năng phối hợp giữa toàn bộ nhân sự tại hiện trường. Trong chương trình huấn luyện, nhiệm vụ của từng vị trí tiếp tục được làm rõ nhằm bảo đảm quá trình triển khai diễn ra đồng bộ.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Pilot chịu trách nhiệm vận hành UAV theo tuyến bay và thông số kỹ thuật đã được thiết lập, đồng thời theo dõi tình trạng chuyến bay. Trợ lý tổ bay hỗ trợ quan sát UAV, khu vực hoạt động, tình trạng pin, thiết bị và quá trình cất – hạ cánh. Thành viên đo điểm chịu trách nhiệm triển khai GCP, ghi nhận thông tin và bổ sung các điểm, chi tiết theo yêu cầu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trước mỗi chuyến bay, Pilot cần xác nhận đầy đủ các yếu tố liên quan đến GCP, ca bay, khu vực triển khai, UAV, pin, thẻ nhớ, thiết bị và vị trí cất – hạ cánh. Một trong những nguyên tắc được nhấn mạnh trong tài liệu huấn luyện là “đo hết mới bay”, ngoại trừ các trường hợp cần điều chỉnh linh hoạt theo điều kiện thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nâng cao năng lực phối hợp đa kíp trong các dự án quy mô lớn</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với những dự án có phạm vi triển khai lớn, nhiều tổ UAV có thể phải hoạt động trong cùng một khu vực. Khi đó, việc điều phối giữa các kíp bay trở thành yêu cầu đặc biệt quan trọng. Tại chương trình, đội ngũ kỹ thuật được huấn luyện về phương án phối hợp nhiều tổ bay, từ thống nhất khu vực, phân chia rank đến xác định thời gian hoạt động nhằm hạn chế giao cắt và chồng chéo.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Các Pilot và tổ trưởng phải duy trì liên lạc xuyên suốt quá trình triển khai. Trong trường hợp một tổ gặp sự cố về thiết bị hoặc nguồn lực, các tổ còn lại cần chủ động phối hợp, hỗ trợ pin và thiết bị khi cần thiết. Quy trình phối hợp đa kíp được xây dựng trên bốn nguyên tắc: an toàn, không chồng chéo, hỗ trợ lẫn nhau, tối ưu tiến độ.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Qua đó, chương trình không chỉ nâng cao năng lực vận hành của từng cá nhân mà còn chú trọng khả năng làm việc theo đội hình kỹ thuật, đặc biệt khi thực hiện các nhiệm vụ có phạm vi lớn và yêu cầu nhiều nguồn lực.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_9_exact_5_E-7bDkddKR_vtNw8LTiW.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức huấn luyện nâng cao nghiệp vụ UAV, chuẩn hóa năng lực triển khai thực địa" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nội dung phối hợp đa kíp giúp đội ngũ chủ động hơn khi triển khai các dự án có phạm vi lớn và nhiều tổ bay hoạt động đồng thời.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Kiểm soát chất lượng dữ liệu ngay tại hiện trường</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một nội dung quan trọng khác của chương trình là kiểm soát dữ liệu sau từng ca bay. Theo quy trình được huấn luyện, sau khi hoàn thành chuyến bay, đội ngũ cần kiểm tra nhanh dữ liệu, đối chiếu phạm vi thực hiện và các điểm đã triển khai trước khi rời khỏi khu vực. Nếu phát hiện thiếu ảnh, tổ bay phải tiến hành bay bổ sung. Trường hợp thiếu điểm, đội kỹ thuật thực hiện đo bổ sung và tiếp tục kiểm tra cho đến khi dữ liệu đáp ứng yêu cầu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nguyên tắc “không rời khu vực khi chưa xác nhận dữ liệu đạt yêu cầu” giúp hạn chế tình trạng phát hiện thiếu dữ liệu sau khi kết thúc công tác thực địa, qua đó giảm nguy cơ phát sinh thêm thời gian, nhân lực và chi phí để quay lại khu vực khảo sát. Sau khi dữ liệu được xác nhận, các file bay, file đo và nhật ký được tổng hợp, kiểm tra và chuẩn hóa cấu trúc thư mục trước khi sao lưu, tải lên hệ thống và lập báo cáo.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_9_exact_6_E-RTvJnyER_-u9YDYJdy.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức huấn luyện nâng cao nghiệp vụ UAV, chuẩn hóa năng lực triển khai thực địa" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Kiểm tra dữ liệu ngay tại hiện trường giúp phát hiện sớm các khu vực thiếu ảnh, thiếu điểm để kịp thời thực hiện bổ sung.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nâng cao năng lực kỹ thuật gắn với yêu cầu triển khai thực tế</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua chương trình huấn luyện ngày 17/08/2026, đội ngũ kỹ thuật của Trung tâm Đổi mới Sáng tạo Gia Lai được củng cố kiến thức và thống nhất quy trình triển khai UAV từ khâu chuẩn bị đến khi hoàn thành nhiệm vụ.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc tổ chức huấn luyện định kỳ không chỉ giúp nâng cao kỹ năng vận hành thiết bị mà còn hướng đến chuẩn hóa phương thức làm việc, tăng khả năng phối hợp và nâng cao chất lượng dữ liệu đầu ra. Đây là yếu tố đặc biệt quan trọng khi UAV ngày càng được ứng dụng trong các hoạt động khảo sát, đo đạc, thành lập bản đồ, xây dựng dữ liệu không gian và các dự án số hóa có quy mô lớn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Chương trình huấn luyện góp phần nâng cao nghiệp vụ và chuẩn hóa năng lực triển khai UAV của đội ngũ kỹ thuật Trung tâm Đổi mới Sáng tạo Gia Lai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với Trung tâm Đổi mới Sáng tạo Gia Lai, phát triển và ứng dụng công nghệ cần song hành với việc đầu tư cho con người, hoàn thiện quy trình và nâng cao tiêu chuẩn vận hành. Vì vậy, hoạt động đào tạo, chia sẻ kinh nghiệm và huấn luyện thực tế được chú trọng nhằm giúp đội ngũ kỹ thuật chủ động hơn trước những yêu cầu ngày càng cao của các dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Chương trình huấn luyện nâng cao nghiệp vụ UAV ngày 17/08/2026 là một trong những hoạt động góp phần củng cố năng lực chuyên môn, tăng cường khả năng phối hợp giữa các tổ kỹ thuật và chuẩn hóa quy trình kiểm soát chất lượng dữ liệu, tạo nền tảng phục vụ hiệu quả các nhiệm vụ khảo sát, số hóa và xây dựng cơ sở dữ liệu không gian trong thời gian tới.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_9_exact_1_E-Xhe84BQi_dcHIyCyKP.jpg',
+  '6a9a8755ead997d09a122e92',
+  'Đào tạo',
+  'huấn luyện nâng cao nghiệp vụ UAV, Trung tâm Đổi mới Sáng tạo Gia Lai, đào tạo UAV, tổ bay UAV, khảo sát UAV, đo đạc UAV, GCP, GIS, dữ liệu không gian, công nghệ UAV.',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức huấn luyện nâng cao nghiệp vụ UAV, chuẩn hóa năng lực triển khai thực địa | VDCD Gia Lai',
+  'Ngày 17/08/2026, Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức chương trình huấn luyện nâng cao nghiệp vụ UAV dành cho đội ngũ kỹ thuật. Chương trình tập trung củng cố kiến thức chuyên môn, chuẩn hóa quy trình phối hợp tổ bay và nâng cao năng lực triển ...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111110',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai: Đào tạo nhân sự trẻ từ kiến thức chuyên môn đến trải nghiệm thực tiễn',
+  'trung-tam-doi-moi-sang-tao-gia-lai-dao-tao-nhan-su-tre-tu-kien-thuc-chuyen-mon-den-trai-nghiem-thuc-',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại Trung tâm Đổi mới Sáng tạo Gia Lai, người trẻ không chỉ được tiếp cận kiến thức chuyên môn mà còn có cơ hội tham gia trực tiếp vào các dự án thực tế. Từ những sinh viên mới tốt nghiệp, chưa có nhiều kinh nghiệm, sau quá trình đào tạo và hướng dẫn bài bản, các nhân sự trẻ từng bước làm quen với nghiệp vụ, xử lý dữ liệu, làm việc tại hiện trường và nâng cao kỹ năng phối hợp trong môi trường dự án thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với nhiều sinh viên vừa tốt nghiệp, khoảng cách giữa kiến thức được học và yêu cầu thực tế của công việc là một trong những thử thách lớn nhất khi bắt đầu sự nghiệp.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một nhân sự có thể đã được trang bị kiến thức chuyên ngành nhưng vẫn cần thời gian để hiểu quy trình làm việc, cách tiếp nhận đầu bài, phối hợp với đồng đội và xử lý những tình huống phát sinh trong quá trình triển khai dự án.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại Trung tâm Đổi mới Sáng tạo Gia Lai, quá trình đào tạo được xây dựng theo hướng học đi đôi với làm, giúp nhân sự trẻ từng bước chuyển hóa kiến thức thành năng lực thực tế.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_10_exact_2_E-Dl87GKDp_ZdLtbSXvp.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai: Đào tạo nhân sự trẻ từ kiến thức chuyên môn đến trải nghiệm thực tiễn" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Nhân sự trẻ tại Trung tâm Đổi mới Sáng tạo Gia Lai được đào tạo trực tiếp và từng bước làm quen với quy trình công việc thực tế.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Từ sinh viên mới tốt nghiệp đến nhân sự có thể tham gia dự án</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với các vị trí phù hợp, kinh nghiệm không phải yếu tố duy nhất quyết định khả năng bắt đầu công việc.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Những bạn trẻ mới tốt nghiệp, chưa có nhiều trải nghiệm thực tế nhưng có thái độ nghiêm túc, tinh thần học hỏi và khả năng thích nghi vẫn có cơ hội được đào tạo từ những nghiệp vụ nền tảng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong những tuần đầu, nhân sự được hướng dẫn trực tiếp để làm quen với nghiệp vụ nội nghiệp, xử lý dữ liệu dự án và quy trình triển khai công việc.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Quá trình này giúp người mới hiểu không chỉ “cần làm gì” mà còn hiểu “vì sao phải làm như vậy”, dữ liệu mình xử lý phục vụ mục tiêu nào và kết quả của từng công đoạn sẽ ảnh hưởng đến các bước tiếp theo ra sao.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thay vì chỉ tiếp nhận kiến thức theo hình thức lý thuyết, nhân sự được tiếp xúc với đầu việc cụ thể và từng bước thực hành trên các nhiệm vụ thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Học từ chính dữ liệu và công việc của dự án</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những giá trị quan trọng của quá trình đào tạo tại Trung tâm là nhân sự trẻ được học thông qua dự án thật và dữ liệu thật.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc trực tiếp tham gia xử lý dữ liệu giúp người mới hiểu rõ hơn cách một dự án được tổ chức, cách thông tin được tiếp nhận, kiểm tra, xử lý và chuyển giao giữa các bộ phận.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Qua từng đầu việc, nhân sự từng bước hình thành tư duy làm việc có hệ thống, biết kiểm tra chất lượng đầu ra và chủ động hơn trong quá trình phối hợp.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây là những năng lực khó có thể hình thành đầy đủ nếu quá trình đào tạo chỉ diễn ra thông qua tài liệu hoặc mô phỏng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Không chỉ học trong văn phòng</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Quá trình đào tạo không dừng lại ở các nhiệm vụ nội nghiệp. Khi đã có nền tảng cần thiết, nhân sự trẻ có cơ hội theo chân đội ngũ kỹ thuật xuống hiện trường, quan sát cách một nhiệm vụ được triển khai và trực tiếp tham gia các công việc phù hợp.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại hiện trường, các bạn có điều kiện đối chiếu kiến thức đã được đào tạo với điều kiện thực tế, hiểu rõ hơn những khó khăn và yêu cầu phát sinh ngoài kế hoạch. Đây cũng là môi trường giúp nhân sự rèn luyện khả năng quan sát, thích nghi và phản ứng trước những tình huống không thể mô phỏng hoàn toàn trong phòng đào tạo. Mỗi chuyến đi thực địa vì vậy không chỉ là một nhiệm vụ công việc mà còn trở thành một phần của quá trình học tập và tích lũy kinh nghiệm.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_10_exact_3_E-35YsRjRi_lVOvQizAb.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai: Đào tạo nhân sự trẻ từ kiến thức chuyên môn đến trải nghiệm thực tiễn" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trải nghiệm tại hiện trường giúp nhân sự trẻ hiểu rõ hơn quy trình triển khai dự án và nâng cao khả năng xử lý công việc thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trực tiếp làm việc với UBND xã, phường và các đơn vị chuyên môn</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh kỹ năng chuyên môn, môi trường dự án còn giúp người trẻ tiếp cận những tình huống giao tiếp và phối hợp đa dạng hơn. Trong quá trình triển khai, nhân sự có cơ hội làm việc trực tiếp với cán bộ UBND xã, phường và phối hợp cùng các đơn vị chuyên môn.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây là trải nghiệm quan trọng đối với những người mới bắt đầu sự nghiệp. Người trẻ cần học cách trao đổi thông tin rõ ràng, tiếp nhận yêu cầu, báo cáo tiến độ và điều chỉnh cách giao tiếp phù hợp với từng đối tượng làm việc.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Những tình huống thực tế cũng giúp nhân sự hiểu rằng kỹ năng nghề nghiệp không chỉ nằm ở chuyên môn kỹ thuật mà còn bao gồm khả năng phối hợp, giao tiếp và truyền đạt thông tin hiệu quả.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Rèn luyện kỹ năng giao tiếp và xử lý tình huống</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Khi tham gia dự án thực tế, nhân sự không phải lúc nào cũng làm việc trong những điều kiện đã được chuẩn bị sẵn. Có những tình huống yêu cầu phải trao đổi trực tiếp với người dân, giải thích thông tin hoặc phối hợp với nhiều bên để hoàn thành nhiệm vụ.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua những trải nghiệm này, các bạn trẻ từng bước rèn luyện kỹ năng giao tiếp, làm việc nhóm, xử lý tình huống và khả năng truyền tải thông tin. Việc sở hữu kiến thức chuyên môn nhưng không thể diễn đạt rõ ràng hoặc phối hợp hiệu quả sẽ hạn chế rất nhiều khả năng triển khai công việc.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ngược lại, khi được trực tiếp thực hành trong môi trường thật, nhân sự có thể nhận ra điểm còn thiếu của mình và cải thiện nhanh hơn thông qua phản hồi từ đồng nghiệp, người hướng dẫn và chính những tình huống đã trải qua.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_10_exact_4_E-EF_TgYUW_X2O1YBfeF.jpg" alt="Trung tâm Đổi mới Sáng tạo Gia Lai: Đào tạo nhân sự trẻ từ kiến thức chuyên môn đến trải nghiệm thực tiễn" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Quá trình làm việc với cán bộ địa phương và người dân giúp nhân sự trẻ nâng cao khả năng giao tiếp và xử lý tình huống.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Được giao việc thật để trưởng thành thật</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những cách hiệu quả nhất để phát triển năng lực là được trao cơ hội thực hiện công việc có trách nhiệm.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại Trung tâm Đổi mới Sáng tạo Gia Lai, nhân sự trẻ không chỉ quan sát mà từng bước được giao những nhiệm vụ phù hợp với năng lực và quá trình đào tạo. Từ những công việc cơ bản đến các nhiệm vụ yêu cầu phối hợp và tự chủ cao hơn, mỗi giai đoạn đều tạo thêm kinh nghiệm thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Quá trình này giúp nhân sự hình thành ý thức về trách nhiệm, tiến độ, chất lượng đầu ra và vai trò của mình trong một dự án chung. Sự trưởng thành không diễn ra sau một buổi đào tạo mà hình thành qua nhiều lần thực hành, nhận phản hồi, sửa lỗi và tiếp tục đảm nhận những đầu việc mới.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Xây dựng nền tảng nghề nghiệp cho người trẻ</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với lao động vừa ra trường, những năm đầu tiên có ảnh hưởng rất lớn đến cách tư duy và phát triển nghề nghiệp sau này. Một môi trường có cơ hội được học hỏi, được hướng dẫn và được trải nghiệm thực tế giúp người trẻ rút ngắn đáng kể thời gian thích nghi với công việc.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Từ một sinh viên mới tốt nghiệp, chưa có nhiều kinh nghiệm, sau quá trình đào tạo và tham gia dự án, nhân sự có thể từng bước nâng cao kiến thức chuyên môn, khả năng xử lý dữ liệu, kỹ năng giao tiếp, làm việc nhóm và năng lực triển khai tại hiện trường. Đây cũng chính là giá trị của phương pháp “đào tạo thật – kinh nghiệm thật” mà Trung tâm hướng đến.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trung tâm hướng đến xây dựng môi trường để người trẻ vừa học chuyên môn, vừa tích lũy kinh nghiệm từ những dự án thực tế.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ở Trung tâm Đổi mới Sáng tạo Gia Lai, người trẻ được học từ dự án thật, được giao việc thật và trưởng thành từ chính những trải nghiệm thực tế. Thông qua việc kết hợp đào tạo trực tiếp với hoạt động triển khai dự án, Trung tâm hướng đến xây dựng đội ngũ không chỉ nắm vững nghiệp vụ mà còn có khả năng giao tiếp, phối hợp và thích nghi với nhiều môi trường làm việc khác nhau.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_10_exact_1_E-2FQVVKZ6_D3p9hfDB6.jpg',
+  '6a9a8768ead997d09a12a02a',
+  'Đào tạo',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai, đào tạo nhân sự trẻ, Trung tâm Đổi mới Sáng tạo Gia Lai, đào tạo thực tế, kinh nghiệm thực tế, việc làm cho sinh viên mới tốt nghiệp, phát triển nhân sự, đào tạo chuyên môn, kỹ năng mềm, tuyển dụng Gia Lai.',
+  'Trung tâm Đổi mới Sáng tạo Gia Lai: Đào tạo nhân sự trẻ từ kiến thức chuyên môn đến trải nghiệm thực tiễn | VDCD Gia Lai',
+  'Tại Trung tâm Đổi mới Sáng tạo Gia Lai, người trẻ không chỉ được tiếp cận kiến thức chuyên môn mà còn có cơ hội tham gia trực tiếp vào các dự án thực tế. Từ những sinh viên mới tốt nghiệp, chưa có nhiều kinh nghiệm, sau quá trình đào tạo và hướng dẫn...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
+
+INSERT INTO "article" (
+  "id", "title", "slug", "content", "thumbnail", "thumbnail_file_id",
+  "category", "tags", "meta_title", "meta_description",
+  "is_published", "published_at", "created_at", "updated_at"
+) VALUES (
+  '11111111-aaaa-4111-a111-111111111111',
+  'Tập huấn ứng dụng UAV trong xây dựng cơ sở dữ liệu địa chính tại xã Vân Canh',
+  'tap-huan-ung-dung-uav-trong-xay-dung-co-so-du-lieu-dia-chinh-tai-xa-van-canh',
+  '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Sáng ngày 28/8/2026, VDCD Group phối hợp cùng Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức buổi tập huấn tại UBND xã Vân Canh, tập trung giới thiệu quy trình ứng dụng công nghệ UAV trong thu thập, kiểm tra và xây dựng cơ sở dữ liệu địa chính. Chương trình hướng đến việc kết hợp công nghệ với nghiệp vụ thực tế tại địa phương, góp phần xây dựng dữ liệu đất đai theo tiêu chí “đúng, đủ, sạch, sống”, phục vụ công tác quản lý ngày càng đồng bộ và hiệu quả.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong quá trình chuyển đổi số lĩnh vực đất đai, một trong những yêu cầu quan trọng không chỉ là đưa thông tin lên môi trường số mà còn phải đảm bảo dữ liệu phản ánh sát hiện trạng, có khả năng kiểm tra, đối chiếu và thường xuyên cập nhật khi có biến động.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Để giải quyết bài toán này, việc thu thập dữ liệu ngoài thực địa cần được kết nối chặt chẽ với quá trình xử lý, quản lý và khai thác dữ liệu trên nền tảng số. UAV là một trong những công nghệ được giới thiệu tại chương trình nhằm hỗ trợ quá trình đó.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_11_exact_2_E-2kro5aeI_D4kBrMhEM.jpg" alt="Có thể là hình ảnh về văn bản" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">VDCD Group và Trung tâm Đổi mới Sáng tạo Gia Lai giới thiệu quy trình ứng dụng UAV trong xây dựng cơ sở dữ liệu địa chính tại UBND xã Vân Canh.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Đưa công nghệ UAV vào bài toán dữ liệu địa chính</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại buổi tập huấn, đại diện VDCD Group giới thiệu quy trình lập bản đồ địa chính bằng UAV, kết hợp hoạt động đối soát, quy chủ và xây dựng cơ sở dữ liệu địa chính. Thay vì xem UAV đơn thuần là một thiết bị bay chụp ảnh, nội dung chương trình đặt công nghệ này vào một quy trình dữ liệu hoàn chỉnh.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">UAV đảm nhiệm vai trò thu thập dữ liệu hiện trạng từ thực địa. Dữ liệu sau đó tiếp tục được xử lý, kiểm tra và tổ chức thành các lớp thông tin phục vụ công tác chuyên môn. Cách tiếp cận này giúp hình ảnh thu nhận ngoài thực địa không dừng lại ở tư liệu quan sát mà trở thành một phần đầu vào cho quá trình xây dựng bản đồ và cơ sở dữ liệu.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đặc biệt, dữ liệu trực quan từ UAV tạo thêm cơ sở để cán bộ chuyên môn kiểm tra, đối chiếu giữa thông tin hiện có và hiện trạng thực tế, từ đó hỗ trợ quá trình rà soát và cập nhật dữ liệu địa chính.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_11_exact_3_E-DU4gKMde_RlE_CJSNf0.jpg" alt="Có thể là hình ảnh về học tập và văn bản" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Quy trình ứng dụng UAV được trình bày theo hướng kết nối thu thập hiện trạng, đối soát, quy chủ và xây dựng cơ sở dữ liệu địa chính.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Công nghệ chỉ là bước đầu, đối soát thực tế mới hoàn thiện dữ liệu</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một trong những nội dung quan trọng được trao đổi tại chương trình là quy trình đối soát và vai trò của đầu mối tại địa phương. Đây cũng là điểm cho thấy xây dựng cơ sở dữ liệu địa chính không thể chỉ phụ thuộc vào công nghệ.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">UAV có thể hỗ trợ thu nhận hiện trạng trên phạm vi rộng và tạo ra nguồn dữ liệu trực quan, nhưng để dữ liệu có giá trị sử dụng, thông tin vẫn cần được kiểm tra và đối chiếu với hồ sơ, thực tế quản lý cũng như những thông tin liên quan tại địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Vì vậy, sự phối hợp giữa đơn vị công nghệ, cán bộ chuyên môn và chính quyền cơ sở là một phần quan trọng trong toàn bộ quá trình. Thông qua trao đổi trực tiếp tại UBND xã Vân Canh, các bên cùng làm rõ hơn cách thức triển khai tại địa phương: từ chuẩn bị thông tin ban đầu, ghi nhận hiện trạng đến kiểm tra, đối chiếu và cập nhật dữ liệu sau khi thu thập.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mối liên kết này giúp công nghệ được đặt đúng vào nghiệp vụ thực tế, thay vì triển khai một hệ thống số tách rời khỏi quá trình quản lý tại cơ sở.</p>
+<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_11_exact_4_E-Gqnj1py9_LkvNytnG_.jpg" alt="Có thể là hình ảnh về văn bản" class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /></figure>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hoạt động trao đổi giúp kết nối quy trình công nghệ với nghiệp vụ và điều kiện triển khai thực tế tại địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hướng đến cơ sở dữ liệu địa chính “đúng, đủ, sạch, sống”</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mục tiêu cuối cùng của quy trình không chỉ là tạo ra bản đồ số mà là góp phần hình thành cơ sở dữ liệu địa chính “đúng, đủ, sạch, sống”.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong đó, dữ liệu cần phản ánh đúng thông tin và hiện trạng; được bổ sung đầy đủ những thành phần cần thiết; hạn chế sai lệch, trùng lặp và thông tin không còn phù hợp; đồng thời có khả năng tiếp tục cập nhật khi thực tế thay đổi.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Yếu tố “sống” đặc biệt quan trọng. Một cơ sở dữ liệu dù được xây dựng đầy đủ tại một thời điểm nhưng không được cập nhật theo biến động thực tế sẽ dần mất đi giá trị sử dụng. Vì vậy, việc số hóa cần gắn với khả năng kiểm tra và cập nhật dữ liệu trong quá trình vận hành lâu dài.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">UAV góp phần hỗ trợ chu trình này thông qua khả năng ghi nhận hiện trạng và tạo dữ liệu trực quan. Khi kết hợp với quy trình đối soát tại địa phương và các nền tảng quản lý dữ liệu, thông tin có thể tiếp tục được rà soát, hoàn thiện và đưa vào khai thác.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Từ UAV đến một hệ sinh thái dữ liệu đồng bộ</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Tại chương trình, UAV không được giới thiệu như một công nghệ hoạt động độc lập mà nằm trong hệ sinh thái công nghệ phục vụ chuyển đổi số gồm UAV, GIS, AI, BIM, Data Center và Software.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Mỗi thành phần đảm nhiệm một mắt xích khác nhau trong dòng chảy dữ liệu. UAV thu thập dữ liệu hiện trường; GIS quản lý dữ liệu không gian số; AI hỗ trợ phân tích và xử lý dữ liệu thông minh. Dữ liệu sau đó có thể được lưu trữ tập trung thông qua Data Center và đưa vào các nền tảng Software phục vụ quản trị, điều hành và khai thác.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Như vậy, giá trị không nằm riêng ở một chuyến bay UAV hay một bản đồ được tạo ra, mà nằm ở khả năng đưa dữ liệu thực địa vào một chu trình:</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thu thập → Kiểm tra, đối soát → Xử lý → Lưu trữ → Quản lý → Cập nhật và khai thác.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây là cơ sở để dữ liệu địa chính từng bước được quản lý theo hướng tập trung và có khả năng phục vụ nhiều nghiệp vụ hơn trong quá trình chuyển đổi số.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hệ sinh thái công nghệ kết nối UAV, GIS, AI, BIM, Data Center và Software trong chuỗi thu thập, xử lý và khai thác dữ liệu.</p>
+<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Đưa giải pháp công nghệ đến gần hơn với nhu cầu tại cơ sở</h2>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Bên cạnh nội dung tập huấn, chương trình tại UBND xã Vân Canh còn là cơ hội để VDCD Group và Trung tâm Đổi mới Sáng tạo Gia Lai lắng nghe những yêu cầu và điều kiện triển khai thực tế từ cơ sở.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây là bước cần thiết bởi mỗi địa phương có đặc điểm hiện trạng, dữ liệu và yêu cầu quản lý khác nhau. Một quy trình công nghệ chỉ thực sự phát huy hiệu quả khi có thể thích nghi với nghiệp vụ thực tế và giải quyết được những vấn đề cụ thể của đơn vị sử dụng.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua trao đổi trực tiếp, những phản hồi từ cán bộ địa phương trở thành cơ sở để tiếp tục rà soát quy trình triển khai, nâng cao chất lượng dữ liệu và hoàn thiện phương thức phối hợp giữa đơn vị công nghệ với chính quyền cơ sở.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Qua đó, hoạt động chuyển đổi số không dừng lại ở việc đưa thêm công nghệ vào công tác quản lý, mà hướng đến xây dựng một quy trình trong đó công nghệ, dữ liệu và con người có thể phối hợp hiệu quả.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Từng bước hiện đại hóa công tác quản lý dữ liệu đất đai</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Buổi tập huấn ngày 28/8/2026 tại UBND xã Vân Canh góp phần giúp các bên hiểu rõ hơn vai trò và khả năng ứng dụng UAV trong quá trình thu thập hiện trạng, xây dựng bản đồ và hoàn thiện cơ sở dữ liệu địa chính.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đồng thời, chương trình cho thấy công nghệ chỉ phát huy đầy đủ giá trị khi được kết nối với quy trình nghiệp vụ, công tác đối soát và kinh nghiệm quản lý thực tế tại địa phương.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với Trung tâm Đổi mới Sáng tạo Gia Lai, việc phối hợp tổ chức các chương trình tập huấn tại cơ sở cũng là một phần trong định hướng đưa các giải pháp công nghệ đến gần hơn với nhu cầu thực tế, đồng thời tạo không gian để chính quyền địa phương, đơn vị chuyên môn và đội ngũ công nghệ cùng trao đổi, đánh giá và hoàn thiện phương án triển khai.</p>
+<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Từ UAV đến GIS, AI, Data Center và các nền tảng phần mềm, việc kết nối từng công nghệ trong một chuỗi dữ liệu thống nhất sẽ tạo thêm nền tảng để số hóa thông tin đất đai, nâng cao chất lượng cơ sở dữ liệu và hỗ trợ công tác quản lý theo hướng hiện đại, đồng bộ và hiệu quả hơn.</p>',
+  'https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_11_exact_1_E-AzInxAfL_XilXdsBwt.jpg',
+  '6a9a8778ead997d09a12f682',
+  'Đào tạo',
+  '',
+  'Tập huấn ứng dụng UAV trong xây dựng cơ sở dữ liệu địa chính tại xã Vân Canh | VDCD Gia Lai',
+  'Sáng ngày 28/8/2026, VDCD Group phối hợp cùng Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức buổi tập huấn tại UBND xã Vân Canh, tập trung giới thiệu quy trình ứng dụng công nghệ UAV trong thu thập, kiểm tra và xây dựng cơ sở dữ liệu địa chính. Chương tr...',
+  true,
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z',
+  '2026-08-20T08:00:00.000Z'
+) ON CONFLICT ("id") DO UPDATE SET
+  "title" = EXCLUDED."title",
+  "slug" = EXCLUDED."slug",
+  "content" = EXCLUDED."content",
+  "thumbnail" = EXCLUDED."thumbnail",
+  "thumbnail_file_id" = EXCLUDED."thumbnail_file_id",
+  "category" = EXCLUDED."category",
+  "tags" = EXCLUDED."tags",
+  "meta_title" = EXCLUDED."meta_title",
+  "meta_description" = EXCLUDED."meta_description",
+  "is_published" = EXCLUDED."is_published",
+  "published_at" = EXCLUDED."published_at",
+  "updated_at" = NOW();
 
 COMMIT;
 

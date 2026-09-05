@@ -17,6 +17,7 @@ import { UploadTemp } from '../../modules/upload/entities/upload-temp.entity';
 import { Lead } from '../../modules/lead/entities/lead.entity';
 import { Partner } from '../../modules/partner/entities/partner.entity';
 import { PageBanner } from '../../modules/page-banner/entities/page-banner.entity';
+import { convertHtmlToBlocks } from '../../modules/article/utils/html-to-blocks.util';
 import { PROJECTS_DATA } from './project.data';
 
 dotenv.config({ path: '.env.development' });
@@ -1163,7 +1164,7 @@ async function seed() {
         return articleRepo.create({
           title: a.title,
           slug: a.slug,
-          content: a.content,
+          content: convertHtmlToBlocks(a.content),
           thumbnail: `https://picsum.photos/seed/${a.slug}/800/500`,
           thumbnailFileId: `article-thumb-${a.slug}`,
           category: a.category,

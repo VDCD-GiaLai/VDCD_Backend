@@ -3,12 +3,14 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Patch,
   Delete,
   Param,
   Query,
   Body,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -51,12 +53,12 @@ export class ArticleController {
   }
 
   @Get('all')
-  @Roles('superadmin', 'editor')
+  @Roles('superadmin', 'editor', 'viewer')
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'Get all articles (Admin)',
     description:
-      'Retrieve a paginated list of all articles (including drafts). Restricted to superadmin and editor.',
+      'Retrieve a paginated list of all articles (including drafts). Restricted to superadmin, editor, and viewer.',
   })
   @ApiResponse({
     status: 200,
@@ -66,22 +68,45 @@ export class ArticleController {
     return this.service.findAllAdmin(dto);
   }
 
-  @Public()
-  @Get(':slug')
+  @Get('admin/:id')
+  @Roles('superadmin', 'editor', 'viewer')
+  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Get article by slug',
+    summary: 'Get article by ID (Admin)',
     description:
-      'Retrieve details of a single article by its slug. Public access.',
+      'Retrieve full article details by ID, including drafts and content blocks. Restricted to superadmin, editor, and viewer.',
   })
-  @ApiParam({ name: 'slug', description: 'The unique slug of the article' })
+  @ApiParam({ name: 'id', description: 'The UUID of the article' })
   @ApiResponse({
     status: 200,
     description: 'Article retrieved successfully.',
     type: Article,
   })
   @ApiResponse({ status: 404, description: 'Article not found.' })
-  findOne(@Param('slug') slug: string) {
-    return this.service.findOneBySlug(slug);
+  findById(@Param('id') id: string) {
+    return this.service.findById(id);
+  }
+
+  @Public()
+  @Get(':slug')
+  @ApiOperation({
+    summary: 'Get article by slug or ID',
+    description:
+      'Retrieve details of a single article by its slug or UUID. Public access for published articles, authenticated access for drafts.',
+  })
+  @ApiParam({
+    name: 'slug',
+    description: 'The unique slug or UUID of the article',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Article retrieved successfully.',
+    type: Article,
+  })
+  @ApiResponse({ status: 404, description: 'Article not found.' })
+  findOne(@Param('slug') slug: string, @Request() req: any) {
+    const isAdmin = Boolean(req?.user);
+    return this.service.findOneBySlug(slug, isAdmin);
   }
 
   @Post()
@@ -100,6 +125,27 @@ export class ArticleController {
   @ApiResponse({ status: 409, description: 'Slug already exists.' })
   create(@Body() dto: CreateArticleDto) {
     return this.service.create(dto);
+  }
+
+  @Put(':id')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Update an article (PUT)',
+    description:
+      'Update article details by ID. Restricted to superadmin and editor.',
+  })
+  @ApiParam({ name: 'id', description: 'The ID of the article to update' })
+  @ApiBody({ type: UpdateArticleDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Article updated successfully.',
+    type: Article,
+  })
+  @ApiResponse({ status: 404, description: 'Article not found.' })
+  @ApiResponse({ status: 409, description: 'Slug already exists.' })
+  updatePut(@Param('id') id: string, @Body() dto: UpdateArticleDto) {
+    return this.service.update(id, dto);
   }
 
   @Patch(':id')
@@ -129,7 +175,7 @@ export class ArticleController {
   @ApiOperation({
     summary: 'Toggle article publish status',
     description:
-      'Publish or unpublish an article by ID. Restricted to superadmin and editor.',
+      'Publish or unpublish an article by ID. Validates title & content. Restricted to superadmin and editor.',
   })
   @ApiParam({ name: 'id', description: 'The ID of the article' })
   @ApiBody({ type: TogglePublishDto })
@@ -137,6 +183,10 @@ export class ArticleController {
     status: 200,
     description: 'Article publication status toggled successfully.',
     type: Article,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Cannot publish without title or content.',
   })
   @ApiResponse({ status: 404, description: 'Article not found.' })
   togglePublish(@Param('id') id: string, @Body() dto: TogglePublishDto) {
@@ -149,7 +199,7 @@ export class ArticleController {
   @ApiOperation({
     summary: 'Delete an article',
     description:
-      'Permanently delete an article by ID. Restricted to superadmin.',
+      'Permanently delete an article by ID and clean up images. Restricted to superadmin.',
   })
   @ApiParam({ name: 'id', description: 'The ID of the article to delete' })
   @ApiResponse({ status: 200, description: 'Article deleted successfully.' })

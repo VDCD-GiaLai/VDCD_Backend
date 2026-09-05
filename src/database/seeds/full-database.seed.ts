@@ -2,7 +2,7 @@
 /**
  * VDCD Full Database Seeding Script (Independent)
  * Generated at: 2026-09-03T16:01:24.201Z
- * Total tables: 16 | Total records: 183
+ * Total tables: 16 | Total records: 182
  */
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
@@ -87,7 +87,7 @@ async function run() {
     console.log('📊 Summary:');
     console.log('   - admin_user          : 3 rows');
     console.log('   - organization        : 1 rows');
-    console.log('   - operation_field     : 6 rows');
+    console.log('   - operation_field     : 11 rows');
     console.log('   - province            : 14 rows');
     console.log('   - partner             : 22 rows');
     console.log('   - job                 : 6 rows');
@@ -95,12 +95,12 @@ async function run() {
     console.log('   - contact             : 0 rows');
     console.log('   - page_banner         : 7 rows');
     console.log('   - slide               : 5 rows');
-    console.log('   - program             : 11 rows');
+    console.log('   - program             : 5 rows');
     console.log('   - solution            : 19 rows');
     console.log('   - project             : 16 rows');
     console.log('   - slide_detail_blog   : 1 rows');
     console.log('   - project_image       : 54 rows');
-    console.log('   - article             : 10 rows');
+    console.log('   - article             : 11 rows');
   } catch (error) {
     console.error('❌ Seeding failed:', error);
     throw error;
