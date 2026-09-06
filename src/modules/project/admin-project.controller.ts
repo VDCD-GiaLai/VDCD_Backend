@@ -1,8 +1,8 @@
-// src/modules/project/project.controller.ts
 import {
   Controller,
   Get,
   Post,
+  Put,
   Patch,
   Delete,
   Param,
@@ -10,76 +10,69 @@ import {
   Body,
   UseGuards,
   UseInterceptors,
+  UploadedFile,
   UploadedFiles,
   Req,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RolesGuard } from '../../common/guards/roles.guard';
-import { Public } from '../../common/decorators/public.decorator';
-import { Roles } from '../../common/decorators/roles.decorator';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiParam,
   ApiBody,
+  ApiBearerAuth,
   ApiConsumes,
 } from '@nestjs/swagger';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 import { ProjectService } from './project.service';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../../common/guards/roles.guard';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { Project } from './entities/project.entity';
+import { ProjectImage } from './entities/project-image.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectFilterDto } from './dto/project-filter.dto';
+import { TogglePublishDto } from './dto/toggle-publish.dto';
 import { AddImagesDto } from './dto/add-images.dto';
 import { ReorderImagesDto } from './dto/reorder-images.dto';
-import { UpdateProjectImageDto } from './dto/update-project-image.dto';
-import { TogglePublishDto } from './dto/toggle-publish.dto';
-import { Project } from './entities/project.entity';
-import { ProjectImage } from './entities/project-image.entity';
-import { FilesInterceptor } from '@nestjs/platform-express';
-import { memoryStorage } from 'multer';
+import { FileUploadDto } from '../upload/dto/file-upload.dto';
 
-@ApiTags('Projects')
-@Controller('projects')
+const memoryUpload = () =>
+  FileInterceptor('file', {
+    storage: memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 },
+  });
+
+@ApiTags('Admin Projects')
+@Controller('admin/projects')
 @UseGuards(JwtAuthGuard, RolesGuard)
-export class ProjectController {
+@ApiBearerAuth()
+export class AdminProjectController {
   constructor(private readonly service: ProjectService) {}
 
-  @Public()
   @Get()
-  @ApiOperation({
-    summary: 'Get list of published projects',
-    description:
-      'Retrieve a list of public/published projects with pagination and optional filtering.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Published projects retrieved successfully.',
-  })
-  findAll(@Query() dto: ProjectFilterDto) {
-    return this.service.findAll(dto);
-  }
-
-  @Get('all')
   @Roles('superadmin', 'editor', 'viewer')
   @ApiOperation({
-    summary: 'Get list of all projects (Admin)',
+    summary: 'Get all projects (Admin)',
     description:
-      'Retrieve a list of all projects (published and unpublished) with filtering. Restricted to superadmin, editor, and viewer.',
+      'Retrieve a list of all projects (including drafts) with filtering and pagination. Accessible by superadmin, editor, and viewer.',
   })
   @ApiResponse({
     status: 200,
     description: 'All projects retrieved successfully.',
   })
-  findAllAdmin(@Query() dto: ProjectFilterDto) {
+  findAll(@Query() dto: ProjectFilterDto) {
     return this.service.findAllAdmin(dto);
   }
 
-  @Get('admin/:id')
+  @Get(':id')
   @Roles('superadmin', 'editor', 'viewer')
   @ApiOperation({
     summary: 'Get project details by ID (Admin)',
     description:
-      'Retrieve project details by ID regardless of publish status. Accessible by superadmin, editor, and viewer.',
+      'Retrieve full project details by ID regardless of publish status. Accessible by superadmin, editor, and viewer.',
   })
   @ApiParam({ name: 'id', description: 'The UUID of the project' })
   @ApiResponse({
@@ -88,34 +81,14 @@ export class ProjectController {
     type: Project,
   })
   @ApiResponse({ status: 404, description: 'Project not found.' })
-  findOneAdmin(@Param('id') id: string) {
+  findOne(@Param('id') id: string) {
     return this.service.findById(id);
-  }
-
-  @Public()
-  @Get(':slug')
-  @ApiOperation({
-    summary: 'Get project by slug',
-    description:
-      'Retrieve project details and related articles/projects by slug. Public access.',
-  })
-  @ApiParam({
-    name: 'slug',
-    description: 'The unique slug or ID of the project',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Project details retrieved successfully.',
-  })
-  @ApiResponse({ status: 404, description: 'Project not found.' })
-  findOne(@Param('slug') slug: string) {
-    return this.service.findOneBySlug(slug);
   }
 
   @Post()
   @Roles('superadmin', 'editor')
   @ApiOperation({
-    summary: 'Create a new project',
+    summary: 'Create a project (Admin)',
     description:
       'Create a new project record supporting unified Document Model. Restricted to superadmin and editor.',
   })
@@ -125,19 +98,37 @@ export class ProjectController {
     description: 'Project created successfully.',
     type: Project,
   })
-  @ApiResponse({ status: 409, description: 'Slug already exists.' })
   create(@Body() dto: CreateProjectDto) {
     return this.service.create(dto);
+  }
+
+  @Put(':id')
+  @Roles('superadmin', 'editor')
+  @ApiOperation({
+    summary: 'Replace/update a project (Admin)',
+    description:
+      'Full update of project details by ID. Supports Document Model content. Restricted to superadmin and editor.',
+  })
+  @ApiParam({ name: 'id', description: 'The ID of the project to update' })
+  @ApiBody({ type: UpdateProjectDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Project updated successfully.',
+    type: Project,
+  })
+  @ApiResponse({ status: 404, description: 'Project not found.' })
+  replace(@Param('id') id: string, @Body() dto: UpdateProjectDto) {
+    return this.service.update(id, dto);
   }
 
   @Patch(':id')
   @Roles('superadmin', 'editor')
   @ApiOperation({
-    summary: 'Update an existing project',
+    summary: 'Partial update of a project (Admin)',
     description:
-      'Update project details by ID. Supports updating document content via { "content": { "version": 1, "blocks": [] } }. Restricted to superadmin and editor.',
+      'Update project details by ID. Supports patching content via { "content": { "version": 1, "blocks": [] } }. Restricted to superadmin and editor.',
   })
-  @ApiParam({ name: 'id', description: 'The ID of the project' })
+  @ApiParam({ name: 'id', description: 'The ID of the project to update' })
   @ApiBody({ type: UpdateProjectDto })
   @ApiResponse({
     status: 200,
@@ -152,16 +143,17 @@ export class ProjectController {
   @Patch(':id/publish')
   @Roles('superadmin', 'editor')
   @ApiOperation({
-    summary: 'Toggle project publish status',
+    summary: 'Toggle project publish status (Admin)',
     description:
-      'Change the isPublished status of a project. Restricted to superadmin and editor.',
+      'Publish or unpublish a project by ID. Restricted to superadmin and editor.',
   })
   @ApiParam({ name: 'id', description: 'The ID of the project' })
   @ApiBody({ type: TogglePublishDto })
   @ApiResponse({
     status: 200,
-    description: 'Publish status toggled successfully.',
+    description: 'Project publish status toggled successfully.',
   })
+  @ApiResponse({ status: 404, description: 'Project not found.' })
   togglePublish(@Param('id') id: string, @Body() dto: TogglePublishDto) {
     return this.service.togglePublish(id, dto.isPublished);
   }
@@ -169,15 +161,42 @@ export class ProjectController {
   @Delete(':id')
   @Roles('superadmin')
   @ApiOperation({
-    summary: 'Delete a project',
+    summary: 'Delete a project (Admin)',
     description:
-      'Permanently delete a project by ID and cleanup associated ImageKit media. Restricted to superadmin.',
+      'Permanently delete a project by ID and cleanup ImageKit media. Restricted to superadmin.',
   })
   @ApiParam({ name: 'id', description: 'The ID of the project to delete' })
-  @ApiResponse({ status: 200, description: 'Project deleted successfully.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Project deleted successfully.',
+  })
   @ApiResponse({ status: 404, description: 'Project not found.' })
   remove(@Param('id') id: string) {
     return this.service.remove(id);
+  }
+
+  @Post(':id/upload-image')
+  @Roles('superadmin', 'editor')
+  @UseInterceptors(memoryUpload())
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({
+    summary: 'Upload single image for project (Admin)',
+    description:
+      'Uploads an image for a project by ID. Destination folder is resolved strictly server-side (/vdcd/projects/{slug}). Client cannot specify folder.',
+  })
+  @ApiParam({ name: 'id', description: 'The UUID of the project' })
+  @ApiBody({ type: FileUploadDto })
+  @ApiResponse({
+    status: 201,
+    description: 'Image uploaded successfully.',
+  })
+  @ApiResponse({ status: 404, description: 'Project not found.' })
+  uploadImage(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Req() req: any,
+  ) {
+    return this.service.uploadImageForProject(id, file, req?.user?.id);
   }
 
   @Post(':id/images')
@@ -185,11 +204,11 @@ export class ProjectController {
   @UseInterceptors(FilesInterceptor('files', 20, { storage: memoryStorage() }))
   @ApiConsumes('multipart/form-data')
   @ApiOperation({
-    summary: 'Add images to a project',
+    summary: 'Add images to project gallery (Admin)',
     description:
-      'Add multiple images to a project gallery. Restricted to superadmin and editor.',
+      'Upload multiple images to project gallery resolving folder strictly via project ID -> slug. Restricted to superadmin and editor.',
   })
-  @ApiParam({ name: 'id', description: 'The ID of the project' })
+  @ApiParam({ name: 'id', description: 'The UUID of the project' })
   @ApiBody({ type: AddImagesDto })
   @ApiResponse({
     status: 201,
@@ -221,7 +240,7 @@ export class ProjectController {
   @Patch(':id/images/reorder')
   @Roles('superadmin', 'editor')
   @ApiOperation({
-    summary: 'Reorder project images',
+    summary: 'Reorder project images (Admin)',
     description:
       'Reorder the display positions of project gallery images. Restricted to superadmin and editor.',
   })
@@ -232,29 +251,10 @@ export class ProjectController {
     return this.service.reorderImages(id, dto.items);
   }
 
-  @Patch(':id/images/:imageId')
-  @Roles('superadmin', 'editor')
-  @ApiOperation({
-    summary: 'Update project image metadata',
-    description:
-      'Update caption or display size of a project image. Restricted to superadmin and editor.',
-  })
-  @ApiParam({ name: 'id', description: 'The ID of the project' })
-  @ApiParam({ name: 'imageId', description: 'The ID of the image to update' })
-  @ApiBody({ type: UpdateProjectImageDto })
-  @ApiResponse({ status: 200, description: 'Image updated successfully.' })
-  @ApiResponse({ status: 404, description: 'Image not found.' })
-  updateImage(
-    @Param('imageId') imageId: string,
-    @Body() dto: UpdateProjectImageDto,
-  ) {
-    return this.service.updateImage(imageId, dto);
-  }
-
   @Delete(':id/images/:imageId')
   @Roles('superadmin', 'editor')
   @ApiOperation({
-    summary: 'Remove image from a project',
+    summary: 'Remove image from project gallery (Admin)',
     description:
       'Remove a specific image by its ID. Restricted to superadmin and editor.',
   })

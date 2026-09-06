@@ -479,4 +479,76 @@ describe('DocumentContent Validator (Phase 04)', () => {
       expect(ids).toEqual(['fid-1', 'mid-2', 'fid-sec-1']);
     });
   });
+
+  // ── 8. Phase 02 Shared Model: Spacing & HeroMeta ─────────────────
+  describe('Phase 02 Shared Document Model: Spacing & HeroMeta', () => {
+    it('should validate document with heroMeta and block spacing', () => {
+      const doc = {
+        version: 1,
+        heroMeta: {
+          placement: 'between_title_desc',
+          position: 'center',
+          caption: 'Ảnh đại diện dự án VDCD',
+        },
+        blocks: [
+          {
+            id: 'h-1',
+            type: 'heading',
+            level: 2,
+            text: 'Tổng quan giải pháp & dự án',
+            spacing: { marginTop: 24, marginBottom: 16 },
+          },
+          {
+            id: 'p-1',
+            type: 'paragraph',
+            text: 'Nội dung mô tả chi tiết dự án thực tế.',
+            spacing: { marginTop: 8, marginBottom: 16 },
+          },
+          {
+            id: 'img-1',
+            type: 'image',
+            url: 'https://ik.imagekit.io/vdcd/projects/lotte-mall/cover.webp',
+            fileId: 'fid-lotte-1',
+            alt: 'Lotte Mall Project',
+            caption: 'Toàn cảnh dự án',
+            spacing: { marginTop: 20, marginBottom: 20 },
+          },
+        ],
+      };
+
+      const validated = validateDocumentContent(doc);
+      expect(validated.heroMeta?.placement).toBe('between_title_desc');
+      expect(validated.blocks[0].spacing?.marginTop).toBe(24);
+    });
+
+    it('should reject invalid heroMeta placement', () => {
+      const doc = {
+        version: 1,
+        heroMeta: {
+          placement: 'invalid_placement',
+        },
+        blocks: [],
+      };
+      expect(() => validateDocumentContent(doc)).toThrow(
+        'heroMeta.placement không hợp lệ',
+      );
+    });
+
+    it('should reject negative block spacing values', () => {
+      const doc = {
+        version: 1,
+        blocks: [
+          {
+            id: 'p-neg',
+            type: 'paragraph',
+            text: 'Test',
+            spacing: { marginTop: -10 },
+          },
+        ],
+      };
+      expect(() => validateDocumentContent(doc)).toThrow(
+        'blocks[0].spacing.marginTop phải là số không âm',
+      );
+    });
+  });
 });
