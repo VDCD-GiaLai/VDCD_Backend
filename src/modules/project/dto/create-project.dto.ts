@@ -38,8 +38,43 @@ export class CreateProjectDto {
   slug?: string;
 
   @ApiPropertyOptional({
+    example: 'project-temp-8f9a2b',
+    description:
+      'Temporary folder key used when uploading images before slug was created',
+  })
+  @IsOptional()
+  @IsString()
+  tempFolderKey?: string;
+
+  @ApiPropertyOptional({
+    example: {
+      version: 1,
+      blocks: [
+        {
+          id: 'blk-sec-overview-1',
+          type: 'section',
+          number: '01',
+          title: 'Tổng quan',
+          children: [
+            {
+              id: 'blk-ovw-p-1',
+              type: 'paragraph',
+              text: 'Nội dung tổng quan dự án...',
+            },
+          ],
+        },
+      ],
+    },
+    description:
+      'Block-based structured JSON document content (DocumentContent / BlogDocument). Validated by document-content validator.',
+  })
+  @IsOptional()
+  content?: Record<string, unknown>;
+
+  /** @deprecated Use content document model */
+  @ApiPropertyOptional({
     example: 'Overview of the project...',
-    description: 'Overview description of the project (HTML)',
+    description: 'Overview description of the project (Legacy HTML)',
   })
   @IsOptional()
   @IsString()

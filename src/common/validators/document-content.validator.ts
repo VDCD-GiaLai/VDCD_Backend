@@ -74,6 +74,11 @@ export function validateDocumentContent(
     throw new BadRequestException('Content phải có field "blocks" là array');
   }
 
+  // heroMeta (optional)
+  if (obj.heroMeta !== undefined && obj.heroMeta !== null) {
+    validateHeroMeta(obj.heroMeta, 'heroMeta');
+  }
+
   const seenIds = new Set<string>();
 
   for (let i = 0; i < obj.blocks.length; i++) {
@@ -113,6 +118,11 @@ function validateBlock(
   // Common: type
   if (typeof b.type !== 'string') {
     throw new BadRequestException(`${path}: Block phải có "type" là string`);
+  }
+
+  // Common: spacing (optional)
+  if (b.spacing !== undefined && b.spacing !== null) {
+    validateBlockSpacing(b.spacing, `${path}.spacing`);
   }
 
   const allowedTypes = isChild ? SECTION_CHILD_BLOCK_TYPES : BLOCK_TYPES;
@@ -466,4 +476,50 @@ export function extractImageFileIds(content: DocumentContent): string[] {
   }
 
   return fileIds;
+}
+
+// ── 9. Block Spacing Validation ──────────────────────────────────
+function validateBlockSpacing(spacing: unknown, path: string): void {
+  if (!spacing || typeof spacing !== 'object' || Array.isArray(spacing)) {
+    throw new BadRequestException(`${path}: spacing phải là object`);
+  }
+  const s = spacing as Record<string, unknown>;
+  if (s.marginTop !== undefined && s.marginTop !== null) {
+    if (typeof s.marginTop !== 'number' || s.marginTop < 0) {
+      throw new BadRequestException(`${path}.marginTop phải là số không âm`);
+    }
+  }
+  if (s.marginBottom !== undefined && s.marginBottom !== null) {
+    if (typeof s.marginBottom !== 'number' || s.marginBottom < 0) {
+      throw new BadRequestException(`${path}.marginBottom phải là số không âm`);
+    }
+  }
+}
+
+// ── 10. Hero Meta Validation ─────────────────────────────────────
+function validateHeroMeta(heroMeta: unknown, path: string): void {
+  if (!heroMeta || typeof heroMeta !== 'object' || Array.isArray(heroMeta)) {
+    throw new BadRequestException(`${path}: heroMeta phải là object`);
+  }
+  const h = heroMeta as Record<string, unknown>;
+  if (h.placement !== undefined && h.placement !== null) {
+    if (
+      !['above_title', 'between_title_desc', 'below_desc'].includes(
+        h.placement as string,
+      )
+    ) {
+      throw new BadRequestException(`${path}.placement không hợp lệ`);
+    }
+  }
+  if (h.position !== undefined && h.position !== null) {
+    if (!['top', 'center', 'bottom'].includes(h.position as string)) {
+      throw new BadRequestException(`${path}.position không hợp lệ`);
+    }
+  }
+  if (h.caption !== undefined && h.caption !== null) {
+    if (typeof h.caption !== 'string') {
+      throw new BadRequestException(`${path}.caption phải là string`);
+    }
+    assertSafeText(h.caption, `${path}.caption`);
+  }
 }

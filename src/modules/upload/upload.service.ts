@@ -2,10 +2,12 @@ import {
   Injectable,
   BadRequestException,
   InternalServerErrorException,
+  NotFoundException,
+  Optional,
   Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, LessThan } from 'typeorm';
+import { Repository, DataSource, LessThan } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import ImageKit from 'imagekit';
 import slugify from 'slugify';
@@ -51,6 +53,8 @@ export class UploadService {
     @InjectRepository(UploadTemp)
     private readonly uploadTempRepo: Repository<UploadTemp>,
     private readonly config: ConfigService,
+    @Optional()
+    private readonly dataSource?: DataSource,
   ) {
     this.imagekit = new ImageKit({
       publicKey: config.getOrThrow<string>('imagekit.publicKey'),
@@ -78,8 +82,61 @@ export class UploadService {
     return this.uploadImage(file, 'thumbnails', uploadedBy);
   }
 
-  async uploadProjectImage(file: Express.Multer.File, uploadedBy?: string) {
-    return this.uploadImage(file, 'projects', uploadedBy);
+  /**
+   * Upload a project image (thumbnail, gallery, or content block image) to ImageKit.
+   * Server strictly enforces folder structure: /vdcd/projects/{slug-or-stable-key}.
+   * Backend is the sole source of truth:
+   *  - If a UUID is provided (projectId), it queries the DB to resolve project.slug.
+   *    If project is not found, throws NotFoundException.
+   *  - If a slug is provided, it is strictly sanitized to prevent traversal.
+   *  - If missing, a stable random session key (project-{random8}) is generated.
+   * Client folder overrides or arbitrary path traversal are stripped and forbidden.
+   */
+  async uploadProjectImage(
+    file: Express.Multer.File,
+    uploadedBy?: string,
+    keyOrSlugOrProjectId?: string,
+  ): Promise<UploadResult> {
+    let cleanKey = '';
+
+    if (keyOrSlugOrProjectId && typeof keyOrSlugOrProjectId === 'string') {
+      const trimmed = keyOrSlugOrProjectId.trim();
+      const isUuid =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+          trimmed,
+        );
+
+      if (isUuid) {
+        if (this.dataSource?.query) {
+          const rows = await this.dataSource.query(
+            `SELECT id, slug FROM "project" WHERE "id" = $1 LIMIT 1`,
+            [trimmed],
+          );
+          if (!rows || rows.length === 0) {
+            throw new NotFoundException(
+              `Không tìm thấy dự án với ID cung cấp: ${trimmed}`,
+            );
+          }
+          cleanKey = rows[0].slug;
+        } else {
+          cleanKey = trimmed;
+        }
+      } else {
+        // Path traversal, directory separator, or empty protection
+        cleanKey = this.sanitizeSubfolder(trimmed);
+        cleanKey = cleanKey
+          .replace(/\.\./g, '')
+          .replace(/^\/+|\/+$/g, '')
+          .replace(/\//g, '-')
+          .trim();
+      }
+    }
+
+    if (!cleanKey) {
+      cleanKey = `project-${randomUUID().replace(/-/g, '').slice(0, 8)}`;
+    }
+    const folder = `projects/${cleanKey}`;
+    return this.uploadImage(file, folder, uploadedBy);
   }
 
   /**
@@ -178,6 +235,59 @@ export class UploadService {
     }
     const folder = `solutions/${cleanKey}`;
     return this.uploadImage(file, folder, uploadedBy);
+  }
+
+  /**
+   * Safely rename a folder on ImageKit using their Bulk Job API:
+   * POST https://api.imagekit.io/v1/bulkJobs/renameFolder
+   * Non-blocking error handling with boolean result for safe fallback.
+   */
+  async renameFolder(
+    folderPath: string,
+    newFolderName: string,
+    purgeCache = true,
+  ): Promise<boolean> {
+    try {
+      const privateKey = this.config.getOrThrow<string>('imagekit.privateKey');
+      const authHeader =
+        'Basic ' + Buffer.from(privateKey + ':').toString('base64');
+
+      const response = await fetch(
+        'https://api.imagekit.io/v1/bulkJobs/renameFolder',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: authHeader,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            folderPath,
+            newFolderName,
+            purgeCache,
+          }),
+        },
+      );
+
+      if (response.ok) {
+        const data = (await response.json()) as { jobId?: string };
+        this.logger.log(
+          `Renamed ImageKit folder from ${folderPath} to ${newFolderName} (jobId: ${data?.jobId})`,
+        );
+        return true;
+      }
+
+      const errorText = await response.text();
+      this.logger.warn(
+        `Failed to rename ImageKit folder ${folderPath} to ${newFolderName}: HTTP ${response.status} ${errorText}. Fallback: existing URLs remain intact.`,
+      );
+      return false;
+    } catch (err) {
+      this.logger.warn(
+        `Failed to rename ImageKit folder from ${folderPath} to ${newFolderName}. Fallback: existing URLs remain intact.`,
+        err,
+      );
+      return false;
+    }
   }
 
   /**

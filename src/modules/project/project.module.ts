@@ -5,7 +5,9 @@ import { Project } from './entities/project.entity';
 import { ProjectImage } from './entities/project-image.entity';
 import { Article } from '../article/entities/article.entity';
 import { ProjectService } from './project.service';
+import { ProjectRepository } from './repositories/project.repository';
 import { ProjectController } from './project.controller';
+import { AdminProjectController } from './admin-project.controller';
 import { UploadModule } from '../upload/upload.module';
 
 @Module({
@@ -13,8 +15,8 @@ import { UploadModule } from '../upload/upload.module';
     TypeOrmModule.forFeature([Project, ProjectImage, Article]),
     UploadModule,
   ],
-  providers: [ProjectService],
-  controllers: [ProjectController],
-  exports: [ProjectService],
+  providers: [ProjectService, ProjectRepository],
+  controllers: [ProjectController, AdminProjectController],
+  exports: [ProjectService, ProjectRepository],
 })
 export class ProjectModule {}

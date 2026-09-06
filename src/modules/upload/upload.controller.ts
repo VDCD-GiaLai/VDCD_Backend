@@ -106,25 +106,118 @@ export class UploadController {
   @ApiBearerAuth()
   @UseInterceptors(memoryUpload())
   @ApiOperation({
-    summary: 'Upload project image',
+    summary: 'Upload image for project',
     description:
-      'Upload a project image file to ImageKit under the "projects" folder. Restricted to superadmin and editor.',
+      'Upload an image for a project to ImageKit under "/vdcd/projects/<slug>". Backend is the sole source of truth: resolves projectId -> slug or validates slug. Client cannot specify arbitrary folder.',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({ type: FileUploadDto })
+  @ApiQuery({
+    name: 'projectId',
+    required: false,
+    description: 'Project UUID to resolve slug from DB',
+    example: 'a0b1c2d3-e4f5-5a6b-7c8d-9e0f1a2b3c4d',
+  })
+  @ApiQuery({
+    name: 'slug',
+    required: false,
+    description: 'Project slug (e.g. "smart-city-gia-lai")',
+    example: 'smart-city-gia-lai',
+  })
+  @ApiQuery({
+    name: 'title',
+    required: false,
+    description: 'Project title to be slugified if slug is not provided',
+    example: 'Dự án đô thị thông minh',
+  })
+  @ApiQuery({
+    name: 'tempFolderKey',
+    required: false,
+    description: 'Temporary stable folder key before slug exists',
+    example: 'project-a8f31c',
+  })
   @ApiResponse({
     status: 201,
     description: 'Project image uploaded successfully.',
     type: UploadResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  @ApiResponse({
+    status: 404,
+    description: 'Project ID not found in database.',
+  })
   uploadProjectImage(
     @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+    @Query('projectId') projectIdQuery?: string,
+    @Query('slug') slugQuery?: string,
+    @Query('title') titleQuery?: string,
+    @Query('tempFolderKey') tempFolderKeyQuery?: string,
+    @Query('projectSlug') projectSlugQuery?: string,
+    @Query('subfolder') subfolderQuery?: string,
+    @Body('projectId') projectIdBody?: string,
+    @Body('slug') slugBody?: string,
+    @Body('title') titleBody?: string,
+    @Body('tempFolderKey') tempFolderKeyBody?: string,
+    @Body('projectSlug') projectSlugBody?: string,
+    @Body('subfolder') subfolderBody?: string,
+  ) {
+    // Backend is sole source of truth:
+    // 1. If projectId is provided, it takes highest precedence to resolve from DB
+    // 2. Otherwise slug / tempFolderKey / title are used
+    // 3. Any client-sent "folder" is completely ignored
+    const resolvedKey =
+      projectIdQuery ||
+      projectIdBody ||
+      slugQuery ||
+      slugBody ||
+      projectSlugQuery ||
+      projectSlugBody ||
+      tempFolderKeyQuery ||
+      tempFolderKeyBody ||
+      titleQuery ||
+      titleBody ||
+      subfolderQuery ||
+      subfolderBody;
+
+    return this.service.uploadProjectImage(
+      file,
+      req.user?.id as string | undefined,
+      resolvedKey,
+    );
+  }
+
+  @Post('image/project/:slug')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload image for project under specific slug',
+    description:
+      'Upload an image for a project to ImageKit under "/vdcd/projects/<slug>".',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiParam({
+    name: 'slug',
+    description: 'Project slug (e.g. "smart-city-gia-lai")',
+    example: 'smart-city-gia-lai',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Project image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadProjectImageWithSlug(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('slug') slug: string,
     @Request() req,
   ) {
     return this.service.uploadProjectImage(
       file,
       req.user?.id as string | undefined,
+      slug,
     );
   }
 

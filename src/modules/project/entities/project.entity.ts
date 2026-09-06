@@ -23,6 +23,22 @@ export class Project {
   @Column({ unique: true })
   slug: string;
 
+  // ── Block-based structured JSON document ───────────────────────────
+  @Column({
+    type: 'jsonb',
+    default: () => `'{"version":1,"blocks":[]}'`,
+  })
+  content: Record<string, any>;
+
+  @Column({
+    name: 'content_html_backup',
+    type: 'text',
+    nullable: true,
+    select: false,
+  })
+  contentHtmlBackup: string | null;
+
+  /** @deprecated Migrated into content block document */
   @Column({ type: 'text', nullable: true })
   overview: string;
 
