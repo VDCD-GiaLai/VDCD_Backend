@@ -20,6 +20,17 @@
 import { google } from 'googleapis';
 import * as http from 'http';
 import * as url from 'url';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as dotenv from 'dotenv';
+
+// Load env files
+const envDevPath = path.resolve(process.cwd(), '.env.development');
+const envProdPath = path.resolve(process.cwd(), '.env');
+const targetEnvPath = fs.existsSync(envDevPath) ? envDevPath : envProdPath;
+if (fs.existsSync(targetEnvPath)) {
+  dotenv.config({ path: targetEnvPath });
+}
 
 const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 const REDIRECT_PORT = 3333;
@@ -27,15 +38,29 @@ const REDIRECT_URI = `http://localhost:${REDIRECT_PORT}/callback`;
 const TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
 
 async function main() {
-  const clientId = process.argv[2];
-  const clientSecret = process.argv[3];
+  let clientId = process.argv[2] || process.env.GOOGLE_DRIVE_CLIENT_ID;
+  let clientSecret = process.argv[3] || process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+
+  if (clientId) {
+    clientId = clientId
+      .replace(/^GOOGLE_DRIVE_CLIENT_ID\s*=\s*/i, '')
+      .trim()
+      .replace(/^["']|["']$/g, '');
+  }
+  if (clientSecret) {
+    clientSecret = clientSecret
+      .replace(/^GOOGLE_DRIVE_CLIENT_SECRET\s*=\s*/i, '')
+      .trim()
+      .replace(/^["']|["']$/g, '');
+  }
 
   if (!clientId || !clientSecret) {
+    console.error('\n❌ Missing Client ID or Client Secret.\n');
     console.error(
-      '\n❌ Usage: npx ts-node src/scripts/get-drive-token.ts <CLIENT_ID> <CLIENT_SECRET>\n',
+      'Usage: npx ts-node src/scripts/get-drive-token.ts <CLIENT_ID> <CLIENT_SECRET>',
     );
     console.error(
-      'Get these from: Google Cloud Console → APIs & Services → Credentials → OAuth 2.0 Client IDs',
+      'Or define GOOGLE_DRIVE_CLIENT_ID and GOOGLE_DRIVE_CLIENT_SECRET in .env or .env.development\n',
     );
     process.exit(1);
   }
@@ -76,10 +101,15 @@ async function main() {
   // Try to open browser automatically
   try {
     const { exec } = await import('child_process');
+    const os = await import('os');
     const platform = process.platform;
     if (platform === 'win32') {
-      // Use cmd /c start to handle long URLs better on Windows
-      exec(`cmd /c start "" "${authUrl}"`);
+      // Write a temp HTML file that redirects to the auth URL.
+      // This avoids all Windows URL length limits and shell escaping issues.
+      const tmpHtml = path.join(os.tmpdir(), 'vdcd-google-auth.html');
+      const htmlContent = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${authUrl}"><title>Redirecting...</title></head><body><p>Redirecting to Google... <a href="${authUrl}">Click here</a> if not redirected.</p></body></html>`;
+      fs.writeFileSync(tmpHtml, htmlContent, 'utf-8');
+      exec(`start "" "${tmpHtml}"`);
     } else if (platform === 'darwin') {
       exec(`open "${authUrl}"`);
     } else {
@@ -111,6 +141,26 @@ async function main() {
   console.log(
     '═══════════════════════════════════════════════════════════════\n',
   );
+
+  if (tokens.refresh_token && fs.existsSync(targetEnvPath)) {
+    try {
+      let content = fs.readFileSync(targetEnvPath, 'utf-8');
+      if (content.includes('GOOGLE_DRIVE_REFRESH_TOKEN=')) {
+        content = content.replace(
+          /GOOGLE_DRIVE_REFRESH_TOKEN=.*/,
+          `GOOGLE_DRIVE_REFRESH_TOKEN=${tokens.refresh_token}`,
+        );
+      } else {
+        content += `\nGOOGLE_DRIVE_REFRESH_TOKEN=${tokens.refresh_token}\n`;
+      }
+      fs.writeFileSync(targetEnvPath, content, 'utf-8');
+      console.log(
+        `💾 Automatically updated GOOGLE_DRIVE_REFRESH_TOKEN in ${path.basename(targetEnvPath)}!\n`,
+      );
+    } catch (saveErr) {
+      console.warn('⚠️ Could not automatically update env file:', saveErr);
+    }
+  }
 
   process.exit(0);
 }
