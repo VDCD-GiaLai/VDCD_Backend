@@ -37,6 +37,22 @@ export class BackupService {
     try {
       this.logger.log('🚀 Starting database backup...');
 
+      // Validate Google Drive configuration early before doing heavy work
+      const folderId = this.configService.get<string>('google-drive.folderId');
+      const refreshToken = this.configService.get<string>(
+        'google-drive.refreshToken',
+      );
+      const serviceAccountKey = this.configService.get<string>(
+        'google-drive.serviceAccountKeyBase64',
+      );
+
+      if (!folderId || (!refreshToken && !serviceAccountKey)) {
+        const errorMsg =
+          'Google Drive backup is not fully configured (missing folderId or credentials)';
+        this.logger.warn(`⚠️  ${errorMsg}. Skipping backup.`);
+        return { success: false, error: errorMsg };
+      }
+
       // 1. Dump database to SQL file
       sqlFilePath = await this.dumpDatabase();
       this.logger.log(`✅ Database dumped: ${sqlFilePath}`);
@@ -184,6 +200,7 @@ export class BackupService {
         body: createReadStream(filePath),
       },
       fields: 'id',
+      supportsAllDrives: true,
     });
 
     return response.data.id!;
@@ -203,6 +220,8 @@ export class BackupService {
       orderBy: 'createdTime desc',
       fields: 'files(id, name, createdTime)',
       pageSize: 1000,
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true,
     });
 
     const files = response.data.files ?? [];
@@ -210,7 +229,7 @@ export class BackupService {
 
     const toDelete = files.slice(retainCount);
     for (const file of toDelete) {
-      await drive.files.delete({ fileId: file.id! });
+      await drive.files.delete({ fileId: file.id!, supportsAllDrives: true });
       this.logger.debug(`Deleted old backup: ${file.name} (${file.id})`);
     }
 
