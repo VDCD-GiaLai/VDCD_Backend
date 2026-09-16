@@ -110,6 +110,7 @@ export class LeadService {
         phone: true,
         subject: true,
         source: true,
+        attachment: true,
         isRead: true,
         createdAt: true,
       },

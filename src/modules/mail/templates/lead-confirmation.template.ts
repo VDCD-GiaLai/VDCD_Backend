@@ -40,7 +40,7 @@ export function renderLeadConfirmationTemplate(lead: Lead): string {
   <meta name="supported-color-schemes" content="light dark">
   <title>VDCD Group — Xác nhận nhận hồ sơ ứng tuyển</title>
   <style>
-    :root { color-scheme: light dark; }
+    :root { color-scheme: light dark; supported-color-schemes: light dark; }
     @media (prefers-color-scheme: dark) {
       .email-body { background-color: #1a1a1a !important; }
       .text-primary { color: #f0f0f0 !important; }
@@ -49,9 +49,13 @@ export function renderLeadConfirmationTemplate(lead: Lead): string {
       .border-subtle { border-color: #333333 !important; }
       .bg-banner { background-color: #0a4a2e !important; }
       .bg-card { background-color: #242424 !important; border-color: #333333 !important; }
-      .logo-light { display: block !important; max-height: none !important; overflow: visible !important; }
-      .logo-dark { display: none !important; max-height: 0 !important; overflow: hidden !important; }
+      .logo-light { display: block !important; }
+      .logo-dark { display: none !important; }
     }
+    [data-ogsc] .logo-light { display: block !important; }
+    [data-ogsc] .logo-dark { display: none !important; }
+    [data-ogsb] .logo-light { display: block !important; }
+    [data-ogsb] .logo-dark { display: none !important; }
   </style>
 </head>
 <body class="email-body" style="margin:0; padding:0; background-color:#ffffff; font-family:${fontFamily}; color:#1b1b1d; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;">
@@ -67,8 +71,16 @@ export function renderLeadConfirmationTemplate(lead: Lead): string {
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                   <td>
-                    <img class="logo-dark" src="${logoBlack}" alt="VDCD Group" width="180" height="45" style="display:block; width:180px; height:auto; border:0;" />
-                    <img class="logo-light" src="${logoWhite}" alt="VDCD Group" width="180" height="45" style="display:none; width:180px; height:auto; border:0; max-height:0; overflow:hidden;" />
+                    <!-- Dark logo (for light theme) with subtle contrast glow for dark mode fallbacks -->
+                    <div class="logo-dark" style="display: block;">
+                      <img src="${logoBlack}" alt="VDCD Group" width="360" style="display:block; width:360px; max-width:100%; height:auto; border:0; filter: drop-shadow(0 0 1px #ffffff) drop-shadow(0 0 2px #ffffff);" />
+                    </div>
+                    <!-- Light logo (for dark theme) -->
+                    <!--[if !mso]><!-->
+                    <div class="logo-light" style="display: none; mso-hide: all;">
+                      <img src="${logoWhite}" alt="VDCD Group" width="360" style="display:block; width:360px; max-width:100%; height:auto; border:0;" />
+                    </div>
+                    <!--<![endif]-->
                   </td>
                   <td align="right" style="vertical-align:middle;">
                     <span class="text-muted" style="font-family:${fontFamily}; font-size:12px; font-weight:600; color:#505f76; letter-spacing:0.5px;">
@@ -99,29 +111,28 @@ export function renderLeadConfirmationTemplate(lead: Lead): string {
                 Xin chào <strong>${escapeHtml(lead.fullName)}</strong>,
               </p>
               <p class="text-secondary" style="margin:0 0 20px 0; font-size:14px; line-height:1.6; color:#374151;">
-                VDCD Group đã nhận được hồ sơ ứng tuyển vị trí <strong>${escapeHtml(lead.subject || 'Ứng tuyển')}</strong> của bạn gửi vào lúc <strong>${formattedDate}</strong>.
+                VDCD Group đã nhận được hồ sơ ứng tuyển của bạn vào lúc <strong>${formattedDate}</strong>.
               </p>
               <p class="text-secondary" style="margin:0 0 24px 0; font-size:14px; line-height:1.6; color:#374151;">
-                Bộ phận Tuyển dụng sẽ tiến hành đánh giá hồ sơ và chủ động liên hệ lại với bạn qua Email hoặc Số điện thoại trong thời gian sớm nhất nếu hồ sơ phù hợp.
+                Phòng Nhân sự sẽ tiến hành xem xét hồ sơ và liên hệ lại với bạn qua Email hoặc Số điện thoại nếu hồ sơ phù hợp với các tiêu chí tuyển dụng.
               </p>
 
               <!-- Application Summary Box -->
               <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#ffffff; border:1px solid #e5e7eb; border-radius:6px; margin-bottom:24px; font-size:14px;">
                 <tr>
                   <td class="text-primary" style="padding:16px 20px; border-bottom:1px solid #f3f4f6; font-weight:600; color:#111827;">
-                    Thông tin hồ sơ đã ghi nhận
+                    Thông tin ứng tuyển
                   </td>
                 </tr>
                 <tr>
                   <td class="text-secondary" style="padding:16px 20px; color:#4b5563; line-height:1.8;">
                     <strong>• Họ và tên:</strong> ${escapeHtml(lead.fullName)}<br>
+                    <strong>• Vị trí:</strong> ${escapeHtml(lead.subject || 'Ứng tuyển chung')}<br>
                     <strong>• Email:</strong> ${escapeHtml(lead.email)}<br>
                     ${lead.phone ? `<strong>• Số điện thoại:</strong> ${escapeHtml(lead.phone)}<br>` : ''}
-                    <strong>• Vị trí / Tiêu đề:</strong> ${escapeHtml(lead.subject || 'N/A')}<br>
                     ${formattedDob ? `<strong>• Ngày sinh:</strong> ${formattedDob}<br>` : ''}
-                    ${lead.address ? `<strong>• Địa chỉ:</strong> ${escapeHtml(lead.address)}<br>` : ''}
                     ${lead.experienceYears ? `<strong>• Kinh nghiệm:</strong> ${escapeHtml(lead.experienceYears)}<br>` : ''}
-                    ${lead.expectedSalary ? `<strong>• Mức lương mong muốn:</strong> ${escapeHtml(lead.expectedSalary)}<br>` : ''}
+                    ${lead.expectedSalary ? `<strong>• Lương mong muốn:</strong> ${escapeHtml(lead.expectedSalary)}<br>` : ''}
                     ${lead.portfolioUrl ? `<strong>• Portfolio:</strong> <a href="${escapeHtml(lead.portfolioUrl)}" style="color:#0d5c3a; text-decoration:underline;" target="_blank">${escapeHtml(lead.portfolioUrl)}</a><br>` : ''}
                     ${lead.attachment ? `<strong>• Tệp CV đính kèm:</strong> <a href="${escapeHtml(lead.attachment)}" style="color:#0d5c3a; text-decoration:underline;" target="_blank">Xem tập tin CV</a><br>` : ''}
                   </td>
@@ -139,9 +150,32 @@ export function renderLeadConfirmationTemplate(lead: Lead): string {
 
           <!-- Footer -->
           <tr>
-            <td style="padding-top:32px; text-align:center; font-size:12px; color:#9ca3af; line-height:1.5;">
-              <p class="text-muted" style="margin:0 0 4px 0;">© ${currentYear} VDCD Group. Tất cả quyền được bảo lưu.</p>
-              <p class="text-muted" style="margin:0;">Trung tâm Đổi mới Sáng tạo & Chuyển đổi số Gia Lai</p>
+            <td class="border-subtle" style="border-top:1px solid #e5e7eb; padding-top:28px; padding-bottom:16px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="padding-bottom:12px;">
+                    <div class="text-primary" style="font-family:${fontFamily}; font-size:14px; font-weight:700; color:#111827; margin-bottom:4px;">
+                      Trung tâm Đổi mới Sáng tạo Gia Lai
+                    </div>
+                    <div class="text-secondary" style="font-family:${fontFamily}; font-size:13px; color:#4b5563; margin-bottom:8px;">
+                      Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng.
+                    </div>
+                    <div class="text-secondary" style="font-family:${fontFamily}; font-size:12px; color:#6b7280; margin-bottom:4px; line-height:1.5;">
+                      📍 Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai
+                    </div>
+                    <div class="text-secondary" style="font-family:${fontFamily}; font-size:12px; color:#6b7280; line-height:1.5;">
+                      ✉️ <a href="mailto:dmstgialai@vdcd.vn" style="color:inherit; text-decoration:none;">dmstgialai@vdcd.vn</a> &nbsp;|&nbsp; 📞 <a href="tel:0373600099" style="color:inherit; text-decoration:none;">0373600099</a> &nbsp;|&nbsp; 🌐 <a href="https://doimoisangtaogialai.vn" style="color:#0d5c3a; text-decoration:none;" target="_blank">doimoisangtaogialai.vn</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border-subtle" style="border-top:1px solid #f3f4f6; padding-top:12px;">
+                    <p class="text-muted" style="margin:0; font-size:11px; color:#9ca3af; font-family:${fontFamily};">
+                      © ${currentYear} Trung tâm Đổi mới Sáng tạo Gia Lai — VDCD Group. Tất cả quyền được bảo lưu.
+                    </p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 

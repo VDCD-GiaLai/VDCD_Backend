@@ -410,6 +410,80 @@ export class UploadService {
     return this.imagekit.getAuthenticationParameters();
   }
 
+  // ── Gallery: list files & folders from ImageKit ─────────────────
+
+  async listGalleryFiles(options: {
+    path?: string;
+    searchQuery?: string;
+    limit?: number;
+    skip?: number;
+    sort?: string;
+  }) {
+    const listOptions: Record<string, unknown> = {
+      limit: options.limit || 30,
+      skip: options.skip || 0,
+      sort: options.sort || 'DESC_CREATED',
+      fileType: 'image',
+    };
+
+    // When browsing a specific folder (not root "/vdcd" or "/"),
+    // pass ImageKit native `path` parameter.
+    // If path is "/vdcd" or omitted, omit `path` so ImageKit returns
+    // all files recursively across all folders.
+    if (options.path && options.path !== '/vdcd' && options.path !== '/') {
+      listOptions.path = options.path;
+    }
+
+    // Pass valid searchQuery (e.g. createdAt, name, tags). Never include filePath.
+    if (options.searchQuery && options.searchQuery.trim()) {
+      listOptions.searchQuery = options.searchQuery.trim();
+    }
+
+    try {
+      const result = await this.imagekit.listFiles(listOptions);
+      return (result as unknown[]).map((f: Record<string, unknown>) => ({
+        fileId: f.fileId as string,
+        name: f.name as string,
+        url: f.url as string,
+        filePath: f.filePath as string,
+        size: f.size as number,
+        width: (f.width as number) || undefined,
+        height: (f.height as number) || undefined,
+        createdAt: f.createdAt as string,
+        thumbnail: (f.thumbnail as string) || (f.url as string),
+      }));
+    } catch (err: unknown) {
+      const errorMsg =
+        err instanceof Error
+          ? err.message
+          : typeof err === 'object' && err !== null && 'message' in err
+            ? String((err as Record<string, unknown>).message)
+            : String(err);
+      this.logger.error(`ImageKit listFiles failed: ${errorMsg}`, err);
+      throw new InternalServerErrorException(
+        'Không thể lấy danh sách ảnh từ thư viện',
+      );
+    }
+  }
+
+  async listGalleryFolders(parentPath?: string) {
+    try {
+      const result = await this.imagekit.listFiles({
+        path: parentPath || '/vdcd',
+        type: 'folder',
+      });
+      return (result as unknown[]).map((f: Record<string, unknown>) => ({
+        name: f.name as string,
+        folderPath: f.folderPath as string,
+      }));
+    } catch (err) {
+      this.logger.error('ImageKit listFolders failed', err);
+      throw new InternalServerErrorException(
+        'Không thể lấy danh sách thư mục',
+      );
+    }
+  }
+
   // ── Private ──────────────────────────────────────────────────────
   private async doUpload(
     file: Express.Multer.File,

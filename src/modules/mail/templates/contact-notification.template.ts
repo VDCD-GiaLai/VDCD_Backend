@@ -40,7 +40,7 @@ export function renderContactNotificationTemplate(
   <meta name="supported-color-schemes" content="light dark">
   <title>VDCD Group — Yêu cầu liên hệ mới</title>
   <style>
-    :root { color-scheme: light dark; }
+    :root { color-scheme: light dark; supported-color-schemes: light dark; }
     @media (prefers-color-scheme: dark) {
       .email-body { background-color: #1a1a1a !important; }
       .email-card { background-color: #242424 !important; }
@@ -49,9 +49,13 @@ export function renderContactNotificationTemplate(
       .text-muted { color: #787878 !important; }
       .border-subtle { border-color: #333333 !important; }
       .bg-section { background-color: #2a2a2a !important; }
-      .logo-light { display: block !important; max-height: none !important; overflow: visible !important; }
-      .logo-dark { display: none !important; max-height: 0 !important; overflow: hidden !important; }
+      .logo-light { display: block !important; }
+      .logo-dark { display: none !important; }
     }
+    [data-ogsc] .logo-light { display: block !important; }
+    [data-ogsc] .logo-dark { display: none !important; }
+    [data-ogsb] .logo-light { display: block !important; }
+    [data-ogsb] .logo-dark { display: none !important; }
   </style>
 </head>
 <body class="email-body" style="margin:0; padding:0; background-color:#ffffff; font-family:${fontFamily}; color:#1b1b1d; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;">
@@ -67,10 +71,16 @@ export function renderContactNotificationTemplate(
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                   <td>
-                    <!-- Dark logo (visible on light bg) -->
-                    <img class="logo-dark" src="${logoBlack}" alt="VDCD Group" width="180" height="45" style="display:block; width:180px; height:auto; border:0;" />
-                    <!-- Light logo (visible on dark bg, hidden by default) -->
-                    <img class="logo-light" src="${logoWhite}" alt="VDCD Group" width="180" height="45" style="display:none; width:180px; height:auto; border:0; max-height:0; overflow:hidden;" />
+                    <!-- Dark logo (for light theme) with subtle contrast glow for dark mode fallbacks -->
+                    <div class="logo-dark" style="display: block;">
+                      <img src="${logoBlack}" alt="VDCD Group" width="360" style="display:block; width:360px; max-width:100%; height:auto; border:0; filter: drop-shadow(0 0 1px #ffffff) drop-shadow(0 0 2px #ffffff);" />
+                    </div>
+                    <!-- Light logo (for dark theme) -->
+                    <!--[if !mso]><!-->
+                    <div class="logo-light" style="display: none; mso-hide: all;">
+                      <img src="${logoWhite}" alt="VDCD Group" width="360" style="display:block; width:360px; max-width:100%; height:auto; border:0;" />
+                    </div>
+                    <!--<![endif]-->
                   </td>
                   <td align="right" style="vertical-align:middle;">
                     <span class="text-muted" style="font-family:${fontFamily}; font-size:12px; font-weight:600; color:#505f76; letter-spacing:0.5px;">
@@ -174,30 +184,30 @@ export function renderContactNotificationTemplate(
 
           <!-- Footer -->
           <tr>
-            <td class="border-subtle" style="border-top:1px solid #f1f5f9; padding-top:32px; padding-bottom:24px;">
+            <td class="border-subtle" style="border-top:1px solid #f1f5f9; padding-top:28px; padding-bottom:20px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td style="padding-bottom:16px;">
-                    <div class="text-primary" style="font-family:${fontFamily}; font-size:14px; font-weight:700; color:#1b1b1d; margin-bottom:6px;">
-                      VDCD Group
+                  <td style="padding-bottom:12px;">
+                    <div class="text-primary" style="font-family:${fontFamily}; font-size:14px; font-weight:700; color:#1b1b1d; margin-bottom:4px;">
+                      Trung tâm Đổi mới Sáng tạo Gia Lai
                     </div>
-                    <div class="text-secondary" style="font-family:${fontFamily}; font-size:13px; color:#505f76; margin-bottom:12px;">
-                      Kiến tạo tương lai số bền vững tại Gia Lai & Tây Nguyên.
+                    <div class="text-secondary" style="font-family:${fontFamily}; font-size:13px; color:#505f76; margin-bottom:8px;">
+                      Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng.
                     </div>
-                    <div class="text-secondary" style="font-family:${fontFamily}; font-size:12px; color:#505f76; margin-bottom:4px;">
-                      📍 01 Trần Hưng Đạo, TP. Pleiku, Gia Lai
+                    <div class="text-secondary" style="font-family:${fontFamily}; font-size:12px; color:#505f76; margin-bottom:4px; line-height:1.5;">
+                      📍 Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai
                     </div>
-                    <div class="text-secondary" style="font-family:${fontFamily}; font-size:12px; color:#505f76;">
-                      ✉️ contact@vdcdgroup.vn &nbsp;|&nbsp; 📞 0269 300 0000
+                    <div class="text-secondary" style="font-family:${fontFamily}; font-size:12px; color:#505f76; line-height:1.5;">
+                      ✉️ <a href="mailto:dmstgialai@vdcd.vn" style="color:inherit; text-decoration:none;">dmstgialai@vdcd.vn</a> &nbsp;|&nbsp; 📞 <a href="tel:0373600099" style="color:inherit; text-decoration:none;">0373600099</a> &nbsp;|&nbsp; 🌐 <a href="https://doimoisangtaogialai.vn" style="color:#e80002; text-decoration:none;" target="_blank">doimoisangtaogialai.vn</a>
                     </div>
                   </td>
                 </tr>
                 <tr>
-                  <td class="border-subtle" style="border-top:1px solid #f8fafc; padding-top:16px;">
+                  <td class="border-subtle" style="border-top:1px solid #f8fafc; padding-top:12px;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td class="text-muted" style="font-family:${fontFamily}; font-size:11px; color:#94a3b8;">
-                          © ${currentYear} VDCD Group. All rights reserved.
+                          © ${currentYear} Trung tâm Đổi mới Sáng tạo Gia Lai — VDCD Group. Tất cả quyền được bảo lưu.
                         </td>
                       </tr>
                     </table>
