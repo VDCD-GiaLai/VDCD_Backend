@@ -102,6 +102,7 @@ export class ContactService {
         email: true,
         phone: true,
         subject: true,
+        attachment: true,
         isRead: true,
         createdAt: true,
       },
