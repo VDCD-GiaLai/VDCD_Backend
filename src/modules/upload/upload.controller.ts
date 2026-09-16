@@ -612,6 +612,43 @@ export class UploadController {
     );
   }
 
+  @Post('image/about-us')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @UseInterceptors(memoryUpload())
+  @ApiOperation({
+    summary: 'Upload image for about-us / organization page',
+    description:
+      'Upload an image file to ImageKit under "/vdcd/about-us" (or "/vdcd/about-us/<subfolder>"). Restricted to superadmin and editor.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: FileUploadDto })
+  @ApiQuery({
+    name: 'subfolder',
+    required: false,
+    description: 'Optional subfolder under "about-us" (e.g. "bento-intro")',
+    example: 'bento-intro',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'About-us image uploaded successfully.',
+    type: UploadResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file format or size.' })
+  uploadAboutUsImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+    @Query('subfolder') subfolderQuery?: string,
+    @Body('subfolder') subfolderBody?: string,
+  ) {
+    const subfolder = subfolderQuery || subfolderBody;
+    return this.service.uploadAboutUsImage(
+      file,
+      req.user?.id as string | undefined,
+      subfolder,
+    );
+  }
+
   @Post('image/partner')
   @Roles('superadmin', 'editor')
   @ApiBearerAuth()
@@ -660,7 +697,7 @@ export class UploadController {
 
   // ── Delete file ────────────────────────────────────────────────────
   @Delete(':fileId')
-  @Roles('superadmin')
+  @Roles('superadmin', 'editor')
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({

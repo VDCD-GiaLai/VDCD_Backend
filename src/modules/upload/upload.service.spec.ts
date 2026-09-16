@@ -100,6 +100,46 @@ describe('UploadService', () => {
     });
   });
 
+  describe('uploadAboutUsImage folder target', () => {
+    it('should default to "about-us" when subfolder is omitted', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadAboutUsImage(fakeFile, 'user-1');
+
+      expect(spy).toHaveBeenCalledWith(fakeFile, 'about-us', 'user-1');
+    });
+
+    it('should use sanitized subfolder under "about-us" when provided', async () => {
+      const spy = jest
+        .spyOn(service, 'uploadImage')
+        .mockResolvedValueOnce({} as UploadResult);
+
+      const fakeFile = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/jpeg',
+        size: 1024,
+        originalname: 'test.jpg',
+      } as Express.Multer.File;
+
+      await service.uploadAboutUsImage(fakeFile, 'user-1', 'Bento Intro 2026!');
+
+      expect(spy).toHaveBeenCalledWith(
+        fakeFile,
+        'about-us/bento-intro-2026',
+        'user-1',
+      );
+    });
+  });
+
   describe('uploadSlideDetailBlogImage folder target', () => {
     it('should default to "slides/detail-blogs" when subfolder is omitted', async () => {
       const spy = jest

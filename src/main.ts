@@ -91,6 +91,10 @@ async function bootstrap() {
 
   logger.log(`🚀 API running on http://localhost:${port}/api/v1`, 'Bootstrap');
   logger.log(`📋 Environment: ${process.env.NODE_ENV}`, 'Bootstrap');
+  logger.log(
+    '🏢 Organization module ready with full about-us support',
+    'Bootstrap',
+  );
 }
 
 bootstrap().catch((err) => {

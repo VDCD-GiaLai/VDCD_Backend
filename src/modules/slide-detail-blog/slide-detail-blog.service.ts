@@ -1,4 +1,4 @@
-﻿// src/modules/slide-detail-blog/slide-detail-blog.service.ts
+// src/modules/slide-detail-blog/slide-detail-blog.service.ts
 import {
   Injectable,
   NotFoundException,
@@ -33,7 +33,7 @@ export class SlideDetailBlogService {
     private readonly uploadService: UploadService,
   ) {}
 
-  // ── Helpers ──────────────────────────────────────────────────────
+  // -- Helpers ------------------------------------------------------
 
   private async makeSlug(title: string, excludeId?: string): Promise<string> {
     let slug = slugify(title, { lower: true, locale: 'vi', strict: true });
@@ -71,7 +71,7 @@ export class SlideDetailBlogService {
     publishedAt: true,
   } as const;
 
-  // ── Public (read) ────────────────────────────────────────────────
+  // -- Public (read) ------------------------------------------------
 
   /**
    * Get published blog by slug. Public access.
@@ -82,7 +82,7 @@ export class SlideDetailBlogService {
       select: SlideDetailBlogService.PUBLIC_SELECT,
     });
     if (!blog) {
-      throw new NotFoundException(`Không tìm thấy bài viết '${slug}'`);
+      throw new NotFoundException(`Kh�ng t�m th?y b�i vi?t '${slug}'`);
     }
     return blog;
   }
@@ -97,16 +97,16 @@ export class SlideDetailBlogService {
     });
     if (!blog) {
       throw new NotFoundException(
-        'Slide chưa có bài viết chi tiết hoặc chưa được publish',
+        'Slide chua c� b�i vi?t chi ti?t ho?c chua du?c publish',
       );
     }
     return blog;
   }
 
-  // ── Admin (read) ─────────────────────────────────────────────────
+  // -- Admin (read) -------------------------------------------------
 
   /**
-   * Get blog by ID (admin — returns any status).
+   * Get blog by ID (admin � returns any status).
    */
   async findById(id: string): Promise<SlideDetailBlog> {
     const blog = await this.repo.findOne({
@@ -114,20 +114,20 @@ export class SlideDetailBlogService {
       relations: { slide: true },
     });
     if (!blog) {
-      throw new NotFoundException('Không tìm thấy bài viết');
+      throw new NotFoundException('Kh�ng t�m th?y b�i vi?t');
     }
     return blog;
   }
 
   /**
-   * Get blog by slideId (admin — returns any status including draft).
+   * Get blog by slideId (admin � returns any status including draft).
    * Used by admin UI to navigate from slide management to its detail blog.
    */
   async findBySlideIdAdmin(slideId: string): Promise<SlideDetailBlog> {
     // Validate slide exists
     const slide = await this.slideRepo.findOne({ where: { id: slideId } });
     if (!slide) {
-      throw new NotFoundException('Không tìm thấy slide');
+      throw new NotFoundException('Kh�ng t�m th?y slide');
     }
 
     const blog = await this.repo.findOne({
@@ -135,13 +135,13 @@ export class SlideDetailBlogService {
       relations: { slide: true },
     });
     if (!blog) {
-      throw new NotFoundException('Slide chưa có bài viết chi tiết');
+      throw new NotFoundException('Slide chua c� b�i vi?t chi ti?t');
     }
     return blog;
   }
 
   /**
-   * Admin list — paginated, search, filter. Excludes heavy `content` field.
+   * Admin list � paginated, search, filter. Excludes heavy `content` field.
    */
   async findAllAdmin(dto: SlideDetailBlogFilterDto) {
     const { page = 1, limit = 10, search, isPublished } = dto;
@@ -183,7 +183,7 @@ export class SlideDetailBlogService {
     };
   }
 
-  // ── Create ───────────────────────────────────────────────────────
+  // -- Create -------------------------------------------------------
 
   async create(dto: CreateSlideDetailBlogDto): Promise<SlideDetailBlog> {
     // Validate slide exists
@@ -191,7 +191,7 @@ export class SlideDetailBlogService {
       where: { id: dto.slideId },
     });
     if (!slide) {
-      throw new NotFoundException(`Slide '${dto.slideId}' không tồn tại`);
+      throw new NotFoundException(`Slide '${dto.slideId}' kh�ng t?n t?i`);
     }
 
     // Validate unique slideId
@@ -199,7 +199,7 @@ export class SlideDetailBlogService {
       where: { slideId: dto.slideId },
     });
     if (existingBySlide) {
-      throw new ConflictException('Slide đã có bài viết chi tiết');
+      throw new ConflictException('Slide d� c� b�i vi?t chi ti?t');
     }
 
     // Validate + generate slug
@@ -209,7 +209,7 @@ export class SlideDetailBlogService {
         where: { slug: dto.slug },
       });
       if (existingBySlug) {
-        throw new ConflictException('Slug đã tồn tại');
+        throw new ConflictException('Slug d� t?n t?i');
       }
     }
 
@@ -261,7 +261,7 @@ export class SlideDetailBlogService {
     return saved;
   }
 
-  // ── Update ───────────────────────────────────────────────────────
+  // -- Update -------------------------------------------------------
 
   async update(
     id: string,
@@ -269,7 +269,7 @@ export class SlideDetailBlogService {
   ): Promise<SlideDetailBlog> {
     const blog = await this.repo.findOne({ where: { id } });
     if (!blog) {
-      throw new NotFoundException('Không tìm thấy bài viết');
+      throw new NotFoundException('Kh�ng t�m th?y b�i vi?t');
     }
 
     // Slug uniqueness check
@@ -278,27 +278,16 @@ export class SlideDetailBlogService {
         where: { slug: dto.slug },
       });
       if (existingBySlug) {
-        throw new ConflictException('Slug đã tồn tại');
+        throw new ConflictException('Slug d� t?n t?i');
       }
     }
+    // Hero image cleanup is now managed by the frontend (soft-delete pattern).
+    // The admin UI tracks discarded file IDs and calls DELETE /upload/:fileId
+    // in the onSuccess callback after PATCH succeeds, giving the user a chance
+    // to undo before the ImageKit file is actually removed.
+    // NOTE: The remove() method still handles full cleanup on blog deletion.
 
-    // Hero image change — delete old from ImageKit
-    if (
-      dto.heroImageUrl &&
-      dto.heroImageUrl !== blog.heroImageUrl &&
-      blog.heroImageFileId
-    ) {
-      this.uploadService
-        .deleteFile(blog.heroImageFileId)
-        .catch((err) =>
-          this.logger.warn(
-            `Failed to delete old hero image: ${blog.heroImageFileId}`,
-            err,
-          ),
-        );
-    }
-
-    // Content change — validate + cleanup orphan images
+    // Content change � validate + cleanup orphan images
     if (dto.content) {
       const newContent = validateBlogContent(dto.content);
       const oldContent = blog.content as BlogContent;
@@ -356,12 +345,12 @@ export class SlideDetailBlogService {
     return saved;
   }
 
-  // ── Publish / Unpublish ──────────────────────────────────────────
+  // -- Publish / Unpublish ------------------------------------------
 
   async togglePublish(id: string, isPublished: boolean) {
     const blog = await this.repo.findOne({ where: { id } });
     if (!blog) {
-      throw new NotFoundException('Không tìm thấy bài viết');
+      throw new NotFoundException('Kh�ng t�m th?y b�i vi?t');
     }
 
     // Validate content before publish
@@ -369,12 +358,12 @@ export class SlideDetailBlogService {
       const content = blog.content as BlogContent;
       if (!content || !content.blocks || content.blocks.length === 0) {
         throw new BadRequestException(
-          'Không thể publish bài viết chưa có nội dung',
+          'Kh�ng th? publish b�i vi?t chua c� n?i dung',
         );
       }
       if (!blog.title || blog.title.trim() === '') {
         throw new BadRequestException(
-          'Không thể publish bài viết chưa có tiêu đề',
+          'Kh�ng th? publish b�i vi?t chua c� ti�u d?',
         );
       }
     }
@@ -387,12 +376,12 @@ export class SlideDetailBlogService {
     return { id, isPublished, publishedAt };
   }
 
-  // ── Delete ───────────────────────────────────────────────────────
+  // -- Delete -------------------------------------------------------
 
   async remove(id: string) {
     const blog = await this.repo.findOne({ where: { id } });
     if (!blog) {
-      throw new NotFoundException('Không tìm thấy bài viết');
+      throw new NotFoundException('Kh�ng t�m th?y b�i vi?t');
     }
 
     // Cleanup hero image

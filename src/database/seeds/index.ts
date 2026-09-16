@@ -116,11 +116,33 @@ async function seed() {
       orgRepo.create({
         // ── Khối 1: Giới thiệu chung ──
         name: 'Trung tâm Đổi mới Sáng tạo Gia Lai',
+        shortName: 'VDCD Gia Lai',
         tagline: 'Kết nối – Sáng tạo – Phát triển',
         businessLicenseNo: '4101443823',
         description: `Trung tâm Đổi mới Sáng tạo Gia Lai, là mô hình xã hội hóa do doanh nghiệp đầu tư và vận hành. Trung tâm được hình thành nhằm kết nối nguồn lực công nghệ, chuyên gia, doanh nghiệp và dữ liệu; thúc đẩy ứng dụng công nghệ, chuyển đổi số và phát triển hệ sinh thái khởi nghiệp sáng tạo tại địa phương.\n\nVới định hướng lấy nhu cầu thực tiễn làm trung tâm, Trung tâm không chỉ là không gian kết nối mà còn trực tiếp đồng hành trong quá trình tư vấn, thử nghiệm, đào tạo, chuyển giao và triển khai công nghệ.`,
         foundedYear: 2020,
         address: 'Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai',
+        email: 'dmstgialai@vdcd.vn',
+        hotline: '0373600099',
+
+        // ── Khối Announcement / Banner Notice ──
+        announcement: {
+          text: 'Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026 diễn ra vào ngày 28/3/2026 tại Trung tâm Hội nghị tỉnh (số 01 Nguyễn Tất Thành, phường Quy Nhơn)',
+          link: '',
+          isActive: true,
+        },
+
+        // ── Khối Thông điệp Lãnh đạo ──
+        leader: {
+          name: '',
+          role: 'Phó Chủ tịch HĐQT kiêm Tổng Giám đốc',
+          quote:
+            'Chúng tôi không bắt đầu từ những điều quá cao siêu. Chúng tôi bắt đầu từ những khó khăn thực tế của người dân, cơ quan quản lý và doanh nghiệp, để đưa công nghệ vào giải quyết những vấn đề thiết thực và góp phần nâng cao chất lượng cuộc sống.',
+          avatarUrl: '',
+          avatarFileId: '',
+          ctaText: 'Xem thông tin lãnh đạo',
+          ctaLink: '/leadership',
+        },
 
         // ── Khối 2: Sứ mệnh, Tầm nhìn, Giá trị cốt lõi ──
         mission:
@@ -128,6 +150,32 @@ async function seed() {
         vision:
           'Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực Tây Nguyên vào năm 2030.',
         coreValues: 'Sáng tạo – Chính trực – Hợp tác – Tác động',
+        coreValuesList: [
+          {
+            title: 'Sáng tạo',
+            description:
+              'Không ngừng đổi mới tư duy và tiên phong phát triển giải pháp công nghệ hiện đại',
+            icon: 'lightbulb',
+          },
+          {
+            title: 'Chính trực',
+            description:
+              'Minh bạch, trung thực và đặt đạo đức nghề nghiệp lên hàng đầu trong mọi hoạt động',
+            icon: 'shield-check',
+          },
+          {
+            title: 'Hợp tác',
+            description:
+              'Kết nối mạng lưới đa bên, đồng hành chia sẻ giá trị cùng đối tác và khách hàng',
+            icon: 'handshake',
+          },
+          {
+            title: 'Tác động',
+            description:
+              'Kiến tạo những giá trị thực tiễn, bền vững cho cộng đồng và kinh tế xã hội địa phương',
+            icon: 'trending-up',
+          },
+        ],
 
         // ── Khối 3: Mạng lưới (Thống kê) ──
         stats: {
@@ -136,6 +184,39 @@ async function seed() {
           provinces: 30,
           projects: 100,
         },
+        statsList: [
+          {
+            key: 'staff',
+            value: '1500+',
+            label: 'Nhân sự',
+            description:
+              'Đội ngũ chuyên môn cao, đáp ứng triển khai dự án quy mô lớn',
+            icon: 'users',
+          },
+          {
+            key: 'experts',
+            value: '250+',
+            label: 'Chuyên gia',
+            description: 'Năng lực R&D phần cứng, GIS, AI và chuyển đổi số',
+            icon: 'award',
+          },
+          {
+            key: 'projects',
+            value: '100+',
+            label: 'Dự án',
+            description:
+              'Tham gia trực tiếp triển khai các dự án quy mô toàn quốc',
+            icon: 'briefcase',
+          },
+          {
+            key: 'provinces',
+            value: '30+',
+            label: 'Tỉnh thành',
+            description:
+              'Mạng lưới phục vụ thực địa rộng khắp các tỉnh thành toàn quốc',
+            icon: 'map-pin',
+          },
+        ],
 
         // ── Khối 4: Lĩnh vực hoạt động ──
         operationFields: [
@@ -143,21 +224,29 @@ async function seed() {
             title: 'Công nghệ số & Chuyển đổi số',
             description:
               'Nghiên cứu phát triển và tích hợp các giải pháp trí tuệ nhân tạo (AI), Internet vạn vật (IoT), dữ liệu lớn (Big Data), điện toán đám mây (Cloud) và mô hình hóa thông tin số (Digital Twin) phục vụ tối ưu hóa vận hành.',
+            icon: 'cpu',
+            order: 1,
           },
           {
             title: 'Khảo sát, Đo đạc & Số hóa bản đồ',
             description:
               'Thành lập bản đồ địa hình và hiện trạng độ phân giải siêu cao sử dụng thiết bị bay không người lái (UAV/Drone). Số hóa cơ sở dữ liệu đất đai, lâm nghiệp và hạ tầng kỹ thuật chính xác.',
+            icon: 'map',
+            order: 2,
           },
           {
             title: 'Giải pháp hạ tầng thông minh',
             description:
               'Thiết kế, xây dựng và tích hợp hệ thống trung tâm điều hành thông minh (IOC/DOC), giải pháp đô thị thông minh (Smart City) và hệ thống giám sát tự động AutoTimelapse.',
+            icon: 'layers',
+            order: 3,
           },
           {
             title: 'Sản xuất & Chế tạo thiết bị công nghệ',
             description:
               'Chế tạo các thiết bị robot công nghiệp, lắp ráp các hệ thống thiết bị bay không người lái (Drone/UAV) chuyên dụng, camera AI thông minh và phần cứng IoT phục vụ đa lĩnh vực.',
+            icon: 'tool',
+            order: 4,
           },
         ],
 
@@ -165,27 +254,188 @@ async function seed() {
         ecosystemCapabilities:
           'Trung tâm kế thừa năng lực công nghệ, đội ngũ chuyên gia và mạng lưới triển khai của hệ sinh thái VDCD Group trong các lĩnh vực khảo sát, dữ liệu không gian, trí tuệ nhân tạo, mô hình thông tin công trình, hạ tầng dữ liệu và phần mềm quản lý.',
 
+        // ── Khối 5.1: Danh sách đơn vị thành viên hệ sinh thái ──
+        ecosystemMembers: [
+          {
+            id: 'trung-tam-ban-do-so',
+            title: 'Trung tâm Bản đồ số',
+            slug: 'trung-tam-ban-do-so',
+            description:
+              'Cung cấp các dịch vụ bay quét 3D, trắc địa số hóa và thành lập bản đồ địa hình độ chính xác cao bằng máy bay không người lái.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2024/03/5-768x431.jpg',
+            websiteUrl:
+              'https://vietflycam.vn/dich-vu/bay-quet-3d-trac-dia-so-va-thanh-lap-ban-do',
+            order: 1,
+          },
+          {
+            id: 'vien-thiet-ke-so',
+            title: 'Viện Thiết Kế Số',
+            slug: 'vien-thiet-ke-so',
+            description:
+              'Nghiên cứu, phát triển ứng dụng mô hình thông tin công trình (BIM) và các giải pháp thiết kế số trong lĩnh vực xây dựng, kiến trúc.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-768x768.png',
+            websiteUrl: 'https://bimv.vn/',
+            order: 2,
+          },
+          {
+            id: 'trung-tam-giam-sat-so',
+            title: 'Trung Tâm Giám Sát Số',
+            slug: 'trung-tam-giam-sat-so',
+            description:
+              'Cung cấp hệ thống Auto Timelapse giám sát thông minh tiến độ xây dựng công trình, nông nghiệp và môi trường một cách tự động, trực quan.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2024/03/3123-768x512.jpg',
+            websiteUrl: 'https://autotimelapse.com',
+            order: 3,
+          },
+          {
+            id: 'trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai',
+            title: 'Trung tâm dữ liệu siêu máy tính và đào tạo AI',
+            slug: 'trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai',
+            description:
+              'Xây dựng hạ tầng tính toán hiệu năng cao (HPC) và tổ chức các chương trình đào tạo trí tuệ nhân tạo chuyên sâu phục vụ chuyển đổi số doanh nghiệp.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2025/10/z7173282299491_651f9e392555944f94acd55dab050480-768x576.jpg',
+            websiteUrl:
+              'https://vdcd.vn/services/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai/',
+            order: 4,
+          },
+          {
+            id: 'vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc',
+            title: 'Viện Nghiên cứu công nghệ không gian và dưới nước',
+            slug: 'vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc',
+            description:
+              'Nghiên cứu và ứng dụng các công nghệ tiên tiến trong không gian vũ trụ và thám hiểm, đo đạc môi trường dưới nước.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2025/10/Vien-khong-gian-va-duoi-nuoc-BK-768x499.jpg',
+            websiteUrl: 'https://iig.vn',
+            order: 5,
+          },
+          {
+            id: 'trung-tam-phan-mem-vdcd-soft',
+            title: 'Trung tâm phần mềm VDCD – Soft',
+            slug: 'trung-tam-phan-mem-vdcd-soft',
+            description:
+              'Phát triển các phần mềm quản lý doanh nghiệp, giải pháp chuyển đổi số chuyên sâu phục vụ hệ sinh thái kinh tế vùng và cả nước.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-768x768.png',
+            websiteUrl: 'https://vdcd.vn',
+            order: 6,
+          },
+          {
+            id: 'trung-tam-doi-moi-sang-tao-tinh',
+            title: 'Trung Tâm Đổi Mới Sáng Tạo Tỉnh',
+            slug: 'trung-tam-doi-moi-sang-tao-tinh',
+            description:
+              'Hỗ trợ ươm tạo khởi nghiệp, phát triển ý tưởng sáng tạo và thúc đẩy chuyển giao công nghệ tại địa phương.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2025/11/z6246976510436_a1885eca27bd88117afc251ceab774be-edited-768x576.jpg',
+            websiteUrl: 'https://vdcd.vn',
+            order: 7,
+          },
+          {
+            id: 'trung-tam-chuyen-giao-cong-nghe',
+            title: 'Trung Tâm Chuyển giao Công Nghệ',
+            slug: 'trung-tam-chuyen-giao-cong-nghe',
+            description:
+              'Cầu nối chuyển giao các công nghệ tiên tiến từ viện nghiên cứu, trường đại học đến các doanh nghiệp địa phương ứng dụng thực tiễn.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2024/03/hinh-anh-chuyen-giao-cong-nghe-02-1-768x512.jpg',
+            websiteUrl: 'https://vdcd.vn',
+            order: 8,
+          },
+          {
+            id: 'may-bay-viet',
+            title: 'Máy Bay Việt',
+            slug: 'may-bay-viet',
+            description:
+              'Đơn vị cung cấp giải pháp máy bay không người lái phục vụ nông nghiệp thông minh, khảo sát công nghiệp và quay chụp chuyên nghiệp.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2024/03/may-bay-khong-nguoi-lai-phun-thuoc-1.jpg',
+            websiteUrl: 'https://maybayviet.vn',
+            order: 9,
+          },
+          {
+            id: 'trung-tam-phat-trien-robot-ai',
+            title: 'Trung tâm phát triển Robot & AI',
+            slug: 'trung-tam-phat-trien-robot-ai',
+            description:
+              'Nghiên cứu chế tạo các hệ thống cánh tay robot tự động hóa, xe tự hành (AGV) kết hợp trí tuệ nhân tạo nhận diện hình ảnh và tối ưu vận hành.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2024/03/123-768x512.jpg',
+            websiteUrl: 'https://vdcd.vn',
+            order: 10,
+          },
+          {
+            id: 'trung-tam-san-xuat-phim',
+            title: 'Trung Tâm Sản Xuất Phim',
+            slug: 'trung-tam-san-xuat-phim',
+            description:
+              'Sản xuất video clip giới thiệu dự án, quay phim khảo sát, flycam sự kiện chuyên nghiệp với trang thiết bị hiện đại hàng đầu.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2024/03/4-768x512.jpg',
+            websiteUrl: 'https://vdcd.vn',
+            order: 11,
+          },
+          {
+            id: 'trung-tam-nghien-cuu-va-phat-trien-san-pham-rd',
+            title: 'Trung tâm nghiên cứu và phát triển sản phẩm R&D',
+            slug: 'trung-tam-nghien-cuu-va-phat-trien-san-pham-rd',
+            description:
+              'Đội ngũ chuyên gia chuyên nghiên cứu phát triển các sản phẩm phần cứng và giải pháp công nghệ mới bắt kịp xu hướng thế giới.',
+            imageUrl:
+              'https://vdcd.vn/wp-content/uploads/2024/03/44-768x432.jpg',
+            websiteUrl: 'https://vdcd.vn',
+            order: 12,
+          },
+        ],
+
         // ── Khối 6: Định hướng phát triển ──
         developmentOrientations: [
           {
             title: 'Phát triển hạ tầng dữ liệu và công nghệ dùng chung',
-            description: '',
+            description:
+              'Lập mô hình 3D số hóa không gian, chuẩn hóa hệ thống GIS và vận hành điện toán mây phục vụ dữ liệu số toàn tỉnh.',
+            icon: 'database',
+            order: 1,
           },
           {
             title:
               'Thúc đẩy ứng dụng công nghệ trong các ngành kinh tế chủ lực',
-            description: '',
+            description:
+              'Cung cấp hệ thống giám sát IOC/DOC, tự động hóa AutoTimelapse và nền tảng Digital Twin hỗ trợ quản trị và vận hành.',
+            icon: 'cpu',
+            order: 2,
           },
           {
             title: 'Hỗ trợ startup và doanh nghiệp đổi mới mô hình hoạt động',
-            description: '',
+            description:
+              'Xây dựng mạng lưới liên kết giữa cơ quan quản lý, viện nghiên cứu, tập đoàn công nghệ và quỹ đầu tư trong nước.',
+            icon: 'rocket',
+            order: 3,
           },
           {
             title:
               'Kết nối Gia Lai với mạng lưới chuyên gia, công nghệ và đầu tư trong nước',
-            description: '',
+            description:
+              'Đào tạo nhân lực số chất lượng cao, tư vấn chuyển đổi số và chuyển giao giải pháp cho doanh nghiệp địa phương.',
+            icon: 'globe',
+            order: 4,
           },
         ],
+
+        // ── Khối 7: Kêu gọi hành động (CTA) ──
+        ctaSection: {
+          title: 'CHUYỂN ĐỔI SỐ TƯƠNG LAI CỦA BẠN',
+          description:
+            'Hãy liên hệ với chúng tôi để thiết kế các giải pháp công nghệ tối ưu nhất dành riêng cho doanh nghiệp, cơ quan của bạn tại địa bàn tỉnh.',
+          buttonText: 'Liên hệ hợp tác',
+          buttonLink: '/contact',
+          subtext:
+            'Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng.',
+        },
 
         // ── Social Links ──
         socialLinks: {
