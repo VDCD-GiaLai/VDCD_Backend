@@ -36,6 +36,12 @@ import {
   ImageKitAuthDto,
   TransformedUrlDto,
 } from './dto/upload-response.dto';
+import {
+  GalleryQueryDto,
+  GalleryFoldersQueryDto,
+  GalleryResponseDto,
+  GalleryFoldersResponseDto,
+} from './dto/upload-gallery.dto';
 
 // Memory storage — Don't save file to disk, just send to ImageKit
 const memoryUpload = () =>
@@ -734,6 +740,50 @@ export class UploadController {
         format: format ?? 'auto',
       }),
     };
+  }
+
+  // ── Gallery: browse uploaded images ─────────────────────────────
+  @Get('gallery')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Browse uploaded images',
+    description:
+      'List uploaded images from ImageKit by folder path, with pagination and optional search. Restricted to superadmin and editor.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of images returned.',
+    type: GalleryResponseDto,
+  })
+  async listGalleryFiles(@Query() query: GalleryQueryDto) {
+    const files = await this.service.listGalleryFiles({
+      path: query.path,
+      searchQuery: query.searchQuery,
+      limit: query.limit,
+      skip: query.skip,
+      sort: query.sort,
+    });
+    return { files };
+  }
+
+  // ── Gallery: list folders ──────────────────────────────────────
+  @Get('gallery/folders')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'List image folders',
+    description:
+      'List subfolders under a given ImageKit path. Restricted to superadmin and editor.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of folders returned.',
+    type: GalleryFoldersResponseDto,
+  })
+  async listGalleryFolders(@Query() query: GalleryFoldersQueryDto) {
+    const folders = await this.service.listGalleryFolders(query.path);
+    return { folders };
   }
 
   // ── Auth params for client-side upload ──────────────────────────
