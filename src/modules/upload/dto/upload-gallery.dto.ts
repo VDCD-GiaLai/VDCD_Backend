@@ -78,6 +78,17 @@ export class GalleryQueryDto {
     'DESC_SIZE',
   ])
   sort?: string;
+
+  @ApiPropertyOptional({
+    description: 'Filter by file type',
+    example: 'all',
+    default: 'all',
+    enum: ['all', 'image', 'non-image'],
+  })
+  @IsOptional()
+  @IsString()
+  @IsIn(['all', 'image', 'non-image'])
+  fileType?: string;
 }
 
 export class GalleryFoldersQueryDto {
@@ -130,6 +141,18 @@ export class GalleryFileDto {
     example: 'https://ik.imagekit.io/your_id/tr:n-ik_ml_thumbnail/vdcd/slides/banner.png',
   })
   thumbnail: string;
+
+  @ApiPropertyOptional({
+    description: 'File classification (image or non-image)',
+    example: 'image',
+  })
+  fileType?: string;
+
+  @ApiPropertyOptional({
+    description: 'MIME type of the file',
+    example: 'image/jpeg',
+  })
+  mime?: string;
 }
 
 export class GalleryResponseDto {

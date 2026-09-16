@@ -763,6 +763,7 @@ export class UploadController {
       limit: query.limit,
       skip: query.skip,
       sort: query.sort,
+      fileType: query.fileType,
     });
     return { files };
   }

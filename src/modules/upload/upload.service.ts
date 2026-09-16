@@ -415,6 +415,7 @@ export class UploadService {
   async listGalleryFiles(options: {
     path?: string;
     searchQuery?: string;
+    fileType?: string;
     limit?: number;
     skip?: number;
     sort?: string;
@@ -423,21 +424,28 @@ export class UploadService {
       limit: options.limit || 30,
       skip: options.skip || 0,
       sort: options.sort || 'DESC_CREATED',
-      fileType: 'image',
     };
 
-    // When browsing a specific folder (not root "/vdcd" or "/"),
-    // pass ImageKit native `path` parameter.
-    // If path is "/vdcd" or omitted, omit `path` so ImageKit returns
-    // all files recursively across all folders.
-    if (options.path && options.path !== '/vdcd' && options.path !== '/') {
-      listOptions.path = options.path;
+    // Only send fileType when it's not 'all' (ImageKit default is 'all')
+    if (options.fileType && options.fileType !== 'all') {
+      listOptions.fileType = options.fileType;
     }
 
-    // Pass valid searchQuery (e.g. createdAt, name, tags). Never include filePath.
+    const queryParts: string[] = [];
+    const folder = options.path || '/vdcd';
+
+    // Always use ImageKit searchQuery `path : "<folder>"` for recursive listing.
+    // This returns ALL files inside this folder AND all its subfolders.
+    // The `:` operator in Lucene syntax enables recursive search.
+    const cleanPath = folder.replace(/"/g, '\\"');
+    queryParts.push(`path : "${cleanPath}"`);
+
+    // Append additional search filters (e.g. createdAt, name)
     if (options.searchQuery && options.searchQuery.trim()) {
-      listOptions.searchQuery = options.searchQuery.trim();
+      queryParts.push(options.searchQuery.trim());
     }
+
+    listOptions.searchQuery = queryParts.join(' AND ');
 
     try {
       const result = await this.imagekit.listFiles(listOptions);
@@ -451,6 +459,8 @@ export class UploadService {
         height: (f.height as number) || undefined,
         createdAt: f.createdAt as string,
         thumbnail: (f.thumbnail as string) || (f.url as string),
+        fileType: (f.fileType as string) || 'image',
+        mime: (f.mime as string) || undefined,
       }));
     } catch (err: unknown) {
       const errorMsg =
