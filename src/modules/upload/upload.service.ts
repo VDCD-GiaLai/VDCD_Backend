@@ -424,27 +424,28 @@ export class UploadService {
       limit: options.limit || 30,
       skip: options.skip || 0,
       sort: options.sort || 'DESC_CREATED',
-      fileType: options.fileType || 'all',
     };
 
-    const queryParts: string[] = [];
-
-    // When browsing a specific folder (not root "/vdcd" or "/"),
-    // use ImageKit `path : "<folder>"` in searchQuery to recursively return
-    // ALL files inside this folder AND all its subfolders (e.g. projects/son-tra-da-nang/...).
-    if (options.path && options.path !== '/vdcd' && options.path !== '/') {
-      const cleanPath = options.path.replace(/"/g, '\\"');
-      queryParts.push(`path : "${cleanPath}"`);
+    // Only send fileType when it's not 'all' (ImageKit default is 'all')
+    if (options.fileType && options.fileType !== 'all') {
+      listOptions.fileType = options.fileType;
     }
 
-    // Pass valid searchQuery (e.g. createdAt, name, tags). Never include filePath.
+    const queryParts: string[] = [];
+    const folder = options.path || '/vdcd';
+
+    // Always use ImageKit searchQuery `path : "<folder>"` for recursive listing.
+    // This returns ALL files inside this folder AND all its subfolders.
+    // The `:` operator in Lucene syntax enables recursive search.
+    const cleanPath = folder.replace(/"/g, '\\"');
+    queryParts.push(`path : "${cleanPath}"`);
+
+    // Append additional search filters (e.g. createdAt, name)
     if (options.searchQuery && options.searchQuery.trim()) {
       queryParts.push(options.searchQuery.trim());
     }
 
-    if (queryParts.length > 0) {
-      listOptions.searchQuery = queryParts.join(' AND ');
-    }
+    listOptions.searchQuery = queryParts.join(' AND ');
 
     try {
       const result = await this.imagekit.listFiles(listOptions);
