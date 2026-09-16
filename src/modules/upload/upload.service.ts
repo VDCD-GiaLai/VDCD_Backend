@@ -415,6 +415,7 @@ export class UploadService {
   async listGalleryFiles(options: {
     path?: string;
     searchQuery?: string;
+    fileType?: string;
     limit?: number;
     skip?: number;
     sort?: string;
@@ -423,20 +424,26 @@ export class UploadService {
       limit: options.limit || 30,
       skip: options.skip || 0,
       sort: options.sort || 'DESC_CREATED',
-      fileType: 'image',
+      fileType: options.fileType || 'all',
     };
 
+    const queryParts: string[] = [];
+
     // When browsing a specific folder (not root "/vdcd" or "/"),
-    // pass ImageKit native `path` parameter.
-    // If path is "/vdcd" or omitted, omit `path` so ImageKit returns
-    // all files recursively across all folders.
+    // use ImageKit `path : "<folder>"` in searchQuery to recursively return
+    // ALL files inside this folder AND all its subfolders (e.g. projects/son-tra-da-nang/...).
     if (options.path && options.path !== '/vdcd' && options.path !== '/') {
-      listOptions.path = options.path;
+      const cleanPath = options.path.replace(/"/g, '\\"');
+      queryParts.push(`path : "${cleanPath}"`);
     }
 
     // Pass valid searchQuery (e.g. createdAt, name, tags). Never include filePath.
     if (options.searchQuery && options.searchQuery.trim()) {
-      listOptions.searchQuery = options.searchQuery.trim();
+      queryParts.push(options.searchQuery.trim());
+    }
+
+    if (queryParts.length > 0) {
+      listOptions.searchQuery = queryParts.join(' AND ');
     }
 
     try {
@@ -451,6 +458,8 @@ export class UploadService {
         height: (f.height as number) || undefined,
         createdAt: f.createdAt as string,
         thumbnail: (f.thumbnail as string) || (f.url as string),
+        fileType: (f.fileType as string) || 'image',
+        mime: (f.mime as string) || undefined,
       }));
     } catch (err: unknown) {
       const errorMsg =
