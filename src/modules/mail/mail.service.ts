@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-// Tạm thời comment Resend SDK do lỗi trên production, chuyển sang dùng Google SMTP (Nodemailer)
-// import { Resend } from 'resend';
+import { Resend } from 'resend';
 import * as nodemailer from 'nodemailer';
 import { Lead } from '../lead/entities/lead.entity';
 import { Contact } from '../contact/entities/contact.entity';
@@ -13,35 +12,37 @@ import { renderContactConfirmationTemplate } from './templates/contact-confirmat
 @Injectable()
 export class MailService {
   private readonly logger = new Logger(MailService.name);
-  // private resend?: Resend;
+  private resend?: Resend;
   private transporter?: nodemailer.Transporter;
 
   constructor(private config: ConfigService) {
-    /* Tạm thời comment Resend logic do lỗi production:
-    const resendApiKey =
-      config.get<string>('RESEND_API_KEY') ||
-      (config.get<string>('MAIL_PASSWORD')?.startsWith('re_')
-        ? config.get<string>('MAIL_PASSWORD')
-        : undefined);
-
+    // Primary: Resend SDK
+    const resendApiKey = config.get<string>('RESEND_API_KEY');
     if (resendApiKey) {
       this.resend = new Resend(resendApiKey);
       this.logger.log('MailService initialized with Resend SDK');
-    } else
-    */
-    if (config.get('MAIL_HOST')) {
+    }
+
+    // Fallback: Nodemailer SMTP (only when Resend SDK is not configured)
+    if (!resendApiKey && config.get('MAIL_HOST')) {
       this.transporter = nodemailer.createTransport({
         host: config.get('MAIL_HOST'),
-        port: config.get<number>('MAIL_PORT', 587),
+        port: config.get<number>('MAIL_PORT', 465),
         secure: config.get('MAIL_SECURE') === 'true',
         auth: {
           user: config.get('MAIL_USER'),
           pass: config.get('MAIL_PASSWORD'),
         },
       });
-      this.logger.log('MailService initialized with Nodemailer SMTP (Google)');
-    } else {
-      this.logger.warn('No mail provider configured (MAIL_HOST missing)');
+      this.logger.log(
+        'MailService initialized with Nodemailer SMTP (fallback)',
+      );
+    }
+
+    if (!resendApiKey && !config.get('MAIL_HOST')) {
+      this.logger.warn(
+        'No mail provider configured (RESEND_API_KEY and MAIL_HOST both missing)',
+      );
     }
   }
 
@@ -56,7 +57,6 @@ export class MailService {
     subject: string;
     html: string;
   }): Promise<void> {
-    /* Tạm thời comment Resend logic:
     if (this.resend) {
       const { data, error } = await this.resend.emails.send({
         from,
@@ -66,13 +66,13 @@ export class MailService {
       });
 
       if (error) {
-        this.logger.error(`Resend error sending email to ${to}: ${error.message}`);
+        this.logger.error(
+          `Resend error sending email to ${to}: ${error.message}`,
+        );
         throw new Error(error.message);
       }
       this.logger.log(`Email sent via Resend to ${to} (id: ${data?.id})`);
-    } else
-    */
-    if (this.transporter) {
+    } else if (this.transporter) {
       await this.transporter.sendMail({ from, to, subject, html });
       this.logger.log(`Email sent via SMTP to ${to}`);
     } else {
@@ -83,9 +83,7 @@ export class MailService {
   private getFromEmail(): string {
     return (
       this.config.get('MAIL_FROM') ||
-      (this.config.get('MAIL_USER')
-        ? `VDCD Group <${this.config.get('MAIL_USER')}>`
-        : 'VDCD Group <noreply@vdcd.vn>')
+      'VDCD Group <noreply@mail.doimoisangtaogialai.vn>'
     );
   }
 
