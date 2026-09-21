@@ -1,12 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsOptional,
-  IsString,
-  IsInt,
-  Min,
-  Max,
-  IsIn,
-} from 'class-validator';
+import { IsOptional, IsString, IsInt, Min, Max, IsIn } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class GalleryQueryDto {
@@ -138,7 +131,8 @@ export class GalleryFileDto {
 
   @ApiProperty({
     description: 'Thumbnail URL (small preview)',
-    example: 'https://ik.imagekit.io/your_id/tr:n-ik_ml_thumbnail/vdcd/slides/banner.png',
+    example:
+      'https://ik.imagekit.io/your_id/tr:n-ik_ml_thumbnail/vdcd/slides/banner.png',
   })
   thumbnail: string;
 

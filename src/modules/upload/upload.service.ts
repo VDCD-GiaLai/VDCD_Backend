@@ -315,6 +315,20 @@ export class UploadService {
     }
   }
 
+  /**
+   * Upload an image for about-us / organization to ImageKit.
+   * Folder structure: /vdcd/about-us or /vdcd/about-us/<subfolder>
+   */
+  async uploadAboutUsImage(
+    file: Express.Multer.File,
+    uploadedBy?: string,
+    subfolder?: string,
+  ): Promise<UploadResult> {
+    const cleanSubfolder = this.sanitizeSubfolder(subfolder);
+    const folder = cleanSubfolder ? `about-us/${cleanSubfolder}` : 'about-us';
+    return this.uploadImage(file, folder, uploadedBy);
+  }
+
   async uploadPartnerLogo(file: Express.Multer.File, uploadedBy?: string) {
     return this.uploadImage(file, 'partners', uploadedBy);
   }
@@ -488,9 +502,7 @@ export class UploadService {
       }));
     } catch (err) {
       this.logger.error('ImageKit listFolders failed', err);
-      throw new InternalServerErrorException(
-        'Không thể lấy danh sách thư mục',
-      );
+      throw new InternalServerErrorException('Không thể lấy danh sách thư mục');
     }
   }
 

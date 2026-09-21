@@ -1,4 +1,4 @@
-﻿// src/modules/slide-detail-blog/slide-detail-blog.service.ts
+// src/modules/slide-detail-blog/slide-detail-blog.service.ts
 import {
   Injectable,
   NotFoundException,
@@ -33,7 +33,7 @@ export class SlideDetailBlogService {
     private readonly uploadService: UploadService,
   ) {}
 
-  // ── Helpers ──────────────────────────────────────────────────────
+  // -- Helpers ------------------------------------------------------
 
   private async makeSlug(title: string, excludeId?: string): Promise<string> {
     let slug = slugify(title, { lower: true, locale: 'vi', strict: true });
@@ -71,7 +71,7 @@ export class SlideDetailBlogService {
     publishedAt: true,
   } as const;
 
-  // ── Public (read) ────────────────────────────────────────────────
+  // -- Public (read) ------------------------------------------------
 
   /**
    * Get published blog by slug. Public access.
@@ -103,10 +103,10 @@ export class SlideDetailBlogService {
     return blog;
   }
 
-  // ── Admin (read) ─────────────────────────────────────────────────
+  // -- Admin (read) -------------------------------------------------
 
   /**
-   * Get blog by ID (admin — returns any status).
+   * Get blog by ID (admin � returns any status).
    */
   async findById(id: string): Promise<SlideDetailBlog> {
     const blog = await this.repo.findOne({
@@ -120,7 +120,7 @@ export class SlideDetailBlogService {
   }
 
   /**
-   * Get blog by slideId (admin — returns any status including draft).
+   * Get blog by slideId (admin � returns any status including draft).
    * Used by admin UI to navigate from slide management to its detail blog.
    */
   async findBySlideIdAdmin(slideId: string): Promise<SlideDetailBlog> {
@@ -141,7 +141,7 @@ export class SlideDetailBlogService {
   }
 
   /**
-   * Admin list — paginated, search, filter. Excludes heavy `content` field.
+   * Admin list � paginated, search, filter. Excludes heavy `content` field.
    */
   async findAllAdmin(dto: SlideDetailBlogFilterDto) {
     const { page = 1, limit = 10, search, isPublished } = dto;
@@ -183,7 +183,7 @@ export class SlideDetailBlogService {
     };
   }
 
-  // ── Create ───────────────────────────────────────────────────────
+  // -- Create -------------------------------------------------------
 
   async create(dto: CreateSlideDetailBlogDto): Promise<SlideDetailBlog> {
     // Validate slide exists
@@ -191,7 +191,7 @@ export class SlideDetailBlogService {
       where: { id: dto.slideId },
     });
     if (!slide) {
-      throw new NotFoundException(`Slide '${dto.slideId}' không tồn tại`);
+      throw new NotFoundException(`Slide '${dto.slideId}' kh�ng t?n t?i`);
     }
 
     // Validate unique slideId
@@ -261,7 +261,7 @@ export class SlideDetailBlogService {
     return saved;
   }
 
-  // ── Update ───────────────────────────────────────────────────────
+  // -- Update -------------------------------------------------------
 
   async update(
     id: string,
@@ -281,24 +281,13 @@ export class SlideDetailBlogService {
         throw new ConflictException('Slug đã tồn tại');
       }
     }
+    // Hero image cleanup is now managed by the frontend (soft-delete pattern).
+    // The admin UI tracks discarded file IDs and calls DELETE /upload/:fileId
+    // in the onSuccess callback after PATCH succeeds, giving the user a chance
+    // to undo before the ImageKit file is actually removed.
+    // NOTE: The remove() method still handles full cleanup on blog deletion.
 
-    // Hero image change — delete old from ImageKit
-    if (
-      dto.heroImageUrl &&
-      dto.heroImageUrl !== blog.heroImageUrl &&
-      blog.heroImageFileId
-    ) {
-      this.uploadService
-        .deleteFile(blog.heroImageFileId)
-        .catch((err) =>
-          this.logger.warn(
-            `Failed to delete old hero image: ${blog.heroImageFileId}`,
-            err,
-          ),
-        );
-    }
-
-    // Content change — validate + cleanup orphan images
+    // Content change � validate + cleanup orphan images
     if (dto.content) {
       const newContent = validateBlogContent(dto.content);
       const oldContent = blog.content as BlogContent;
@@ -356,7 +345,7 @@ export class SlideDetailBlogService {
     return saved;
   }
 
-  // ── Publish / Unpublish ──────────────────────────────────────────
+  // -- Publish / Unpublish ------------------------------------------
 
   async togglePublish(id: string, isPublished: boolean) {
     const blog = await this.repo.findOne({ where: { id } });
@@ -387,7 +376,7 @@ export class SlideDetailBlogService {
     return { id, isPublished, publishedAt };
   }
 
-  // ── Delete ───────────────────────────────────────────────────────
+  // -- Delete -------------------------------------------------------
 
   async remove(id: string) {
     const blog = await this.repo.findOne({ where: { id } });

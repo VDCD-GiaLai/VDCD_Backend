@@ -4,9 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Organization } from './entities/organization.entity';
 import { OrganizationService } from './organization.service';
 import { OrganizationController } from './organization.controller';
+import { UploadModule } from '../upload/upload.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Organization])],
+  imports: [TypeOrmModule.forFeature([Organization]), UploadModule],
   providers: [OrganizationService],
   controllers: [OrganizationController],
 })

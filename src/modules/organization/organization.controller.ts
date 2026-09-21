@@ -1,5 +1,5 @@
 // src/modules/organization/organization.controller.ts
-import { Controller, Get, Put, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Put, Patch, Body, UseGuards } from '@nestjs/common';
 import { OrganizationService } from './organization.service';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
@@ -44,6 +44,23 @@ export class OrganizationController {
     type: Organization,
   })
   update(@Body() dto: UpdateOrganizationDto) {
+    return this.service.update(dto);
+  }
+
+  @Patch()
+  @Roles('superadmin', 'editor')
+  @ApiOperation({
+    summary: 'Partially update organization details',
+    description:
+      'Partially update organization metadata. Restricted to superadmin and editor.',
+  })
+  @ApiBody({ type: UpdateOrganizationDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Organization metadata updated successfully.',
+    type: Organization,
+  })
+  patch(@Body() dto: UpdateOrganizationDto) {
     return this.service.update(dto);
   }
 }

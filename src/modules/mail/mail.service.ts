@@ -34,11 +34,15 @@ export class MailService {
           pass: config.get('MAIL_PASSWORD'),
         },
       });
-      this.logger.log('MailService initialized with Nodemailer SMTP (fallback)');
+      this.logger.log(
+        'MailService initialized with Nodemailer SMTP (fallback)',
+      );
     }
 
     if (!resendApiKey && !config.get('MAIL_HOST')) {
-      this.logger.warn('No mail provider configured (RESEND_API_KEY and MAIL_HOST both missing)');
+      this.logger.warn(
+        'No mail provider configured (RESEND_API_KEY and MAIL_HOST both missing)',
+      );
     }
   }
 
@@ -62,7 +66,9 @@ export class MailService {
       });
 
       if (error) {
-        this.logger.error(`Resend error sending email to ${to}: ${error.message}`);
+        this.logger.error(
+          `Resend error sending email to ${to}: ${error.message}`,
+        );
         throw new Error(error.message);
       }
       this.logger.log(`Email sent via Resend to ${to} (id: ${data?.id})`);
