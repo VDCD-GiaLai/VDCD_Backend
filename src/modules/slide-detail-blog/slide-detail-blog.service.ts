@@ -82,7 +82,7 @@ export class SlideDetailBlogService {
       select: SlideDetailBlogService.PUBLIC_SELECT,
     });
     if (!blog) {
-      throw new NotFoundException(`Kh�ng t�m th?y b�i vi?t '${slug}'`);
+      throw new NotFoundException(`Không tìm thấy bài viết '${slug}'`);
     }
     return blog;
   }
@@ -97,7 +97,7 @@ export class SlideDetailBlogService {
     });
     if (!blog) {
       throw new NotFoundException(
-        'Slide chua c� b�i vi?t chi ti?t ho?c chua du?c publish',
+        'Slide chưa có bài viết chi tiết hoặc chưa được publish',
       );
     }
     return blog;
@@ -114,7 +114,7 @@ export class SlideDetailBlogService {
       relations: { slide: true },
     });
     if (!blog) {
-      throw new NotFoundException('Kh�ng t�m th?y b�i vi?t');
+      throw new NotFoundException('Không tìm thấy bài viết');
     }
     return blog;
   }
@@ -127,7 +127,7 @@ export class SlideDetailBlogService {
     // Validate slide exists
     const slide = await this.slideRepo.findOne({ where: { id: slideId } });
     if (!slide) {
-      throw new NotFoundException('Kh�ng t�m th?y slide');
+      throw new NotFoundException('Không tìm thấy slide');
     }
 
     const blog = await this.repo.findOne({
@@ -135,7 +135,7 @@ export class SlideDetailBlogService {
       relations: { slide: true },
     });
     if (!blog) {
-      throw new NotFoundException('Slide chua c� b�i vi?t chi ti?t');
+      throw new NotFoundException('Slide chưa có bài viết chi tiết');
     }
     return blog;
   }
@@ -199,7 +199,7 @@ export class SlideDetailBlogService {
       where: { slideId: dto.slideId },
     });
     if (existingBySlide) {
-      throw new ConflictException('Slide d� c� b�i vi?t chi ti?t');
+      throw new ConflictException('Slide đã có bài viết chi tiết');
     }
 
     // Validate + generate slug
@@ -209,7 +209,7 @@ export class SlideDetailBlogService {
         where: { slug: dto.slug },
       });
       if (existingBySlug) {
-        throw new ConflictException('Slug d� t?n t?i');
+        throw new ConflictException('Slug đã tồn tại');
       }
     }
 
@@ -269,7 +269,7 @@ export class SlideDetailBlogService {
   ): Promise<SlideDetailBlog> {
     const blog = await this.repo.findOne({ where: { id } });
     if (!blog) {
-      throw new NotFoundException('Kh�ng t�m th?y b�i vi?t');
+      throw new NotFoundException('Không tìm thấy bài viết');
     }
 
     // Slug uniqueness check
@@ -278,7 +278,7 @@ export class SlideDetailBlogService {
         where: { slug: dto.slug },
       });
       if (existingBySlug) {
-        throw new ConflictException('Slug d� t?n t?i');
+        throw new ConflictException('Slug đã tồn tại');
       }
     }
     // Hero image cleanup is now managed by the frontend (soft-delete pattern).
@@ -350,7 +350,7 @@ export class SlideDetailBlogService {
   async togglePublish(id: string, isPublished: boolean) {
     const blog = await this.repo.findOne({ where: { id } });
     if (!blog) {
-      throw new NotFoundException('Kh�ng t�m th?y b�i vi?t');
+      throw new NotFoundException('Không tìm thấy bài viết');
     }
 
     // Validate content before publish
@@ -358,12 +358,12 @@ export class SlideDetailBlogService {
       const content = blog.content as BlogContent;
       if (!content || !content.blocks || content.blocks.length === 0) {
         throw new BadRequestException(
-          'Kh�ng th? publish b�i vi?t chua c� n?i dung',
+          'Không thể publish bài viết chưa có nội dung',
         );
       }
       if (!blog.title || blog.title.trim() === '') {
         throw new BadRequestException(
-          'Kh�ng th? publish b�i vi?t chua c� ti�u d?',
+          'Không thể publish bài viết chưa có tiêu đề',
         );
       }
     }
@@ -381,7 +381,7 @@ export class SlideDetailBlogService {
   async remove(id: string) {
     const blog = await this.repo.findOne({ where: { id } });
     if (!blog) {
-      throw new NotFoundException('Kh�ng t�m th?y b�i vi?t');
+      throw new NotFoundException('Không tìm thấy bài viết');
     }
 
     // Cleanup hero image
