@@ -378,6 +378,7 @@ export class ProjectService {
       metaTitle: dto.metaTitle,
       metaDescription: dto.metaDescription,
       isPublished: dto.isPublished ?? false,
+      order: dto.order ?? 0,
       ...(dto.fieldId ? { field: { id: dto.fieldId } as any } : {}),
       ...(dto.provinceId ? { province: { id: dto.provinceId } as any } : {}),
     });
@@ -536,6 +537,18 @@ export class ProjectService {
     if (!project) throw new NotFoundException();
     await this.projectRepo.update(id, { isPublished });
     return { id, isPublished };
+  }
+
+  /**
+   * Reorder display positions of projects with atomic transaction safety.
+   */
+  async reorder(items: { id: string; order: number }[]) {
+    await this.dataSource.transaction(async (manager) => {
+      for (const item of items) {
+        await manager.update(Project, item.id, { order: item.order });
+      }
+    });
+    return { message: 'Reordered projects successfully' };
   }
 
   /**

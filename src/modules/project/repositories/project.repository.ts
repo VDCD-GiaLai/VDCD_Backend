@@ -28,7 +28,8 @@ export class ProjectRepository {
     if (provinceId) qb.andWhere('province.id = :provinceId', { provinceId });
     if (year) qb.andWhere('p.year = :year', { year });
 
-    qb.orderBy('p.created_at', 'DESC')
+    qb.orderBy('p.order', 'ASC')
+      .addOrderBy('p.created_at', 'DESC')
       .skip((page - 1) * limit)
       .take(limit);
 
@@ -61,7 +62,8 @@ export class ProjectRepository {
     if (isPublished !== undefined)
       qb.andWhere('p.is_published = :isPublished', { isPublished });
 
-    qb.orderBy('p.created_at', 'DESC')
+    qb.orderBy('p.order', 'ASC')
+      .addOrderBy('p.created_at', 'DESC')
       .skip((page - 1) * limit)
       .take(limit);
 

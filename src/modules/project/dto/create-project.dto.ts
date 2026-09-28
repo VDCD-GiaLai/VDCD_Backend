@@ -231,4 +231,10 @@ export class CreateProjectDto {
   @IsOptional()
   @IsBoolean()
   isPublished?: boolean;
+
+  @ApiPropertyOptional({ example: 1, description: 'Display order of project' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  order?: number;
 }

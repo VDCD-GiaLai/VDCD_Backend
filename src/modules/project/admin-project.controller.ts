@@ -37,6 +37,7 @@ import { ProjectFilterDto } from './dto/project-filter.dto';
 import { TogglePublishDto } from './dto/toggle-publish.dto';
 import { AddImagesDto } from './dto/add-images.dto';
 import { ReorderImagesDto } from './dto/reorder-images.dto';
+import { ReorderProjectsDto } from './dto/reorder-projects.dto';
 import { FileUploadDto } from '../upload/dto/file-upload.dto';
 
 const memoryUpload = () =>
@@ -65,6 +66,19 @@ export class AdminProjectController {
   })
   findAll(@Query() dto: ProjectFilterDto) {
     return this.service.findAllAdmin(dto);
+  }
+
+  @Patch('reorder')
+  @Roles('superadmin', 'editor')
+  @ApiOperation({
+    summary: 'Reorder projects (Admin)',
+    description:
+      'Reorder display positions of projects. Restricted to superadmin and editor.',
+  })
+  @ApiBody({ type: ReorderProjectsDto })
+  @ApiResponse({ status: 200, description: 'Projects reordered successfully.' })
+  reorder(@Body() dto: ReorderProjectsDto) {
+    return this.service.reorder(dto.items);
   }
 
   @Get(':id')
@@ -196,7 +210,11 @@ export class AdminProjectController {
     @UploadedFile() file: Express.Multer.File,
     @Req() req: any,
   ) {
-    return this.service.uploadImageForProject(id, file, req?.user?.id);
+    return this.service.uploadImageForProject(
+      id,
+      file,
+      req?.user?.id as string | undefined,
+    );
   }
 
   @Post(':id/images')
@@ -234,7 +252,12 @@ export class AdminProjectController {
         parsedCaptions = dto.captions;
       }
     }
-    return this.service.addImages(id, files, parsedCaptions, req?.user?.id);
+    return this.service.addImages(
+      id,
+      files,
+      parsedCaptions,
+      req?.user?.id as string | undefined,
+    );
   }
 
   @Patch(':id/images/reorder')

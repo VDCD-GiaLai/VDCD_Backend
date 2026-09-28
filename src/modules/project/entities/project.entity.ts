@@ -105,6 +105,9 @@ export class Project {
   @Column({ name: 'is_published', default: false })
   isPublished: boolean;
 
+  @Column({ default: 0 })
+  order: number;
+
   @OneToMany(() => ProjectImage, (img) => img.project, { cascade: true })
   images: ProjectImage[];
 
