@@ -27,6 +27,7 @@ import { CreateSolutionDto } from './dto/create-solution.dto';
 import { UpdateSolutionDto } from './dto/update-solution.dto';
 import { SolutionFilterDto } from './dto/solution-filter.dto';
 import { TogglePublishDto } from './dto/toggle-publish.dto';
+import { ReorderSolutionsDto } from './dto/reorder-solutions.dto';
 
 @ApiTags('Solutions')
 @Controller('solutions')
@@ -114,6 +115,22 @@ export class SolutionController {
   })
   create(@Body() dto: CreateSolutionDto) {
     return this.service.create(dto);
+  }
+
+  @Patch('reorder')
+  @Roles('superadmin', 'editor')
+  @ApiOperation({
+    summary: 'Reorder solutions',
+    description:
+      'Reorder display positions of solutions. Restricted to superadmin and editor.',
+  })
+  @ApiBody({ type: ReorderSolutionsDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Solutions reordered successfully.',
+  })
+  reorder(@Body() dto: ReorderSolutionsDto) {
+    return this.service.reorder(dto.items);
   }
 
   @Patch(':id')

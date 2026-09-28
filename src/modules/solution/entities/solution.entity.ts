@@ -73,6 +73,9 @@ export class Solution {
   @Index('IDX_solution_published_at')
   publishedAt: Date | null;
 
+  @Column({ default: 0 })
+  order: number;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
