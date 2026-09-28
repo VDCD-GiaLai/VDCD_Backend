@@ -10,6 +10,7 @@ import {
   Body,
   UseGuards,
   UseInterceptors,
+  BadRequestException,
   UploadedFiles,
   Req,
 } from '@nestjs/common';
@@ -140,8 +141,16 @@ export class ProjectController {
   })
   @ApiBody({ type: ReorderProjectsDto })
   @ApiResponse({ status: 200, description: 'Projects reordered successfully.' })
-  reorder(@Body() dto: ReorderProjectsDto) {
-    return this.service.reorder(dto.items);
+  reorder(@Body() body: any) {
+    const rawItems = Array.isArray(body) ? body : body?.items;
+    if (!Array.isArray(rawItems)) {
+      throw new BadRequestException('Danh sách sắp xếp (items) không hợp lệ');
+    }
+    const items = rawItems.map((item: any, index: number) => ({
+      id: String(item.id),
+      order: typeof item.order === 'number' ? item.order : index + 1,
+    }));
+    return this.service.reorder(items);
   }
 
   @Patch(':id')

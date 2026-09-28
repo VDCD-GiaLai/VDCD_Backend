@@ -68,6 +68,7 @@ export class ProgramService {
         'p.shortDescription',
         'p.thumbnail',
         'p.thumbnailFileId',
+        'p.order',
         'p.isPublished',
         'p.publishedAt',
         'p.createdAt',
@@ -80,10 +81,11 @@ export class ProgramService {
       qb.andWhere('field.id = :fieldId', { fieldId });
     }
 
-    qb.orderBy('p.published_at', 'DESC', 'NULLS LAST')
-      .addOrderBy('p.created_at', 'DESC')
-      .skip((page - 1) * limit)
-      .take(limit);
+    qb.orderBy('p.order', 'ASC');
+    if (typeof qb.addOrderBy === 'function') {
+      qb.addOrderBy('p.created_at', 'DESC');
+    }
+    qb.skip((page - 1) * limit).take(limit);
 
     const [data, total] = await qb.getManyAndCount();
     return {
@@ -113,6 +115,7 @@ export class ProgramService {
         'p.thumbnailFileId',
         'p.metaTitle',
         'p.metaDescription',
+        'p.order',
         'p.isPublished',
         'p.publishedAt',
         'p.createdAt',
@@ -127,9 +130,11 @@ export class ProgramService {
       qb.andWhere('p.is_published = :isPublished', { isPublished });
     }
 
-    qb.orderBy('p.created_at', 'DESC')
-      .skip((page - 1) * limit)
-      .take(limit);
+    qb.orderBy('p.order', 'ASC');
+    if (typeof qb.addOrderBy === 'function') {
+      qb.addOrderBy('p.created_at', 'DESC');
+    }
+    qb.skip((page - 1) * limit).take(limit);
 
     const [data, total] = await qb.getManyAndCount();
     const items = data.map((item) => {
@@ -251,6 +256,7 @@ export class ProgramService {
       metaDescription: dto.metaDescription ?? null,
       isPublished,
       publishedAt,
+      order: dto.order ?? 0,
       ...(dto.fieldId ? { field: { id: dto.fieldId } } : {}),
     });
 
@@ -341,6 +347,7 @@ export class ProgramService {
         program.metaTitle = dto.metaTitle ?? null;
       if (dto.metaDescription !== undefined)
         program.metaDescription = dto.metaDescription ?? null;
+      if (dto.order !== undefined) program.order = dto.order;
 
       if (dto.isPublished !== undefined) {
         program.isPublished = dto.isPublished;
@@ -419,6 +426,18 @@ export class ProgramService {
     });
 
     return { id, isPublished, publishedAt: newPublishedAt };
+  }
+
+  /**
+   * Reorder display positions of programs with atomic transaction safety.
+   */
+  async reorder(items: { id: string; order: number }[]) {
+    await this.dataSource.transaction(async (manager) => {
+      for (const item of items) {
+        await manager.update(Program, item.id, { order: item.order });
+      }
+    });
+    return { message: 'Reordered programs successfully' };
   }
 
   /**

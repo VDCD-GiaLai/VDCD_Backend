@@ -9,6 +9,7 @@ import {
   Query,
   Body,
   UseGuards,
+  BadRequestException,
 } from '@nestjs/common';
 import { SolutionService } from './solution.service';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
@@ -129,8 +130,16 @@ export class SolutionController {
     status: 200,
     description: 'Solutions reordered successfully.',
   })
-  reorder(@Body() dto: ReorderSolutionsDto) {
-    return this.service.reorder(dto.items);
+  reorder(@Body() body: any) {
+    const rawItems = Array.isArray(body) ? body : body?.items;
+    if (!Array.isArray(rawItems)) {
+      throw new BadRequestException('Danh sách sắp xếp (items) không hợp lệ');
+    }
+    const items = rawItems.map((item: any, index: number) => ({
+      id: String(item.id),
+      order: typeof item.order === 'number' ? item.order : index + 1,
+    }));
+    return this.service.reorder(items);
   }
 
   @Patch(':id')
