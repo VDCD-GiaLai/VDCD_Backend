@@ -140,6 +140,7 @@ export class SolutionService {
         's.thumbnail',
         's.thumbnailFileId',
         's.websiteUrl',
+        's.order',
         's.isPublished',
         's.publishedAt',
         's.createdAt',
@@ -150,9 +151,11 @@ export class SolutionService {
 
     if (fieldId) qb.andWhere('field.id = :fieldId', { fieldId });
 
-    qb.orderBy('s.created_at', 'DESC')
-      .skip((page - 1) * limit)
-      .take(limit);
+    qb.orderBy('s.order', 'ASC');
+    if (typeof qb.addOrderBy === 'function') {
+      qb.addOrderBy('s.created_at', 'DESC');
+    }
+    qb.skip((page - 1) * limit).take(limit);
 
     const [items, total] = await qb.getManyAndCount();
     return {
@@ -180,6 +183,7 @@ export class SolutionService {
         's.thumbnail',
         's.thumbnailFileId',
         's.websiteUrl',
+        's.order',
         's.isPublished',
         's.publishedAt',
         's.createdAt',
@@ -192,9 +196,11 @@ export class SolutionService {
       qb.andWhere('s.is_published = :isPublished', { isPublished });
     }
 
-    qb.orderBy('s.created_at', 'DESC')
-      .skip((page - 1) * limit)
-      .take(limit);
+    qb.orderBy('s.order', 'ASC');
+    if (typeof qb.addOrderBy === 'function') {
+      qb.addOrderBy('s.created_at', 'DESC');
+    }
+    qb.skip((page - 1) * limit).take(limit);
 
     const [items, total] = await qb.getManyAndCount();
     return {
@@ -281,6 +287,7 @@ export class SolutionService {
       metaDescription: dto.metaDescription ?? null,
       isPublished,
       publishedAt,
+      order: dto.order ?? 0,
       ...(dto.fieldId ? { field: { id: dto.fieldId } } : {}),
     });
 
@@ -396,6 +403,7 @@ export class SolutionService {
         solution.metaTitle = dto.metaTitle ?? null;
       if (dto.metaDescription !== undefined)
         solution.metaDescription = dto.metaDescription ?? null;
+      if (dto.order !== undefined) solution.order = dto.order;
 
       if (dto.isPublished !== undefined) {
         solution.isPublished = dto.isPublished;
@@ -488,6 +496,18 @@ export class SolutionService {
 
     await this.repo.update(id, updateData);
     return { id, isPublished, publishedAt: updateData.publishedAt };
+  }
+
+  /**
+   * Reorder display positions of solutions with atomic transaction safety.
+   */
+  async reorder(items: { id: string; order: number }[]) {
+    await this.dataSource.transaction(async (manager) => {
+      for (const item of items) {
+        await manager.update(Solution, item.id, { order: item.order });
+      }
+    });
+    return { message: 'Reordered solutions successfully' };
   }
 
   /**

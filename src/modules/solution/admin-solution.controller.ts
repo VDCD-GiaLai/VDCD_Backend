@@ -10,6 +10,7 @@ import {
   Query,
   Body,
   UseGuards,
+  BadRequestException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -28,6 +29,7 @@ import { CreateSolutionDto } from './dto/create-solution.dto';
 import { UpdateSolutionDto } from './dto/update-solution.dto';
 import { SolutionFilterDto } from './dto/solution-filter.dto';
 import { TogglePublishDto } from './dto/toggle-publish.dto';
+import { ReorderSolutionsDto } from './dto/reorder-solutions.dto';
 
 @ApiTags('Admin Solutions')
 @Controller('admin/solutions')
@@ -49,6 +51,30 @@ export class AdminSolutionController {
   })
   findAll(@Query() dto: SolutionFilterDto) {
     return this.service.findAllAdmin(dto);
+  }
+
+  @Patch('reorder')
+  @Roles('superadmin', 'editor')
+  @ApiOperation({
+    summary: 'Reorder solutions (Admin)',
+    description:
+      'Reorder display positions of solutions. Restricted to superadmin and editor.',
+  })
+  @ApiBody({ type: ReorderSolutionsDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Solutions reordered successfully.',
+  })
+  reorder(@Body() body: any) {
+    const rawItems = Array.isArray(body) ? body : body?.items;
+    if (!Array.isArray(rawItems)) {
+      throw new BadRequestException('Danh sách sắp xếp (items) không hợp lệ');
+    }
+    const items = rawItems.map((item: any, index: number) => ({
+      id: String(item.id),
+      order: typeof item.order === 'number' ? item.order : index + 1,
+    }));
+    return this.service.reorder(items);
   }
 
   @Get(':id')

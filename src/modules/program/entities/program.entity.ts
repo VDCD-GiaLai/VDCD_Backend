@@ -70,6 +70,9 @@ export class Program {
   @Index('IDX_program_published_at')
   publishedAt: Date | null;
 
+  @Column({ default: 0 })
+  order: number;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 

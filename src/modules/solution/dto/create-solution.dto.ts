@@ -7,6 +7,7 @@ import {
   IsUUID,
   IsObject,
   MaxLength,
+  IsInt,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -135,4 +136,10 @@ export class CreateSolutionDto {
   @IsOptional()
   @Type(() => Date)
   publishedAt?: Date;
+
+  @ApiPropertyOptional({ example: 1, description: 'Thứ tự hiển thị giải pháp' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  order?: number;
 }

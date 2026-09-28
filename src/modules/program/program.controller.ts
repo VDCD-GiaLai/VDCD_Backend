@@ -10,6 +10,7 @@ import {
   Query,
   Body,
   UseGuards,
+  BadRequestException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -29,6 +30,7 @@ import { CreateProgramDto } from './dto/create-program.dto';
 import { UpdateProgramDto } from './dto/update-program.dto';
 import { ProgramFilterDto } from './dto/program-filter.dto';
 import { TogglePublishDto } from './dto/toggle-publish.dto';
+import { ReorderProgramsDto } from './dto/reorder-programs.dto';
 
 @ApiTags('Programs')
 @Controller('programs')
@@ -119,6 +121,28 @@ export class ProgramController {
   })
   create(@Body() dto: CreateProgramDto) {
     return this.service.create(dto);
+  }
+
+  @Patch('reorder')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Reorder programs',
+    description:
+      'Reorder display positions of programs. Restricted to superadmin and editor.',
+  })
+  @ApiBody({ type: ReorderProgramsDto })
+  @ApiResponse({ status: 200, description: 'Programs reordered successfully.' })
+  reorder(@Body() body: any) {
+    const rawItems = Array.isArray(body) ? body : body?.items;
+    if (!Array.isArray(rawItems)) {
+      throw new BadRequestException('Danh sách sắp xếp (items) không hợp lệ');
+    }
+    const items = rawItems.map((item: any, index: number) => ({
+      id: String(item.id),
+      order: typeof item.order === 'number' ? item.order : index + 1,
+    }));
+    return this.service.reorder(items);
   }
 
   @Put(':id')
