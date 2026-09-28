@@ -31,6 +31,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectFilterDto } from './dto/project-filter.dto';
 import { AddImagesDto } from './dto/add-images.dto';
 import { ReorderImagesDto } from './dto/reorder-images.dto';
+import { ReorderProjectsDto } from './dto/reorder-projects.dto';
 import { UpdateProjectImageDto } from './dto/update-project-image.dto';
 import { TogglePublishDto } from './dto/toggle-publish.dto';
 import { Project } from './entities/project.entity';
@@ -130,6 +131,19 @@ export class ProjectController {
     return this.service.create(dto);
   }
 
+  @Patch('reorder')
+  @Roles('superadmin', 'editor')
+  @ApiOperation({
+    summary: 'Reorder projects',
+    description:
+      'Reorder display positions of projects. Restricted to superadmin and editor.',
+  })
+  @ApiBody({ type: ReorderProjectsDto })
+  @ApiResponse({ status: 200, description: 'Projects reordered successfully.' })
+  reorder(@Body() dto: ReorderProjectsDto) {
+    return this.service.reorder(dto.items);
+  }
+
   @Patch(':id')
   @Roles('superadmin', 'editor')
   @ApiOperation({
@@ -215,7 +229,12 @@ export class ProjectController {
         parsedCaptions = dto.captions;
       }
     }
-    return this.service.addImages(id, files, parsedCaptions, req?.user?.id);
+    return this.service.addImages(
+      id,
+      files,
+      parsedCaptions,
+      req?.user?.id as string | undefined,
+    );
   }
 
   @Patch(':id/images/reorder')
