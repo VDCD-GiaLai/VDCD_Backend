@@ -206,7 +206,12 @@ export class ProgramService {
       take: 5,
     });
 
-    return { ...program, relatedArticles };
+    const sidebarConfig = (program.content as any)?.sidebarConfig;
+    return {
+      ...program,
+      ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
+      relatedArticles,
+    };
   }
 
   /**
@@ -222,6 +227,10 @@ export class ProgramService {
     }
     if (!program.content || typeof program.content !== 'object') {
       program.content = { version: 1, blocks: [] };
+    }
+    const sidebarConfig = (program.content as any)?.sidebarConfig;
+    if (sidebarConfig !== undefined) {
+      return { ...program, sidebarConfig } as Program;
     }
     return program;
   }
@@ -240,6 +249,13 @@ export class ProgramService {
     let content: DocumentContent = { version: 1, blocks: [] };
     if (dto.content) {
       content = validateDocumentContent(dto.content);
+    }
+    const resolvedSidebarConfig =
+      dto.sidebarConfig ??
+      (content as unknown as Record<string, unknown>).sidebarConfig;
+    if (resolvedSidebarConfig !== undefined) {
+      (content as unknown as Record<string, unknown>).sidebarConfig =
+        resolvedSidebarConfig;
     }
 
     const isPublished = dto.isPublished ?? false;
@@ -326,9 +342,32 @@ export class ProgramService {
         const newImageIds = new Set(extractImageFileIds(newContent));
         orphanIds = oldImageIds.filter((fid) => !newImageIds.has(fid));
 
+        const rawContent = newContent as unknown as Record<string, unknown>;
+        const rawOldContent = (program.content || {}) as Record<
+          string,
+          unknown
+        >;
+        const sidebarConfig =
+          dto.sidebarConfig !== undefined
+            ? dto.sidebarConfig
+            : rawContent.sidebarConfig !== undefined
+              ? rawContent.sidebarConfig
+              : rawOldContent.sidebarConfig;
+
         program.content = {
           version: newContent.version || 1,
           blocks: [...newContent.blocks],
+          ...(rawContent.heroMeta
+            ? {
+                heroMeta: rawContent.heroMeta as any,
+              }
+            : {}),
+          ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
+        };
+      } else if (dto.sidebarConfig !== undefined) {
+        program.content = {
+          ...(program.content || { version: 1, blocks: [] }),
+          sidebarConfig: dto.sidebarConfig,
         };
       }
 
@@ -404,6 +443,10 @@ export class ProgramService {
         }
       }
 
+      const sidebarConfig = (saved.content as any)?.sidebarConfig;
+      if (sidebarConfig !== undefined) {
+        return { ...saved, sidebarConfig } as Program;
+      }
       return saved;
     });
   }

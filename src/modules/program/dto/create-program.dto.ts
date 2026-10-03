@@ -126,4 +126,11 @@ export class CreateProgramDto {
   @Type(() => Number)
   @IsInt()
   order?: number;
+
+  @ApiPropertyOptional({
+    description: 'Cấu hình hiển thị sidebar widgets và CTA',
+  })
+  @IsOptional()
+  @IsObject()
+  sidebarConfig?: Record<string, unknown>;
 }
