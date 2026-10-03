@@ -161,4 +161,11 @@ export class CreateArticleDto {
   @IsOptional()
   @Type(() => Date)
   publishedAt?: Date;
+
+  @ApiPropertyOptional({
+    description: 'Cấu hình hiển thị sidebar widgets và CTA',
+  })
+  @IsOptional()
+  @IsObject()
+  sidebarConfig?: Record<string, unknown>;
 }

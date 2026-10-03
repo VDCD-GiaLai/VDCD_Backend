@@ -4,6 +4,7 @@ import {
   IsBoolean,
   IsInt,
   IsNotEmpty,
+  IsObject,
   IsOptional,
   IsString,
   IsUUID,
@@ -237,4 +238,11 @@ export class CreateProjectDto {
   @Type(() => Number)
   @IsInt()
   order?: number;
+
+  @ApiPropertyOptional({
+    description: 'Cấu hình hiển thị sidebar widgets và CTA',
+  })
+  @IsOptional()
+  @IsObject()
+  sidebarConfig?: Record<string, unknown>;
 }
