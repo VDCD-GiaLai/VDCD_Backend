@@ -233,8 +233,10 @@ export class ArticleService {
         })
       : [];
 
+    const sidebarConfig = (article.content as any)?.sidebarConfig;
     return {
       ...article,
+      ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
       relatedArticles: (relatedArticles || []).filter(
         (a) => a.id !== article.id,
       ),
@@ -259,6 +261,10 @@ export class ArticleService {
     if (!article.content || typeof article.content !== 'object') {
       article.content = { version: 1, blocks: [] };
     }
+    const sidebarConfig = (article.content as any)?.sidebarConfig;
+    if (sidebarConfig !== undefined) {
+      return { ...article, sidebarConfig } as Article;
+    }
     return article;
   }
 
@@ -276,6 +282,13 @@ export class ArticleService {
     let content: DocumentContent = { version: 1, blocks: [] };
     if (dto.content) {
       content = validateDocumentContent(dto.content);
+    }
+    const resolvedSidebarConfig =
+      dto.sidebarConfig ??
+      (content as unknown as Record<string, unknown>).sidebarConfig;
+    if (resolvedSidebarConfig !== undefined) {
+      (content as unknown as Record<string, unknown>).sidebarConfig =
+        resolvedSidebarConfig;
     }
 
     const article = this.repo.create({
@@ -363,9 +376,32 @@ export class ArticleService {
         const newImageIds = new Set(extractImageFileIds(newContent));
         orphanIds = oldImageIds.filter((fid) => !newImageIds.has(fid));
 
+        const rawContent = newContent as unknown as Record<string, unknown>;
+        const rawOldContent = (article.content || {}) as Record<
+          string,
+          unknown
+        >;
+        const sidebarConfig =
+          dto.sidebarConfig !== undefined
+            ? dto.sidebarConfig
+            : rawContent.sidebarConfig !== undefined
+              ? rawContent.sidebarConfig
+              : rawOldContent.sidebarConfig;
+
         article.content = {
           version: newContent.version || 1,
           blocks: [...newContent.blocks],
+          ...(rawContent.heroMeta
+            ? {
+                heroMeta: rawContent.heroMeta as any,
+              }
+            : {}),
+          ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
+        };
+      } else if (dto.sidebarConfig !== undefined) {
+        article.content = {
+          ...(article.content || { version: 1, blocks: [] }),
+          sidebarConfig: dto.sidebarConfig,
         };
       }
 
@@ -433,6 +469,10 @@ export class ArticleService {
           );
       }
 
+      const sidebarConfig = (saved.content as any)?.sidebarConfig;
+      if (sidebarConfig !== undefined) {
+        return { ...saved, sidebarConfig } as Article;
+      }
       return saved;
     });
   }

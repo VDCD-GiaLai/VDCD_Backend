@@ -239,7 +239,12 @@ export class SolutionService {
       take: 5,
     });
 
-    return { ...solution, relatedArticles };
+    const sidebarConfig = (solution.content as any)?.sidebarConfig;
+    return {
+      ...solution,
+      ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
+      relatedArticles,
+    };
   }
 
   /**
@@ -252,6 +257,10 @@ export class SolutionService {
     });
     if (!solution) {
       throw new NotFoundException(`Không tìm thấy giải pháp ID '${id}'`);
+    }
+    const sidebarConfig = (solution.content as any)?.sidebarConfig;
+    if (sidebarConfig !== undefined) {
+      return { ...solution, sidebarConfig } as Solution;
     }
     return solution;
   }
@@ -270,6 +279,13 @@ export class SolutionService {
     let content: DocumentContent = { version: 1, blocks: [] };
     if (dto.content) {
       content = validateDocumentContent(dto.content);
+    }
+    const resolvedSidebarConfig =
+      dto.sidebarConfig ??
+      (content as unknown as Record<string, unknown>).sidebarConfig;
+    if (resolvedSidebarConfig !== undefined) {
+      (content as unknown as Record<string, unknown>).sidebarConfig =
+        resolvedSidebarConfig;
     }
 
     const isPublished = dto.isPublished ?? false;
@@ -374,15 +390,32 @@ export class SolutionService {
         const newImageIds = new Set(extractImageFileIds(newContent));
         orphanIds = oldImageIds.filter((fid) => !newImageIds.has(fid));
 
+        const rawContent = newContent as unknown as Record<string, unknown>;
+        const rawOldContent = (solution.content || {}) as Record<
+          string,
+          unknown
+        >;
+        const sidebarConfig =
+          dto.sidebarConfig !== undefined
+            ? dto.sidebarConfig
+            : rawContent.sidebarConfig !== undefined
+              ? rawContent.sidebarConfig
+              : rawOldContent.sidebarConfig;
+
         solution.content = {
           version: newContent.version || 1,
           blocks: [...newContent.blocks],
-          ...((newContent as unknown as Record<string, unknown>).heroMeta
+          ...(rawContent.heroMeta
             ? {
-                heroMeta: (newContent as unknown as Record<string, unknown>)
-                  .heroMeta,
+                heroMeta: rawContent.heroMeta as any,
               }
             : {}),
+          ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
+        };
+      } else if (dto.sidebarConfig !== undefined) {
+        solution.content = {
+          ...(solution.content || { version: 1, blocks: [] }),
+          sidebarConfig: dto.sidebarConfig,
         };
       }
 
@@ -475,6 +508,10 @@ export class SolutionService {
           );
       }
 
+      const sidebarConfig = (saved.content as any)?.sidebarConfig;
+      if (sidebarConfig !== undefined) {
+        return { ...saved, sidebarConfig } as Solution;
+      }
       return saved;
     });
   }

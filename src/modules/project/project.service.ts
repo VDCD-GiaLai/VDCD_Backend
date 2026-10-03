@@ -282,8 +282,10 @@ export class ProjectService {
       order: { createdAt: 'DESC' },
     });
 
+    const sidebarConfig = (project.content as any)?.sidebarConfig;
     return {
       ...project,
+      ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
       relatedArticles,
       relatedProjects: relatedProjects.filter((p) => p.id !== project.id),
     };
@@ -296,6 +298,10 @@ export class ProjectService {
     const project = await this.projectRepo.findById(id);
     if (!project) {
       throw new NotFoundException(`Không tìm thấy dự án ID '${id}'`);
+    }
+    const sidebarConfig = (project.content as any)?.sidebarConfig;
+    if (sidebarConfig !== undefined) {
+      return { ...project, sidebarConfig } as Project;
     }
     return project;
   }
@@ -339,6 +345,13 @@ export class ProjectService {
       });
     } else {
       content = { version: 1, blocks: [] };
+    }
+    const resolvedSidebarConfig =
+      dto.sidebarConfig ??
+      (content as unknown as Record<string, unknown>).sidebarConfig;
+    if (resolvedSidebarConfig !== undefined) {
+      (content as unknown as Record<string, unknown>).sidebarConfig =
+        resolvedSidebarConfig;
     }
 
     // 2. Legacy snapshot backup
@@ -465,7 +478,33 @@ export class ProjectService {
           }
         }
 
-        project.content = newContent;
+        const rawContent = newContent as unknown as Record<string, unknown>;
+        const rawOldContent = (project.content || {}) as Record<
+          string,
+          unknown
+        >;
+        const sidebarConfig =
+          dto.sidebarConfig !== undefined
+            ? dto.sidebarConfig
+            : rawContent.sidebarConfig !== undefined
+              ? rawContent.sidebarConfig
+              : rawOldContent.sidebarConfig;
+
+        project.content = {
+          version: newContent.version || 1,
+          blocks: [...newContent.blocks],
+          ...(rawContent.heroMeta
+            ? {
+                heroMeta: rawContent.heroMeta as any,
+              }
+            : {}),
+          ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
+        };
+      } else if (dto.sidebarConfig !== undefined) {
+        project.content = {
+          ...(project.content || { version: 1, blocks: [] }),
+          sidebarConfig: dto.sidebarConfig,
+        };
       }
 
       // 2. Handle Thumbnail update
@@ -525,6 +564,10 @@ export class ProjectService {
 
       const saved = await manager.save(Project, project);
 
+      const sidebarConfig = (saved.content as any)?.sidebarConfig;
+      if (sidebarConfig !== undefined) {
+        return { ...saved, sidebarConfig } as Project;
+      }
       return saved;
     });
   }

@@ -510,5 +510,40 @@ describe('Solution Content & Document Architecture Tests', () => {
       );
       expect(mockSolutionRepo.remove).toHaveBeenCalledWith(solutionToDelete);
     });
+
+    it('should persist and retrieve custom sidebarConfig in solution update and findById', async () => {
+      const existing = {
+        id: 'sol-custom-1',
+        title: 'Giải pháp nông nghiệp',
+        content: { version: 1, blocks: [] },
+      };
+      mockEntityManager.findOne.mockResolvedValue(existing);
+      mockEntityManager.save.mockImplementation(async (_, entity) => entity || _);
+
+      const customSidebar = {
+        mode: 'custom',
+        widgets: [{ type: 'programs', title: 'Chương trình liên quan' }],
+        cta: { enabled: true, title: 'Đăng ký ngay' },
+      };
+
+      const updated = await service.update('sol-custom-1', {
+        content: {
+          version: 1,
+          blocks: [],
+          sidebarConfig: customSidebar,
+        },
+      });
+
+      expect((updated.content as any).sidebarConfig).toEqual(customSidebar);
+      expect(updated.sidebarConfig).toEqual(customSidebar);
+
+      // Verify findById returns sidebarConfig
+      mockSolutionRepo.findOne.mockResolvedValue({
+        ...existing,
+        content: { version: 1, blocks: [], sidebarConfig: customSidebar },
+      });
+      const retrieved = await service.findById('sol-custom-1');
+      expect(retrieved.sidebarConfig).toEqual(customSidebar);
+    });
   });
 });
