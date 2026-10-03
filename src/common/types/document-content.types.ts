@@ -148,6 +148,7 @@ export type DocumentContent = {
   version: number;
   blocks: ContentBlock[];
   heroMeta?: HeroMeta;
+  sidebarConfig?: Record<string, unknown> | null;
 };
 
 /** Generic unified aliases for DocumentContent */
