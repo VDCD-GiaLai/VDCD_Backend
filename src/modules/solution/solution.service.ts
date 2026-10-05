@@ -20,6 +20,19 @@ import {
 } from '../../common/validators/document-content.validator';
 import { DocumentContent } from '../../common/types/document-content.types';
 
+function extractSidebarConfig(content: any): Record<string, unknown> | undefined {
+  if (!content) return undefined;
+  if (typeof content === 'string') {
+    try {
+      const parsed = JSON.parse(content);
+      return parsed?.sidebarConfig;
+    } catch {
+      return undefined;
+    }
+  }
+  return (content as any)?.sidebarConfig;
+}
+
 @Injectable()
 export class SolutionService {
   private readonly logger = new Logger(SolutionService.name);
@@ -239,7 +252,7 @@ export class SolutionService {
       take: 5,
     });
 
-    const sidebarConfig = (solution.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(solution.content);
     return {
       ...solution,
       ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
@@ -258,7 +271,7 @@ export class SolutionService {
     if (!solution) {
       throw new NotFoundException(`Không tìm thấy giải pháp ID '${id}'`);
     }
-    const sidebarConfig = (solution.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(solution.content);
     if (sidebarConfig !== undefined) {
       return { ...solution, sidebarConfig } as Solution;
     }
@@ -508,7 +521,7 @@ export class SolutionService {
           );
       }
 
-      const sidebarConfig = (saved.content as any)?.sidebarConfig;
+      const sidebarConfig = extractSidebarConfig(saved.content);
       if (sidebarConfig !== undefined) {
         return { ...saved, sidebarConfig } as Solution;
       }
