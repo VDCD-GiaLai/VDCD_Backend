@@ -174,7 +174,7 @@ export class SlideDetailBlogService {
   }
 
   /**
-   * Admin list � paginated, search, filter. Excludes heavy `content` field.
+   * Admin list — paginated, search, filter. Excludes heavy `content` field.
    */
   async findAllAdmin(dto: SlideDetailBlogFilterDto) {
     const { page = 1, limit = 10, search, isPublished } = dto;
@@ -203,6 +203,48 @@ export class SlideDetailBlogService {
     }
 
     qb.orderBy('b.created_at', 'DESC')
+      .skip((page - 1) * limit)
+      .take(limit);
+
+    const [data, total] = await qb.getManyAndCount();
+    return {
+      items: data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  /**
+   * Public list — paginated, published only. Excludes heavy `content` field.
+   */
+  async findAllPublic(dto: SlideDetailBlogFilterDto) {
+    const { page = 1, limit = 10, search } = dto;
+    const qb = this.repo
+      .createQueryBuilder('b')
+      .select([
+        'b.id',
+        'b.slideId',
+        'b.title',
+        'b.subtitle',
+        'b.slug',
+        'b.excerpt',
+        'b.heroImageUrl',
+        'b.isPublished',
+        'b.publishedAt',
+        'b.createdAt',
+        'b.updatedAt',
+      ])
+      .leftJoinAndSelect('b.slide', 'slide')
+      .where('b.is_published = :isPublished', { isPublished: true });
+
+    if (search) {
+      qb.andWhere('b.title ILIKE :search', { search: `%${search}%` });
+    }
+
+    qb.orderBy('b.published_at', 'DESC')
+      .addOrderBy('b.created_at', 'DESC')
       .skip((page - 1) * limit)
       .take(limit);
 
