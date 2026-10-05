@@ -108,4 +108,11 @@ export class CreateSlideDetailBlogDto {
   @IsOptional()
   @IsBoolean()
   isPublished?: boolean;
+
+  @ApiPropertyOptional({
+    description: 'Cấu hình hiển thị sidebar widgets và CTA',
+  })
+  @IsOptional()
+  @IsObject()
+  sidebarConfig?: Record<string, unknown>;
 }

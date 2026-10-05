@@ -1,4 +1,4 @@
-﻿// src/modules/slide-detail-blog/dto/public-slide-detail-blog.dto.ts
+// src/modules/slide-detail-blog/dto/public-slide-detail-blog.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 
@@ -48,4 +48,8 @@ export class PublicSlideDetailBlogDto {
   @Expose()
   @ApiPropertyOptional({ description: 'First publish timestamp' })
   publishedAt: Date | null;
+
+  @Expose()
+  @ApiPropertyOptional({ description: 'Cấu hình hiển thị sidebar widgets và CTA' })
+  sidebarConfig?: Record<string, unknown>;
 }
