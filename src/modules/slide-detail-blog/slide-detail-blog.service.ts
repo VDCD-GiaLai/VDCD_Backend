@@ -76,7 +76,9 @@ export class SlideDetailBlogService {
   /**
    * Get published blog by slug. Public access.
    */
-  async findBySlug(slug: string): Promise<Partial<SlideDetailBlog>> {
+  async findBySlug(
+    slug: string,
+  ): Promise<Partial<SlideDetailBlog> & { sidebarConfig?: Record<string, unknown> }> {
     const blog = await this.repo.findOne({
       where: { slug, isPublished: true },
       select: SlideDetailBlogService.PUBLIC_SELECT,
@@ -84,13 +86,19 @@ export class SlideDetailBlogService {
     if (!blog) {
       throw new NotFoundException(`Không tìm thấy bài viết '${slug}'`);
     }
-    return blog;
+    const sidebarConfig = (blog.content as any)?.sidebarConfig;
+    return {
+      ...blog,
+      ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
+    };
   }
 
   /**
    * Get published blog by slideId. Public access.
    */
-  async findBySlideId(slideId: string): Promise<Partial<SlideDetailBlog>> {
+  async findBySlideId(
+    slideId: string,
+  ): Promise<Partial<SlideDetailBlog> & { sidebarConfig?: Record<string, unknown> }> {
     const blog = await this.repo.findOne({
       where: { slideId, isPublished: true },
       select: SlideDetailBlogService.PUBLIC_SELECT,
@@ -100,7 +108,11 @@ export class SlideDetailBlogService {
         'Slide chưa có bài viết chi tiết hoặc chưa được publish',
       );
     }
-    return blog;
+    const sidebarConfig = (blog.content as any)?.sidebarConfig;
+    return {
+      ...blog,
+      ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
+    };
   }
 
   // -- Admin (read) -------------------------------------------------
@@ -115,6 +127,10 @@ export class SlideDetailBlogService {
     });
     if (!blog) {
       throw new NotFoundException('Không tìm thấy bài viết');
+    }
+    const sidebarConfig = (blog.content as any)?.sidebarConfig;
+    if (sidebarConfig !== undefined) {
+      return { ...blog, sidebarConfig } as SlideDetailBlog;
     }
     return blog;
   }
@@ -136,6 +152,10 @@ export class SlideDetailBlogService {
     });
     if (!blog) {
       throw new NotFoundException('Slide chưa có bài viết chi tiết');
+    }
+    const sidebarConfig = (blog.content as any)?.sidebarConfig;
+    if (sidebarConfig !== undefined) {
+      return { ...blog, sidebarConfig } as SlideDetailBlog;
     }
     return blog;
   }
@@ -218,6 +238,13 @@ export class SlideDetailBlogService {
     if (dto.content) {
       content = validateBlogContent(dto.content);
     }
+    const resolvedSidebarConfig =
+      dto.sidebarConfig ??
+      (content as unknown as Record<string, unknown>).sidebarConfig;
+    if (resolvedSidebarConfig !== undefined) {
+      (content as unknown as Record<string, unknown>).sidebarConfig =
+        resolvedSidebarConfig;
+    }
 
     const blog = this.repo.create({
       slideId: dto.slideId,
@@ -258,6 +285,10 @@ export class SlideDetailBlogService {
         );
     }
 
+    const savedSidebarConfig = (saved.content as any)?.sidebarConfig;
+    if (savedSidebarConfig !== undefined) {
+      return { ...saved, sidebarConfig: savedSidebarConfig } as SlideDetailBlog;
+    }
     return saved;
   }
 
@@ -285,9 +316,7 @@ export class SlideDetailBlogService {
     // The admin UI tracks discarded file IDs and calls DELETE /upload/:fileId
     // in the onSuccess callback after PATCH succeeds, giving the user a chance
     // to undo before the ImageKit file is actually removed.
-    // NOTE: The remove() method still handles full cleanup on blog deletion.
-
-    // Content change � validate + cleanup orphan images
+    //     // Content change – validate + cleanup orphan images
     if (dto.content) {
       const newContent = validateBlogContent(dto.content);
       const oldContent = blog.content as BlogContent;
@@ -300,7 +329,30 @@ export class SlideDetailBlogService {
         this.cleanupImages(orphanIds);
       }
 
-      blog.content = newContent;
+      const rawContent = (dto.content || {}) as Record<string, unknown>;
+      const rawOldContent = (blog.content || {}) as Record<string, unknown>;
+      const sidebarConfig =
+        dto.sidebarConfig !== undefined
+          ? dto.sidebarConfig
+          : rawContent.sidebarConfig !== undefined
+            ? rawContent.sidebarConfig
+            : rawOldContent.sidebarConfig;
+
+      blog.content = {
+        version: newContent.version || 1,
+        blocks: [...newContent.blocks],
+        ...(rawContent.heroMeta
+          ? {
+              heroMeta: rawContent.heroMeta as any,
+            }
+          : {}),
+        ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
+      };
+    } else if (dto.sidebarConfig !== undefined) {
+      blog.content = {
+        ...(blog.content || { version: 1, blocks: [] }),
+        sidebarConfig: dto.sidebarConfig,
+      };
     }
 
     // Apply other fields
@@ -342,6 +394,10 @@ export class SlideDetailBlogService {
         );
     }
 
+    const savedSidebarConfig = (saved.content as any)?.sidebarConfig;
+    if (savedSidebarConfig !== undefined) {
+      return { ...saved, sidebarConfig: savedSidebarConfig } as SlideDetailBlog;
+    }
     return saved;
   }
 
