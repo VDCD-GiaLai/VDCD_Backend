@@ -23,6 +23,19 @@ import {
 import { convertProjectToBlocks } from './utils/project-to-blocks.util';
 import { DocumentContent } from '../../common/types/document-content.types';
 
+function extractSidebarConfig(content: any): Record<string, unknown> | undefined {
+  if (!content) return undefined;
+  if (typeof content === 'string') {
+    try {
+      const parsed = JSON.parse(content);
+      return parsed?.sidebarConfig;
+    } catch {
+      return undefined;
+    }
+  }
+  return (content as any)?.sidebarConfig;
+}
+
 @Injectable()
 export class ProjectService {
   private readonly logger = new Logger(ProjectService.name);
@@ -282,7 +295,7 @@ export class ProjectService {
       order: { createdAt: 'DESC' },
     });
 
-    const sidebarConfig = (project.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(project.content);
     return {
       ...project,
       ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
@@ -299,7 +312,7 @@ export class ProjectService {
     if (!project) {
       throw new NotFoundException(`Không tìm thấy dự án ID '${id}'`);
     }
-    const sidebarConfig = (project.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(project.content);
     if (sidebarConfig !== undefined) {
       return { ...project, sidebarConfig } as Project;
     }
@@ -564,7 +577,7 @@ export class ProjectService {
 
       const saved = await manager.save(Project, project);
 
-      const sidebarConfig = (saved.content as any)?.sidebarConfig;
+      const sidebarConfig = extractSidebarConfig(saved.content);
       if (sidebarConfig !== undefined) {
         return { ...saved, sidebarConfig } as Project;
       }
