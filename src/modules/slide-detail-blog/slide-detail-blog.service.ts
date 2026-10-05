@@ -21,6 +21,19 @@ import {
 } from './validators/content.validator';
 import { BlogContent } from './types/blog-content.types';
 
+function extractSidebarConfig(content: any): Record<string, unknown> | undefined {
+  if (!content) return undefined;
+  if (typeof content === 'string') {
+    try {
+      const parsed = JSON.parse(content);
+      return parsed?.sidebarConfig;
+    } catch {
+      return undefined;
+    }
+  }
+  return (content as any)?.sidebarConfig;
+}
+
 @Injectable()
 export class SlideDetailBlogService {
   private readonly logger = new Logger(SlideDetailBlogService.name);
@@ -86,7 +99,7 @@ export class SlideDetailBlogService {
     if (!blog) {
       throw new NotFoundException(`Không tìm thấy bài viết '${slug}'`);
     }
-    const sidebarConfig = (blog.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(blog.content);
     return {
       ...blog,
       ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
@@ -108,7 +121,7 @@ export class SlideDetailBlogService {
         'Slide chưa có bài viết chi tiết hoặc chưa được publish',
       );
     }
-    const sidebarConfig = (blog.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(blog.content);
     return {
       ...blog,
       ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
@@ -128,7 +141,7 @@ export class SlideDetailBlogService {
     if (!blog) {
       throw new NotFoundException('Không tìm thấy bài viết');
     }
-    const sidebarConfig = (blog.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(blog.content);
     if (sidebarConfig !== undefined) {
       return { ...blog, sidebarConfig } as SlideDetailBlog;
     }
@@ -153,7 +166,7 @@ export class SlideDetailBlogService {
     if (!blog) {
       throw new NotFoundException('Slide chưa có bài viết chi tiết');
     }
-    const sidebarConfig = (blog.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(blog.content);
     if (sidebarConfig !== undefined) {
       return { ...blog, sidebarConfig } as SlideDetailBlog;
     }
@@ -161,7 +174,7 @@ export class SlideDetailBlogService {
   }
 
   /**
-   * Admin list � paginated, search, filter. Excludes heavy `content` field.
+   * Admin list — paginated, search, filter. Excludes heavy `content` field.
    */
   async findAllAdmin(dto: SlideDetailBlogFilterDto) {
     const { page = 1, limit = 10, search, isPublished } = dto;
@@ -190,6 +203,48 @@ export class SlideDetailBlogService {
     }
 
     qb.orderBy('b.created_at', 'DESC')
+      .skip((page - 1) * limit)
+      .take(limit);
+
+    const [data, total] = await qb.getManyAndCount();
+    return {
+      items: data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  /**
+   * Public list — paginated, published only. Excludes heavy `content` field.
+   */
+  async findAllPublic(dto: SlideDetailBlogFilterDto) {
+    const { page = 1, limit = 10, search } = dto;
+    const qb = this.repo
+      .createQueryBuilder('b')
+      .select([
+        'b.id',
+        'b.slideId',
+        'b.title',
+        'b.subtitle',
+        'b.slug',
+        'b.excerpt',
+        'b.heroImageUrl',
+        'b.isPublished',
+        'b.publishedAt',
+        'b.createdAt',
+        'b.updatedAt',
+      ])
+      .leftJoinAndSelect('b.slide', 'slide')
+      .where('b.is_published = :isPublished', { isPublished: true });
+
+    if (search) {
+      qb.andWhere('b.title ILIKE :search', { search: `%${search}%` });
+    }
+
+    qb.orderBy('b.published_at', 'DESC')
+      .addOrderBy('b.created_at', 'DESC')
       .skip((page - 1) * limit)
       .take(limit);
 
@@ -285,7 +340,7 @@ export class SlideDetailBlogService {
         );
     }
 
-    const savedSidebarConfig = (saved.content as any)?.sidebarConfig;
+    const savedSidebarConfig = extractSidebarConfig(saved.content);
     if (savedSidebarConfig !== undefined) {
       return { ...saved, sidebarConfig: savedSidebarConfig } as SlideDetailBlog;
     }
@@ -394,7 +449,7 @@ export class SlideDetailBlogService {
         );
     }
 
-    const savedSidebarConfig = (saved.content as any)?.sidebarConfig;
+    const savedSidebarConfig = extractSidebarConfig(saved.content);
     if (savedSidebarConfig !== undefined) {
       return { ...saved, sidebarConfig: savedSidebarConfig } as SlideDetailBlog;
     }

@@ -1,4 +1,4 @@
-﻿// src/modules/slide-detail-blog/slide-detail-blog.service.spec.ts
+// src/modules/slide-detail-blog/slide-detail-blog.service.spec.ts
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
@@ -174,4 +174,29 @@ describe('SlideDetailBlogService — findBySlug (public)', () => {
     // heroImageUrl for og:image
     expect(result.heroImageUrl).toBe('https://ik.imagekit.io/vdcd/hero.jpg');
   });
+
+  it('should return published blogs for findAllPublic', async () => {
+    const mockQb = {
+      select: jest.fn().mockReturnThis(),
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      where: jest.fn().mockReturnThis(),
+      andWhere: jest.fn().mockReturnThis(),
+      orderBy: jest.fn().mockReturnThis(),
+      addOrderBy: jest.fn().mockReturnThis(),
+      skip: jest.fn().mockReturnThis(),
+      take: jest.fn().mockReturnThis(),
+      getManyAndCount: jest.fn().mockResolvedValue([[PUBLISHED_BLOG], 1]),
+    };
+    mockRepo.createQueryBuilder.mockReturnValue(mockQb);
+
+    const result = await service.findAllPublic({ page: 1, limit: 10 });
+
+    expect(result.items).toHaveLength(1);
+    expect(result.total).toBe(1);
+    expect(mockQb.where).toHaveBeenCalledWith(
+      'b.is_published = :isPublished',
+      { isPublished: true },
+    );
+  });
 });
+

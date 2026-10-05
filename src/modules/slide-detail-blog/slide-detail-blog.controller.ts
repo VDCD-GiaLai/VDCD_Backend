@@ -95,6 +95,18 @@ export class SlideDetailBlogController {
     return this.service.findBySlideId(slideId);
   }
 
+  @Public()
+  @Get()
+  @ApiOperation({
+    summary: 'Get published slide detail blogs (Public)',
+    description:
+      'Paginated list of published slide detail blogs for public website and widgets.',
+  })
+  @ApiResponse({ status: 200, description: 'List retrieved successfully.' })
+  findAllPublic(@Query() dto: SlideDetailBlogFilterDto) {
+    return this.service.findAllPublic(dto);
+  }
+
   // ── Write routes ─────────────────────────────────────────────────
 
   @Post()

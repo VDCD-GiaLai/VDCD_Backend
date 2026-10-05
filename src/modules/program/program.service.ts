@@ -20,6 +20,19 @@ import {
 } from '../../common/validators/document-content.validator';
 import { DocumentContent } from '../../common/types/document-content.types';
 
+function extractSidebarConfig(content: any): Record<string, unknown> | undefined {
+  if (!content) return undefined;
+  if (typeof content === 'string') {
+    try {
+      const parsed = JSON.parse(content);
+      return parsed?.sidebarConfig;
+    } catch {
+      return undefined;
+    }
+  }
+  return (content as any)?.sidebarConfig;
+}
+
 @Injectable()
 export class ProgramService {
   private readonly logger = new Logger(ProgramService.name);
@@ -206,7 +219,7 @@ export class ProgramService {
       take: 5,
     });
 
-    const sidebarConfig = (program.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(program.content);
     return {
       ...program,
       ...(sidebarConfig !== undefined ? { sidebarConfig } : {}),
@@ -228,7 +241,7 @@ export class ProgramService {
     if (!program.content || typeof program.content !== 'object') {
       program.content = { version: 1, blocks: [] };
     }
-    const sidebarConfig = (program.content as any)?.sidebarConfig;
+    const sidebarConfig = extractSidebarConfig(program.content);
     if (sidebarConfig !== undefined) {
       return { ...program, sidebarConfig } as Program;
     }
@@ -443,7 +456,7 @@ export class ProgramService {
         }
       }
 
-      const sidebarConfig = (saved.content as any)?.sidebarConfig;
+      const sidebarConfig = extractSidebarConfig(saved.content);
       if (sidebarConfig !== undefined) {
         return { ...saved, sidebarConfig } as Program;
       }
