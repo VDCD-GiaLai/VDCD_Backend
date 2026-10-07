@@ -3,6 +3,7 @@ import {
   Post,
   Get,
   Delete,
+  Patch,
   Param,
   Query,
   Body,
@@ -42,6 +43,10 @@ import {
   GalleryResponseDto,
   GalleryFoldersResponseDto,
 } from './dto/upload-gallery.dto';
+import {
+  RenameFileDto,
+  RenameFileResponseDto,
+} from './dto/rename-file.dto';
 
 // Memory storage — Don't save file to disk, just send to ImageKit
 const memoryUpload = () =>
@@ -721,6 +726,39 @@ export class UploadController {
   })
   deleteFile(@Param('fileId') fileId: string) {
     return this.service.deleteFile(fileId);
+  }
+
+  // ── Rename file ────────────────────────────────────────────────────
+  @Patch(':fileId/rename')
+  @Roles('superadmin', 'editor')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Rename uploaded file',
+    description:
+      'Rename a file in ImageKit and optionally synchronize references across database entities. Restricted to superadmin and editor.',
+  })
+  @ApiParam({
+    name: 'fileId',
+    description: 'The unique ID of the file in ImageKit',
+  })
+  @ApiBody({ type: RenameFileDto })
+  @ApiResponse({
+    status: 200,
+    description: 'File renamed successfully.',
+    type: RenameFileResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid file name or rename failure.' })
+  @ApiResponse({ status: 404, description: 'File not found.' })
+  @ApiResponse({ status: 409, description: 'File name already exists in target folder.' })
+  renameFile(
+    @Param('fileId') fileId: string,
+    @Body() dto: RenameFileDto,
+  ) {
+    return this.service.renameFile(
+      fileId,
+      dto.newFileName,
+      dto.syncDatabaseReferences ?? true,
+    );
   }
 
   // ── URL transform (resize on-the-fly) ───────────────────────────
