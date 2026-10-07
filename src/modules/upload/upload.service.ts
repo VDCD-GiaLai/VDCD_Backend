@@ -3,6 +3,7 @@ import {
   BadRequestException,
   InternalServerErrorException,
   NotFoundException,
+  ConflictException,
   Optional,
   Logger,
 } from '@nestjs/common';
@@ -364,6 +365,221 @@ export class UploadService {
     } catch (err) {
       this.logger.warn(`Failed to delete file ${fileId} from ImageKit`, err);
     }
+  }
+
+  // ── Rename file in ImageKit & sync database references ───────────────
+  async renameFile(
+    fileId: string,
+    newFileName: string,
+    syncDb = true,
+  ): Promise<{
+    fileId: string;
+    name: string;
+    filePath: string;
+    url: string;
+    updatedDbRecordsCount: number;
+  }> {
+    if (!fileId || typeof fileId !== 'string') {
+      throw new BadRequestException('ID tệp không hợp lệ');
+    }
+    if (!newFileName || typeof newFileName !== 'string' || !newFileName.trim()) {
+      throw new BadRequestException('Tên tệp mới không được để trống');
+    }
+
+    // 1. Fetch current file details from ImageKit
+    let currentFile: Record<string, any>;
+    try {
+      currentFile = (await this.imagekit.getFileDetails(fileId)) as Record<string, any>;
+    } catch (err: any) {
+      this.logger.error(`Failed to get file details for fileId: ${fileId}`, err);
+      throw new NotFoundException(`Không tìm thấy tệp với ID: ${fileId}`);
+    }
+
+    const oldFilePath = currentFile.filePath as string;
+    const oldName = currentFile.name as string;
+    const oldUrl = currentFile.url as string;
+    const currentExt = extname(oldName).toLowerCase();
+
+    // 2. Extract extension and base name
+    const trimmedInput = newFileName.trim();
+    const inputExt = extname(trimmedInput).toLowerCase();
+    let baseName = inputExt ? trimmedInput.slice(0, -inputExt.length) : trimmedInput;
+
+    // Sanitize base name using slugify (Vietnamese-friendly, safe for URL and CDN)
+    baseName = slugify(baseName, {
+      lower: true,
+      locale: 'vi',
+      strict: true,
+      trim: true,
+    });
+
+    if (!baseName) {
+      throw new BadRequestException('Tên tệp sau khi chuẩn hóa không hợp lệ');
+    }
+
+    const targetExt = inputExt || currentExt;
+    const finalNewFileName = `${baseName}${targetExt}`;
+
+    if (finalNewFileName === oldName) {
+      return {
+        fileId,
+        name: oldName,
+        filePath: oldFilePath,
+        url: oldUrl,
+        updatedDbRecordsCount: 0,
+      };
+    }
+
+    // 3. Call ImageKit rename API
+    try {
+      await this.imagekit.renameFile({
+        filePath: oldFilePath,
+        newFileName: finalNewFileName,
+        purgeCache: true,
+      });
+    } catch (err: any) {
+      const errMsg = err?.message || String(err);
+      this.logger.error(`ImageKit renameFile failed: ${errMsg}`, err);
+      if (
+        errMsg.toLowerCase().includes('already exists') ||
+        errMsg.toLowerCase().includes('duplicate') ||
+        err?.status === 409
+      ) {
+        throw new ConflictException(
+          `Tệp có tên "${finalNewFileName}" đã tồn tại trong thư mục này`,
+        );
+      }
+      throw new BadRequestException(`Không thể đổi tên tệp trên ImageKit: ${errMsg}`);
+    }
+
+    // 4. Retrieve refreshed file details from ImageKit
+    let updatedDetails: { name: string; filePath: string; url: string };
+    try {
+      const refreshed = (await this.imagekit.getFileDetails(fileId)) as Record<string, any>;
+      updatedDetails = {
+        name: refreshed.name as string,
+        filePath: refreshed.filePath as string,
+        url: refreshed.url as string,
+      };
+    } catch {
+      const folderPath = oldFilePath.substring(0, oldFilePath.lastIndexOf('/'));
+      const newFilePath = `${folderPath}/${finalNewFileName}`;
+      const newUrl = oldUrl.substring(0, oldUrl.lastIndexOf('/')) + `/${finalNewFileName}`;
+      updatedDetails = {
+        name: finalNewFileName,
+        filePath: newFilePath,
+        url: newUrl,
+      };
+    }
+
+    const newUrl = updatedDetails.url;
+    const newFilePath = updatedDetails.filePath;
+    const newName = updatedDetails.name;
+
+    // 5. Synchronize database references if requested
+    let updatedDbRecordsCount = 0;
+    if (syncDb && this.dataSource?.query) {
+      try {
+        const queries = [
+          // 1. Article thumbnail
+          this.dataSource.query(
+            `UPDATE "article" SET "thumbnail" = $1 WHERE "thumbnail_file_id" = $2 OR "thumbnail" = $3`,
+            [newUrl, fileId, oldUrl],
+          ),
+          // 2. Project thumbnail
+          this.dataSource.query(
+            `UPDATE "project" SET "thumbnail" = $1 WHERE "thumbnail_file_id" = $2 OR "thumbnail" = $3`,
+            [newUrl, fileId, oldUrl],
+          ),
+          // 3. ProjectImage url
+          this.dataSource.query(
+            `UPDATE "project_image" SET "url" = $1 WHERE "file_id" = $2 OR "url" = $3`,
+            [newUrl, fileId, oldUrl],
+          ),
+          // 4. Program thumbnail
+          this.dataSource.query(
+            `UPDATE "program" SET "thumbnail" = $1 WHERE "thumbnail_file_id" = $2 OR "thumbnail" = $3`,
+            [newUrl, fileId, oldUrl],
+          ),
+          // 5. Solution thumbnail
+          this.dataSource.query(
+            `UPDATE "solution" SET "thumbnail" = $1 WHERE "thumbnail_file_id" = $2 OR "thumbnail" = $3`,
+            [newUrl, fileId, oldUrl],
+          ),
+          // 6. Slide image_url
+          this.dataSource.query(
+            `UPDATE "slide" SET "image_url" = $1 WHERE "image_file_id" = $2 OR "image_url" = $3`,
+            [newUrl, fileId, oldUrl],
+          ),
+          // 7. SlideDetailBlog hero_image_url
+          this.dataSource.query(
+            `UPDATE "slide_detail_blog" SET "hero_image_url" = $1 WHERE "hero_image_file_id" = $2 OR "hero_image_url" = $3`,
+            [newUrl, fileId, oldUrl],
+          ),
+          // 8. PageBanner image_url
+          this.dataSource.query(
+            `UPDATE "page_banner" SET "image_url" = $1 WHERE "image_file_id" = $2 OR "image_url" = $3`,
+            [newUrl, fileId, oldUrl],
+          ),
+          // 9. Partner logo
+          this.dataSource.query(
+            `UPDATE "partner" SET "logo" = $1 WHERE "logo_file_id" = $2 OR "logo" = $3`,
+            [newUrl, fileId, oldUrl],
+          ),
+          // 10. UploadTemp
+          this.dataSource.query(
+            `UPDATE "upload_temp" SET "url" = $1, "file_path" = $2 WHERE "file_id" = $3`,
+            [newUrl, newFilePath, fileId],
+          ),
+          // 11. Article content blocks (replace oldUrl with newUrl in jsonb)
+          this.dataSource.query(
+            `UPDATE "article" SET "content" = REPLACE("content"::text, $1, $2)::jsonb WHERE "content"::text LIKE '%' || $3 || '%'`,
+            [oldUrl, newUrl, oldUrl],
+          ),
+          // 12. Project content blocks
+          this.dataSource.query(
+            `UPDATE "project" SET "content" = REPLACE("content"::text, $1, $2)::jsonb WHERE "content"::text LIKE '%' || $3 || '%'`,
+            [oldUrl, newUrl, oldUrl],
+          ),
+          // 13. Solution content blocks
+          this.dataSource.query(
+            `UPDATE "solution" SET "content" = REPLACE("content"::text, $1, $2)::jsonb WHERE "content"::text LIKE '%' || $3 || '%'`,
+            [oldUrl, newUrl, oldUrl],
+          ),
+          // 14. Program content blocks
+          this.dataSource.query(
+            `UPDATE "program" SET "content" = REPLACE("content"::text, $1, $2)::jsonb WHERE "content"::text LIKE '%' || $3 || '%'`,
+            [oldUrl, newUrl, oldUrl],
+          ),
+          // 15. SlideDetailBlog content blocks
+          this.dataSource.query(
+            `UPDATE "slide_detail_blog" SET "content" = REPLACE("content"::text, $1, $2)::jsonb WHERE "content"::text LIKE '%' || $3 || '%'`,
+            [oldUrl, newUrl, oldUrl],
+          ),
+        ];
+
+        const results = await Promise.allSettled(queries);
+        for (const res of results) {
+          if (res.status === 'fulfilled' && res.value && res.value[1]) {
+            updatedDbRecordsCount += Number(res.value[1]);
+          }
+        }
+
+        this.logger.log(
+          `Renamed file ${fileId} (${oldName} -> ${newName}). Updated ${updatedDbRecordsCount} DB reference(s).`,
+        );
+      } catch (dbErr) {
+        this.logger.warn(`Failed to synchronize DB references after file rename: ${dbErr}`);
+      }
+    }
+
+    return {
+      fileId,
+      name: newName,
+      filePath: newFilePath,
+      url: newUrl,
+      updatedDbRecordsCount,
+    };
   }
 
   // ── Cleanup orphan files ──────────────────────────
