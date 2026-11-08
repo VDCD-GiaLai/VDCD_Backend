@@ -12,6 +12,13 @@ export interface PageBannerCtaButton {
   href: string;
   variant?: 'primary' | 'secondary' | (string & {});
   ariaLabel?: string;
+  _type?: 'cta' | 'slide';
+  id?: string;
+  title?: string;
+  subtitle?: string | null;
+  tag?: string | null;
+  imageUrl?: string;
+  imageFileId?: string | null;
 }
 
 @Entity('page_banner')
