@@ -48,6 +48,21 @@ export class PageBannerService {
         );
     }
 
+    if (Array.isArray(dto.ctaButtons)) {
+      for (const item of dto.ctaButtons) {
+        if (item?.imageFileId && item.imageFileId !== dto.imageFileId) {
+          this.uploadService
+            .confirmUpload(item.imageFileId)
+            .catch((err) =>
+              this.logger.warn(
+                `Failed to confirm slide upload: ${item.imageFileId}`,
+                err,
+              ),
+            );
+        }
+      }
+    }
+
     return saved;
   }
 
@@ -81,6 +96,21 @@ export class PageBannerService {
         .catch((err) =>
           this.logger.warn(`Failed to confirm upload: ${dto.imageFileId}`, err),
         );
+    }
+
+    if (Array.isArray(dto.ctaButtons)) {
+      for (const item of dto.ctaButtons) {
+        if (item?.imageFileId && item.imageFileId !== dto.imageFileId) {
+          this.uploadService
+            .confirmUpload(item.imageFileId)
+            .catch((err) =>
+              this.logger.warn(
+                `Failed to confirm slide upload: ${item.imageFileId}`,
+                err,
+              ),
+            );
+        }
+      }
     }
 
     return saved;

@@ -20,7 +20,9 @@ import {
 } from '../../common/validators/document-content.validator';
 import { DocumentContent } from '../../common/types/document-content.types';
 
-function extractSidebarConfig(content: any): Record<string, unknown> | undefined {
+function extractSidebarConfig(
+  content: any,
+): Record<string, unknown> | undefined {
   if (!content) return undefined;
   if (typeof content === 'string') {
     try {
@@ -30,7 +32,7 @@ function extractSidebarConfig(content: any): Record<string, unknown> | undefined
       return undefined;
     }
   }
-  return (content as any)?.sidebarConfig;
+  return content?.sidebarConfig;
 }
 
 @Injectable()
@@ -317,7 +319,13 @@ export class ArticleService {
       metaTitle: dto.metaTitle ?? null,
       metaDescription: dto.metaDescription ?? null,
       isPublished: dto.isPublished ?? false,
-      publishedAt: dto.isPublished ? (dto.publishedAt ?? new Date()) : null,
+      publishedAt:
+        dto.publishedAt instanceof Date &&
+        !Number.isNaN(dto.publishedAt.getTime())
+          ? dto.publishedAt
+          : dto.isPublished
+            ? new Date()
+            : null,
       ...(dto.projectId ? { project: { id: dto.projectId } } : {}),
       ...(dto.programId ? { program: { id: dto.programId } } : {}),
       ...(dto.solutionId ? { solution: { id: dto.solutionId } } : {}),
@@ -435,6 +443,18 @@ export class ArticleService {
         article.metaTitle = dto.metaTitle ?? null;
       if (dto.metaDescription !== undefined)
         article.metaDescription = dto.metaDescription ?? null;
+      if (dto.isPublished !== undefined) article.isPublished = dto.isPublished;
+      if (dto.publishedAt !== undefined) {
+        const parsedPublishedAt =
+          dto.publishedAt instanceof Date &&
+          !Number.isNaN(dto.publishedAt.getTime())
+            ? dto.publishedAt
+            : null;
+        article.publishedAt =
+          parsedPublishedAt ?? (article.isPublished ? new Date() : null);
+      } else if (article.isPublished && !article.publishedAt) {
+        article.publishedAt = new Date();
+      }
 
       if (dto.projectId !== undefined)
         article.project = dto.projectId ? ({ id: dto.projectId } as any) : null;
@@ -508,7 +528,7 @@ export class ArticleService {
       );
     }
 
-    const publishedAt = new Date();
+    const publishedAt = article.publishedAt ?? new Date();
     await this.repo.update(id, { isPublished: true, publishedAt });
     return { id, isPublished: true, publishedAt };
   }
