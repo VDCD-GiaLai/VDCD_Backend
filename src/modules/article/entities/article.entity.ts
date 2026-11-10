@@ -85,6 +85,9 @@ export class Article {
   @Index('IDX_article_is_published')
   isPublished: boolean;
 
+  @Column({ default: 0 })
+  order: number;
+
   @Column({ name: 'published_at', type: 'timestamp', nullable: true })
   @Index('IDX_article_published_at')
   publishedAt: Date | null;

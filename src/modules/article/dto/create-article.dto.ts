@@ -7,6 +7,7 @@ import {
   IsUUID,
   IsBoolean,
   IsObject,
+  IsInt,
   MaxLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -168,4 +169,23 @@ export class CreateArticleDto {
   @IsOptional()
   @IsObject()
   sidebarConfig?: Record<string, unknown>;
+
+  @ApiPropertyOptional({
+    example: 1,
+    description: 'Thứ tự hiển thị của bài viết (số nhỏ hiển thị trước)',
+    default: 0,
+  })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  order?: number;
+
+  @ApiPropertyOptional({
+    example: 'article-temp-8f9a2b',
+    description:
+      'Temporary folder key used when uploading images before slug was created',
+  })
+  @IsOptional()
+  @IsString()
+  tempFolderKey?: string;
 }
