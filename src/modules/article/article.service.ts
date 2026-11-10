@@ -308,9 +308,9 @@ export class ArticleService {
 
     const article = this.repo.create({
       title: dto.title,
-      subtitle: dto.subtitle ?? null,
+      subtitle: dto.subtitle || null,
       slug,
-      excerpt: dto.excerpt ?? null,
+      excerpt: dto.excerpt || null,
       content,
       thumbnail: dto.thumbnail ?? null,
       thumbnailFileId: dto.thumbnailFileId ?? null,
@@ -430,9 +430,9 @@ export class ArticleService {
 
       // Apply metadata fields
       if (dto.title !== undefined) article.title = dto.title;
-      if (dto.subtitle !== undefined) article.subtitle = dto.subtitle ?? null;
+      if (dto.subtitle !== undefined) article.subtitle = dto.subtitle || null;
       if (dto.slug !== undefined) article.slug = dto.slug;
-      if (dto.excerpt !== undefined) article.excerpt = dto.excerpt ?? null;
+      if (dto.excerpt !== undefined) article.excerpt = dto.excerpt || null;
       if (dto.thumbnail !== undefined)
         article.thumbnail = dto.thumbnail ?? null;
       if (dto.thumbnailFileId !== undefined)

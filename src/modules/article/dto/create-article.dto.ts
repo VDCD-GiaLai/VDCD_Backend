@@ -168,4 +168,13 @@ export class CreateArticleDto {
   @IsOptional()
   @IsObject()
   sidebarConfig?: Record<string, unknown>;
+
+  @ApiPropertyOptional({
+    example: 'article-temp-8f9a2b',
+    description:
+      'Temporary folder key used when uploading images before slug was created',
+  })
+  @IsOptional()
+  @IsString()
+  tempFolderKey?: string;
 }
