@@ -12,6 +12,7 @@ import {
   UseInterceptors,
   UploadedFile,
   Request,
+  BadRequestException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
@@ -31,6 +32,7 @@ import { FileUploadDto } from '../upload/dto/file-upload.dto';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { ArticleFilterDto } from './dto/article-filter.dto';
+import { ReorderArticlesDto } from './dto/reorder-articles.dto';
 import { Article } from './entities/article.entity';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -59,6 +61,30 @@ export class AdminArticleController {
   })
   findAll(@Query() dto: ArticleFilterDto) {
     return this.service.findAllAdmin(dto);
+  }
+
+  @Patch('reorder')
+  @Roles('superadmin', 'editor')
+  @ApiOperation({
+    summary: 'Reorder articles (Admin)',
+    description:
+      'Reorder display positions of articles. Restricted to superadmin and editor.',
+  })
+  @ApiBody({ type: ReorderArticlesDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Articles reordered successfully.',
+  })
+  reorder(@Body() body: any) {
+    const rawItems = Array.isArray(body) ? body : body?.items;
+    if (!Array.isArray(rawItems)) {
+      throw new BadRequestException('Danh sách sắp xếp (items) không hợp lệ');
+    }
+    const items = rawItems.map((item: any, index: number) => ({
+      id: String(item.id),
+      order: typeof item.order === 'number' ? item.order : index + 1,
+    }));
+    return this.service.reorder(items);
   }
 
   @Get(':id')

@@ -45,6 +45,11 @@ export class ArticleService {
     private readonly dataSource: DataSource,
   ) {}
 
+  private sanitizeSlug(raw?: string | null): string {
+    if (!raw) return '';
+    return raw.trim().replace(/^\/+|\/+$/g, '');
+  }
+
   private async makeSlug(title: string, excludeId?: string): Promise<string> {
     let slug = slugify(title, { lower: true, locale: 'vi', strict: true });
     const existing = await this.repo.findOne({ where: { slug } });
@@ -83,6 +88,7 @@ export class ArticleService {
         'a.thumbnail',
         'a.category',
         'a.tags',
+        'a.order',
         'a.isPublished',
         'a.publishedAt',
         'a.createdAt',
@@ -103,11 +109,19 @@ export class ArticleService {
       );
     }
 
-    qb.orderBy('a.published_at', 'DESC')
-      .skip((page - 1) * limit)
-      .take(limit);
+    qb.orderBy('a.order', 'ASC');
+    if (typeof qb.addOrderBy === 'function') {
+      qb.addOrderBy('a.published_at', 'DESC');
+    }
+    qb.skip((page - 1) * limit).take(limit);
 
-    const [data, total] = await qb.getManyAndCount();
+    const [rawData, total] = await qb.getManyAndCount();
+    const data = rawData.map((item) => {
+      if (item.slug) {
+        item.slug = this.sanitizeSlug(item.slug) || item.slug;
+      }
+      return item;
+    });
     return {
       data,
       items: data,
@@ -138,6 +152,7 @@ export class ArticleService {
         'a.content',
         'a.metaTitle',
         'a.metaDescription',
+        'a.order',
         'a.isPublished',
         'a.publishedAt',
         'a.createdAt',
@@ -163,12 +178,17 @@ export class ArticleService {
       );
     }
 
-    qb.orderBy('a.created_at', 'DESC')
-      .skip((page - 1) * limit)
-      .take(limit);
+    qb.orderBy('a.order', 'ASC');
+    if (typeof qb.addOrderBy === 'function') {
+      qb.addOrderBy('a.created_at', 'DESC');
+    }
+    qb.skip((page - 1) * limit).take(limit);
 
     const [data, total] = await qb.getManyAndCount();
     const items = data.map((item) => {
+      if (item.slug) {
+        item.slug = this.sanitizeSlug(item.slug) || item.slug;
+      }
       if (!item.content || typeof item.content !== 'object') {
         item.content = { version: 1, blocks: [] };
       }
@@ -189,18 +209,19 @@ export class ArticleService {
    * Get single article by slug or ID (public read — published only unless adminMode is true).
    */
   async findOneBySlug(slug: string, adminMode = false) {
+    const cleanSlug = this.sanitizeSlug(slug) || slug;
     const isUuid =
       /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-        slug,
+        cleanSlug,
       );
 
     let article: Article | null = null;
     if (isUuid) {
       const where: any = adminMode
-        ? [{ id: slug }, { slug }]
+        ? [{ id: cleanSlug }, { slug: cleanSlug }]
         : [
-            { id: slug, isPublished: true },
-            { slug, isPublished: true },
+            { id: cleanSlug, isPublished: true },
+            { slug: cleanSlug, isPublished: true },
           ];
       article = await this.repo.findOne({
         where,
@@ -211,7 +232,7 @@ export class ArticleService {
         },
       });
     } else {
-      const where: any = { slug };
+      const where: any = { slug: cleanSlug };
       if (!adminMode) where.isPublished = true;
       article = await this.repo.findOne({
         where,
@@ -221,10 +242,40 @@ export class ArticleService {
           solution: true,
         },
       });
+
+      // Fallback if the database record has a trailing or leading slash in `slug`
+      if (!article) {
+        const trailingSlashWhere: any = { slug: `${cleanSlug}/` };
+        if (!adminMode) trailingSlashWhere.isPublished = true;
+        article = await this.repo.findOne({
+          where: trailingSlashWhere,
+          relations: {
+            project: true,
+            program: true,
+            solution: true,
+          },
+        });
+      }
+      if (!article) {
+        const leadingSlashWhere: any = { slug: `/${cleanSlug}` };
+        if (!adminMode) leadingSlashWhere.isPublished = true;
+        article = await this.repo.findOne({
+          where: leadingSlashWhere,
+          relations: {
+            project: true,
+            program: true,
+            solution: true,
+          },
+        });
+      }
     }
 
     if (!article) {
       throw new NotFoundException(`Không tìm thấy bài viết '${slug}'`);
+    }
+
+    if (article.slug) {
+      article.slug = this.sanitizeSlug(article.slug) || article.slug;
     }
 
     if (!article.content || typeof article.content !== 'object') {
@@ -287,7 +338,8 @@ export class ArticleService {
    * Create new article with validated block document and ImageKit tracking.
    */
   async create(dto: CreateArticleDto): Promise<Article> {
-    const slug = dto.slug || (await this.makeSlug(dto.title));
+    const cleanInputSlug = this.sanitizeSlug(dto.slug);
+    const slug = cleanInputSlug || (await this.makeSlug(dto.title));
     const exists = await this.repo.findOne({ where: { slug } });
     if (exists) {
       throw new ConflictException('Slug đã tồn tại');
@@ -318,6 +370,7 @@ export class ArticleService {
       tags: dto.tags ?? null,
       metaTitle: dto.metaTitle ?? null,
       metaDescription: dto.metaDescription ?? null,
+      order: dto.order ?? 0,
       isPublished: dto.isPublished ?? false,
       publishedAt:
         dto.publishedAt instanceof Date &&
@@ -370,11 +423,13 @@ export class ArticleService {
         throw new NotFoundException(`Không tìm thấy bài viết ID '${id}'`);
       }
 
-      if (dto.slug && dto.slug !== article.slug) {
+      const cleanInputSlug =
+        dto.slug !== undefined ? this.sanitizeSlug(dto.slug) : undefined;
+      if (cleanInputSlug && cleanInputSlug !== article.slug) {
         const exists = await manager.findOne(Article, {
-          where: { slug: dto.slug },
+          where: { slug: cleanInputSlug },
         });
-        if (exists) {
+        if (exists && exists.id !== id) {
           throw new ConflictException('Slug đã tồn tại');
         }
       }
@@ -431,7 +486,8 @@ export class ArticleService {
       // Apply metadata fields
       if (dto.title !== undefined) article.title = dto.title;
       if (dto.subtitle !== undefined) article.subtitle = dto.subtitle || null;
-      if (dto.slug !== undefined) article.slug = dto.slug;
+      if (cleanInputSlug !== undefined && cleanInputSlug !== '')
+        article.slug = cleanInputSlug;
       if (dto.excerpt !== undefined) article.excerpt = dto.excerpt || null;
       if (dto.thumbnail !== undefined)
         article.thumbnail = dto.thumbnail ?? null;
@@ -443,6 +499,7 @@ export class ArticleService {
         article.metaTitle = dto.metaTitle ?? null;
       if (dto.metaDescription !== undefined)
         article.metaDescription = dto.metaDescription ?? null;
+      if (dto.order !== undefined) article.order = dto.order;
       if (dto.isPublished !== undefined) article.isPublished = dto.isPublished;
       if (dto.publishedAt !== undefined) {
         const parsedPublishedAt =
@@ -552,6 +609,18 @@ export class ArticleService {
     } else {
       return this.unpublish(id);
     }
+  }
+
+  /**
+   * Reorder display positions of articles with atomic transaction safety.
+   */
+  async reorder(items: { id: string; order: number }[]) {
+    await this.dataSource.transaction(async (manager) => {
+      for (const item of items) {
+        await manager.update(Article, item.id, { order: item.order });
+      }
+    });
+    return { message: 'Reordered articles successfully' };
   }
 
   /**
