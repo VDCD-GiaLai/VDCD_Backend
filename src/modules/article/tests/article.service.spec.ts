@@ -267,6 +267,42 @@ describe('ArticleService (Phase 04 & 05 Domain & Admin Lifecycle)', () => {
       });
       expect(result.id).toBe('art-uuid-1');
     });
+
+    it('should find article even if DB slug has a trailing slash', async () => {
+      repo.findOne
+        .mockResolvedValueOnce(null)
+        .mockResolvedValueOnce({
+          ...mockArticle,
+          slug: 'ai-drone-challenge-2026-san-choi-uav-sinh-vien-fpt-quy-nhon/',
+        });
+
+      const result = await service.findOneBySlug(
+        'ai-drone-challenge-2026-san-choi-uav-sinh-vien-fpt-quy-nhon',
+        false,
+      );
+      expect(result.slug).toBe(
+        'ai-drone-challenge-2026-san-choi-uav-sinh-vien-fpt-quy-nhon',
+      );
+    });
+  });
+
+  // ── Reorder ──────────────────────────────────────────────────────
+  describe('reorder', () => {
+    it('should update article order positions atomically in a transaction', async () => {
+      const updateMock = jest.fn().mockResolvedValue(undefined);
+      dataSource.transaction = jest.fn(async (cb) =>
+        cb({ update: updateMock }),
+      );
+
+      const res = await service.reorder([
+        { id: 'art-1', order: 1 },
+        { id: 'art-2', order: 2 },
+      ]);
+
+      expect(res).toEqual({ message: 'Reordered articles successfully' });
+      expect(updateMock).toHaveBeenCalledWith(Article, 'art-1', { order: 1 });
+      expect(updateMock).toHaveBeenCalledWith(Article, 'art-2', { order: 2 });
+    });
   });
 
   // ── Publish / Unpublish ──────────────────────────────────────────
