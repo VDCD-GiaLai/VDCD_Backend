@@ -125,7 +125,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
-          timeout: 60s
+          timeout: 180s
           envs: DOCKER_USER,DOCKER_PASS
           script: |
             set -e
@@ -137,14 +137,25 @@ jobs:
 
             echo "[DEPLOY] VDCD Backend — commit $SHORT_SHA"
 
-            cd "$DEPLOY_DIR"
+            # Pre-deploy cleanup: free disk space BEFORE writing files or pulling new image.
+            # Safe: ONLY removes stopped containers, unused images, and build cache.
+            # NEVER touches Docker volumes (PostgreSQL/Redis data is 100% preserved).
+            echo "[PRE-CLEANUP] Freeing up disk space (preserving all volumes & running containers)..."
+            docker container prune -f || true
+            docker image prune -af || true
+            docker builder prune -af || true
+            journalctl --vacuum-size=100M 2>/dev/null || sudo journalctl --vacuum-size=100M 2>/dev/null || true
+            apt-get clean 2>/dev/null || sudo apt-get clean 2>/dev/null || true
+            df -h /
 
-            # Docker login
-            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            cd "$DEPLOY_DIR"
 
             # Save current image tag for rollback
             CURRENT_TAG=$(docker inspect --format='{{.Config.Image}}' vdcd-backend 2>/dev/null | awk -F: '{print $2}') || CURRENT_TAG="latest"
-            echo "$CURRENT_TAG" > .last-deployed-tag
+            echo "$CURRENT_TAG" > .last-deployed-tag 2>/dev/null || true
+
+            # Docker login
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
             # Pull new image
             echo "[PULL] Image: $IMAGE:$SHORT_SHA"
@@ -185,9 +196,10 @@ jobs:
               sleep $RETRY_INTERVAL
             done
 
-            # Cleanup old images
-            echo "[CLEANUP] Cleaning up old images..."
-            docker image prune -f --filter "until=48h"
+            # Cleanup old unused images (volumes are never touched)
+            echo "[CLEANUP] Cleaning up old unused images..."
+            docker image prune -af --filter "until=24h" || true
+            df -h /
 
             echo "[DONE] Deploy complete — $SHORT_SHA is live!"
 
