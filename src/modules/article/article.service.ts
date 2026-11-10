@@ -1,6 +1,7 @@
 // src/modules/article/article.service.ts
 import {
   Injectable,
+  OnModuleInit,
   NotFoundException,
   ConflictException,
   BadRequestException,
@@ -36,14 +37,55 @@ function extractSidebarConfig(
 }
 
 @Injectable()
-export class ArticleService {
+export class ArticleService implements OnModuleInit {
   private readonly logger = new Logger(ArticleService.name);
+  private orderColumnEnsured = false;
 
   constructor(
     @InjectRepository(Article) private repo: Repository<Article>,
     private readonly uploadService: UploadService,
     private readonly dataSource: DataSource,
   ) {}
+
+  async onModuleInit(): Promise<void> {
+    await this.ensureOrderColumn();
+  }
+
+  /**
+   * Self-healing schema check: ensures `"article"."order"` column exists in PostgreSQL
+   * even when TypeORM `synchronize: false` is used and manual migrations haven't been triggered.
+   * Also initializes default chronological order and strips trailing slashes from legacy slugs.
+   */
+  private async ensureOrderColumn(): Promise<void> {
+    if (this.orderColumnEnsured || !this.dataSource?.query) return;
+    try {
+      await this.dataSource.query(
+        `ALTER TABLE "article" ADD COLUMN IF NOT EXISTS "order" integer NOT NULL DEFAULT 0`,
+      );
+      await this.dataSource.query(`
+        WITH ranked AS (
+          SELECT id, ROW_NUMBER() OVER (ORDER BY COALESCE("published_at", "created_at") DESC) as rn
+          FROM "article"
+        )
+        UPDATE "article" a
+        SET "order" = ranked.rn
+        FROM ranked
+        WHERE a.id = ranked.id AND a."order" = 0
+      `);
+      await this.dataSource.query(`
+        UPDATE "article"
+        SET "slug" = TRIM(BOTH '/' FROM TRIM("slug"))
+        WHERE "slug" LIKE '/%' OR "slug" LIKE '%/'
+      `);
+      await this.dataSource.query(
+        `CREATE INDEX IF NOT EXISTS "idx_article_order" ON "article" ("order" ASC, "created_at" DESC)`,
+      );
+      this.orderColumnEnsured = true;
+      this.logger.log('Verified article.order column and slug normalization');
+    } catch (err) {
+      this.logger.warn('Could not auto-ensure article.order column', err);
+    }
+  }
 
   private sanitizeSlug(raw?: string | null): string {
     if (!raw) return '';
@@ -76,10 +118,12 @@ export class ArticleService {
    * Public list — paginated, filtered, excludes heavy `content` jsonb for performance.
    */
   async findAll(dto: ArticleFilterDto) {
+    if (!this.orderColumnEnsured) {
+      await this.ensureOrderColumn();
+    }
     const { page = 1, limit = 10, category, tags, search } = dto;
-    const qb = this.repo
-      .createQueryBuilder('a')
-      .select([
+    const buildQb = (includeOrder: boolean) => {
+      const selectFields = [
         'a.id',
         'a.title',
         'a.subtitle',
@@ -88,34 +132,61 @@ export class ArticleService {
         'a.thumbnail',
         'a.category',
         'a.tags',
-        'a.order',
+        ...(includeOrder ? ['a.order'] : []),
         'a.isPublished',
         'a.publishedAt',
         'a.createdAt',
         'a.updatedAt',
-      ])
-      .where('a.is_published = true');
+      ];
+      const qb = this.repo
+        .createQueryBuilder('a')
+        .select(selectFields)
+        .where('a.is_published = true');
 
-    if (category) {
-      qb.andWhere('a.category ILIKE :category', { category: `%${category}%` });
-    }
-    if (tags) {
-      qb.andWhere('a.tags ILIKE :tags', { tags: `%${tags}%` });
-    }
-    if (search) {
-      qb.andWhere(
-        '(a.title ILIKE :search OR a.category ILIKE :search OR a.tags ILIKE :search OR a.content::text ILIKE :search)',
-        { search: `%${search}%` },
-      );
+      if (category) {
+        qb.andWhere('a.category ILIKE :category', {
+          category: `%${category}%`,
+        });
+      }
+      if (tags) {
+        qb.andWhere('a.tags ILIKE :tags', { tags: `%${tags}%` });
+      }
+      if (search) {
+        qb.andWhere(
+          '(a.title ILIKE :search OR a.category ILIKE :search OR a.tags ILIKE :search OR a.content::text ILIKE :search)',
+          { search: `%${search}%` },
+        );
+      }
+
+      if (includeOrder) {
+        qb.orderBy('a.order', 'ASC');
+        if (typeof qb.addOrderBy === 'function') {
+          qb.addOrderBy('a.published_at', 'DESC');
+        }
+      } else {
+        qb.orderBy('a.published_at', 'DESC');
+      }
+      qb.skip((page - 1) * limit).take(limit);
+      return qb;
+    };
+
+    let rawData: Article[];
+    let total: number;
+    try {
+      [rawData, total] = await buildQb(true).getManyAndCount();
+    } catch (err: any) {
+      if (String(err?.message || '').includes('order')) {
+        await this.ensureOrderColumn();
+        try {
+          [rawData, total] = await buildQb(true).getManyAndCount();
+        } catch {
+          [rawData, total] = await buildQb(false).getManyAndCount();
+        }
+      } else {
+        throw err;
+      }
     }
 
-    qb.orderBy('a.order', 'ASC');
-    if (typeof qb.addOrderBy === 'function') {
-      qb.addOrderBy('a.published_at', 'DESC');
-    }
-    qb.skip((page - 1) * limit).take(limit);
-
-    const [rawData, total] = await qb.getManyAndCount();
     const data = rawData.map((item) => {
       if (item.slug) {
         item.slug = this.sanitizeSlug(item.slug) || item.slug;
@@ -136,10 +207,12 @@ export class ArticleService {
    * Admin list — paginated, filtered, includes relations, and includes full `content` jsonb for editor.
    */
   async findAllAdmin(dto: ArticleFilterDto) {
+    if (!this.orderColumnEnsured) {
+      await this.ensureOrderColumn();
+    }
     const { page = 1, limit = 10, category, tags, isPublished, search } = dto;
-    const qb = this.repo
-      .createQueryBuilder('a')
-      .select([
+    const buildQb = (includeOrder: boolean) => {
+      const selectFields = [
         'a.id',
         'a.title',
         'a.subtitle',
@@ -152,39 +225,66 @@ export class ArticleService {
         'a.content',
         'a.metaTitle',
         'a.metaDescription',
-        'a.order',
+        ...(includeOrder ? ['a.order'] : []),
         'a.isPublished',
         'a.publishedAt',
         'a.createdAt',
         'a.updatedAt',
-      ])
-      .leftJoinAndSelect('a.project', 'project')
-      .leftJoinAndSelect('a.program', 'program')
-      .leftJoinAndSelect('a.solution', 'solution');
+      ];
+      const qb = this.repo
+        .createQueryBuilder('a')
+        .select(selectFields)
+        .leftJoinAndSelect('a.project', 'project')
+        .leftJoinAndSelect('a.program', 'program')
+        .leftJoinAndSelect('a.solution', 'solution');
 
-    if (category) {
-      qb.andWhere('a.category ILIKE :category', { category: `%${category}%` });
-    }
-    if (tags) {
-      qb.andWhere('a.tags ILIKE :tags', { tags: `%${tags}%` });
-    }
-    if (isPublished !== undefined) {
-      qb.andWhere('a.is_published = :isPublished', { isPublished });
-    }
-    if (search) {
-      qb.andWhere(
-        '(a.title ILIKE :search OR a.category ILIKE :search OR a.tags ILIKE :search OR a.content::text ILIKE :search)',
-        { search: `%${search}%` },
-      );
+      if (category) {
+        qb.andWhere('a.category ILIKE :category', {
+          category: `%${category}%`,
+        });
+      }
+      if (tags) {
+        qb.andWhere('a.tags ILIKE :tags', { tags: `%${tags}%` });
+      }
+      if (isPublished !== undefined) {
+        qb.andWhere('a.is_published = :isPublished', { isPublished });
+      }
+      if (search) {
+        qb.andWhere(
+          '(a.title ILIKE :search OR a.category ILIKE :search OR a.tags ILIKE :search OR a.content::text ILIKE :search)',
+          { search: `%${search}%` },
+        );
+      }
+
+      if (includeOrder) {
+        qb.orderBy('a.order', 'ASC');
+        if (typeof qb.addOrderBy === 'function') {
+          qb.addOrderBy('a.created_at', 'DESC');
+        }
+      } else {
+        qb.orderBy('a.created_at', 'DESC');
+      }
+      qb.skip((page - 1) * limit).take(limit);
+      return qb;
+    };
+
+    let data: Article[];
+    let total: number;
+    try {
+      [data, total] = await buildQb(true).getManyAndCount();
+    } catch (err: any) {
+      if (String(err?.message || '').includes('order')) {
+        await this.ensureOrderColumn();
+        try {
+          [data, total] = await buildQb(true).getManyAndCount();
+        } catch {
+          [data, total] = await buildQb(false).getManyAndCount();
+        }
+      } else {
+        throw err;
+      }
     }
 
-    qb.orderBy('a.order', 'ASC');
-    if (typeof qb.addOrderBy === 'function') {
-      qb.addOrderBy('a.created_at', 'DESC');
-    }
-    qb.skip((page - 1) * limit).take(limit);
-
-    const [data, total] = await qb.getManyAndCount();
     const items = data.map((item) => {
       if (item.slug) {
         item.slug = this.sanitizeSlug(item.slug) || item.slug;
@@ -209,6 +309,9 @@ export class ArticleService {
    * Get single article by slug or ID (public read — published only unless adminMode is true).
    */
   async findOneBySlug(slug: string, adminMode = false) {
+    if (!this.orderColumnEnsured) {
+      await this.ensureOrderColumn();
+    }
     const cleanSlug = this.sanitizeSlug(slug) || slug;
     const isUuid =
       /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
@@ -313,6 +416,9 @@ export class ArticleService {
    * Get article by ID (admin read — returns drafts or published).
    */
   async findById(id: string): Promise<Article> {
+    if (!this.orderColumnEnsured) {
+      await this.ensureOrderColumn();
+    }
     const article = await this.repo.findOne({
       where: { id },
       relations: {
